@@ -1,0 +1,80 @@
+# Local development stack — runs all 4 Python ML services.
+# Frontend (Next.js) and API Gateway (Express) are run with `pnpm dev` on the host
+# so hot-reload + DX is ideal. Supabase is used as managed cloud (or local via `supabase start`).
+#
+# Usage:
+#   docker compose -f docker/docker-compose.dev.yml up --build
+#
+# Services:
+#   module1 → http://localhost:8001
+#   module2 → http://localhost:8002
+#   module3 → http://localhost:8003
+#   module4 → http://localhost:8004
+
+services:
+  module1-integrity:
+    build:
+      context: ../services/module1-integrity
+      dockerfile: Dockerfile
+    container_name: researchly-module1
+    env_file:
+      - ../services/.env
+    ports:
+      - "8001:8001"
+    volumes:
+      - ../services/module1-integrity/app:/app/app
+      - ../services/shared:/app/shared
+      - model_cache:/app/models
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8001", "--reload"]
+    restart: unless-stopped
+
+  module2-collaboration:
+    build:
+      context: ../services/module2-collaboration
+      dockerfile: Dockerfile
+    container_name: researchly-module2
+    env_file:
+      - ../services/.env
+    ports:
+      - "8002:8002"
+    volumes:
+      - ../services/module2-collaboration/app:/app/app
+      - ../services/shared:/app/shared
+      - model_cache:/app/models
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8002", "--reload"]
+    restart: unless-stopped
+
+  module3-data:
+    build:
+      context: ../services/module3-data
+      dockerfile: Dockerfile
+    container_name: researchly-module3
+    env_file:
+      - ../services/.env
+    ports:
+      - "8003:8003"
+    volumes:
+      - ../services/module3-data/app:/app/app
+      - ../services/shared:/app/shared
+      - model_cache:/app/models
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8003", "--reload"]
+    restart: unless-stopped
+
+  module4-analytics:
+    build:
+      context: ../services/module4-analytics
+      dockerfile: Dockerfile
+    container_name: researchly-module4
+    env_file:
+      - ../services/.env
+    ports:
+      - "8004:8004"
+    volumes:
+      - ../services/module4-analytics/app:/app/app
+      - ../services/shared:/app/shared
+      - model_cache:/app/models
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8004", "--reload"]
+    restart: unless-stopped
+
+volumes:
+  model_cache:

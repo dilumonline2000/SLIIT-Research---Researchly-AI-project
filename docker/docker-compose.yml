@@ -1,0 +1,76 @@
+# Production docker-compose — builds frontend + gateway + all ML services.
+# Frontend expects Vercel/hosted build in the real deployment; this is for
+# on-prem / Railway-style single-host deployments.
+
+services:
+  api-gateway:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.gateway
+    container_name: researchly-gateway
+    env_file:
+      - ../apps/api-gateway/.env
+    ports:
+      - "3001:3001"
+    depends_on:
+      - module1-integrity
+      - module2-collaboration
+      - module3-data
+      - module4-analytics
+    environment:
+      MODULE1_URL: http://module1-integrity:8001
+      MODULE2_URL: http://module2-collaboration:8002
+      MODULE3_URL: http://module3-data:8003
+      MODULE4_URL: http://module4-analytics:8004
+    restart: unless-stopped
+
+  module1-integrity:
+    build:
+      context: ../services/module1-integrity
+      dockerfile: Dockerfile
+    container_name: researchly-module1
+    env_file:
+      - ../services/.env
+    expose: ["8001"]
+    volumes:
+      - model_cache:/app/models
+    restart: unless-stopped
+
+  module2-collaboration:
+    build:
+      context: ../services/module2-collaboration
+      dockerfile: Dockerfile
+    container_name: researchly-module2
+    env_file:
+      - ../services/.env
+    expose: ["8002"]
+    volumes:
+      - model_cache:/app/models
+    restart: unless-stopped
+
+  module3-data:
+    build:
+      context: ../services/module3-data
+      dockerfile: Dockerfile
+    container_name: researchly-module3
+    env_file:
+      - ../services/.env
+    expose: ["8003"]
+    volumes:
+      - model_cache:/app/models
+    restart: unless-stopped
+
+  module4-analytics:
+    build:
+      context: ../services/module4-analytics
+      dockerfile: Dockerfile
+    container_name: researchly-module4
+    env_file:
+      - ../services/.env
+    expose: ["8004"]
+    volumes:
+      - model_cache:/app/models
+    restart: unless-stopped
+
+volumes:
+  model_cache:

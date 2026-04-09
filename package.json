@@ -1,0 +1,30 @@
+{
+  "name": "researchly-ai-platform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "R26-IT-116 — AI-Powered Research Paper Assistant & Collaboration Platform (SLIIT)",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "clean": "turbo run clean && rimraf node_modules",
+    "dev:web": "pnpm --filter web dev",
+    "dev:gateway": "pnpm --filter api-gateway dev",
+    "dev:ml": "docker compose -f docker/docker-compose.dev.yml up",
+    "db:migrate": "supabase db push",
+    "db:reset": "supabase db reset",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\""
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0",
+    "prettier": "^3.3.0",
+    "rimraf": "^5.0.0",
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=18.17.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.7.0"
+}
