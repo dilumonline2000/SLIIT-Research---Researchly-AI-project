@@ -1,27 +1,27 @@
-fastapi==0.115.0
-uvicorn[standard]==0.30.6
-pydantic==2.9.2
-pydantic-settings==2.5.2
-python-dotenv==1.0.1
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+pydantic>=2.9.0
+pydantic-settings>=2.5.0
+python-dotenv>=1.0.0
 
-supabase==2.8.0
+supabase>=2.8.0
 
 # Time-series forecasting
-statsmodels==0.14.2
-prophet==1.1.5
-pmdarima==2.0.4
+statsmodels>=0.14.0
+prophet>=1.1.0
+pmdarima>=2.0.0
 
 # Classification / regression
-xgboost==2.1.1
-scikit-learn==1.5.2
+xgboost>=2.1.0
+scikit-learn>=1.5.0
 
 # Embeddings + GNN
-sentence-transformers==3.1.1
-torch==2.4.1
-torch-geometric==2.6.1
-keybert==0.8.5
-networkx==3.3
+sentence-transformers>=3.1.0
+torch>=2.6.0
+torch-geometric>=2.6.0
+keybert>=0.8.0
+networkx>=3.3
 
-numpy==2.1.1
-pandas==2.2.3
-httpx==0.27.2
+numpy>=1.26.0
+pandas>=2.2.0
+httpx>=0.27.0
