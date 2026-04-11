@@ -1,0 +1,43 @@
+# Model 7: ARIMA + Prophet Ensemble — trend forecasting
+# Owner: H W S S Jayasundara (Module 4)
+
+model:
+  name: trend-forecaster
+  type: ensemble
+  components:
+    arima:
+      auto_params: true  # auto-select via AIC
+      seasonal: true  # SARIMA
+      stationarity_test: adf  # Augmented Dickey-Fuller
+      max_p: 5
+      max_d: 2
+      max_q: 5
+    prophet:
+      model: additive
+      yearly_seasonality: true
+      weekly_seasonality: false
+      custom_seasonality:
+        name: academic_semester
+        period: 182.5  # ~6 months
+        fourier_order: 3
+  ensemble:
+    method: weighted_average
+    weight_selection: validation_mape
+
+training:
+  forecast_horizon_months: 12
+  min_history_points: 24  # minimum 2 years of data
+  validation_window: 6  # months
+
+data:
+  source: ml/data/processed/performance/
+  frequency: monthly
+  aggregation: topic_frequency
+
+targets:
+  mape: 0.22  # < 22%
+  directional_accuracy: 0.75  # > 75%
+
+output:
+  model_dir: services/module4-analytics/models/forecasting/
+  version_prefix: forecast-v

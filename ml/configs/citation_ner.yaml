@@ -1,0 +1,39 @@
+# Model 1: Citation NER — spaCy transformer-based NER
+# Owner: K D T Kariyawasam (Module 1)
+
+model:
+  name: citation-ner
+  base: en_core_web_trf
+  type: spacy-ner
+  entities:
+    - AUTHOR
+    - TITLE
+    - JOURNAL
+    - YEAR
+    - VOLUME
+    - PAGES
+    - DOI
+
+training:
+  epochs: 30
+  batch_size: 16
+  dropout: 0.3
+  learning_rate: 0.00005
+  split:
+    train: 0.70
+    val: 0.15
+    test: 0.15
+  patience: 5  # early stopping
+
+data:
+  source: ml/data/processed/citations/
+  annotation_format: iob
+  augmentation: true
+
+targets:
+  entity_f1: 0.85
+  format_accuracy: 0.90
+
+output:
+  model_dir: services/module1-integrity/models/citation_ner/
+  version_prefix: ner-v

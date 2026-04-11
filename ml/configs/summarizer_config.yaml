@@ -1,0 +1,36 @@
+# Model 5: Research Summarizer — BART/T5 with LoRA
+# Owner: N V Hewamanne (Module 3)
+
+model:
+  name: research-summarizer
+  base: facebook/bart-large-cnn
+  type: seq2seq-lora
+  lora:
+    r: 16
+    alpha: 32
+    dropout: 0.05
+    target_modules: ["q_proj", "v_proj"]
+
+training:
+  epochs: 5
+  batch_size: 8
+  optimizer: adamw
+  learning_rate: 0.0001
+  weight_decay: 0.01
+  max_input_length: 1024
+  max_output_length: 256
+  fp16: true
+  gradient_accumulation_steps: 4
+
+data:
+  source: ml/data/processed/
+  pairs: paper_fulltext_to_abstract
+
+targets:
+  rouge1: 0.45
+  rouge2: 0.20
+  rougeL: 0.35
+
+output:
+  model_dir: services/module3-data/models/summarizer/
+  version_prefix: summarizer-v

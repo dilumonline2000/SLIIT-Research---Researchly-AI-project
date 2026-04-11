@@ -1,0 +1,57 @@
+# Model 3: SciBERT Multi-label Classifier — topic categorization
+# Owner: N V Hewamanne (Module 3)
+
+model:
+  name: scibert-topic-classifier
+  base: allenai/scibert_scivocab_uncased
+  type: transformer-classification
+  architecture:
+    encoder: scibert
+    pooling: mean
+    hidden: 512
+    activation: relu
+    dropout: 0.3
+    num_labels: 15  # AI, IoT, Networking, Cybersecurity, etc.
+
+categories:
+  - Artificial Intelligence
+  - Internet of Things
+  - Networking
+  - Cybersecurity
+  - Data Science
+  - Machine Learning
+  - Mobile Computing
+  - Cloud Computing
+  - Software Engineering
+  - Computer Vision
+  - Natural Language Processing
+  - Information Retrieval
+  - Databases
+  - Human-Computer Interaction
+  - Other
+
+training:
+  epochs: 15
+  batch_size: 16
+  optimizer: adamw
+  learning_rate: 0.00003
+  weight_decay: 0.01
+  loss: bce_with_logits
+  threshold: 0.5
+  max_length: 512
+  fp16: true
+  split:
+    train: 0.70
+    val: 0.15
+    test: 0.15
+
+data:
+  source: ml/data/processed/topics/
+
+targets:
+  macro_f1: 0.80
+  precision: 0.82
+
+output:
+  model_dir: services/module3-data/models/scibert_classifier/
+  version_prefix: scibert-v

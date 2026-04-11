@@ -1,0 +1,54 @@
+# Model 8: Success Prediction — RF + XGBoost ensemble
+# Owner: H W S S Jayasundara (Module 4)
+
+model:
+  name: success-predictor
+  type: ensemble-classifier
+  components:
+    xgboost:
+      n_estimators: 200
+      max_depth: 6
+      learning_rate: 0.1
+      subsample: 0.8
+      colsample_bytree: 0.8
+      min_child_weight: 3
+      reg_alpha: 0.1
+      reg_lambda: 1.0
+      eval_metric: logloss
+    random_forest:
+      n_estimators: 300
+      max_depth: 8
+      min_samples_split: 5
+      min_samples_leaf: 2
+      max_features: sqrt
+      class_weight: balanced
+  ensemble:
+    method: soft_voting
+
+features:
+  - milestone_completion_rate
+  - login_frequency
+  - submission_frequency
+  - quality_score_trajectory
+  - supervisor_interaction_frequency
+  - topic_trend_alignment
+  - peer_collaboration_score
+  - citation_count
+  - feedback_sentiment_avg
+  - days_since_last_submission
+
+training:
+  split:
+    train: 0.70
+    val: 0.15
+    test: 0.15
+  cross_validation_folds: 5
+  smote: true  # handle class imbalance
+
+targets:
+  f1: 0.75
+  roc_auc: 0.80
+
+output:
+  model_dir: services/module4-analytics/models/prediction/
+  version_prefix: success-v

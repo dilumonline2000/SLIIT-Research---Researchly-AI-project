@@ -1,0 +1,38 @@
+# Model 4: Aspect-Based Sentiment Analysis — academic feedback
+# Owner: S P U Gunathilaka (Module 2)
+
+model:
+  name: feedback-sentiment
+  base: bert-base-uncased
+  type: transformer-multi-head
+  aspects:
+    - methodology
+    - writing
+    - originality
+    - data_analysis
+  num_classes_per_aspect: 3  # positive, neutral, negative
+
+training:
+  epochs: 10
+  batch_size: 16
+  optimizer: adamw
+  learning_rate: 0.00002
+  weight_decay: 0.01
+  max_length: 512
+  fp16: true
+  split:
+    train: 0.70
+    val: 0.15
+    test: 0.15
+
+data:
+  source: ml/data/processed/feedback/
+  augmentation: true
+
+targets:
+  accuracy: 0.93
+  per_aspect_f1: 0.85
+
+output:
+  model_dir: services/module2-collaboration/models/sentiment/
+  version_prefix: sentiment-v

@@ -1,0 +1,34 @@
+# Model 2: SBERT Fine-tuning — sentence embeddings for academic similarity
+# Shared across Modules 1, 2, 3
+
+model:
+  name: sbert-academic
+  base: sentence-transformers/all-MiniLM-L6-v2
+  type: sentence-transformer
+  embedding_dim: 384  # MiniLM outputs 384-dim (expanded to 768 via projection if needed)
+
+training:
+  method: contrastive
+  loss: triplet
+  margin: 0.5
+  epochs: 10
+  batch_size: 32
+  learning_rate: 0.00002
+  warmup_steps: 100
+  weight_decay: 0.01
+  fp16: true
+
+data:
+  source: ml/data/processed/
+  triplet_strategy:
+    anchor: paper_abstract
+    positive: same_topic_cluster
+    negative: different_topic
+  min_cluster_size: 5
+
+targets:
+  cosine_correlation_improvement: "> baseline"
+
+output:
+  model_dir: services/shared/models/sbert_academic/
+  version_prefix: sbert-v
