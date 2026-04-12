@@ -1,6 +1,11 @@
 """FastAPI entrypoint for Module 3 — Research Data Collection & Management."""
 
 import logging
+import os
+import sys
+
+# Bootstrap: put services/ on sys.path so routers can `from shared.x import y`
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware

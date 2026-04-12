@@ -27,8 +27,9 @@ export const API_ROUTES = {
   },
   module3: {
     scrape: "/api/v1/data/scrape",
+    scrapeStatus: (id: string) => `/api/v1/data/scrape/${id}`,
     categorize: "/api/v1/data/categorize",
-    trends: "/api/v1/data/trends",
+    plagiarismTrends: "/api/v1/data/plagiarism-trends",
     summarize: "/api/v1/data/summarize",
     quality: "/api/v1/data/quality",
   },

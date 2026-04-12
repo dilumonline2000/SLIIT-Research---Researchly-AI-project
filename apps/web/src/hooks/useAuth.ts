@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { useAuthStore } from "@/stores/authStore";
 
 export function useAuth() {
+  const router = useRouter();
   const { user, profile, loading, setUser, setProfile, setLoading, reset } =
     useAuthStore();
 
@@ -55,6 +57,8 @@ export function useAuth() {
     const supabase = createClient();
     await supabase.auth.signOut();
     reset();
+    router.replace("/login");
+    router.refresh();
   };
 
   return { user, profile, loading, signOut };

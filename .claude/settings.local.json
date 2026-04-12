@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mv collaboration/supervisors collaboration/supervisor-match)",
+      "Bash(mv collaboration/peers collaboration/peer-connect)",
+      "Bash(mv data-management/categorize data-management/categorization)",
+      "Bash(mv data-management/summarize data-management/summarizer)",
+      "Bash(mv analytics/predict analytics/predictions)",
+      "Bash(npx tsc:*)",
+      "Bash(./node_modules/.bin/tsc --noEmit)"
+    ]
+  }
+}

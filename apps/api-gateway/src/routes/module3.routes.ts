@@ -16,18 +16,29 @@ router.post("/data/scrape", requireRole("admin", "coordinator"), async (req, res
   }
 });
 
-router.post("/data/categorize", async (req, res, next) => {
+router.get("/data/scrape/:jobId", async (req, res, next) => {
   try {
-    const data = await callMlService(3, "/data/categorize", "POST", req.body);
+    const data = await callMlService(3, `/data/scrape/${req.params.jobId}`, "GET");
     res.json(data);
   } catch (err) {
     next(err);
   }
 });
 
-router.get("/data/trends", async (_req, res, next) => {
+router.get("/data/plagiarism-trends", async (req, res, next) => {
   try {
-    const data = await callMlService(3, "/data/trends", "GET");
+    const qs = new URLSearchParams(req.query as Record<string, string>).toString();
+    const path = qs ? `/data/plagiarism-trends?${qs}` : "/data/plagiarism-trends";
+    const data = await callMlService(3, path, "GET");
+    res.json(data);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/data/categorize", async (req, res, next) => {
+  try {
+    const data = await callMlService(3, "/data/categorize", "POST", req.body);
     res.json(data);
   } catch (err) {
     next(err);

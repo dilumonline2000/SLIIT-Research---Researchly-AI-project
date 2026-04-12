@@ -6,9 +6,11 @@ import { callMlService } from "../services/mlProxy.service";
 const router = Router();
 router.use(requireAuth, mlRateLimiter);
 
-router.get("/analytics/trends", async (_req, res, next) => {
+router.get("/analytics/trends", async (req, res, next) => {
   try {
-    const data = await callMlService(4, "/analytics/trends", "GET");
+    const qs = new URLSearchParams(req.query as Record<string, string>).toString();
+    const path = qs ? `/analytics/trends?${qs}` : "/analytics/trends";
+    const data = await callMlService(4, path, "GET");
     res.json(data);
   } catch (err) {
     next(err);
