@@ -1,8 +1,8 @@
-# Local development stack — runs all 4 Python ML services.
+# Local development stack — runs all 4 Python ML services only.
 # Frontend (Next.js) and API Gateway (Express) are run with `pnpm dev` on the host
-# so hot-reload + DX is ideal. Supabase is used as managed cloud (or local via `supabase start`).
+# so hot-reload + DX is ideal.
 #
-# Usage:
+# Usage (from repo root):
 #   docker compose -f docker/docker-compose.dev.yml up --build
 #
 # Services:
@@ -14,8 +14,8 @@
 services:
   module1-integrity:
     build:
-      context: ../services/module1-integrity
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: services/module1-integrity/Dockerfile
     container_name: researchly-module1
     env_file:
       - ../services/.env
@@ -30,8 +30,8 @@ services:
 
   module2-collaboration:
     build:
-      context: ../services/module2-collaboration
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: services/module2-collaboration/Dockerfile
     container_name: researchly-module2
     env_file:
       - ../services/.env
@@ -46,8 +46,8 @@ services:
 
   module3-data:
     build:
-      context: ../services/module3-data
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: services/module3-data/Dockerfile
     container_name: researchly-module3
     env_file:
       - ../services/.env
@@ -62,8 +62,8 @@ services:
 
   module4-analytics:
     build:
-      context: ../services/module4-analytics
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: services/module4-analytics/Dockerfile
     container_name: researchly-module4
     env_file:
       - ../services/.env

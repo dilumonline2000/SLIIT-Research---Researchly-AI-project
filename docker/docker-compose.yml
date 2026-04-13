@@ -1,8 +1,30 @@
 # Production docker-compose — builds frontend + gateway + all ML services.
-# Frontend expects Vercel/hosted build in the real deployment; this is for
-# on-prem / Railway-style single-host deployments.
+# Run from repo root:  docker compose -f docker/docker-compose.yml up --build
+#
+# Service ports exposed to host:
+#   3000  — web (Next.js)
+#   3001  — api-gateway
+#   8001  — module1-integrity
+#   8002  — module2-collaboration
+#   8003  — module3-data
+#   8004  — module4-analytics
 
 services:
+  web:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.web
+    container_name: researchly-web
+    env_file:
+      - ../apps/web/.env.local
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api-gateway
+    environment:
+      NEXT_PUBLIC_API_GATEWAY_URL: http://localhost:3001
+    restart: unless-stopped
+
   api-gateway:
     build:
       context: ..
@@ -22,52 +44,57 @@ services:
       MODULE2_URL: http://module2-collaboration:8002
       MODULE3_URL: http://module3-data:8003
       MODULE4_URL: http://module4-analytics:8004
+      CORS_ORIGIN: http://localhost:3000
     restart: unless-stopped
 
   module1-integrity:
     build:
-      context: ../services/module1-integrity
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: services/module1-integrity/Dockerfile
     container_name: researchly-module1
     env_file:
       - ../services/.env
-    expose: ["8001"]
+    ports:
+      - "8001:8001"
     volumes:
       - model_cache:/app/models
     restart: unless-stopped
 
   module2-collaboration:
     build:
-      context: ../services/module2-collaboration
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: services/module2-collaboration/Dockerfile
     container_name: researchly-module2
     env_file:
       - ../services/.env
-    expose: ["8002"]
+    ports:
+      - "8002:8002"
     volumes:
       - model_cache:/app/models
     restart: unless-stopped
 
   module3-data:
     build:
-      context: ../services/module3-data
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: services/module3-data/Dockerfile
     container_name: researchly-module3
     env_file:
       - ../services/.env
-    expose: ["8003"]
+    ports:
+      - "8003:8003"
     volumes:
       - model_cache:/app/models
     restart: unless-stopped
 
   module4-analytics:
     build:
-      context: ../services/module4-analytics
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: services/module4-analytics/Dockerfile
     container_name: researchly-module4
     env_file:
       - ../services/.env
-    expose: ["8004"]
+    ports:
+      - "8004:8004"
     volumes:
       - model_cache:/app/models
     restart: unless-stopped

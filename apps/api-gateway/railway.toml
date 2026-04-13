@@ -1,0 +1,12 @@
+[build]
+builder = "dockerfile"
+dockerfilePath = "../../docker/Dockerfile.gateway"
+# Build context must be repo root so Dockerfile can see monorepo manifests.
+# In Railway UI, set Root Directory = "" (repo root) and Dockerfile = "docker/Dockerfile.gateway"
+
+[deploy]
+startCommand = "node apps/api-gateway/dist/index.js"
+healthcheckPath = "/api/v1/health"
+healthcheckTimeout = 30
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
