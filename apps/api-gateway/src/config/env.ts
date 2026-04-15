@@ -18,6 +18,7 @@ const envSchema = z.object({
   MODULE2_URL: z.string().url().default("http://localhost:8002"),
   MODULE3_URL: z.string().url().default("http://localhost:8003"),
   MODULE4_URL: z.string().url().default("http://localhost:8004"),
+  PAPER_CHAT_URL: z.string().url().default("http://localhost:8005"),
 });
 
 const parsed = envSchema.safeParse(process.env);

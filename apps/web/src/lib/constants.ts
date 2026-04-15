@@ -40,7 +40,35 @@ export const API_ROUTES = {
     mindmap: "/api/v1/analytics/mindmap",
     predict: "/api/v1/analytics/predict",
   },
+  papers: {
+    list: "/api/v1/papers",
+    process: "/api/v1/papers/process",
+    detail: (id: string) => `/api/v1/papers/${id}`,
+    chunks: (id: string) => `/api/v1/papers/${id}/chunks`,
+    trainingData: (id: string) => `/api/v1/papers/${id}/training-data`,
+    reprocess: (id: string) => `/api/v1/papers/${id}/reprocess`,
+    delete: (id: string) => `/api/v1/papers/${id}`,
+  },
+  chat: {
+    sessions: "/api/v1/chat/sessions",
+    session: (id: string) => `/api/v1/chat/sessions/${id}`,
+    message: (id: string) => `/api/v1/chat/sessions/${id}/message`,
+    feedback: (id: string) => `/api/v1/chat/sessions/${id}/feedback`,
+    setPapers: (id: string) => `/api/v1/chat/sessions/${id}/papers`,
+  },
+  language: {
+    detect: "/api/v1/language/detect",
+    translate: "/api/v1/language/translate",
+  },
+  training: {
+    status: "/api/v1/training/status",
+    queue: "/api/v1/training/queue",
+    trigger: "/api/v1/training/trigger",
+    models: "/api/v1/training/models",
+  },
 } as const;
+
+export const PAPER_STORAGE_BUCKET = "research-papers";
 
 export const MODULES = [
   {

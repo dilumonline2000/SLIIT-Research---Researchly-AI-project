@@ -8,6 +8,7 @@
 #   8002  — module2-collaboration
 #   8003  — module3-data
 #   8004  — module4-analytics
+#   8005  — paper-chat (upload + RAG chat + continuous training)
 
 services:
   web:
@@ -39,11 +40,13 @@ services:
       - module2-collaboration
       - module3-data
       - module4-analytics
+      - paper-chat
     environment:
       MODULE1_URL: http://module1-integrity:8001
       MODULE2_URL: http://module2-collaboration:8002
       MODULE3_URL: http://module3-data:8003
       MODULE4_URL: http://module4-analytics:8004
+      PAPER_CHAT_URL: http://paper-chat:8005
       CORS_ORIGIN: http://localhost:3000
     restart: unless-stopped
 
@@ -95,6 +98,19 @@ services:
       - ../services/.env
     ports:
       - "8004:8004"
+    volumes:
+      - model_cache:/app/models
+    restart: unless-stopped
+
+  paper-chat:
+    build:
+      context: ..
+      dockerfile: services/paper-chat/Dockerfile
+    container_name: researchly-paper-chat
+    env_file:
+      - ../services/.env
+    ports:
+      - "8005:8005"
     volumes:
       - model_cache:/app/models
     restart: unless-stopped

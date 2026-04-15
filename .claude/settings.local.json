@@ -7,7 +7,17 @@
       "Bash(mv data-management/summarize data-management/summarizer)",
       "Bash(mv analytics/predict analytics/predictions)",
       "Bash(npx tsc:*)",
-      "Bash(./node_modules/.bin/tsc --noEmit)"
+      "Bash(./node_modules/.bin/tsc --noEmit)",
+      "Bash(cat 009_paper_uploads.sql 010_chat_tables.sql 011_training_data.sql)",
+      "Read(//d/scripts/paper_chat_setup/**)",
+      "Bash(python scripts/paper_chat_setup/create_storage_bucket.py)",
+      "Bash(docker --version)",
+      "Bash(docker info:*)",
+      "Bash(python -c \"import psycopg; print\\('ok'\\)\")",
+      "Bash(python -c \"import psycopg2; print\\('ok'\\)\")",
+      "Bash(python -c \"import supabase; print\\('ok'\\)\")",
+      "Bash(python scripts/paper_chat_setup/_run_sql_via_supabase.py)",
+      "Bash(node -e \"const {Client}=require\\('pg'\\);const c=new Client\\({connectionString:'postgresql://postgres:Admin%402000Sb@db.ecnourpfvuljdlmddfdq.supabase.co:5432/postgres',ssl:{rejectUnauthorized:false}}\\);c.connect\\(\\).then\\(\\(\\)=>{console.log\\('CONNECTED'\\);c.query\\('SELECT 1'\\).then\\(r=>{console.log\\(r.rows\\);c.end\\(\\)}\\)}\\).catch\\(e=>console.log\\('FAIL:',e.message\\)\\)\")"
     ]
   }
 }

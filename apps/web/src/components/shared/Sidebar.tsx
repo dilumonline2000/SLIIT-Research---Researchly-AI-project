@@ -10,6 +10,9 @@ import {
   LineChart,
   Settings,
   User,
+  FileText,
+  MessageSquare,
+  Sparkles,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { APP_NAME } from "@/lib/constants";
@@ -18,6 +21,16 @@ const navGroups = [
   {
     label: "Overview",
     items: [{ href: "/dashboard", label: "Dashboard", icon: LayoutDashboard }],
+  },
+  {
+    label: "Papers & Chat",
+    items: [
+      { href: "/papers", label: "My Papers", icon: FileText },
+      { href: "/papers/upload", label: "Upload PDF" },
+      { href: "/chat", label: "Research Chat", icon: MessageSquare },
+      { href: "/chat/history", label: "Chat History" },
+      { href: "/training", label: "Continuous Training", icon: Sparkles },
+    ],
   },
   {
     label: "Module 1 — Integrity",

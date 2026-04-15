@@ -43,4 +43,18 @@ export async function apiPost<T, B = unknown>(
   return data;
 }
 
+export async function apiPatch<T, B = unknown>(
+  url: string,
+  body?: B,
+  config?: AxiosRequestConfig,
+): Promise<T> {
+  const { data } = await api.patch<T>(url, body, config);
+  return data;
+}
+
+export async function apiDelete<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+  const { data } = await api.delete<T>(url, config);
+  return data;
+}
+
 export default api;

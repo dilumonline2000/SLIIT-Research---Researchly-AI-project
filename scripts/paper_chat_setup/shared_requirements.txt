@@ -1,0 +1,47 @@
+# Shared base — installs everything needed for ALL 5 Python services.
+# Run once:  pip install -r scripts/paper_chat_setup/shared_requirements.txt
+# Then start each service with the start_services.bat script.
+
+# Web framework
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+pydantic==2.9.2
+pydantic-settings==2.5.2
+python-multipart==0.0.12
+python-dotenv==1.0.1
+httpx==0.27.2
+
+# Supabase
+supabase==2.8.1
+postgrest==0.17.0
+gotrue==2.9.3
+realtime==2.0.6
+storage3==0.8.0
+
+# ML core — installs torch CPU first (faster), GPU can be added separately
+--index-url https://download.pytorch.org/whl/cpu
+torch==2.4.1
+
+# Back to PyPI for everything else
+--index-url https://pypi.org/simple
+sentence-transformers==3.1.1
+transformers==4.45.2
+tokenizers==0.20.3
+huggingface-hub==0.25.2
+numpy==1.26.4
+scikit-learn==1.5.2
+pandas==2.2.3
+scipy==1.14.1
+
+# PDF processing (paper-chat service)
+PyMuPDF==1.24.10
+pdfplumber==0.11.4
+
+# NLP extras
+langdetect==1.0.9
+langchain==0.3.0
+langchain-text-splitters==0.3.0
+
+# Utilities
+tqdm==4.66.5
+joblib==1.4.2

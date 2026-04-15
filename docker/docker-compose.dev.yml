@@ -9,7 +9,8 @@
 #   module1 → http://localhost:8001
 #   module2 → http://localhost:8002
 #   module3 → http://localhost:8003
-#   module4 → http://localhost:8004
+#   module4     → http://localhost:8004
+#   paper-chat  → http://localhost:8005
 
 services:
   module1-integrity:
@@ -74,6 +75,22 @@ services:
       - ../services/shared:/app/shared
       - model_cache:/app/models
     command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8004", "--reload"]
+    restart: unless-stopped
+
+  paper-chat:
+    build:
+      context: ..
+      dockerfile: services/paper-chat/Dockerfile
+    container_name: researchly-paper-chat
+    env_file:
+      - ../services/.env
+    ports:
+      - "8005:8005"
+    volumes:
+      - ../services/paper-chat/app:/app/app
+      - ../services/shared:/app/shared
+      - model_cache:/app/models
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8005", "--reload"]
     restart: unless-stopped
 
 volumes:
