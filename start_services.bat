@@ -21,7 +21,7 @@ if errorlevel 1 (
     echo         First run: downloads ~2-3 GB. Please wait.
     pip install torch --index-url https://download.pytorch.org/whl/cpu
     pip install fastapi "uvicorn[standard]" pydantic pydantic-settings python-multipart python-dotenv httpx
-    pip install "supabase==2.8.1"
+    pip install "supabase>=2.10.0"
     pip install sentence-transformers transformers tokenizers huggingface-hub
     pip install numpy scikit-learn pandas scipy tqdm joblib
     pip install PyMuPDF pdfplumber langdetect langchain langchain-text-splitters

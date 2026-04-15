@@ -17,7 +17,17 @@
       "Bash(python -c \"import psycopg2; print\\('ok'\\)\")",
       "Bash(python -c \"import supabase; print\\('ok'\\)\")",
       "Bash(python scripts/paper_chat_setup/_run_sql_via_supabase.py)",
-      "Bash(node -e \"const {Client}=require\\('pg'\\);const c=new Client\\({connectionString:'postgresql://postgres:Admin%402000Sb@db.ecnourpfvuljdlmddfdq.supabase.co:5432/postgres',ssl:{rejectUnauthorized:false}}\\);c.connect\\(\\).then\\(\\(\\)=>{console.log\\('CONNECTED'\\);c.query\\('SELECT 1'\\).then\\(r=>{console.log\\(r.rows\\);c.end\\(\\)}\\)}\\).catch\\(e=>console.log\\('FAIL:',e.message\\)\\)\")"
+      "Bash(node -e \"const {Client}=require\\('pg'\\);const c=new Client\\({connectionString:'postgresql://postgres:Admin%402000Sb@db.ecnourpfvuljdlmddfdq.supabase.co:5432/postgres',ssl:{rejectUnauthorized:false}}\\);c.connect\\(\\).then\\(\\(\\)=>{console.log\\('CONNECTED'\\);c.query\\('SELECT 1'\\).then\\(r=>{console.log\\(r.rows\\);c.end\\(\\)}\\)}\\).catch\\(e=>console.log\\('FAIL:',e.message\\)\\)\")",
+      "Bash(bash -c 'cd '\\\\''d:/SLIIT Research - Researchly AI project/services/module1-integrity'\\\\'' && PYTHONPATH='\\\\''d:/SLIIT Research - Researchly AI project/services'\\\\'' OPENBLAS_NUM_THREADS=1 python -m uvicorn app.main:app --host 0.0.0.0 --port 8001 > /tmp/m1.log 2>&1 &')",
+      "Bash(bash -c 'cd '\\\\''d:/SLIIT Research - Researchly AI project/services/module2-collaboration'\\\\'' && PYTHONPATH='\\\\''d:/SLIIT Research - Researchly AI project/services'\\\\'' OPENBLAS_NUM_THREADS=1 python -m uvicorn app.main:app --host 0.0.0.0 --port 8002 > /tmp/m2.log 2>&1 &')",
+      "Bash(bash -c 'cd '\\\\''d:/SLIIT Research - Researchly AI project/services/module3-data'\\\\'' && PYTHONPATH='\\\\''d:/SLIIT Research - Researchly AI project/services'\\\\'' OPENBLAS_NUM_THREADS=1 python -m uvicorn app.main:app --host 0.0.0.0 --port 8003 > /tmp/m3.log 2>&1 &')",
+      "Bash(bash -c 'cd '\\\\''d:/SLIIT Research - Researchly AI project/services/module4-analytics'\\\\'' && PYTHONPATH='\\\\''d:/SLIIT Research - Researchly AI project/services'\\\\'' OPENBLAS_NUM_THREADS=1 python -m uvicorn app.main:app --host 0.0.0.0 --port 8004 > /tmp/m4.log 2>&1 &')",
+      "Bash(bash -c 'cd '\\\\''d:/SLIIT Research - Researchly AI project/services/paper-chat'\\\\'' && PYTHONPATH='\\\\''d:/SLIIT Research - Researchly AI project/services'\\\\'' OPENBLAS_NUM_THREADS=1 python -m uvicorn app.main:app --host 0.0.0.0 --port 8005 > /tmp/paper-chat.log 2>&1 &')",
+      "Bash(python -c ':*)",
+      "Bash(\"d:/SLIIT Research - Researchly AI project/.venv/Scripts/python.exe\" -c \"import supabase; print\\(supabase.__version__\\)\")",
+      "Bash(python -c \"import supabase; print\\(supabase.__version__\\)\")",
+      "Bash(pip install:*)",
+      "Bash(\"d:/SLIIT Research - Researchly AI project/.venv/Scripts/pip.exe\" install \"supabase>=2.10.0\" --upgrade)"
     ]
   }
 }

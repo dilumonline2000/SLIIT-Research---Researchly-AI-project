@@ -10,7 +10,15 @@ import os
 import sys
 
 # Bootstrap: put services/ on sys.path so `from shared.x import y` works
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+_services_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+sys.path.insert(0, _services_root)
+
+# Load .env from services/ directory (shared by all Python services)
+try:
+    from dotenv import load_dotenv
+    load_dotenv(os.path.join(_services_root, ".env"))
+except ImportError:
+    pass
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
