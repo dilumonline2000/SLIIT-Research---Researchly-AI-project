@@ -1,0 +1,59 @@
+Complete Guide to Run Researchly AI Locally
+Prerequisites (one-time setup)
+Make sure these are installed on your PC:
+
+Python 3.10+ → python --version
+Node.js 18+ → node --version
+pnpm → npm install -g pnpm
+Every Time You Want to Run the App
+Step 1 — Start all 5 AI/Python services
+Double-click start_services.bat in the project root folder.
+
+Opens 5 separate command windows (one per service)
+First-ever run downloads ~2-3 GB of AI models — wait for it
+Wait until all 5 windows show: Application startup complete
+Verify they're running — paste these in your browser, each should show {"status":"ok"}:
+
+
+http://localhost:8001/health  ← M1 Citation & Plagiarism
+http://localhost:8002/health  ← M2 Supervisor Match
+http://localhost:8003/health  ← M3 Data Pipeline
+http://localhost:8004/health  ← M4 Analytics
+http://localhost:8005/health  ← Paper Chat & RAG
+Step 2 — Start the Web App
+Double-click start_web.bat in the project root folder.
+
+Opens 2 more windows (API Gateway + Next.js)
+Browser auto-opens at http://localhost:3000 after 12 seconds
+Step 3 — Use the App
+Feature	Where to go
+Register / Login	http://localhost:3000/register
+Dashboard	http://localhost:3000/dashboard
+Upload Research Paper	Sidebar → Upload PDF
+Chat with Paper (RAG)	Sidebar → Research Chat
+Citation Parser	Sidebar → Citations
+Plagiarism Check	Sidebar → Plagiarism Checker
+Supervisor Matching	Sidebar → Supervisor Match
+Analytics	Sidebar → Analytics
+Training Queue	Sidebar → Continuous Training
+To Stop Everything
+Just close all the command windows that were opened by the bat files.
+
+Or run this in any terminal:
+
+
+taskkill /F /FI "WINDOWTITLE eq M1*"
+taskkill /F /FI "WINDOWTITLE eq M2*"
+taskkill /F /FI "WINDOWTITLE eq M3*"
+taskkill /F /FI "WINDOWTITLE eq M4*"
+taskkill /F /FI "WINDOWTITLE eq Paper*"
+taskkill /F /FI "WINDOWTITLE eq API Gateway*"
+taskkill /F /FI "WINDOWTITLE eq Web App*"
+If Something Doesn't Work
+Problem	Fix
+Health check shows nothing	Wait 30 more seconds — models are loading
+ModuleNotFoundError in a window	Run pip install -r scripts/paper_chat_setup/shared_requirements.txt
+Port already in use	The bat files now auto-kill old processes
+Chat not working	Check :8005/health first
+Login fails	Check Supabase is reachable — apps/web/.env.local must have correct URL
+Go ahead — double-click start_services.bat now!

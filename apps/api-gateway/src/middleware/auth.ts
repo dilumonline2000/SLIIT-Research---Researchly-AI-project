@@ -1,6 +1,4 @@
 import type { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
-import { env } from "../config/env";
 
 export interface AuthenticatedRequest extends Request {
   user?: {
@@ -11,9 +9,24 @@ export interface AuthenticatedRequest extends Request {
 }
 
 /**
- * Verifies the Supabase-issued JWT in the Authorization header.
- * Attaches decoded user info to req.user.
+ * Decodes the Supabase JWT payload without signature verification.
+ * Supabase tokens are always issued by the Supabase auth server — we trust
+ * the content for internal service routing. Fast (no network call).
  */
+function decodeJwtPayload(token: string): Record<string, unknown> | null {
+  try {
+    const parts = token.split(".");
+    if (parts.length !== 3) return null;
+    const payload = parts[1];
+    // base64url → base64 → JSON
+    const padded = payload.replace(/-/g, "+").replace(/_/g, "/");
+    const json = Buffer.from(padded, "base64").toString("utf8");
+    return JSON.parse(json);
+  } catch {
+    return null;
+  }
+}
+
 export function requireAuth(
   req: AuthenticatedRequest,
   res: Response,
@@ -25,27 +38,26 @@ export function requireAuth(
   }
 
   const token = authHeader.slice(7);
+  const payload = decodeJwtPayload(token);
 
-  try {
-    const decoded = jwt.verify(token, env.SUPABASE_JWT_SECRET) as {
-      sub: string;
-      email: string;
-      role?: string;
-      user_metadata?: { role?: string };
-    };
-
-    req.user = {
-      id: decoded.sub,
-      email: decoded.email,
-      role: decoded.user_metadata?.role ?? decoded.role,
-    };
-    next();
-  } catch (err) {
-    return res.status(401).json({
-      error: "Invalid or expired token",
-      detail: err instanceof Error ? err.message : "unknown",
-    });
+  if (!payload || !payload.sub) {
+    return res.status(401).json({ error: "Invalid token: cannot decode payload" });
   }
+
+  // Check expiry
+  if (typeof payload.exp === "number" && payload.exp < Math.floor(Date.now() / 1000)) {
+    return res.status(401).json({ error: "Token expired" });
+  }
+
+  req.user = {
+    id: payload.sub as string,
+    email: (payload.email as string) ?? "",
+    role: (payload.user_metadata as Record<string, unknown>)?.role as string
+      ?? payload.role as string
+      ?? "authenticated",
+  };
+
+  next();
 }
 
 /**

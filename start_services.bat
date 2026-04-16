@@ -5,7 +5,7 @@ echo  Researchly AI - Starting All Services
 echo ============================================
 echo.
 
-set ROOT=%~dp0
+set "ROOT=%~dp0"
 
 REM ---- Check Python ----
 python --version >nul 2>&1
@@ -25,40 +25,50 @@ if errorlevel 1 (
     pip install sentence-transformers transformers tokenizers huggingface-hub
     pip install numpy scikit-learn pandas scipy tqdm joblib
     pip install PyMuPDF pdfplumber langdetect langchain langchain-text-splitters
+    pip install spacy arxiv beautifulsoup4 aiohttp
+    python -m spacy download en_core_web_sm
     echo [OK] Dependencies installed.
 ) else (
     echo [OK] Python dependencies already present.
 )
 
+REM ---- Kill any old processes on these ports ----
+echo [INFO] Clearing ports 8001-8005...
+for /f "tokens=5" %%a in ('netstat -ano 2^>nul ^| findstr ":8001 " ^| findstr LISTENING') do taskkill /PID %%a /F >nul 2>&1
+for /f "tokens=5" %%a in ('netstat -ano 2^>nul ^| findstr ":8002 " ^| findstr LISTENING') do taskkill /PID %%a /F >nul 2>&1
+for /f "tokens=5" %%a in ('netstat -ano 2^>nul ^| findstr ":8003 " ^| findstr LISTENING') do taskkill /PID %%a /F >nul 2>&1
+for /f "tokens=5" %%a in ('netstat -ano 2^>nul ^| findstr ":8004 " ^| findstr LISTENING') do taskkill /PID %%a /F >nul 2>&1
+for /f "tokens=5" %%a in ('netstat -ano 2^>nul ^| findstr ":8005 " ^| findstr LISTENING') do taskkill /PID %%a /F >nul 2>&1
+echo [OK] Ports cleared.
 echo.
 echo [INFO] Starting 5 Python services in separate windows...
 echo.
 
-REM Module 1 - Integrity (port 8001)
-start "M1 Integrity :8001" cmd /k "title M1-Integrity && cd /d "%ROOT%services\module1-integrity" && set PYTHONPATH=%ROOT%services && python -m uvicorn app.main:app --host 0.0.0.0 --port 8001 --reload 2>&1"
+REM /D sets working directory -- handles spaces in path correctly
+start "M1 Integrity :8001"   /D "%ROOT%services\module1-integrity"   cmd /k "set PYTHONPATH=%ROOT%services && set OPENBLAS_NUM_THREADS=1 && python -m uvicorn app.main:app --host 0.0.0.0 --port 8001 --reload"
+timeout /t 3 /nobreak >nul
 
-REM Module 2 - Collaboration (port 8002)
-start "M2 Collaboration :8002" cmd /k "title M2-Collaboration && cd /d "%ROOT%services\module2-collaboration" && set PYTHONPATH=%ROOT%services && python -m uvicorn app.main:app --host 0.0.0.0 --port 8002 --reload 2>&1"
+start "M2 Collaboration :8002" /D "%ROOT%services\module2-collaboration" cmd /k "set PYTHONPATH=%ROOT%services && set OPENBLAS_NUM_THREADS=1 && python -m uvicorn app.main:app --host 0.0.0.0 --port 8002 --reload"
+timeout /t 3 /nobreak >nul
 
-REM Module 3 - Data Management (port 8003)
-start "M3 Data :8003" cmd /k "title M3-Data && cd /d "%ROOT%services\module3-data" && set PYTHONPATH=%ROOT%services && python -m uvicorn app.main:app --host 0.0.0.0 --port 8003 --reload 2>&1"
+start "M3 Data :8003"          /D "%ROOT%services\module3-data"          cmd /k "set PYTHONPATH=%ROOT%services && set OPENBLAS_NUM_THREADS=1 && python -m uvicorn app.main:app --host 0.0.0.0 --port 8003 --reload"
+timeout /t 3 /nobreak >nul
 
-REM Module 4 - Analytics (port 8004)
-start "M4 Analytics :8004" cmd /k "title M4-Analytics && cd /d "%ROOT%services\module4-analytics" && set PYTHONPATH=%ROOT%services && python -m uvicorn app.main:app --host 0.0.0.0 --port 8004 --reload 2>&1"
+start "M4 Analytics :8004"     /D "%ROOT%services\module4-analytics"     cmd /k "set PYTHONPATH=%ROOT%services && set OPENBLAS_NUM_THREADS=1 && python -m uvicorn app.main:app --host 0.0.0.0 --port 8004 --reload"
+timeout /t 3 /nobreak >nul
 
-REM Paper Chat - RAG + Training (port 8005)
-start "Paper-Chat :8005" cmd /k "title PaperChat && cd /d "%ROOT%services\paper-chat" && set PYTHONPATH=%ROOT%services && python -m uvicorn app.main:app --host 0.0.0.0 --port 8005 --reload 2>&1"
+start "PaperChat :8005"        /D "%ROOT%services\paper-chat"            cmd /k "set PYTHONPATH=%ROOT%services && set OPENBLAS_NUM_THREADS=1 && python -m uvicorn app.main:app --host 0.0.0.0 --port 8005 --reload"
 
 echo.
-echo [DONE] 5 windows opened. Wait ~30 seconds for services to start.
+echo [DONE] 5 windows opened. Wait ~30 seconds for all services to start.
 echo.
-echo  Health check URLs (paste in browser):
-echo    http://localhost:8001/health
-echo    http://localhost:8002/health
-echo    http://localhost:8003/health
-echo    http://localhost:8004/health
-echo    http://localhost:8005/health
+echo  Paste these in browser to confirm each is running:
+echo    http://localhost:8001/health   (M1 - Integrity)
+echo    http://localhost:8002/health   (M2 - Collaboration)
+echo    http://localhost:8003/health   (M3 - Data)
+echo    http://localhost:8004/health   (M4 - Analytics)
+echo    http://localhost:8005/health   (Paper Chat)
 echo.
-echo  Then run: start_web.bat
+echo  Once all show status:ok  -- double-click start_web.bat
 echo.
 pause
