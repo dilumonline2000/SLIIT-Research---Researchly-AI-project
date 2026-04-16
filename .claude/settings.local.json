@@ -27,7 +27,8 @@
       "Bash(\"d:/SLIIT Research - Researchly AI project/.venv/Scripts/python.exe\" -c \"import supabase; print\\(supabase.__version__\\)\")",
       "Bash(python -c \"import supabase; print\\(supabase.__version__\\)\")",
       "Bash(pip install:*)",
-      "Bash(\"d:/SLIIT Research - Researchly AI project/.venv/Scripts/pip.exe\" install \"supabase>=2.10.0\" --upgrade)"
+      "Bash(\"d:/SLIIT Research - Researchly AI project/.venv/Scripts/pip.exe\" install \"supabase>=2.10.0\" --upgrade)",
+      "Bash(netstat -ano)"
     ]
   }
 }
