@@ -4,19 +4,28 @@ import { API_GATEWAY_URL } from "./constants";
 
 const api = axios.create({
   baseURL: API_GATEWAY_URL,
-  timeout: 30_000,
+  timeout: 60_000,
 });
 
-// Attach Supabase JWT to every request from the browser
-api.interceptors.request.use(async (config) => {
-  if (typeof window !== "undefined") {
-    const supabase = createClient();
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-    if (session?.access_token) {
-      config.headers.Authorization = `Bearer ${session.access_token}`;
-    }
+// Cache token in memory — updated by auth state listener, never blocks requests
+let _cachedToken: string | null = null;
+
+if (typeof window !== "undefined") {
+  const supabase = createClient();
+  // Seed from existing session immediately (synchronous read from localStorage)
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    _cachedToken = session?.access_token ?? null;
+  });
+  // Keep cache fresh on sign-in / sign-out / token refresh
+  supabase.auth.onAuthStateChange((_event, session) => {
+    _cachedToken = session?.access_token ?? null;
+  });
+}
+
+// Attach cached JWT synchronously — no async hang possible
+api.interceptors.request.use((config) => {
+  if (_cachedToken) {
+    config.headers.Authorization = `Bearer ${_cachedToken}`;
   }
   return config;
 });
