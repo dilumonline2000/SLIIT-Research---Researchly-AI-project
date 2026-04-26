@@ -1,25 +1,19 @@
-"""Proposal generator — RAG over pgvector + LoRA-tuned LLM."""
+"""Proposal generator — powered by Gemini."""
 
 from __future__ import annotations
 
 import logging
+import sys
+import os
 
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
 
-from ..models.proposal_generator import ProposalGeneratorModel
-
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
-_proposal_model: ProposalGeneratorModel | None = None
-
-
-def _get_model() -> ProposalGeneratorModel:
-    global _proposal_model
-    if _proposal_model is None:
-        _proposal_model = ProposalGeneratorModel()
-    return _proposal_model
+_services_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
+sys.path.insert(0, _services_root)
 
 
 class GenerateProposalRequest(BaseModel):
@@ -38,65 +32,52 @@ class GeneratedProposal(BaseModel):
 
 @router.post("/generate", response_model=GeneratedProposal)
 async def generate_proposal(req: GenerateProposalRequest) -> GeneratedProposal:
-    """Generate a structured proposal outline using RAG + LLM.
+    """Generate a structured research proposal using Gemini."""
+    from shared.gemini_client import generate_json
 
-    1. Embed topic → pgvector match_papers() to retrieve context
-    2. Build context string from retrieved papers
-    3. Feed context + topic to the proposal generator model
-    4. Parse structured JSON output
-    """
-    retrieved_ids: list[str] = []
-    context_parts: list[str] = []
+    domain_context = f" in the domain of {req.domain}" if req.domain else ""
 
-    # Step 1+2: RAG retrieval
-    try:
-        import sys, os
-        sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "..", "shared"))
-        from services.shared.embedding_utils import embed
-        from services.shared.supabase_client import get_supabase_admin
+    prompt = f"""You are an expert academic research advisor. Generate a comprehensive research proposal for the following topic.
 
-        query_vec = embed(req.topic).tolist()
-        sb = get_supabase_admin()
-        result = sb.rpc(
-            "match_papers",
-            {"query_embedding": query_vec, "match_count": 5, "match_threshold": 0.5},
-        ).execute()
+Research Topic: {req.topic}{domain_context}
 
-        for paper in (result.data or []):
-            retrieved_ids.append(str(paper.get("id", "")))
-            title = paper.get("title", "")
-            abstract = paper.get("abstract", "")
-            context_parts.append(f"- {title}: {abstract[:300]}")
-    except Exception as e:
-        logger.warning("RAG retrieval failed: %s — generating without context", e)
+Create a structured research proposal with:
+- A clear problem statement identifying the research gap
+- 3-5 specific, measurable research objectives
+- A detailed methodology section describing the research approach
+- Expected outcomes and contributions
 
-    context = "\n".join(context_parts) if context_parts else f"Research area: {req.topic}"
-    if req.domain:
-        context = f"Domain: {req.domain}\n{context}"
-
-    # Step 3: Generate proposal
-    gap = f"Research gap in {req.topic} that needs investigation"
-    model = _get_model()
+Return as JSON:
+{{
+  "problem_statement": "Clear 2-3 sentence problem statement",
+  "objectives": [
+    "Objective 1: ...",
+    "Objective 2: ...",
+    "Objective 3: ..."
+  ],
+  "methodology": "Detailed paragraph describing research methodology, data collection, analysis methods",
+  "expected_outcomes": "Paragraph describing expected contributions and impact"
+}}"""
 
     try:
-        raw = model.generate_proposal(context=context, gap=gap)
+        data = generate_json(prompt)
+        return GeneratedProposal(
+            problem_statement=data.get("problem_statement", ""),
+            objectives=data.get("objectives", []),
+            methodology=data.get("methodology", ""),
+            expected_outcomes=data.get("expected_outcomes", ""),
+            retrieved_paper_ids=[],
+        )
     except Exception as e:
-        logger.error("Proposal generation failed: %s", e)
-        raw = {
-            "problem_statement": f"Investigation of {req.topic} to address current limitations in the field.",
-            "objectives": [
-                f"Conduct comprehensive literature review on {req.topic}",
+        logger.error("Gemini proposal generation failed: %s", e)
+        return GeneratedProposal(
+            problem_statement=f"Investigation of {req.topic} to address current limitations in the field.",
+            objectives=[
+                f"Conduct a comprehensive literature review on {req.topic}",
                 "Identify key research gaps and opportunities",
                 "Develop and evaluate a novel approach",
             ],
-            "methodology": f"Mixed-methods research combining systematic literature review with experimental evaluation in {req.topic}.",
-            "expected_outcomes": f"Novel contributions to {req.topic} with empirical validation.",
-        }
-
-    return GeneratedProposal(
-        problem_statement=raw.get("problem_statement", ""),
-        objectives=raw.get("objectives", []),
-        methodology=raw.get("methodology", ""),
-        expected_outcomes=raw.get("expected_outcomes", ""),
-        retrieved_paper_ids=retrieved_ids,
-    )
+            methodology=f"Mixed-methods research combining systematic literature review with experimental evaluation in {req.topic}.",
+            expected_outcomes=f"Novel contributions to {req.topic} with empirical validation.",
+            retrieved_paper_ids=[],
+        )

@@ -1,32 +1,25 @@
-"""Research paper summarizer — BART/T5 abstractive summaries."""
+"""Research paper summarizer — powered by Gemini."""
 
 from __future__ import annotations
 
 import logging
+import sys
+import os
 from typing import Literal
 
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
 
-from ..models.summarizer import SummarizerModel
-
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
-_summarizer: SummarizerModel | None = None
+_services_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
+sys.path.insert(0, _services_root)
 
-
-def _get_summarizer() -> SummarizerModel:
-    global _summarizer
-    if _summarizer is None:
-        _summarizer = SummarizerModel()
-    return _summarizer
-
-
-LENGTH_CONFIG = {
-    "short": {"max_length": 80, "min_length": 20},
-    "medium": {"max_length": 180, "min_length": 50},
-    "detailed": {"max_length": 350, "min_length": 100},
+LENGTH_INSTRUCTIONS = {
+    "short": "Write a concise 2-3 sentence summary capturing only the most essential points.",
+    "medium": "Write a paragraph (4-6 sentences) covering the main contributions, methodology, and findings.",
+    "detailed": "Write a comprehensive summary (8-10 sentences) covering background, objectives, methodology, results, and conclusions.",
 }
 
 
@@ -44,39 +37,37 @@ class SummarizeResponse(BaseModel):
 
 @router.post("/summarize", response_model=SummarizeResponse)
 async def summarize(req: SummarizeRequest) -> SummarizeResponse:
-    """Generate an abstractive summary using BART + LoRA.
+    """Generate an abstractive summary using Gemini."""
+    from shared.gemini_client import generate
 
-    1. Select length parameters based on requested level
-    2. Run BART model generation
-    3. Optionally store summary in Supabase
-    """
-    model = _get_summarizer()
-    config = LENGTH_CONFIG[req.length]
+    instruction = LENGTH_INSTRUCTIONS[req.length]
+    text_snippet = req.text[:6000]
+
+    prompt = f"""You are an expert academic summarizer. {instruction}
+
+Research text:
+{text_snippet}
+
+Write only the summary, no preamble or labels."""
 
     try:
-        summary = model.summarize(
-            req.text,
-            max_length=config["max_length"],
-            min_length=config["min_length"],
-        )
+        summary = generate(prompt, temperature=0.3, max_tokens=512)
+
+        if req.paper_id and summary:
+            try:
+                from shared.supabase_client import get_supabase_admin
+                sb = get_supabase_admin()
+                sb.table("research_summaries").upsert({
+                    "paper_id": req.paper_id,
+                    "summary": summary,
+                    "summary_type": req.length,
+                    "model_version": "gemini-2.5-flash",
+                }).execute()
+            except Exception as e:
+                logger.warning("Failed to store summary: %s", e)
+
+        return SummarizeResponse(summary=summary, model_version="gemini-2.5-flash")
+
     except Exception as e:
-        logger.error("Summarization failed: %s", e)
-        return SummarizeResponse(summary="", model_version="bart-v1-error")
-
-    # Store if paper_id provided
-    if req.paper_id and summary:
-        try:
-            import sys, os
-            sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "..", "shared"))
-            from services.shared.supabase_client import get_supabase_admin
-            sb = get_supabase_admin()
-            sb.table("research_summaries").upsert({
-                "paper_id": req.paper_id,
-                "summary": summary,
-                "summary_type": req.length,
-                "model_version": "bart-v1",
-            }).execute()
-        except Exception as e:
-            logger.warning("Failed to store summary: %s", e)
-
-    return SummarizeResponse(summary=summary, model_version="bart-v1")
+        logger.error("Gemini summarization failed: %s", e)
+        return SummarizeResponse(summary="", model_version="gemini-error")

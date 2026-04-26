@@ -1,19 +1,18 @@
-"""RAG retrieval + grounded answer assembly.
-
-Generation is intentionally LLM-free by default: the assembled answer
-synthesises retrieved chunks with explicit citations. If an LLM
-backend (transformers GPT2 or OpenAI-compatible) is available it can
-upgrade the answer, but the fallback always works.
-"""
+"""RAG retrieval + Gemini-powered answer generation."""
 
 from __future__ import annotations
 
 import logging
+import sys
+import os
 from typing import Any, Dict, List, Optional
 
 from .supabase_client import get_supabase
 
 logger = logging.getLogger(__name__)
+
+_services_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
+sys.path.insert(0, _services_root)
 
 
 def retrieve(
@@ -55,11 +54,7 @@ def assemble_context(chunks: List[Dict[str, Any]], max_chars: int = 12000) -> st
 
 
 def build_answer(question: str, chunks: List[Dict[str, Any]]) -> Dict[str, Any]:
-    """Produce a grounded answer with citations.
-
-    Uses a templated synthesis when no LLM is configured. This is sufficient
-    to demo the RAG flow end-to-end and is upgradable later.
-    """
+    """Produce a grounded answer with citations using Gemini."""
     if not chunks:
         return {
             "answer": (
@@ -72,23 +67,23 @@ def build_answer(question: str, chunks: List[Dict[str, Any]]) -> Dict[str, Any]:
 
     context = assemble_context(chunks)
 
-    # Optional LLM upgrade
-    answer_text: Optional[str] = None
     try:
-        from transformers import pipeline  # type: ignore
+        from shared.gemini_client import generate
 
-        pipe = pipeline("text-generation", model="distilgpt2", max_new_tokens=160)
-        prompt = (
-            "You are a research paper assistant. Use the context below to answer.\n"
-            f"Context:\n{context[:2000]}\n\nQuestion: {question}\nAnswer:"
-        )
-        out = pipe(prompt, do_sample=False)[0]["generated_text"]
-        answer_text = out.split("Answer:", 1)[-1].strip()
-    except Exception:
-        answer_text = None
+        prompt = f"""You are an expert research assistant. Answer the question based ONLY on the provided paper excerpts.
+Be precise, cite specific papers when relevant, and acknowledge if the papers don't fully address the question.
 
-    if not answer_text:
-        # Templated synthesis from top chunks
+Paper excerpts:
+{context}
+
+Question: {question}
+
+Provide a clear, well-structured answer:"""
+
+        answer_text = generate(prompt, temperature=0.2, max_tokens=1024)
+
+    except Exception as e:
+        logger.warning("Gemini answer generation failed: %s — using templated fallback", e)
         bullets = []
         for c in chunks[:4]:
             snippet = (c.get("chunk_text") or "")[:300].strip()

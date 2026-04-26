@@ -8,6 +8,7 @@ import papersRoutes from "./papers.routes";
 import chatRoutes from "./chat.routes";
 import languageRoutes from "./language.routes";
 import trainingRoutes from "./training.routes";
+import aiProviderRoutes from "./ai-provider.routes";
 
 const router = Router();
 
@@ -15,7 +16,11 @@ router.get("/health", (_req, res) => {
   res.json({ status: "ok", service: "api-gateway", ts: new Date().toISOString() });
 });
 
+// Mount public routes BEFORE auth-required routes
 router.use("/auth", authRoutes);
+router.use("/ai", aiProviderRoutes);
+
+// Mount auth-required routes AFTER public routes
 router.use(module1Routes);
 router.use(module2Routes);
 router.use(module3Routes);

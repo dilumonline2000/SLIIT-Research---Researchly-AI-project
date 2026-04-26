@@ -1,15 +1,19 @@
-"""Mind map builder — KeyBERT key-phrase extraction + NetworkX graph."""
+"""Mind map builder — powered by Gemini concept extraction."""
 
 from __future__ import annotations
 
 import logging
-from collections import defaultdict
+import sys
+import os
 
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
+
+_services_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
+sys.path.insert(0, _services_root)
 
 
 class GenerateMindMapRequest(BaseModel):
@@ -38,97 +42,62 @@ class MindMap(BaseModel):
 
 @router.post("/generate", response_model=MindMap)
 async def generate_mindmap(req: GenerateMindMapRequest) -> MindMap:
-    """Extract key phrases and build a concept graph.
+    """Extract key concepts and build a mind map using Gemini."""
+    from shared.gemini_client import generate_json
 
-    1. KeyBERT extracts top-N key phrases from the input text
-    2. Build co-occurrence graph: phrases that appear in the same sentence are linked
-    3. NetworkX computes centrality for node sizing
-    4. Return nodes + edges for D3 rendering
-    """
+    max_nodes = min(req.max_nodes, 25)
+    text_snippet = req.text[:4000]
+
+    prompt = f"""Analyze this academic text and extract key concepts for a mind map.
+
+Text: {text_snippet}
+
+Identify the central topic and {max_nodes - 1} related concepts. Group them into a hierarchical structure.
+
+Return JSON:
+{{
+  "central": "main topic or central concept",
+  "concepts": [
+    {{"label": "concept name", "weight": 0.9, "related_to_central": true}},
+    {{"label": "sub-concept", "weight": 0.7, "related_to_central": false, "parent": "concept name"}}
+  ]
+}}
+
+weight: 0.1-1.0 (importance/relevance score)
+Include at most {max_nodes - 1} concepts total."""
+
     try:
-        from keybert import KeyBERT
-    except ImportError:
-        logger.warning("keybert not installed — using fallback extraction")
-        return _fallback_mindmap(req.text, req.max_nodes)
+        data = generate_json(prompt)
+        central = data.get("central", "Main Topic")
+        concepts = data.get("concepts", [])
 
-    try:
-        import networkx as nx
-    except ImportError:
-        logger.warning("networkx not installed")
-        return _fallback_mindmap(req.text, req.max_nodes)
+        nodes: list[MindMapNode] = [
+            MindMapNode(id="node_0", label=central, type="central", weight=1.0)
+        ]
+        edges: list[MindMapEdge] = []
+        label_to_id: dict[str, str] = {"central": "node_0", central: "node_0"}
 
-    # Step 1: Extract key phrases
-    kw_model = KeyBERT()
-    keywords = kw_model.extract_keywords(
-        req.text,
-        keyphrase_ngram_range=(1, 3),
-        stop_words="english",
-        top_n=min(req.max_nodes, 30),
-        use_mmr=True,
-        diversity=0.5,
-    )
+        for i, c in enumerate(concepts[:max_nodes - 1], start=1):
+            node_id = f"node_{i}"
+            label = c.get("label", f"Concept {i}")
+            weight = float(c.get("weight", 0.5))
+            nodes.append(MindMapNode(id=node_id, label=label, type="concept", weight=round(weight, 3)))
+            label_to_id[label] = node_id
 
-    if not keywords:
-        return MindMap(nodes=[], edges=[])
+            parent_label = c.get("parent")
+            if parent_label and parent_label in label_to_id:
+                edges.append(MindMapEdge(source=label_to_id[parent_label], target=node_id, weight=weight))
+            else:
+                edges.append(MindMapEdge(source="node_0", target=node_id, weight=weight))
 
-    # Step 2: Build co-occurrence graph
-    import re
-    sentences = re.split(r"(?<=[.!?])\s+", req.text)
-    phrase_list = [kw for kw, _ in keywords]
+        return MindMap(nodes=nodes, edges=edges)
 
-    G = nx.Graph()
-    for phrase, score in keywords:
-        G.add_node(phrase, weight=score)
-
-    # Link phrases co-occurring in the same sentence
-    for sent in sentences:
-        sent_lower = sent.lower()
-        present = [p for p in phrase_list if p.lower() in sent_lower]
-        for i in range(len(present)):
-            for j in range(i + 1, len(present)):
-                if G.has_edge(present[i], present[j]):
-                    G[present[i]][present[j]]["weight"] += 0.1
-                else:
-                    G.add_edge(present[i], present[j], weight=0.5)
-
-    # Add edges from highest-score keyword to all others (central topic)
-    central = phrase_list[0]
-    for phrase in phrase_list[1:]:
-        if not G.has_edge(central, phrase):
-            G.add_edge(central, phrase, weight=0.3)
-
-    # Step 3: Compute centrality for node sizing
-    try:
-        centrality = nx.degree_centrality(G)
-    except Exception:
-        centrality = {n: 1.0 for n in G.nodes()}
-
-    # Build response
-    nodes = []
-    for i, (phrase, score) in enumerate(keywords):
-        node_type = "central" if i == 0 else "concept"
-        nodes.append(MindMapNode(
-            id=f"node_{i}",
-            label=phrase,
-            type=node_type,
-            weight=round(score * (1 + centrality.get(phrase, 0)), 3),
-        ))
-
-    phrase_to_id = {phrase: f"node_{i}" for i, (phrase, _) in enumerate(keywords)}
-    edges = []
-    for u, v, data in G.edges(data=True):
-        if u in phrase_to_id and v in phrase_to_id:
-            edges.append(MindMapEdge(
-                source=phrase_to_id[u],
-                target=phrase_to_id[v],
-                weight=round(data.get("weight", 0.5), 3),
-            ))
-
-    return MindMap(nodes=nodes, edges=edges)
+    except Exception as e:
+        logger.error("Gemini mindmap generation failed: %s", e)
+        return _fallback_mindmap(req.text, max_nodes)
 
 
 def _fallback_mindmap(text: str, max_nodes: int) -> MindMap:
-    """Simple TF-based extraction when KeyBERT is unavailable."""
     import re
     from collections import Counter
 

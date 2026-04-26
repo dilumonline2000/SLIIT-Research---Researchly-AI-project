@@ -23,7 +23,7 @@ except ImportError:
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .routers import upload, chat, training, language
+from .routers import upload, chat, training, language, local_inference
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -52,6 +52,7 @@ app.include_router(upload.router, prefix="/papers", tags=["papers"])
 app.include_router(chat.router, prefix="/chat", tags=["chat"])
 app.include_router(language.router, prefix="/language", tags=["language"])
 app.include_router(training.router, prefix="/training", tags=["training"])
+app.include_router(local_inference.router, prefix="/local", tags=["local-inference"])
 
 
 @app.on_event("startup")

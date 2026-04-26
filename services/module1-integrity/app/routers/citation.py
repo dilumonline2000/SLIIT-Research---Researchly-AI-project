@@ -1,27 +1,25 @@
-"""Citation parsing + formatting endpoints (NER → APA/IEEE)."""
+"""Citation parsing + formatting endpoints — powered by Gemini."""
 
 from __future__ import annotations
 
 import logging
 import re
+import sys
+import os
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
-from ..models.citation_ner import CitationNERModel
-
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
-# Lazy-loaded singleton
-_ner_model: CitationNERModel | None = None
+_services_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
+sys.path.insert(0, _services_root)
 
 
-def _get_ner() -> CitationNERModel:
-    global _ner_model
-    if _ner_model is None:
-        _ner_model = CitationNERModel()
-    return _ner_model
+def _get_gemini():
+    from shared.gemini_client import generate_json
+    return generate_json
 
 
 class ParseCitationRequest(BaseModel):
@@ -45,49 +43,7 @@ class ParseCitationResponse(BaseModel):
     confidence: float
 
 
-def _entities_to_parsed(entities: list[dict]) -> ParsedCitation:
-    """Convert NER entity list into ParsedCitation."""
-    authors: list[str] = []
-    title = ""
-    journal = None
-    year = None
-    volume = None
-    pages = None
-    doi = None
-
-    for ent in entities:
-        label = ent["label"]
-        text = ent["text"].strip()
-        if label == "AUTHOR":
-            # Split compound author strings
-            for a in re.split(r"\s+and\s+|,\s*(?=[A-Z])", text):
-                a = a.strip().rstrip(",")
-                if a:
-                    authors.append(a)
-        elif label == "TITLE":
-            title = text.rstrip(".")
-        elif label == "JOURNAL":
-            journal = text
-        elif label == "YEAR":
-            try:
-                year = int(re.search(r"\d{4}", text).group())
-            except (AttributeError, ValueError):
-                pass
-        elif label == "VOLUME":
-            volume = text
-        elif label == "PAGES":
-            pages = text
-        elif label == "DOI":
-            doi = text
-
-    return ParsedCitation(
-        authors=authors, title=title, journal=journal,
-        year=year, volume=volume, pages=pages, doi=doi,
-    )
-
-
 def _format_apa(p: ParsedCitation) -> str:
-    """Format parsed citation as APA 7th edition."""
     parts = []
     if p.authors:
         parts.append(", ".join(p.authors))
@@ -109,10 +65,8 @@ def _format_apa(p: ParsedCitation) -> str:
 
 
 def _format_ieee(p: ParsedCitation) -> str:
-    """Format parsed citation as IEEE style."""
     parts = []
     if p.authors:
-        # IEEE uses initials first: J. Smith
         parts.append(", ".join(p.authors) + ",")
     if p.title:
         parts.append(f'"{p.title},"')
@@ -131,23 +85,45 @@ def _format_ieee(p: ParsedCitation) -> str:
 
 @router.post("/parse", response_model=ParseCitationResponse)
 async def parse_citation(req: ParseCitationRequest) -> ParseCitationResponse:
-    """Parse a raw citation string into structured entities using spaCy NER."""
     if not req.raw_text.strip():
         raise HTTPException(status_code=400, detail="raw_text cannot be empty")
 
-    ner = _get_ner()
-    entities = ner.extract_entities(req.raw_text)
+    prompt = f"""Parse this academic citation into structured fields.
 
-    parsed = _entities_to_parsed(entities)
+Citation: {req.raw_text}
 
-    # If NER returned nothing, try regex fallback
-    if not parsed.authors and not parsed.title:
+Return JSON with exactly these fields:
+{{
+  "authors": ["Author Name 1", "Author Name 2"],
+  "title": "Paper title here",
+  "journal": "Journal name or null",
+  "year": 2023,
+  "volume": "volume number or null",
+  "pages": "page range or null",
+  "doi": "doi string or null"
+}}
+
+If a field is not present, use null for objects and empty array for authors."""
+
+    try:
+        generate_json = _get_gemini()
+        data = generate_json(prompt)
+        parsed = ParsedCitation(
+            authors=data.get("authors") or [],
+            title=data.get("title") or "",
+            journal=data.get("journal"),
+            year=data.get("year"),
+            volume=str(data["volume"]) if data.get("volume") else None,
+            pages=str(data["pages"]) if data.get("pages") else None,
+            doi=data.get("doi"),
+        )
+    except Exception as e:
+        logger.error("Gemini citation parse failed: %s", e)
         parsed = _regex_fallback(req.raw_text)
 
-    # Confidence based on how many fields were extracted
     filled = sum([
         bool(parsed.authors), bool(parsed.title), bool(parsed.journal),
-        parsed.year is not None, bool(parsed.volume), bool(parsed.pages), bool(parsed.doi),
+        parsed.year is not None, bool(parsed.doi),
     ])
     confidence = min(filled / 5.0, 1.0)
 
@@ -160,23 +136,19 @@ async def parse_citation(req: ParseCitationRequest) -> ParseCitationResponse:
 
 
 def _regex_fallback(text: str) -> ParsedCitation:
-    """Basic regex extraction when NER has no trained weights."""
     authors: list[str] = []
     title = ""
     year = None
     doi = None
 
-    # Year
     year_match = re.search(r"\((\d{4})\)", text)
     if year_match:
         year = int(year_match.group(1))
 
-    # DOI
     doi_match = re.search(r"(10\.\d{4,}[^\s]+)", text)
     if doi_match:
         doi = doi_match.group(1)
 
-    # Authors: text before first (year) or first period
     if year_match:
         author_chunk = text[:year_match.start()].strip().rstrip(".(")
     else:
@@ -187,7 +159,6 @@ def _regex_fallback(text: str) -> ParsedCitation:
             if a and len(a) > 2:
                 authors.append(a)
 
-    # Title: text between year and next period/journal
     if year_match:
         rest = text[year_match.end():].strip().lstrip(")., ")
         title_match = re.match(r"(.+?)\.", rest)
@@ -204,7 +175,6 @@ class FormatRequest(BaseModel):
 
 @router.post("/format")
 async def format_citation(req: FormatRequest) -> dict:
-    """Format parsed entities into APA or IEEE."""
     if req.style == "apa":
         formatted = _format_apa(req.parsed)
     else:

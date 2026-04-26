@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Sidebar } from "@/components/shared/Sidebar";
 import { Navbar } from "@/components/shared/Navbar";
+import { DashboardClientInit } from "@/components/shared/DashboardClientInit";
 
 export default async function DashboardLayout({
   children,
@@ -22,7 +23,9 @@ export default async function DashboardLayout({
       <Sidebar />
       <div className="flex flex-1 flex-col overflow-hidden">
         <Navbar />
-        <main className="flex-1 overflow-y-auto bg-muted/20 p-6">{children}</main>
+        <DashboardClientInit>
+          <main className="flex-1 overflow-y-auto bg-muted/20 p-6">{children}</main>
+        </DashboardClientInit>
       </div>
     </div>
   );

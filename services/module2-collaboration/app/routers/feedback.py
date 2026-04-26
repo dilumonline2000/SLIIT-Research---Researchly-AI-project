@@ -1,25 +1,19 @@
-"""Aspect-based sentiment analysis for academic feedback."""
+"""Aspect-based sentiment analysis for academic feedback — powered by Gemini."""
 
 from __future__ import annotations
 
 import logging
+import sys
+import os
 
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
 
-from ..models.sentiment import AspectSentimentModel
-
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
-_sentiment_model: AspectSentimentModel | None = None
-
-
-def _get_model() -> AspectSentimentModel:
-    global _sentiment_model
-    if _sentiment_model is None:
-        _sentiment_model = AspectSentimentModel()
-    return _sentiment_model
+_services_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
+sys.path.insert(0, _services_root)
 
 
 class AnalyzeFeedbackRequest(BaseModel):
@@ -42,19 +36,61 @@ class AnalyzeFeedbackResponse(BaseModel):
 
 @router.post("/analyze", response_model=AnalyzeFeedbackResponse)
 async def analyze_feedback(req: AnalyzeFeedbackRequest) -> AnalyzeFeedbackResponse:
-    """Run aspect-based BERT sentiment classifier.
+    """Analyze academic feedback sentiment across 4 aspects using Gemini."""
+    from shared.gemini_client import generate_json
 
-    1. Feed feedback text through the 4-head BERT model
-    2. Get per-aspect sentiment probabilities
-    3. Pick the dominant class per aspect
-    4. Aggregate into overall sentiment
-    """
-    model = _get_model()
+    prompt = f"""Analyze this academic research feedback for sentiment across four aspects.
+
+Feedback: {req.feedback_text}
+
+For each aspect, determine the sentiment: "positive", "neutral", or "negative".
+Also provide a probability score for each sentiment (must sum to 1.0 per aspect).
+
+Return JSON:
+{{
+  "methodology": {{"sentiment": "positive", "positive": 0.8, "neutral": 0.15, "negative": 0.05}},
+  "writing": {{"sentiment": "neutral", "positive": 0.3, "neutral": 0.5, "negative": 0.2}},
+  "originality": {{"sentiment": "positive", "positive": 0.7, "neutral": 0.2, "negative": 0.1}},
+  "data_analysis": {{"sentiment": "negative", "positive": 0.1, "neutral": 0.2, "negative": 0.7}},
+  "overall_sentiment": "positive",
+  "overall_score": 0.4
+}}
+
+overall_score: -1.0 (very negative) to 1.0 (very positive)"""
 
     try:
-        results = model.analyze(req.feedback_text)
+        data = generate_json(prompt)
+
+        SCORE_MAP = {"positive": 1.0, "neutral": 0.0, "negative": -1.0}
+        aspect_labels = {}
+        aspect_probs = {}
+
+        for aspect in ["methodology", "writing", "originality", "data_analysis"]:
+            aspect_data = data.get(aspect, {})
+            sentiment = aspect_data.get("sentiment", "neutral")
+            aspect_labels[aspect] = sentiment
+            aspect_probs[aspect] = {
+                "positive": float(aspect_data.get("positive", 0.33)),
+                "neutral": float(aspect_data.get("neutral", 0.34)),
+                "negative": float(aspect_data.get("negative", 0.33)),
+            }
+
+        scores = [SCORE_MAP.get(s, 0.0) for s in aspect_labels.values()]
+        avg_score = sum(scores) / max(len(scores), 1)
+
+        overall = data.get("overall_sentiment", "neutral")
+        if overall not in ("positive", "neutral", "negative"):
+            overall = "positive" if avg_score > 0.3 else ("negative" if avg_score < -0.3 else "neutral")
+
+        return AnalyzeFeedbackResponse(
+            overall_sentiment=overall,
+            overall_score=round(float(data.get("overall_score", avg_score)), 3),
+            aspects=AspectSentiment(**aspect_labels),
+            aspect_probabilities=aspect_probs,
+        )
+
     except Exception as e:
-        logger.error("Sentiment analysis failed: %s", e)
+        logger.error("Gemini feedback analysis failed: %s", e)
         return AnalyzeFeedbackResponse(
             overall_sentiment="neutral",
             overall_score=0.0,
@@ -63,29 +99,3 @@ async def analyze_feedback(req: AnalyzeFeedbackRequest) -> AnalyzeFeedbackRespon
                 originality="neutral", data_analysis="neutral",
             ),
         )
-
-    # Pick dominant class per aspect
-    aspect_labels = {}
-    sentiment_scores = []
-    SCORE_MAP = {"positive": 1.0, "neutral": 0.0, "negative": -1.0}
-
-    for aspect, probs in results.items():
-        dominant = max(probs, key=probs.get)
-        aspect_labels[aspect] = dominant
-        sentiment_scores.append(SCORE_MAP.get(dominant, 0.0))
-
-    # Overall sentiment
-    avg_score = sum(sentiment_scores) / max(len(sentiment_scores), 1)
-    if avg_score > 0.3:
-        overall = "positive"
-    elif avg_score < -0.3:
-        overall = "negative"
-    else:
-        overall = "neutral"
-
-    return AnalyzeFeedbackResponse(
-        overall_sentiment=overall,
-        overall_score=round(avg_score, 3),
-        aspects=AspectSentiment(**aspect_labels),
-        aspect_probabilities=results,
-    )

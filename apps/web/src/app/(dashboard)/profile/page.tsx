@@ -33,10 +33,11 @@ export default function ProfilePage() {
 
       const { data } = await supabase.from("profiles").select("*").eq("id", user.id).single();
       if (data) {
-        setProfile(data as Profile);
-        setFullName(data.full_name || "");
-        setDepartment(data.department || "");
-        setInterests((data.research_interests || []).join(", "));
+        const profileData = data as any;
+        setProfile(profileData);
+        setFullName(profileData?.full_name || "");
+        setDepartment(profileData?.department || "");
+        setInterests((profileData?.research_interests || []).join(", "));
       }
       setLoading(false);
     };
@@ -48,7 +49,7 @@ export default function ProfilePage() {
     setSaving(true);
     setMessage("");
     const supabase = createClient();
-    const { error } = await supabase.from("profiles").update({
+    const { error } = await (supabase.from("profiles") as any).update({
       full_name: fullName,
       department,
       research_interests: interests.split(",").map(s => s.trim()).filter(Boolean),
