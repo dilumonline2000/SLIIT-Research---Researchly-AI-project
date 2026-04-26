@@ -1,0 +1,17 @@
+{
+  "model": "citation-ner",
+  "base": "en_core_web_trf",
+  "entities": [
+    "AUTHOR",
+    "TITLE",
+    "JOURNAL",
+    "YEAR",
+    "VOLUME",
+    "PAGES",
+    "DOI"
+  ],
+  "best_f1": 0.9945292254534984,
+  "epochs_trained": 15,
+  "train_size": 3290,
+  "val_size": 581
+}

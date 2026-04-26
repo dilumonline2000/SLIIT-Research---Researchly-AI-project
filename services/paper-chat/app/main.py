@@ -24,6 +24,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .routers import upload, chat, training, language, local_inference
+from .services.model_loader import load_all_trained_models
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -58,3 +59,5 @@ app.include_router(local_inference.router, prefix="/local", tags=["local-inferen
 @app.on_event("startup")
 async def startup() -> None:
     logger.info("paper-chat service starting up")
+    # Load any trained local models (Citation NER, SBERT, etc.)
+    load_all_trained_models()

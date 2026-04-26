@@ -139,10 +139,13 @@ def train_ner(
     data_dir = Path("ml/data/processed/citations")
     if data_dir.exists():
         for json_file in data_dir.glob("*.json"):
-            with open(json_file, "r") as f:
+            # Skip non-NER format files
+            if "ner_train" not in json_file.name:
+                continue
+            with open(json_file, "r", encoding="utf-8") as f:
                 extra = json.load(f)
             if isinstance(extra, list):
-                raw_data.extend([(e["text"], {"entities": e["entities"]}) for e in extra])
+                raw_data.extend([(e["text"], {"entities": e["entities"]}) for e in extra if "entities" in e])
         logger.info("Total training data after loading files: %d", len(raw_data))
 
     # Split data
