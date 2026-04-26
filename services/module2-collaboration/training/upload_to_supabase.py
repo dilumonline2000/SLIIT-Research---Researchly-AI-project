@@ -5,8 +5,8 @@ Run:
     python training/upload_to_supabase.py
 
 Requires .env with:
-    SUPABASE_URL=https://ecnourpfvuljdlmddfdq.supabase.co
-    SUPABASE_SERVICE_ROLE_KEY=sb_secret_F5ZQEa1zIykd2ppC3t8p5Q_WoNPYIyx
+    SUPABASE_URL=https://your-supabase-project.supabase.co
+    SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 """
 
 import json

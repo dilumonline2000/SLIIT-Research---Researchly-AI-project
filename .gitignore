@@ -64,6 +64,11 @@ ml/checkpoints/
 *.h5
 *.onnx
 
+# Trained ML models (service-specific)
+services/**/models/**/*.safetensors
+services/**/models/**/*.bin
+services/**/models/**/*.pt
+
 # Jupyter
 .ipynb_checkpoints/
 
