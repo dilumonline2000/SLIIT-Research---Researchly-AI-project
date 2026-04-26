@@ -1,0 +1,303 @@
+{
+  "metrics": {
+    "accuracy": 0.9456,
+    "precision": 0.9407,
+    "recall": 1.0,
+    "f1_score": 0.9695,
+    "threshold": 0.6,
+    "target_f1": 0.75,
+    "target_met": true
+  },
+  "confusion_matrix": [
+    [
+      12,
+      8
+    ],
+    [
+      0,
+      127
+    ]
+  ],
+  "qualitative": [
+    {
+      "query": "I want to research natural language processing and build a text classification system using BERT.",
+      "top5": [
+        {
+          "id": 56,
+          "name": "Samadhi Rathnayake",
+          "department": "DS",
+          "interests": "Machine Learning, Deep Learning, Data Science",
+          "similarity": 0.9587
+        },
+        {
+          "id": 2,
+          "name": "Samantha Thelijjagoda",
+          "department": "ISE",
+          "interests": "Computational Models of Human Language, NLP, Human Language Technology",
+          "similarity": 0.9538
+        },
+        {
+          "id": 33,
+          "name": "Sanjeevi Chandrasiri",
+          "department": "IT",
+          "interests": "Medical Image Processing, AI, Neural Networks",
+          "similarity": 0.9532
+        },
+        {
+          "id": 39,
+          "name": "Jenny Krishara",
+          "department": "IT",
+          "interests": "Computational Linguistics, NLP, Machine Learning",
+          "similarity": 0.9456
+        },
+        {
+          "id": 50,
+          "name": "Hansi De Silva",
+          "department": "SE",
+          "interests": "Machine Learning, NLP, Cloud Computing",
+          "similarity": 0.945
+        }
+      ]
+    },
+    {
+      "query": "My project is about IoT-based smart agriculture systems using sensor networks.",
+      "top5": [
+        {
+          "id": 3,
+          "name": "Pradeep Abeygunawardhana",
+          "department": "CSNE",
+          "interests": "Smart Agriculture, Smart Tourism, Robotics for Entertainment",
+          "similarity": 0.9575
+        },
+        {
+          "id": 54,
+          "name": "Vishan Jayasinghearachchi",
+          "department": "SE",
+          "interests": "IoT, Edge Computing, Wireless Sensor Networks",
+          "similarity": 0.9482
+        },
+        {
+          "id": 16,
+          "name": "Nathali Silva",
+          "department": "IT",
+          "interests": "IoT, Smart Homes, Data Analytics",
+          "similarity": 0.9344
+        },
+        {
+          "id": 36,
+          "name": "Suranjini Silva",
+          "department": "ISE",
+          "interests": "Computer Networks, IoT, Intelligent Systems",
+          "similarity": 0.9302
+        },
+        {
+          "id": 46,
+          "name": "Ravi Supunya",
+          "department": "IT",
+          "interests": "Cloud Computing, Image Processing, IoT",
+          "similarity": 0.9159
+        }
+      ]
+    },
+    {
+      "query": "I am working on deep reinforcement learning for robotics control systems.",
+      "top5": [
+        {
+          "id": 42,
+          "name": "Jeewaka Perera",
+          "department": "CSc",
+          "interests": "Deep Reinforcement Learning, Machine Learning, Neural Network Architectures",
+          "similarity": 0.9406
+        },
+        {
+          "id": 12,
+          "name": "Jeewanee Bamunusinghe",
+          "department": "CSc",
+          "interests": "Machine Learning, AI, Data Analytics",
+          "similarity": 0.8972
+        },
+        {
+          "id": 18,
+          "name": "Prasanna Sumathipala",
+          "department": "DS",
+          "interests": "Explainable AI, Text Analytics, Evolutionary Computing",
+          "similarity": 0.886
+        },
+        {
+          "id": 19,
+          "name": "Dinuka Wijendra",
+          "department": "IT",
+          "interests": "Software Engineering, e-Society, Cognitive Computing",
+          "similarity": 0.8628
+        },
+        {
+          "id": 44,
+          "name": "Bhagyani Chathurika",
+          "department": "IT",
+          "interests": "Machine Learning, Deep Learning, Image Processing",
+          "similarity": 0.8611
+        }
+      ]
+    },
+    {
+      "query": "My research involves cyber security and network intrusion detection using ML.",
+      "top5": [
+        {
+          "id": 15,
+          "name": "Harinda Fernando",
+          "department": "CS",
+          "interests": "Cyber Security, Networking, Network Security",
+          "similarity": 0.9495
+        },
+        {
+          "id": 13,
+          "name": "Darshana Kasthurirathna",
+          "department": "CSc",
+          "interests": "Machine Learning, Optimization, Evolutionary Game Theory",
+          "similarity": 0.9294
+        },
+        {
+          "id": 30,
+          "name": "Amila Senarathne",
+          "department": "CS",
+          "interests": "Information Security, Computer Networks, Digital Forensics",
+          "similarity": 0.9277
+        },
+        {
+          "id": 71,
+          "name": "Uditha Dharmakeerthi",
+          "department": "CSNE",
+          "interests": "Computer Networks, Cyber Security",
+          "similarity": 0.9266
+        },
+        {
+          "id": 69,
+          "name": "Deemantha Siriwardana",
+          "department": "CS",
+          "interests": "Cyber Security",
+          "similarity": 0.9257
+        }
+      ]
+    },
+    {
+      "query": "I want to study e-learning platforms and personalized education using AI.",
+      "top5": [
+        {
+          "id": 14,
+          "name": "Kalpani Manathunga",
+          "department": "SE",
+          "interests": "Technology Enhanced Learning, Assistive Technologies, Personalized Learning Platforms",
+          "similarity": 0.964
+        },
+        {
+          "id": 45,
+          "name": "Suriya Kumari",
+          "department": "IT",
+          "interests": "Machine Learning, E-Learning, ICT for Development",
+          "similarity": 0.9632
+        },
+        {
+          "id": 6,
+          "name": "Anuradha Karunasena",
+          "department": "IT",
+          "interests": "Machine Learning, Data Analytics, Business Intelligence",
+          "similarity": 0.9626
+        },
+        {
+          "id": 29,
+          "name": "Uthpala Samarakoon",
+          "department": "IT",
+          "interests": "E-Learning, HCI, Social Science",
+          "similarity": 0.9522
+        },
+        {
+          "id": 19,
+          "name": "Dinuka Wijendra",
+          "department": "IT",
+          "interests": "Software Engineering, e-Society, Cognitive Computing",
+          "similarity": 0.9458
+        }
+      ]
+    },
+    {
+      "query": "My project is about computer vision and medical image analysis using CNNs.",
+      "top5": [
+        {
+          "id": 20,
+          "name": "Lakmini Abeywardhana",
+          "department": "DS",
+          "interests": "Deep Learning, Computer Vision, Computational Biology",
+          "similarity": 0.9694
+        },
+        {
+          "id": 41,
+          "name": "Lokesha Weerasinghe",
+          "department": "IT",
+          "interests": "Computer Vision, Image Processing, Machine Learning",
+          "similarity": 0.9566
+        },
+        {
+          "id": 62,
+          "name": "Thisara Shyamalee",
+          "department": "DS",
+          "interests": "Machine Learning, HCI, Computer Vision",
+          "similarity": 0.9473
+        },
+        {
+          "id": 44,
+          "name": "Bhagyani Chathurika",
+          "department": "IT",
+          "interests": "Machine Learning, Deep Learning, Image Processing",
+          "similarity": 0.9416
+        },
+        {
+          "id": 68,
+          "name": "Dilani Lunugalage",
+          "department": "SE",
+          "interests": "Machine Learning, Computer Vision, Computer Networks",
+          "similarity": 0.93
+        }
+      ]
+    },
+    {
+      "query": "I am researching big data analytics and business intelligence dashboards.",
+      "top5": [
+        {
+          "id": 49,
+          "name": "Thamali Dassanayake",
+          "department": "DS",
+          "interests": "Big Data Management, Business Intelligence, Data Mining",
+          "similarity": 0.9707
+        },
+        {
+          "id": 17,
+          "name": "Sanvitha Kasthuriarachchi",
+          "department": "IT",
+          "interests": "Big Data Analytics, Data Mining, Machine Learning",
+          "similarity": 0.9454
+        },
+        {
+          "id": 48,
+          "name": "Chathurangika Kahandawaarachchi",
+          "department": "ISE",
+          "interests": "Health Informatics, Big Data Management, Business Intelligence",
+          "similarity": 0.9351
+        },
+        {
+          "id": 51,
+          "name": "Narmada Gamage",
+          "department": "ISE",
+          "interests": "Assistive Technology, Machine Learning, Business Analytics",
+          "similarity": 0.9348
+        },
+        {
+          "id": 59,
+          "name": "Ishara Weerathunga",
+          "department": "SE",
+          "interests": "Data Science, Machine Learning, ICT for Development",
+          "similarity": 0.9302
+        }
+      ]
+    }
+  ]
+}

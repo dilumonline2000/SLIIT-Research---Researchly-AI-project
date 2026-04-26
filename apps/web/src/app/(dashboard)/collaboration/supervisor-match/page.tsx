@@ -9,11 +9,18 @@ import { API_ROUTES } from "@/lib/constants";
 import { apiPost } from "@/lib/api";
 
 interface SupervisorMatch {
-  supervisor_id: string;
+  supervisor_id: number;
+  name: string;
+  email: string;
+  department: string;
+  research_cluster: string;
+  research_interests: string[];
   similarity_score: number;
   multi_factor_score: number;
-  match_factors: Record<string, number>;
   explanation: string;
+  availability: boolean;
+  current_students: number;
+  max_students: number;
 }
 
 export default function SupervisorMatchingPage() {
@@ -81,22 +88,50 @@ export default function SupervisorMatchingPage() {
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-xs text-primary-foreground">{i + 1}</span>
-                  Supervisor {m.supervisor_id.slice(0, 8)}...
+                  {m.name}
                   <span className="ml-auto text-sm font-normal text-muted-foreground">
                     Score: {(m.multi_factor_score * 100).toFixed(0)}%
                   </span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
+              <CardContent className="space-y-4">
                 <p className="text-sm">{m.explanation}</p>
-                <div className="flex flex-wrap gap-3 text-sm">
-                  {Object.entries(m.match_factors).map(([key, val]) => (
-                    <div key={key} className="rounded bg-secondary px-2 py-1">
-                      <span className="text-muted-foreground">{key.replace(/_/g, " ")}: </span>
-                      <span className="font-medium">{(val * 100).toFixed(0)}%</span>
-                    </div>
-                  ))}
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Email:</span>
+                    <span className="font-medium">{m.email}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Department:</span>
+                    <span className="font-medium">{m.department}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Cluster:</span>
+                    <span className="font-medium">{m.research_cluster}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Similarity:</span>
+                    <span className="font-medium">{(m.similarity_score * 100).toFixed(1)}%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Availability:</span>
+                    <span className={`font-medium ${m.availability ? "text-green-600" : "text-red-600"}`}>
+                      {m.availability ? `Available (${m.max_students - m.current_students} slots)` : "Not available"}
+                    </span>
+                  </div>
                 </div>
+                {m.research_interests.length > 0 && (
+                  <div className="space-y-2">
+                    <span className="text-sm text-muted-foreground">Research Interests:</span>
+                    <div className="flex flex-wrap gap-2">
+                      {m.research_interests.map((interest) => (
+                        <span key={interest} className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+                          {interest}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </CardContent>
             </Card>
           ))}

@@ -1,0 +1,1769 @@
+[
+  {
+    "id": 1,
+    "rank": "Prof.",
+    "name": "Koliya Pulasinghe",
+    "email": "koliya.p@sliit.lk",
+    "department": "IT",
+    "research_cluster": "CEAI",
+    "specializations": [
+      "IT",
+      "DS"
+    ],
+    "research_interests": [
+      "Speech Recognition",
+      "Natural Language Understanding",
+      "Text-to-Speech",
+      "Dialogue Management",
+      "Speech Impairment Recognition",
+      "Conversational Interfaces"
+    ],
+    "keywords": "NLP speech recognition TTS dialogue AI conversational",
+    "availability": true,
+    "max_students": 5,
+    "current_students": 2,
+    "level": "Professor"
+  },
+  {
+    "id": 2,
+    "rank": "Prof.",
+    "name": "Samantha Thelijjagoda",
+    "email": "samantha.t@sliit.lk",
+    "department": "ISE",
+    "research_cluster": "CEAI,TIM",
+    "specializations": [
+      "IT",
+      "ISE",
+      "DS",
+      "CSc"
+    ],
+    "research_interests": [
+      "Computational Models of Human Language",
+      "NLP",
+      "Human Language Technology",
+      "Machine Translation",
+      "Information Extraction",
+      "Speech Recognition",
+      "Spoken Language Systems",
+      "Digital Linguistics",
+      "Corpus Linguistics"
+    ],
+    "keywords": "NLP machine translation speech language processing linguistics",
+    "availability": false,
+    "max_students": 0,
+    "current_students": 0,
+    "level": "Professor",
+    "note": "Overseas"
+  },
+  {
+    "id": 3,
+    "rank": "Prof.",
+    "name": "Pradeep Abeygunawardhana",
+    "email": "pradeep.a@sliit.lk",
+    "department": "CSNE",
+    "research_cluster": "AMIS,CI",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE",
+      "CSNE",
+      "CSE"
+    ],
+    "research_interests": [
+      "Smart Agriculture",
+      "Smart Tourism",
+      "Robotics for Entertainment",
+      "IoT Smart Systems",
+      "Emergency Response IoT",
+      "Algorithm Development"
+    ],
+    "keywords": "IoT smart systems robotics agriculture algorithm",
+    "availability": true,
+    "max_students": 5,
+    "current_students": 2,
+    "level": "Professor"
+  },
+  {
+    "id": 4,
+    "rank": "Prof.",
+    "name": "Nuwan Kodagoda",
+    "email": "nuwan.k@sliit.lk",
+    "department": "SE",
+    "research_cluster": "CEAI,SST",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE",
+      "CSNE",
+      "CSE",
+      "DS"
+    ],
+    "research_interests": [
+      "GenAI Applications to Education",
+      "GenAI in Finance",
+      "Generative AI",
+      "Large Language Models"
+    ],
+    "keywords": "generative AI LLM education finance applications",
+    "availability": true,
+    "max_students": 5,
+    "current_students": 3,
+    "level": "Professor"
+  },
+  {
+    "id": 5,
+    "rank": "Prof.",
+    "name": "Dasuni Nawinna",
+    "email": "dasuni.n@sliit.lk",
+    "department": "ISE",
+    "research_cluster": "TIM,SST,CEAI",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE"
+    ],
+    "research_interests": [
+      "Technology Enhanced Learning",
+      "BPM",
+      "Social Network Analysis",
+      "Requirements Engineering",
+      "Social Capital"
+    ],
+    "keywords": "e-learning BPM requirements engineering social networks",
+    "availability": true,
+    "max_students": 4,
+    "current_students": 2,
+    "level": "Professor"
+  },
+  {
+    "id": 6,
+    "rank": "Prof.",
+    "name": "Anuradha Karunasena",
+    "email": "anuradha.k@sliit.lk",
+    "department": "IT",
+    "research_cluster": "TIM,CEAI",
+    "specializations": [
+      "IT",
+      "ISE",
+      "DS",
+      "CSc"
+    ],
+    "research_interests": [
+      "Machine Learning",
+      "Data Analytics",
+      "Business Intelligence",
+      "Innovative Teaching Methods",
+      "Education Technology"
+    ],
+    "keywords": "machine learning data analytics BI education technology",
+    "availability": true,
+    "max_students": 4,
+    "current_students": 2,
+    "level": "Professor"
+  },
+  {
+    "id": 7,
+    "rank": "Prof.",
+    "name": "Anuradha Jayakody",
+    "email": "anuradha.j@sliit.lk",
+    "department": "CSE",
+    "research_cluster": "CI,IAS,AIMS",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE",
+      "CSE"
+    ],
+    "research_interests": [
+      "Indoor Navigation",
+      "Assistive Technology",
+      "Hydroponics",
+      "MANET",
+      "Information Security",
+      "IoT",
+      "Machine Learning",
+      "AI"
+    ],
+    "keywords": "IoT assistive technology indoor navigation security AI ML",
+    "availability": true,
+    "max_students": 5,
+    "current_students": 2,
+    "level": "Professor"
+  },
+  {
+    "id": 8,
+    "rank": "Prof.",
+    "name": "Samantha Rajapaksha",
+    "email": "samantha.r@sliit.lk",
+    "department": "CSc",
+    "research_cluster": "CEAI",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE",
+      "CSE"
+    ],
+    "research_interests": [
+      "Semantic Web",
+      "Robotic Middleware",
+      "IoT",
+      "Algorithms related to OS"
+    ],
+    "keywords": "semantic web robotics IoT operating systems algorithms",
+    "availability": true,
+    "max_students": 4,
+    "current_students": 2,
+    "level": "Professor"
+  },
+  {
+    "id": 9,
+    "rank": "Prof.",
+    "name": "Dilshan De Silva",
+    "email": "dilshan.i@sliit.lk",
+    "department": "SE",
+    "research_cluster": "SST",
+    "specializations": [
+      "IT",
+      "SE"
+    ],
+    "research_interests": [
+      "Software Metrics",
+      "Software Complexity",
+      "Machine Translation",
+      "AR",
+      "VR",
+      "Mobile Development",
+      "Computer Linguistics"
+    ],
+    "keywords": "software metrics AR VR mobile development machine translation",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Professor"
+  },
+  {
+    "id": 10,
+    "rank": "Dr.",
+    "name": "Malitha Wijesundara",
+    "email": "malitha.w@sliit.lk",
+    "department": "CSNE",
+    "research_cluster": "CI,CEAI",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE"
+    ],
+    "research_interests": [
+      "Education Technology"
+    ],
+    "keywords": "education technology e-learning",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Doctor",
+    "note": "FoHS"
+  },
+  {
+    "id": 11,
+    "rank": "Dr.",
+    "name": "Jayantha Amararachchi",
+    "email": "jayantha.a@sliit.lk",
+    "department": "IT",
+    "research_cluster": "CEAI",
+    "specializations": [
+      "IT"
+    ],
+    "research_interests": [
+      "Intelligent Knowledge Management Systems",
+      "Parallel and Distributed Computing",
+      "AI",
+      "Expert Systems"
+    ],
+    "keywords": "knowledge management distributed computing AI expert systems",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Doctor"
+  },
+  {
+    "id": 12,
+    "rank": "Dr.",
+    "name": "Jeewanee Bamunusinghe",
+    "email": "jeewanee.b@sliit.lk",
+    "department": "CSc",
+    "research_cluster": "CEAI",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE",
+      "CSc"
+    ],
+    "research_interests": [
+      "Machine Learning",
+      "AI",
+      "Data Analytics"
+    ],
+    "keywords": "machine learning AI data analytics deep learning",
+    "availability": true,
+    "max_students": 4,
+    "current_students": 2,
+    "level": "Doctor",
+    "note": "HoD/CSc"
+  },
+  {
+    "id": 13,
+    "rank": "Dr.",
+    "name": "Darshana Kasthurirathna",
+    "email": "dharshana.k@sliit.lk",
+    "department": "CSc",
+    "research_cluster": "CEAI,TIM",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE",
+      "CSc"
+    ],
+    "research_interests": [
+      "Machine Learning",
+      "Optimization",
+      "Evolutionary Game Theory",
+      "Network Science",
+      "Distributed Systems",
+      "Software Security"
+    ],
+    "keywords": "machine learning optimization network science distributed systems security",
+    "availability": true,
+    "max_students": 4,
+    "current_students": 2,
+    "level": "Doctor"
+  },
+  {
+    "id": 14,
+    "rank": "Dr.",
+    "name": "Kalpani Manathunga",
+    "email": "kalpani.m@sliit.lk",
+    "department": "SE",
+    "research_cluster": "SST,TIM",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE",
+      "CSNE",
+      "CSc"
+    ],
+    "research_interests": [
+      "Technology Enhanced Learning",
+      "Assistive Technologies",
+      "Personalized Learning Platforms",
+      "Recommender Systems",
+      "Learning Analytics",
+      "Educational Data Mining",
+      "Educational Psychology",
+      "HCI"
+    ],
+    "keywords": "e-learning assistive technology recommender systems HCI learning analytics",
+    "availability": true,
+    "max_students": 5,
+    "current_students": 3,
+    "level": "Doctor",
+    "note": "HoD/SE"
+  },
+  {
+    "id": 15,
+    "rank": "Dr.",
+    "name": "Harinda Fernando",
+    "email": "harinda.f@sliit.lk",
+    "department": "CS",
+    "research_cluster": "IAS,CEAI",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE",
+      "CSc"
+    ],
+    "research_interests": [
+      "Cyber Security",
+      "Networking",
+      "Network Security",
+      "Machine Learning",
+      "Cloud Computing",
+      "IoT"
+    ],
+    "keywords": "cyber security networking cloud computing IoT machine learning",
+    "availability": true,
+    "max_students": 4,
+    "current_students": 2,
+    "level": "Doctor"
+  },
+  {
+    "id": 16,
+    "rank": "Dr.",
+    "name": "Nathali Silva",
+    "email": "nathali.s@sliit.lk",
+    "department": "IT",
+    "research_cluster": "CEAI",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE",
+      "CSc"
+    ],
+    "research_interests": [
+      "IoT",
+      "Smart Homes",
+      "Data Analytics",
+      "Deep Learning"
+    ],
+    "keywords": "IoT smart homes data analytics deep learning",
+    "availability": true,
+    "max_students": 4,
+    "current_students": 2,
+    "level": "Doctor"
+  },
+  {
+    "id": 17,
+    "rank": "Dr.",
+    "name": "Sanvitha Kasthuriarachchi",
+    "email": "sanvitha.k@sliit.lk",
+    "department": "IT",
+    "research_cluster": "CEAI",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE"
+    ],
+    "research_interests": [
+      "Big Data Analytics",
+      "Data Mining",
+      "Machine Learning",
+      "Education Technology"
+    ],
+    "keywords": "big data data mining machine learning education",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Doctor"
+  },
+  {
+    "id": 18,
+    "rank": "Dr.",
+    "name": "Prasanna Sumathipala",
+    "email": "prasanna.s@sliit.lk",
+    "department": "DS",
+    "research_cluster": "CEAI",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE",
+      "CSc"
+    ],
+    "research_interests": [
+      "Explainable AI",
+      "Text Analytics",
+      "Evolutionary Computing",
+      "Neuro Computing"
+    ],
+    "keywords": "explainable AI text analytics evolutionary computing neural networks",
+    "availability": true,
+    "max_students": 4,
+    "current_students": 2,
+    "level": "Doctor"
+  },
+  {
+    "id": 19,
+    "rank": "Dr.",
+    "name": "Dinuka Wijendra",
+    "email": "dinuka.w@sliit.lk",
+    "department": "IT",
+    "research_cluster": "SST",
+    "specializations": [
+      "IT",
+      "SE",
+      "CSc"
+    ],
+    "research_interests": [
+      "Software Engineering",
+      "e-Society",
+      "Cognitive Computing",
+      "e-Learning",
+      "Machine Learning",
+      "AI"
+    ],
+    "keywords": "software engineering cognitive computing e-learning machine learning",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Doctor"
+  },
+  {
+    "id": 20,
+    "rank": "Dr.",
+    "name": "Lakmini Abeywardhana",
+    "email": "lakmini.d@sliit.lk",
+    "department": "DS",
+    "research_cluster": "CEAI",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE",
+      "CSc"
+    ],
+    "research_interests": [
+      "Deep Learning",
+      "Computer Vision",
+      "Computational Biology",
+      "Analysis and Modeling"
+    ],
+    "keywords": "deep learning computer vision computational biology image analysis",
+    "availability": true,
+    "max_students": 4,
+    "current_students": 2,
+    "level": "Doctor"
+  },
+  {
+    "id": 21,
+    "rank": "Dr.",
+    "name": "Kapila Dissanayake",
+    "email": "kapila.d@sliit.lk",
+    "department": "CSc",
+    "research_cluster": "AIMS,CEAI",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE",
+      "CSc"
+    ],
+    "research_interests": [
+      "Speech Recognition",
+      "Speech Synthesis",
+      "Audio Restoration",
+      "Networking",
+      "IoT"
+    ],
+    "keywords": "speech recognition synthesis audio processing networking IoT",
+    "availability": true,
+    "max_students": 4,
+    "current_students": 2,
+    "level": "Doctor"
+  },
+  {
+    "id": 22,
+    "rank": "Dr.",
+    "name": "Nimal Ratnayake",
+    "email": "nimal.r@sliit.lk",
+    "department": "CSNE",
+    "research_cluster": "CI",
+    "specializations": [
+      "IT",
+      "SE"
+    ],
+    "research_interests": [
+      "AI",
+      "Blockchain Technology"
+    ],
+    "keywords": "AI blockchain distributed ledger",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Doctor"
+  },
+  {
+    "id": 23,
+    "rank": "Dr.",
+    "name": "Junius Anjana",
+    "email": "junius.a@sliit.lk",
+    "department": "IT",
+    "research_cluster": "CEAI,TIM",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE"
+    ],
+    "research_interests": [
+      "Deep Learning",
+      "Education Technology",
+      "Emotion Recognition",
+      "Affective Computing",
+      "Experimental Psychology",
+      "NLP",
+      "Neurocomputing"
+    ],
+    "keywords": "deep learning emotion recognition NLP affective computing education",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Doctor"
+  },
+  {
+    "id": 24,
+    "rank": "Dr.",
+    "name": "Mahima Weerasinghe",
+    "email": "mahima.w@sliit.lk",
+    "department": "CSc",
+    "research_cluster": "CEAI",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE"
+    ],
+    "research_interests": [
+      "AI",
+      "Spiking Neural Networks",
+      "Computational Neuroscience"
+    ],
+    "keywords": "AI spiking neural networks computational neuroscience",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Doctor"
+  },
+  {
+    "id": 25,
+    "rank": "Mr.",
+    "name": "Jagath Wickramarathne",
+    "email": "jagath.w@sliit.lk",
+    "department": "SE",
+    "research_cluster": "SST",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE",
+      "CSc"
+    ],
+    "research_interests": [
+      "Human Computer Interaction"
+    ],
+    "keywords": "HCI human computer interaction UX usability",
+    "availability": true,
+    "max_students": 4,
+    "current_students": 2,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 26,
+    "rank": "Ms.",
+    "name": "Anjalie Gamage",
+    "email": "anjalie.g@sliit.lk",
+    "department": "IT",
+    "research_cluster": "CEAI,SST",
+    "specializations": [
+      "IT",
+      "SE"
+    ],
+    "research_interests": [
+      "Computational Linguistics",
+      "NLP",
+      "AI",
+      "E-Learning"
+    ],
+    "keywords": "computational linguistics NLP AI e-learning language processing",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 27,
+    "rank": "Mr.",
+    "name": "Dhammika De Silva",
+    "email": "dhammika.d@sliit.lk",
+    "department": "IT",
+    "research_cluster": "CI",
+    "specializations": [
+      "IT",
+      "SE"
+    ],
+    "research_interests": [
+      "Computer Networks",
+      "Network Protocol Development",
+      "Assistive Technology"
+    ],
+    "keywords": "computer networks protocol assistive technology",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 1,
+    "level": "Mr/Ms",
+    "note": "Metro"
+  },
+  {
+    "id": 28,
+    "rank": "Ms.",
+    "name": "Geethanjali Wimalaratne",
+    "email": "geethanjali.w@sliit.lk",
+    "department": "IT",
+    "research_cluster": "SST",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE"
+    ],
+    "research_interests": [
+      "Data Visualization",
+      "HCI"
+    ],
+    "keywords": "data visualization HCI user interface design",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Mr/Ms",
+    "note": "Metro"
+  },
+  {
+    "id": 29,
+    "rank": "Ms.",
+    "name": "Uthpala Samarakoon",
+    "email": "uthpala.s@sliit.lk",
+    "department": "IT",
+    "research_cluster": "SST",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE"
+    ],
+    "research_interests": [
+      "E-Learning",
+      "HCI",
+      "Social Science",
+      "IT Education",
+      "Knowledge Management"
+    ],
+    "keywords": "e-learning HCI social science knowledge management education",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 30,
+    "rank": "Mr.",
+    "name": "Amila Senarathne",
+    "email": "amila.n@sliit.lk",
+    "department": "CS",
+    "research_cluster": "IAS",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE"
+    ],
+    "research_interests": [
+      "Information Security",
+      "Computer Networks",
+      "Digital Forensics",
+      "IoT"
+    ],
+    "keywords": "information security networks digital forensics IoT",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 31,
+    "rank": "Mr.",
+    "name": "Nelum Amarasena",
+    "email": "nelum.a@sliit.lk",
+    "department": "IT",
+    "research_cluster": "AIMS,CEAI",
+    "specializations": [
+      "IT",
+      "SE"
+    ],
+    "research_interests": [
+      "Keystroke Dynamics",
+      "Software Engineering"
+    ],
+    "keywords": "keystroke dynamics software engineering biometrics",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 32,
+    "rank": "Ms.",
+    "name": "Manori Gamage",
+    "email": "manori.g@sliit.lk",
+    "department": "IT",
+    "research_cluster": "CEAI,TIM",
+    "specializations": [
+      "IT",
+      "SE"
+    ],
+    "research_interests": [
+      "E-Learning",
+      "Education Technology",
+      "ICT for Development",
+      "Database Technologies"
+    ],
+    "keywords": "e-learning ICT education database technologies",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 1,
+    "level": "Mr/Ms",
+    "note": "Metro"
+  },
+  {
+    "id": 33,
+    "rank": "Ms.",
+    "name": "Sanjeevi Chandrasiri",
+    "email": "sanji.c@sliit.lk",
+    "department": "IT",
+    "research_cluster": "CEAI",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE"
+    ],
+    "research_interests": [
+      "Medical Image Processing",
+      "AI",
+      "Neural Networks",
+      "NLP",
+      "E-Learning"
+    ],
+    "keywords": "medical image processing AI neural networks NLP e-learning",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 2,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 34,
+    "rank": "Ms.",
+    "name": "Hansika Mahaadikara",
+    "email": "hansika.m@sliit.lk",
+    "department": "CSNE",
+    "research_cluster": "CI",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE"
+    ],
+    "research_interests": [
+      "Social Networks",
+      "Telecommunication",
+      "Cyber Forensics",
+      "IoT Security"
+    ],
+    "keywords": "social networks telecommunication cyber forensics IoT security",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 35,
+    "rank": "Ms.",
+    "name": "Shashika Lokuliyana",
+    "email": "shashika.l@sliit.lk",
+    "department": "CSNE",
+    "research_cluster": "CI",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE"
+    ],
+    "research_interests": [
+      "IoT Smart Technologies",
+      "Cloud Communication",
+      "OpenFlow Router on FPGA",
+      "Network Function Virtualization",
+      "DNS for Future Networks"
+    ],
+    "keywords": "IoT cloud FPGA network virtualization SDN",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 36,
+    "rank": "Ms.",
+    "name": "Suranjini Silva",
+    "email": "suranjini.s@sliit.lk",
+    "department": "ISE",
+    "research_cluster": "CI",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE"
+    ],
+    "research_interests": [
+      "Computer Networks",
+      "IoT",
+      "Intelligent Systems"
+    ],
+    "keywords": "computer networks IoT intelligent systems",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 37,
+    "rank": "Mr.",
+    "name": "Aruna Ishara Gamage",
+    "email": "ishara.g@sliit.lk",
+    "department": "IM",
+    "research_cluster": "MR",
+    "specializations": [
+      "IT",
+      "SE"
+    ],
+    "research_interests": [
+      "Interactive Multimedia",
+      "Entertainment Content",
+      "Computer Animation",
+      "VFX",
+      "Image Processing",
+      "Mixed Reality",
+      "HCI",
+      "Geo-Informatics",
+      "Digital Photography",
+      "Machine Learning"
+    ],
+    "keywords": "multimedia animation VFX mixed reality image processing HCI",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 38,
+    "rank": "Mr.",
+    "name": "Kavinga Abeywardena",
+    "email": "kavinga.y@sliit.lk",
+    "department": "CS",
+    "research_cluster": "IAS",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE",
+      "CSc"
+    ],
+    "research_interests": [
+      "Computer Security",
+      "Enterprise Risk Management",
+      "Privacy Management in Big Data",
+      "Social Engineering",
+      "Cryptography"
+    ],
+    "keywords": "security cryptography privacy big data risk management",
+    "availability": true,
+    "max_students": 4,
+    "current_students": 2,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 39,
+    "rank": "Ms.",
+    "name": "Jenny Krishara",
+    "email": "jenny.k@sliit.lk",
+    "department": "IT",
+    "research_cluster": "CEAI,SST",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE"
+    ],
+    "research_interests": [
+      "Computational Linguistics",
+      "NLP",
+      "Machine Learning",
+      "AI",
+      "Image Processing"
+    ],
+    "keywords": "computational linguistics NLP AI machine learning image processing",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 40,
+    "rank": "Ms.",
+    "name": "Thilini Jayalath",
+    "email": "thilini.j@sliit.lk",
+    "department": "IT",
+    "research_cluster": "CEAI,SST",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE",
+      "CSc"
+    ],
+    "research_interests": [
+      "Software Engineering Complexity Metrics",
+      "ICT for Development",
+      "Machine Learning",
+      "E-Learning",
+      "HCI"
+    ],
+    "keywords": "software metrics ICT machine learning e-learning HCI",
+    "availability": true,
+    "max_students": 4,
+    "current_students": 2,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 41,
+    "rank": "Ms.",
+    "name": "Lokesha Weerasinghe",
+    "email": "lokesha.w@sliit.lk",
+    "department": "IT",
+    "research_cluster": "CEAI",
+    "specializations": [
+      "IT",
+      "SE"
+    ],
+    "research_interests": [
+      "Computer Vision",
+      "Image Processing",
+      "Machine Learning"
+    ],
+    "keywords": "computer vision image processing machine learning",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 42,
+    "rank": "Mr.",
+    "name": "Jeewaka Perera",
+    "email": "jeewaka.p@sliit.lk",
+    "department": "CSc",
+    "research_cluster": "CEAI",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE",
+      "CSc"
+    ],
+    "research_interests": [
+      "Deep Reinforcement Learning",
+      "Machine Learning",
+      "Neural Network Architectures",
+      "Multi-Objective Optimization"
+    ],
+    "keywords": "deep reinforcement learning neural networks optimization ML",
+    "availability": true,
+    "max_students": 4,
+    "current_students": 2,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 43,
+    "rank": "Dr.",
+    "name": "Kaushalya Dissanayake",
+    "email": "kaushalya.di@sliit.lk",
+    "department": "—",
+    "research_cluster": "—",
+    "specializations": [
+      "IT"
+    ],
+    "research_interests": [],
+    "keywords": "",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 0,
+    "level": "Doctor",
+    "note": "Matara"
+  },
+  {
+    "id": 44,
+    "rank": "Ms.",
+    "name": "Bhagyani Chathurika",
+    "email": "bhagyani.c@sliit.lk",
+    "department": "IT",
+    "research_cluster": "CEAI",
+    "specializations": [
+      "IT"
+    ],
+    "research_interests": [
+      "Machine Learning",
+      "Deep Learning",
+      "Image Processing"
+    ],
+    "keywords": "machine learning deep learning image processing",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 0,
+    "level": "Mr/Ms",
+    "note": "Matara"
+  },
+  {
+    "id": 45,
+    "rank": "Ms.",
+    "name": "Suriya Kumari",
+    "email": "suriya.k@sliit.lk",
+    "department": "IT",
+    "research_cluster": "CEAI",
+    "specializations": [
+      "IT"
+    ],
+    "research_interests": [
+      "Machine Learning",
+      "E-Learning",
+      "ICT for Development"
+    ],
+    "keywords": "machine learning e-learning ICT",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 0,
+    "level": "Mr/Ms",
+    "note": "Matara"
+  },
+  {
+    "id": 46,
+    "rank": "Mr.",
+    "name": "Ravi Supunya",
+    "email": "ravi.s@sliit.lk",
+    "department": "IT",
+    "research_cluster": "CEAI",
+    "specializations": [
+      "IT"
+    ],
+    "research_interests": [
+      "Cloud Computing",
+      "Image Processing",
+      "IoT",
+      "Machine Learning"
+    ],
+    "keywords": "cloud computing image processing IoT machine learning",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 0,
+    "level": "Mr/Ms",
+    "note": "Matara"
+  },
+  {
+    "id": 47,
+    "rank": "Mr.",
+    "name": "S.M.B. Harshanath",
+    "email": "harshanath.s@sliit.lk",
+    "department": "IT",
+    "research_cluster": "CEAI",
+    "specializations": [
+      "IT"
+    ],
+    "research_interests": [
+      "Security and Privacy",
+      "Machine Learning",
+      "AI",
+      "Computer Vision"
+    ],
+    "keywords": "security privacy machine learning AI computer vision",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 0,
+    "level": "Mr/Ms",
+    "note": "Metro"
+  },
+  {
+    "id": 48,
+    "rank": "Ms.",
+    "name": "Chathurangika Kahandawaarachchi",
+    "email": "chathurangika.k@sliit.lk",
+    "department": "ISE",
+    "research_cluster": "TIM,CEAI",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE"
+    ],
+    "research_interests": [
+      "Health Informatics",
+      "Big Data Management",
+      "Business Intelligence"
+    ],
+    "keywords": "health informatics big data business intelligence BI",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 49,
+    "rank": "Ms.",
+    "name": "Thamali Dassanayake",
+    "email": "thamali.d@sliit.lk",
+    "department": "DS",
+    "research_cluster": "CEAI",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE"
+    ],
+    "research_interests": [
+      "Big Data Management",
+      "Business Intelligence",
+      "Data Mining",
+      "Data Warehousing",
+      "Data Analytics"
+    ],
+    "keywords": "big data BI data mining warehousing analytics",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 50,
+    "rank": "Ms.",
+    "name": "Hansi De Silva",
+    "email": "hansi.d@sliit.lk",
+    "department": "SE",
+    "research_cluster": "SST",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE",
+      "CSc"
+    ],
+    "research_interests": [
+      "Machine Learning",
+      "NLP",
+      "Cloud Computing"
+    ],
+    "keywords": "machine learning NLP cloud computing software engineering",
+    "availability": true,
+    "max_students": 4,
+    "current_students": 2,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 51,
+    "rank": "Ms.",
+    "name": "Narmada Gamage",
+    "email": "narmada.g@sliit.lk",
+    "department": "ISE",
+    "research_cluster": "TIM,SST",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE"
+    ],
+    "research_interests": [
+      "Assistive Technology",
+      "Machine Learning",
+      "Business Analytics"
+    ],
+    "keywords": "assistive technology machine learning business analytics",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 52,
+    "rank": "Ms.",
+    "name": "Buddhima Attanayaka",
+    "email": "buddhima.a@sliit.lk",
+    "department": "ISE",
+    "research_cluster": "TIM,SST",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE"
+    ],
+    "research_interests": [
+      "Requirements Engineering",
+      "Business Intelligence",
+      "AR"
+    ],
+    "keywords": "requirements engineering BI augmented reality",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 53,
+    "rank": "Mr.",
+    "name": "Kanishka Yapa",
+    "email": "kanishka.y@sliit.lk",
+    "department": "CS",
+    "research_cluster": "IAS",
+    "specializations": [
+      "IT",
+      "SE"
+    ],
+    "research_interests": [
+      "Cyber Security",
+      "Critical Infrastructure Security",
+      "Healthcare Security",
+      "Threat Modeling",
+      "SDN"
+    ],
+    "keywords": "cyber security critical infrastructure threat modeling SDN healthcare",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 54,
+    "rank": "Mr.",
+    "name": "Vishan Jayasinghearachchi",
+    "email": "vishan.j@sliit.lk",
+    "department": "SE",
+    "research_cluster": "SST,CEAI",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE",
+      "CSNE",
+      "CSc"
+    ],
+    "research_interests": [
+      "IoT",
+      "Edge Computing",
+      "Wireless Sensor Networks",
+      "Predictive Analytics",
+      "Wildlife Conservation",
+      "Environmental Monitoring"
+    ],
+    "keywords": "IoT edge computing sensor networks predictive analytics environment",
+    "availability": true,
+    "max_students": 5,
+    "current_students": 2,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 55,
+    "rank": "Mr.",
+    "name": "Didula Thanaweera Arachchi",
+    "email": "didula.c@sliit.lk",
+    "department": "IM",
+    "research_cluster": "MR",
+    "specializations": [
+      "IT",
+      "SE"
+    ],
+    "research_interests": [
+      "Interactive Media",
+      "Digital Marketing",
+      "Social Media Consumer Behavior",
+      "Machine Learning",
+      "3D Modeling and Animation",
+      "2D Animation",
+      "HCI"
+    ],
+    "keywords": "interactive media digital marketing 3D animation ML HCI",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 56,
+    "rank": "Ms.",
+    "name": "Samadhi Rathnayake",
+    "email": "samadhi.r@sliit.lk",
+    "department": "DS",
+    "research_cluster": "CEAI",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE"
+    ],
+    "research_interests": [
+      "Machine Learning",
+      "Deep Learning",
+      "Data Science",
+      "AI",
+      "NLP"
+    ],
+    "keywords": "machine learning deep learning data science AI NLP",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 57,
+    "rank": "Ms.",
+    "name": "Dinithi Pandithage",
+    "email": "dinithi.p@sliit.lk",
+    "department": "CSNE",
+    "research_cluster": "IAS",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE",
+      "CSNE",
+      "CSc"
+    ],
+    "research_interests": [
+      "Systems Engineering",
+      "Computer Engineering",
+      "Networking",
+      "Data Centre Networking"
+    ],
+    "keywords": "systems engineering networking data centre computer engineering",
+    "availability": true,
+    "max_students": 5,
+    "current_students": 2,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 58,
+    "rank": "Ms.",
+    "name": "Vindhya Kalapuge",
+    "email": "vindhya.k@sliit.lk",
+    "department": "DS",
+    "research_cluster": "CEAI",
+    "specializations": [
+      "IT",
+      "SE"
+    ],
+    "research_interests": [
+      "Computational Physics",
+      "Lightning Physics",
+      "Machine Learning"
+    ],
+    "keywords": "computational physics machine learning simulation",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 59,
+    "rank": "Ms.",
+    "name": "Ishara Weerathunga",
+    "email": "ishara.w@sliit.lk",
+    "department": "SE",
+    "research_cluster": "SST",
+    "specializations": [
+      "IT",
+      "SE",
+      "CSc"
+    ],
+    "research_interests": [
+      "Data Science",
+      "Machine Learning",
+      "ICT for Development"
+    ],
+    "keywords": "data science machine learning ICT software engineering",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 60,
+    "rank": "Ms.",
+    "name": "Thamali Kelegama",
+    "email": "thamali.k@sliit.lk",
+    "department": "IT",
+    "research_cluster": "CEAI",
+    "specializations": [
+      "IT",
+      "SE"
+    ],
+    "research_interests": [
+      "Machine Learning",
+      "Software Development",
+      "Business Information Systems"
+    ],
+    "keywords": "machine learning software development business information systems",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 61,
+    "rank": "Ms.",
+    "name": "Karthiga Rajendran",
+    "email": "karthiga.r@sliit.lk",
+    "department": "SE",
+    "research_cluster": "SST",
+    "specializations": [
+      "IT",
+      "SE",
+      "CSc"
+    ],
+    "research_interests": [
+      "Software Engineering",
+      "Machine Learning",
+      "ICT for Development"
+    ],
+    "keywords": "software engineering machine learning ICT",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 62,
+    "rank": "Ms.",
+    "name": "Thisara Shyamalee",
+    "email": "thisara.s@sliit.lk",
+    "department": "DS",
+    "research_cluster": "CEAI",
+    "specializations": [
+      "IT",
+      "SE"
+    ],
+    "research_interests": [
+      "Machine Learning",
+      "HCI",
+      "Computer Vision"
+    ],
+    "keywords": "machine learning HCI computer vision",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 63,
+    "rank": "Mr.",
+    "name": "Indunil Daluwatte",
+    "email": "indunil.d@sliit.lk",
+    "department": "CSNE",
+    "research_cluster": "CI,IAS",
+    "specializations": [
+      "IT",
+      "SE"
+    ],
+    "research_interests": [],
+    "keywords": "networking computer engineering",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 64,
+    "rank": "Mr.",
+    "name": "Rangi Liyanage",
+    "email": "rangi.l@sliit.lk",
+    "department": "ISE",
+    "research_cluster": "TIM,CEAI",
+    "specializations": [
+      "IT",
+      "SE"
+    ],
+    "research_interests": [
+      "Information Systems"
+    ],
+    "keywords": "information systems management",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 65,
+    "rank": "Ms.",
+    "name": "Dushanthi Kuruppu",
+    "email": "dushanthi.k@sliit.lk",
+    "department": "IT",
+    "research_cluster": "CEAI",
+    "specializations": [
+      "IT"
+    ],
+    "research_interests": [
+      "Machine Learning",
+      "Deep Learning",
+      "Image Processing",
+      "NLP",
+      "Data Science",
+      "Vision Language Models"
+    ],
+    "keywords": "machine learning deep learning image processing NLP vision language models",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 0,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 66,
+    "rank": "Ms.",
+    "name": "Lakshi Nanayakkara",
+    "email": "lakshi.n@sliit.lk",
+    "department": "IT",
+    "research_cluster": "CEAI",
+    "specializations": [
+      "IT"
+    ],
+    "research_interests": [],
+    "keywords": "information technology",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 0,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 67,
+    "rank": "Mr.",
+    "name": "Hanojhan Rajahrajasingh",
+    "email": "hanojhan.r@sliit.lk",
+    "department": "CSNE",
+    "research_cluster": "CI,AIMS",
+    "specializations": [
+      "IT",
+      "SE"
+    ],
+    "research_interests": [
+      "Wireless Communication",
+      "6G Technology",
+      "Visible Light Communication"
+    ],
+    "keywords": "wireless communication 6G visible light communication",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 0,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 68,
+    "rank": "Ms.",
+    "name": "Dilani Lunugalage",
+    "email": "dilani.l@sliit.lk",
+    "department": "SE",
+    "research_cluster": "CEAI,SST",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE",
+      "CSNE",
+      "CSc"
+    ],
+    "research_interests": [
+      "Machine Learning",
+      "Computer Vision",
+      "Computer Networks"
+    ],
+    "keywords": "machine learning computer vision networks",
+    "availability": true,
+    "max_students": 5,
+    "current_students": 2,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 69,
+    "rank": "Mr.",
+    "name": "Deemantha Siriwardana",
+    "email": "deemantha.s@sliit.lk",
+    "department": "CS",
+    "research_cluster": "IAS",
+    "specializations": [
+      "IT",
+      "SE"
+    ],
+    "research_interests": [
+      "Cyber Security"
+    ],
+    "keywords": "cyber security information security",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 70,
+    "rank": "Mr.",
+    "name": "Sanjeeva Perera",
+    "email": "sanjeeva.p@sliit.lk",
+    "department": "ISE",
+    "research_cluster": "TIM",
+    "specializations": [
+      "IT",
+      "SE"
+    ],
+    "research_interests": [
+      "IS Strategies",
+      "Digital Entrepreneurship"
+    ],
+    "keywords": "information systems strategy digital entrepreneurship",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 71,
+    "rank": "Mr.",
+    "name": "Uditha Dharmakeerthi",
+    "email": "uditha.d@sliit.lk",
+    "department": "CSNE",
+    "research_cluster": "CI",
+    "specializations": [
+      "IT",
+      "ISE",
+      "SE"
+    ],
+    "research_interests": [
+      "Computer Networks",
+      "Cyber Security"
+    ],
+    "keywords": "computer networks cyber security",
+    "availability": true,
+    "max_students": 3,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 72,
+    "rank": "Mr.",
+    "name": "Suresh Fernando",
+    "email": "suresh.n@sliit.lk",
+    "department": "SE",
+    "research_cluster": "TIM,CEAI",
+    "specializations": [
+      "IT",
+      "SE"
+    ],
+    "research_interests": [],
+    "keywords": "software engineering technology management",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 73,
+    "rank": "Mr.",
+    "name": "Bimal Gunapala",
+    "email": "bimal.g@sliit.lk",
+    "department": "SE",
+    "research_cluster": "TIM,CEAI",
+    "specializations": [
+      "IT",
+      "SE"
+    ],
+    "research_interests": [],
+    "keywords": "software engineering technology management",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 1,
+    "level": "Mr/Ms"
+  },
+  {
+    "id": 74,
+    "rank": "Dr.",
+    "name": "Shanta Yapa",
+    "email": "Shanta.y@sliit.lk",
+    "department": "SBS",
+    "research_cluster": "—",
+    "specializations": [
+      "IT",
+      "SE"
+    ],
+    "research_interests": [
+      "Technology Management",
+      "Innovation"
+    ],
+    "keywords": "technology management innovation",
+    "availability": true,
+    "max_students": 2,
+    "current_students": 1,
+    "level": "Doctor",
+    "note": "SBS"
+  }
+]

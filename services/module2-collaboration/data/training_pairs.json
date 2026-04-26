@@ -1,0 +1,737 @@
+[
+  [
+    "I want to research natural language processing and text classification",
+    1,
+    1
+  ],
+  [
+    "My project is about speech recognition using deep learning",
+    1,
+    1
+  ],
+  [
+    "I am working on machine translation systems",
+    2,
+    1
+  ],
+  [
+    "My research involves building a conversational AI chatbot",
+    1,
+    1
+  ],
+  [
+    "I want to study sentiment analysis for social media",
+    33,
+    1
+  ],
+  [
+    "My topic is about large language models and generative AI",
+    4,
+    1
+  ],
+  [
+    "I am researching NLP for educational applications",
+    26,
+    1
+  ],
+  [
+    "My project involves computational linguistics and language models",
+    2,
+    1
+  ],
+  [
+    "I want to work on emotion detection using NLP",
+    23,
+    1
+  ],
+  [
+    "My research is about text summarization using transformer models",
+    56,
+    1
+  ],
+  [
+    "I want to research deep learning for image classification",
+    20,
+    1
+  ],
+  [
+    "My project is about neural network architectures and optimization",
+    42,
+    1
+  ],
+  [
+    "I am working on explainable AI and model interpretability",
+    18,
+    1
+  ],
+  [
+    "My research involves machine learning for healthcare",
+    48,
+    1
+  ],
+  [
+    "I want to study reinforcement learning algorithms",
+    42,
+    1
+  ],
+  [
+    "My project is about computer vision and object detection",
+    41,
+    1
+  ],
+  [
+    "I am researching data science and predictive analytics",
+    49,
+    1
+  ],
+  [
+    "My topic is about deep learning for medical image analysis",
+    20,
+    1
+  ],
+  [
+    "I want to build recommender systems using ML",
+    14,
+    1
+  ],
+  [
+    "My research involves vision language models",
+    65,
+    1
+  ],
+  [
+    "I want to research IoT based smart home systems",
+    16,
+    1
+  ],
+  [
+    "My project is about edge computing and IoT devices",
+    54,
+    1
+  ],
+  [
+    "I am working on wireless sensor networks for agriculture",
+    3,
+    1
+  ],
+  [
+    "My research involves smart agriculture using IoT",
+    3,
+    1
+  ],
+  [
+    "I want to study IoT security and privacy",
+    34,
+    1
+  ],
+  [
+    "My project is about IoT for environmental monitoring",
+    54,
+    1
+  ],
+  [
+    "I am researching cloud computing for IoT applications",
+    46,
+    1
+  ],
+  [
+    "My topic is about network function virtualization",
+    35,
+    1
+  ],
+  [
+    "I want to research network security and intrusion detection",
+    15,
+    1
+  ],
+  [
+    "My project is about cryptography and data privacy",
+    38,
+    1
+  ],
+  [
+    "I am working on digital forensics techniques",
+    30,
+    1
+  ],
+  [
+    "My research involves cyber security for critical infrastructure",
+    53,
+    1
+  ],
+  [
+    "I want to study blockchain technology and security",
+    22,
+    1
+  ],
+  [
+    "My project is about threat modeling and risk assessment",
+    53,
+    1
+  ],
+  [
+    "I am researching social engineering attack detection",
+    38,
+    1
+  ],
+  [
+    "I want to research personalized e-learning systems",
+    14,
+    1
+  ],
+  [
+    "My project is about adaptive learning platforms",
+    5,
+    1
+  ],
+  [
+    "I am working on learning analytics and educational data mining",
+    14,
+    1
+  ],
+  [
+    "My research involves HCI in educational platforms",
+    29,
+    1
+  ],
+  [
+    "I want to study AI tutoring systems",
+    6,
+    1
+  ],
+  [
+    "My project is about technology enhanced learning",
+    5,
+    1
+  ],
+  [
+    "I want to research big data analytics and business intelligence",
+    49,
+    1
+  ],
+  [
+    "My project is about data mining and pattern recognition",
+    17,
+    1
+  ],
+  [
+    "I am working on business analytics and decision support",
+    51,
+    1
+  ],
+  [
+    "My research involves data warehousing and ETL",
+    49,
+    1
+  ],
+  [
+    "I want to study health informatics and clinical data",
+    48,
+    1
+  ],
+  [
+    "I want to research software complexity metrics",
+    9,
+    1
+  ],
+  [
+    "My project is about requirements engineering",
+    52,
+    1
+  ],
+  [
+    "I am working on software testing and quality assurance",
+    61,
+    1
+  ],
+  [
+    "My research involves agile development methodologies",
+    5,
+    1
+  ],
+  [
+    "I want to research user experience design",
+    25,
+    1
+  ],
+  [
+    "My project is about augmented and virtual reality",
+    37,
+    1
+  ],
+  [
+    "I am working on interactive multimedia systems",
+    37,
+    1
+  ],
+  [
+    "My research involves data visualization interfaces",
+    28,
+    1
+  ],
+  [
+    "I want to study mixed reality for education",
+    37,
+    1
+  ],
+  [
+    "I want to research cryptography and blockchain",
+    3,
+    0
+  ],
+  [
+    "My project is about smart agriculture",
+    38,
+    0
+  ],
+  [
+    "I am working on speech recognition",
+    53,
+    0
+  ],
+  [
+    "My research is about NLP text classification",
+    67,
+    0
+  ],
+  [
+    "I want to build deep learning models",
+    25,
+    0
+  ],
+  [
+    "My project is about cyber security",
+    37,
+    0
+  ],
+  [
+    "I am researching data visualization",
+    22,
+    0
+  ],
+  [
+    "My topic is about IoT smart homes",
+    9,
+    0
+  ],
+  [
+    "I want to study distributed computing",
+    55,
+    0
+  ],
+  [
+    "My research involves wireless 6G networks",
+    20,
+    0
+  ],
+  [
+    "I am building a Sinhala language NLP system for sentiment analysis",
+    1,
+    1
+  ],
+  [
+    "My project involves fine-tuning BERT for named entity recognition",
+    56,
+    1
+  ],
+  [
+    "I want to create a multilingual text classification system using transformers",
+    2,
+    1
+  ],
+  [
+    "My research is about question answering systems using large language models",
+    4,
+    1
+  ],
+  [
+    "I am developing a research paper summarization tool using T5",
+    33,
+    1
+  ],
+  [
+    "My project uses GPT models for automatic essay grading",
+    26,
+    1
+  ],
+  [
+    "I want to study topic modeling using LDA and BERTopic",
+    39,
+    1
+  ],
+  [
+    "My research involves information extraction from legal documents",
+    2,
+    1
+  ],
+  [
+    "I am working on computational linguistics and parsing",
+    26,
+    1
+  ],
+  [
+    "I am implementing a random forest model for student performance prediction",
+    6,
+    1
+  ],
+  [
+    "My project is about federated learning for privacy-preserving ML",
+    13,
+    1
+  ],
+  [
+    "I want to research explainable AI for medical diagnosis",
+    18,
+    1
+  ],
+  [
+    "My research involves transfer learning for low-resource classification",
+    42,
+    1
+  ],
+  [
+    "I am building a GAN for data augmentation in medical imaging",
+    20,
+    1
+  ],
+  [
+    "My project is about multi-objective optimization in neural architecture search",
+    42,
+    1
+  ],
+  [
+    "I want to study spiking neural networks for energy-efficient AI",
+    24,
+    1
+  ],
+  [
+    "My research involves ensemble methods for fraud detection",
+    50,
+    1
+  ],
+  [
+    "I am researching graph neural networks for knowledge representation",
+    13,
+    1
+  ],
+  [
+    "I am developing a real-time object detection system using YOLO",
+    41,
+    1
+  ],
+  [
+    "My project is about image segmentation for autonomous vehicles",
+    20,
+    1
+  ],
+  [
+    "I want to research facial recognition with privacy preservation",
+    65,
+    1
+  ],
+  [
+    "My research involves 3D reconstruction from 2D images",
+    37,
+    1
+  ],
+  [
+    "I am building a plant disease detection system from leaf images",
+    41,
+    1
+  ],
+  [
+    "My project involves semantic segmentation for medical imaging",
+    20,
+    1
+  ],
+  [
+    "I want to study audio restoration and speech processing",
+    21,
+    1
+  ],
+  [
+    "My project uses Raspberry Pi and sensors for smart energy monitoring",
+    16,
+    1
+  ],
+  [
+    "I am researching LoRaWAN networks for long-range IoT communication",
+    67,
+    1
+  ],
+  [
+    "My research involves digital twin systems for industrial IoT",
+    54,
+    1
+  ],
+  [
+    "I want to study SDN for managing IoT network traffic",
+    35,
+    1
+  ],
+  [
+    "My project is about predictive maintenance using IoT sensor data",
+    54,
+    1
+  ],
+  [
+    "I am building a smart water management system using IoT",
+    3,
+    1
+  ],
+  [
+    "My research involves 6G wireless communication systems",
+    67,
+    1
+  ],
+  [
+    "My research involves adversarial attacks on deep learning models",
+    15,
+    1
+  ],
+  [
+    "I am developing a blockchain-based identity management system",
+    22,
+    1
+  ],
+  [
+    "My project is about zero-trust architecture for enterprise networks",
+    53,
+    1
+  ],
+  [
+    "I want to study malware detection using machine learning",
+    15,
+    1
+  ],
+  [
+    "My research involves privacy-preserving data sharing techniques",
+    38,
+    1
+  ],
+  [
+    "I am researching threat modeling in critical infrastructure",
+    53,
+    1
+  ],
+  [
+    "My project involves digital forensics and incident response",
+    69,
+    1
+  ],
+  [
+    "I am building a gamified learning platform for programming education",
+    14,
+    1
+  ],
+  [
+    "My project is about automatic quiz generation from lecture notes",
+    6,
+    1
+  ],
+  [
+    "I want to study student engagement prediction in online courses",
+    5,
+    1
+  ],
+  [
+    "My research involves AR for interactive science education",
+    52,
+    1
+  ],
+  [
+    "I am developing a peer review system for university assignments",
+    29,
+    1
+  ],
+  [
+    "My project is about learning analytics for education technology",
+    14,
+    1
+  ],
+  [
+    "I want to create an assistive technology system for accessibility",
+    51,
+    1
+  ],
+  [
+    "My project is about real-time dashboard for hospital patient monitoring",
+    48,
+    1
+  ],
+  [
+    "I am researching time series forecasting for stock market prediction",
+    18,
+    1
+  ],
+  [
+    "My research involves data lineage tracking in ETL pipelines",
+    49,
+    1
+  ],
+  [
+    "I want to build a recommendation engine for e-commerce",
+    14,
+    1
+  ],
+  [
+    "My project is about clustering algorithms for customer segmentation",
+    17,
+    1
+  ],
+  [
+    "I am researching big data management for business intelligence",
+    49,
+    1
+  ],
+  [
+    "My project involves data visualization and interactive dashboards",
+    28,
+    1
+  ],
+  [
+    "I am researching software-defined networking for cloud data centres",
+    57,
+    1
+  ],
+  [
+    "My project involves QoS optimization in 5G/6G networks",
+    67,
+    1
+  ],
+  [
+    "I want to study network topology discovery using graph algorithms",
+    71,
+    1
+  ],
+  [
+    "My research is about intelligent systems for network automation",
+    63,
+    1
+  ],
+  [
+    "I am building a cloud communication platform with security",
+    36,
+    1
+  ],
+  [
+    "My project involves social network analysis for collaboration",
+    34,
+    1
+  ],
+  [
+    "My research is about software complexity metrics and refactoring",
+    9,
+    1
+  ],
+  [
+    "I am developing AR/VR applications for immersive experiences",
+    9,
+    1
+  ],
+  [
+    "My project is about mobile development for cross-platform apps",
+    9,
+    1
+  ],
+  [
+    "I want to study HCI design principles for better user interfaces",
+    25,
+    1
+  ],
+  [
+    "My research involves code quality and automated testing",
+    50,
+    1
+  ],
+  [
+    "I am researching network protocols and assistive technologies",
+    27,
+    1
+  ],
+  [
+    "My project involves geospatial information systems and mapping",
+    37,
+    1
+  ],
+  [
+    "I want to study keystroke dynamics for biometric authentication",
+    31,
+    1
+  ],
+  [
+    "My research is about software engineering complexity metrics",
+    40,
+    1
+  ],
+  [
+    "I am building an educational software with gamification",
+    45,
+    1
+  ],
+  [
+    "My project involves image processing for healthcare applications",
+    44,
+    1
+  ],
+  [
+    "I want to research cloud computing and distributed systems",
+    46,
+    1
+  ],
+  [
+    "My research involves security and privacy in ML systems",
+    47,
+    1
+  ],
+  [
+    "I want to build a deep learning image classifier",
+    69,
+    0
+  ],
+  [
+    "My research is about network security firewalls",
+    20,
+    0
+  ],
+  [
+    "I am studying e-learning engagement analytics",
+    67,
+    0
+  ],
+  [
+    "My project is about speech synthesis using AI",
+    53,
+    0
+  ],
+  [
+    "I want to research blockchain for supply chain",
+    41,
+    0
+  ],
+  [
+    "My research is about data visualization dashboards",
+    3,
+    0
+  ],
+  [
+    "I am building an NLP chatbot for customer service",
+    57,
+    0
+  ],
+  [
+    "My project involves deep learning for cancer detection",
+    25,
+    0
+  ],
+  [
+    "I want to study cybersecurity threat modeling",
+    1,
+    0
+  ],
+  [
+    "My research is about AR/VR museum applications",
+    69,
+    0
+  ]
+]
