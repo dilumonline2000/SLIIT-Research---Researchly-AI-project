@@ -1,0 +1,7 @@
+{
+  "model": "sbert-academic",
+  "base": "sentence-transformers/all-MiniLM-L6-v2",
+  "epochs": 15,
+  "train_triplets": 9,
+  "val_triplets": 1
+}

@@ -10,9 +10,10 @@ _versions: Dict[str, str] = {}
 
 MODEL_DESCRIPTIONS: Dict[str, str] = {
     "sbert": "Sentence-BERT embeddings for semantic search",
+    "sbert_plagiarism": "SBERT fine-tuned for plagiarism detection (Module 1) [TRAINED]",
     "scibert_classifier": "SciBERT multi-label topic classifier",
     "rag_engine": "Retrieval-Augmented Generation over paper corpus",
-    "citation_ner": "spaCy NER for citation entity extraction",
+    "citation_ner": "spaCy NER for citation entity extraction (Module 1) [TRAINED]",
     "summarizer": "BART/T5 abstractive summarizer",
     "sentiment_bert": "BERT aspect-based sentiment for feedback",
     "trend_forecaster": "ARIMA + Prophet ensemble for trend prediction",
@@ -22,6 +23,7 @@ MODEL_DESCRIPTIONS: Dict[str, str] = {
 }
 
 CORE_MODELS = {"sbert", "rag_engine"}
+TRAINED_MODELS = {"citation_ner", "sbert_plagiarism"}  # Models we've trained
 
 
 def register(name: str, model: Any, version: str = "v1.0") -> None:
@@ -53,5 +55,5 @@ def get_status() -> Dict[str, dict]:
 
 
 def is_local_available() -> bool:
-    """True only if all core models are loaded."""
-    return all(is_loaded(m) for m in CORE_MODELS)
+    """True if any trained models are loaded."""
+    return any(is_loaded(m) for m in TRAINED_MODELS) or all(is_loaded(m) for m in CORE_MODELS)
