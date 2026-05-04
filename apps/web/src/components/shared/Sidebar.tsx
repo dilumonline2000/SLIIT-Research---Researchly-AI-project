@@ -13,9 +13,11 @@ import {
   FileText,
   MessageSquare,
   Sparkles,
+  LogOut,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { APP_NAME } from "@/lib/constants";
+import { useAuth } from "@/hooks/useAuth";
 
 const navGroups = [
   {
@@ -85,6 +87,13 @@ const navGroups = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const { signOut, profile } = useAuth();
+
+  const handleSignOut = async () => {
+    if (window.confirm("Sign out of Researchly AI?")) {
+      await signOut();
+    }
+  };
 
   return (
     <aside className="hidden h-screen w-64 shrink-0 flex-col border-r bg-card md:flex">
@@ -126,6 +135,21 @@ export function Sidebar() {
           </div>
         ))}
       </nav>
+      <div className="shrink-0 border-t p-3">
+        {profile && (
+          <div className="mb-2 px-2 text-xs">
+            <p className="font-medium truncate">{profile.full_name || "User"}</p>
+            <p className="text-muted-foreground capitalize">{profile.role || "student"}</p>
+          </div>
+        )}
+        <button
+          onClick={handleSignOut}
+          className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm text-rose-600 transition-colors hover:bg-rose-50"
+        >
+          <LogOut className="h-4 w-4" />
+          <span>Sign Out</span>
+        </button>
+      </div>
     </aside>
   );
 }

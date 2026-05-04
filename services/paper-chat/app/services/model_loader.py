@@ -20,6 +20,7 @@ MODULE_PATHS = {
     "quality_scorer": _SERVICES_ROOT / "module4-analytics" / "models" / "trained_quality_predictor" / "quality_models.pkl",
     "topic_classifier": _SERVICES_ROOT / "module4-analytics" / "models" / "trained_topic_classifier" / "classifier.pkl",
     "trend_forecaster": _SERVICES_ROOT / "module4-analytics" / "models" / "trained_trend_forecaster" / "trend_models.pkl",
+    "success_predictor": _SERVICES_ROOT / "module4-analytics" / "models" / "trained_success_predictor" / "success_model.pkl",
 }
 
 
@@ -111,6 +112,10 @@ def load_trend_forecaster():
     return _load_pickle_model("trend_forecaster", "Trend Forecaster (Module 4)")
 
 
+def load_success_predictor():
+    return _load_pickle_model("success_predictor", "Success Predictor (Module 4)")
+
+
 def load_all_trained_models():
     """Load all available trained models."""
     logger.info("\n" + "="*70)
@@ -124,6 +129,7 @@ def load_all_trained_models():
         "quality_scorer": load_quality_scorer(),
         "topic_classifier": load_topic_classifier(),
         "trend_forecaster": load_trend_forecaster(),
+        "success_predictor": load_success_predictor(),
     }
 
     loaded_count = sum(1 for v in results.values() if v)

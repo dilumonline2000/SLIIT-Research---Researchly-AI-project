@@ -6,15 +6,20 @@ import { CheckCircle2, XCircle, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const MODEL_LABELS: Record<string, { label: string; module: string }> = {
+  // Trained models (we have these)
+  citation_ner: { label: 'Citation NER (spaCy)', module: 'Module 1' },
+  sbert_plagiarism: { label: 'SBERT Plagiarism', module: 'Module 1' },
+  supervisor_matcher: { label: 'Supervisor Matcher (SBERT)', module: 'Module 2' },
+  quality_scorer: { label: 'Quality Scorer (XGBoost)', module: 'Module 4' },
+  topic_classifier: { label: 'Topic Classifier (SBERT)', module: 'Module 4' },
+  trend_forecaster: { label: 'Trend Forecaster (ARIMA)', module: 'Module 4' },
+  success_predictor: { label: 'Success Predictor (XGBoost)', module: 'Module 4' },
+  // Pending / not trained
   sbert: { label: 'SBERT Embeddings', module: 'Shared' },
-  scibert_classifier: { label: 'SciBERT Classifier', module: 'Module 3' },
   rag_engine: { label: 'RAG Engine', module: 'Shared' },
-  citation_ner: { label: 'Citation NER', module: 'Module 1' },
+  scibert_classifier: { label: 'SciBERT Classifier', module: 'Module 3' },
   summarizer: { label: 'BART Summarizer', module: 'Module 3' },
   sentiment_bert: { label: 'Sentiment BERT', module: 'Module 2' },
-  trend_forecaster: { label: 'ARIMA + Prophet', module: 'Module 4' },
-  quality_scorer: { label: 'Quality Scorer', module: 'Module 4' },
-  success_predictor: { label: 'XGBoost Predictor', module: 'Module 4' },
   proposal_llm: { label: 'Proposal Generator LLM', module: 'Module 1' },
 };
 

@@ -20,7 +20,7 @@ MODEL_DESCRIPTIONS: Dict[str, str] = {
     "trend_forecaster": "ARIMA per-topic forecaster on SLIIT papers (Module 4) [TRAINED]",
     "quality_scorer": "XGBoost multi-dim quality predictor on SLIIT papers (Module 4) [TRAINED]",
     "topic_classifier": "SBERT topic classifier for research papers (Module 4) [TRAINED]",
-    "success_predictor": "XGBoost/RF project success predictor",
+    "success_predictor": "XGBoost binary classifier for paper success (Module 4) [TRAINED]",
     "proposal_llm": "LoRA fine-tuned LLM for proposal generation",
 }
 
@@ -33,6 +33,7 @@ TRAINED_MODELS = {
     "trend_forecaster",
     "quality_scorer",
     "topic_classifier",
+    "success_predictor",
 }
 
 
