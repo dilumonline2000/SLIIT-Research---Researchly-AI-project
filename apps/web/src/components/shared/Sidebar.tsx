@@ -67,11 +67,11 @@ const navGroups = [
     label: "Module 4 — Analytics",
     items: [
       { href: "/analytics", label: "Analytics", icon: LineChart },
-      { href: "/analytics/trends", label: "Trend Forecast" },
-      { href: "/analytics/quality-scores", label: "Quality Scores" },
+      { href: "/analytics/quality-scores", label: "📄 Paper Quality Scoring" },
+      { href: "/analytics/predictions", label: "🎯 Success Prediction" },
+      { href: "/analytics/trends", label: "📈 Trend Forecast" },
       { href: "/analytics/dashboards", label: "Dashboards" },
       { href: "/analytics/mind-maps", label: "Concept Maps" },
-      { href: "/analytics/predictions", label: "Success Predictions" },
     ],
   },
   {

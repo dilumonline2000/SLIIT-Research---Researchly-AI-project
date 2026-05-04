@@ -1,0 +1,59 @@
+{
+  "model_type": "XGBoost Multi-Target Regressor",
+  "version": "sliit-v1-quality",
+  "training_size": 3281,
+  "test_size": 579,
+  "feature_columns": [
+    "word_count",
+    "title_word_count",
+    "sentence_count",
+    "avg_word_length",
+    "avg_sentence_length",
+    "methodology_keywords_count",
+    "author_count",
+    "citation_signals",
+    "year",
+    "abstract_length",
+    "title_length"
+  ],
+  "target_columns": [
+    "originality",
+    "citation_impact",
+    "methodology",
+    "clarity",
+    "overall"
+  ],
+  "metrics": {
+    "originality": {
+      "mae": 0.0026569683119937746,
+      "rmse": 0.004890346113265978,
+      "r2": 0.9992956579909911
+    },
+    "citation_impact": {
+      "mae": 0.0019369405838291934,
+      "rmse": 0.0047038300338241345,
+      "r2": 0.9982668551339134
+    },
+    "methodology": {
+      "mae": 0.004331447747219655,
+      "rmse": 0.006096659249007596,
+      "r2": 0.9993553149688943
+    },
+    "clarity": {
+      "mae": 0.005216056268573427,
+      "rmse": 0.008577478085533153,
+      "r2": 0.9972486069284788
+    },
+    "overall": {
+      "mae": 0.0034332240539923014,
+      "rmse": 0.005521751266690302,
+      "r2": 0.9970917772811894
+    }
+  },
+  "weights": {
+    "originality": 0.3,
+    "citation_impact": 0.25,
+    "methodology": 0.25,
+    "clarity": 0.2
+  }
+}

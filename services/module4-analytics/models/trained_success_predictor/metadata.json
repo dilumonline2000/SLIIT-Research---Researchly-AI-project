@@ -1,0 +1,24 @@
+{
+  "model_type": "XGBoost Binary Classifier",
+  "version": "sliit-v1-success",
+  "feature_columns": [
+    "word_count",
+    "title_word_count",
+    "sentence_count",
+    "avg_word_length",
+    "avg_sentence_length",
+    "methodology_keywords_count",
+    "author_count",
+    "citation_signals",
+    "year",
+    "abstract_length",
+    "title_length"
+  ],
+  "metrics": {
+    "accuracy": 0.9827288428324698,
+    "roc_auc": 0.9993898718730934
+  },
+  "training_size": 3281,
+  "test_size": 579,
+  "label_definition": "overall_score >= 0.62 AND abstract_length >= 500 AND methodology_keywords >= 2"
+}

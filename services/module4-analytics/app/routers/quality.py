@@ -1,32 +1,18 @@
-"""Quality scoring endpoint — weighted multi-dimensional evaluation."""
+"""Quality scoring endpoint — uses trained XGBoost models on SLIIT papers."""
 
 from __future__ import annotations
 
 import logging
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
+
+from ..services import quality_predictor, topic_classifier
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
 
-class QualityScoreRequest(BaseModel):
-    proposal_id: str
-    user_id: str
-
-
-class QualityScoreResponse(BaseModel):
-    proposal_id: str
-    overall_score: float
-    originality_score: float       # 30% weight
-    citation_impact_score: float   # 25% weight
-    methodology_score: float       # 25% weight
-    clarity_score: float           # 20% weight
-    breakdown: dict
-
-
-# Weights from spec
 WEIGHTS = {
     "originality": 0.30,
     "citation_impact": 0.25,
@@ -35,111 +21,109 @@ WEIGHTS = {
 }
 
 
-@router.post("/quality-score", response_model=QualityScoreResponse)
-async def quality_score(req: QualityScoreRequest) -> QualityScoreResponse:
-    """Compute weighted multi-dimensional quality score.
+class QualityScoreRequest(BaseModel):
+    proposal_id: str | None = None
+    user_id: str | None = None
+    title: str | None = None
+    abstract: str | None = None
 
-    1. Fetch proposal from Supabase
-    2. Originality: inverse of plagiarism similarity score (30%)
-    3. Citation impact: citation count + reference quality (25%)
-    4. Methodology: keyword detection for methodology patterns (25%)
-    5. Clarity: readability metrics (20%)
-    """
+
+class QualityScoreResponse(BaseModel):
+    proposal_id: str | None
+    overall_score: float
+    originality_score: float
+    citation_impact_score: float
+    methodology_score: float
+    clarity_score: float
+    topic: dict | None
+    breakdown: dict
+    recommendations: list[str]
+    model_version: str
+
+
+def _fetch_proposal_text(proposal_id: str) -> dict | None:
+    """Fetch proposal from Supabase if available."""
     try:
-        import sys, os
-        sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "..", "shared"))
-        from services.shared.supabase_client import get_supabase_admin
-    except ImportError:
         try:
-            from shared.supabase_client import get_supabase_admin
+            from services.shared.supabase_client import get_supabase_admin
         except ImportError:
-            return _empty_response(req.proposal_id)
+            from shared.supabase_client import get_supabase_admin
 
-    try:
         sb = get_supabase_admin()
-        result = sb.table("research_proposals").select("*").eq("id", req.proposal_id).single().execute()
-        proposal = result.data
+        result = sb.table("research_proposals").select("*").eq("id", proposal_id).single().execute()
+        return result.data
     except Exception as e:
-        logger.warning("Failed to fetch proposal: %s", e)
-        return _empty_response(req.proposal_id)
+        logger.warning("Failed to fetch proposal %s: %s", proposal_id, e)
+        return None
 
-    if not proposal:
-        return _empty_response(req.proposal_id)
 
-    text = f"{proposal.get('title', '')} {proposal.get('abstract', '')} {proposal.get('methodology', '')}"
-
-    # Originality score (inverse plagiarism)
-    plag_score = float(proposal.get("plagiarism_score") or 0)
-    originality = max(0, 1.0 - plag_score)
-
-    # Citation impact
-    citations = proposal.get("citations") or []
-    citation_count = len(citations) if isinstance(citations, list) else 0
-    citation_impact = min(1.0, citation_count / 20.0)  # normalize: 20 refs = perfect
-
-    # Methodology detection
-    methodology_keywords = [
-        "experiment", "survey", "case study", "simulation", "prototype",
-        "evaluation", "benchmark", "dataset", "statistical", "hypothesis",
-        "mixed method", "qualitative", "quantitative", "systematic review",
-    ]
-    text_lower = text.lower()
-    method_hits = sum(1 for kw in methodology_keywords if kw in text_lower)
-    methodology = min(1.0, method_hits / 5.0)
-
-    # Clarity (simple readability proxy)
-    words = text.split()
-    word_count = len(words)
-    if word_count > 0:
-        avg_word_len = sum(len(w) for w in words) / word_count
-        sentences = text.count(".") + text.count("!") + text.count("?")
-        avg_sent_len = word_count / max(sentences, 1)
-        # Penalize overly long sentences and overly complex words
-        clarity = max(0, min(1.0, 1.0 - (avg_sent_len - 15) / 30 - (avg_word_len - 5) / 10))
-    else:
-        clarity = 0.0
-
-    # Weighted overall
-    overall = (
-        originality * WEIGHTS["originality"] +
-        citation_impact * WEIGHTS["citation_impact"] +
-        methodology * WEIGHTS["methodology"] +
-        clarity * WEIGHTS["clarity"]
-    )
-
-    # Store score
+def _store_score(proposal_id: str, user_id: str | None, scores: dict) -> None:
+    """Persist score to Supabase."""
     try:
+        try:
+            from services.shared.supabase_client import get_supabase_admin
+        except ImportError:
+            from shared.supabase_client import get_supabase_admin
+
+        sb = get_supabase_admin()
         sb.table("quality_scores").upsert({
-            "proposal_id": req.proposal_id,
-            "user_id": req.user_id,
-            "overall_score": round(overall, 4),
-            "originality_score": round(originality, 4),
-            "citation_impact_score": round(citation_impact, 4),
-            "methodology_score": round(methodology, 4),
-            "clarity_score": round(clarity, 4),
+            "proposal_id": proposal_id,
+            "user_id": user_id,
+            "overall_score": scores["overall_score"],
+            "originality_score": scores["originality_score"],
+            "citation_impact_score": scores["citation_impact_score"],
+            "methodology_score": scores["methodology_score"],
+            "clarity_score": scores["clarity_score"],
         }).execute()
     except Exception as e:
-        logger.warning("Failed to store quality score: %s", e)
+        logger.warning("Failed to store score: %s", e)
 
-    return QualityScoreResponse(
+
+@router.post("/quality-score", response_model=QualityScoreResponse)
+async def quality_score(req: QualityScoreRequest) -> QualityScoreResponse:
+    """Compute quality score using trained XGBoost models.
+
+    Accepts either:
+    - proposal_id (will fetch from Supabase)
+    - title + abstract (direct text analysis)
+    """
+    title = req.title or ""
+    abstract = req.abstract or ""
+    authors = None
+    year = None
+
+    # If proposal_id given, fetch from DB
+    if req.proposal_id and not abstract:
+        proposal = _fetch_proposal_text(req.proposal_id)
+        if proposal:
+            title = title or proposal.get("title", "")
+            abstract = proposal.get("abstract", "") or proposal.get("methodology", "")
+            authors = proposal.get("authors")
+            year = proposal.get("year")
+
+    if not title and not abstract:
+        raise HTTPException(400, "Provide either proposal_id or (title + abstract)")
+
+    quality = quality_predictor.predict_quality(title, abstract, authors, year)
+    topic = topic_classifier.classify(f"{title} {abstract}")
+
+    response = QualityScoreResponse(
         proposal_id=req.proposal_id,
-        overall_score=round(overall, 4),
-        originality_score=round(originality, 4),
-        citation_impact_score=round(citation_impact, 4),
-        methodology_score=round(methodology, 4),
-        clarity_score=round(clarity, 4),
+        overall_score=quality["overall_score"],
+        originality_score=quality["originality_score"],
+        citation_impact_score=quality["citation_impact_score"],
+        methodology_score=quality["methodology_score"],
+        clarity_score=quality["clarity_score"],
+        topic=topic,
         breakdown={
             "weights": WEIGHTS,
-            "word_count": word_count,
-            "citation_count": citation_count,
-            "methodology_keywords_found": method_hits,
+            "features": quality["features"],
         },
+        recommendations=quality["recommendations"],
+        model_version=quality.get("model_version", "unknown"),
     )
 
+    if req.proposal_id:
+        _store_score(req.proposal_id, req.user_id, response.model_dump())
 
-def _empty_response(proposal_id: str) -> QualityScoreResponse:
-    return QualityScoreResponse(
-        proposal_id=proposal_id, overall_score=0.0,
-        originality_score=0.0, citation_impact_score=0.0,
-        methodology_score=0.0, clarity_score=0.0, breakdown={},
-    )
+    return response

@@ -39,6 +39,10 @@ export const API_ROUTES = {
     dashboard: "/api/v1/analytics/dashboard",
     mindmap: "/api/v1/analytics/mindmap",
     predict: "/api/v1/analytics/predict",
+    predictUpload: "/api/v1/analytics/predict/upload",
+    paperAnalyzeText: "/api/v1/analytics/papers/analyze-text",
+    paperUpload: "/api/v1/analytics/papers/upload",
+    paperHealth: "/api/v1/analytics/papers/health",
   },
   papers: {
     list: "/api/v1/papers",

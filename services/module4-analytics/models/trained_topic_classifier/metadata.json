@@ -1,0 +1,20 @@
+{
+  "model_type": "SBERT + LogisticRegression",
+  "version": "sliit-v1-topic",
+  "encoder": "sentence-transformers/all-MiniLM-L6-v2",
+  "labels": [
+    "business",
+    "computing",
+    "engineering",
+    "health",
+    "sciences",
+    "social_sciences"
+  ],
+  "metrics": {
+    "accuracy": 0.7086956521739131,
+    "f1_macro": 0.6265180411195878,
+    "f1_weighted": 0.7144532892066163
+  },
+  "training_size": 1303,
+  "test_size": 230
+}

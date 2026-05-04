@@ -4,7 +4,7 @@ Scans for trained model files and registers them in the model registry.
 """
 
 import logging
-import os
+import pickle
 from pathlib import Path
 from app.services import model_registry
 
@@ -16,6 +16,10 @@ _SERVICES_ROOT = Path(__file__).parent.parent.parent.parent
 MODULE_PATHS = {
     "citation_ner": _SERVICES_ROOT / "module1-integrity" / "models" / "citation_ner",
     "sbert_plagiarism": _SERVICES_ROOT / "module1-integrity" / "models" / "sbert_plagiarism",
+    "supervisor_matcher": _SERVICES_ROOT / "module2-collaboration" / "models" / "trained_supervisor_matcher",
+    "quality_scorer": _SERVICES_ROOT / "module4-analytics" / "models" / "trained_quality_predictor" / "quality_models.pkl",
+    "topic_classifier": _SERVICES_ROOT / "module4-analytics" / "models" / "trained_topic_classifier" / "classifier.pkl",
+    "trend_forecaster": _SERVICES_ROOT / "module4-analytics" / "models" / "trained_trend_forecaster" / "trend_models.pkl",
 }
 
 
@@ -28,7 +32,6 @@ def load_citation_ner():
 
     try:
         import spacy
-        # Suppress spaCy's unicode logging
         logging.getLogger("spacy").setLevel(logging.ERROR)
         model = spacy.load(str(model_path))
         model_registry.register("citation_ner", model, version="sliit-v1-trained")
@@ -48,7 +51,6 @@ def load_sbert_plagiarism():
 
     try:
         from sentence_transformers import SentenceTransformer
-        # Suppress transformer library's unicode logging
         logging.getLogger("sentence_transformers").setLevel(logging.ERROR)
         logging.getLogger("transformers").setLevel(logging.ERROR)
         model = SentenceTransformer(str(model_path))
@@ -60,6 +62,55 @@ def load_sbert_plagiarism():
         return False
 
 
+def load_supervisor_matcher():
+    """Load the supervisor matcher SBERT model (Module 2)."""
+    model_path = MODULE_PATHS.get("supervisor_matcher")
+    if not model_path or not model_path.exists():
+        logger.warning("[Model Loader] Supervisor matcher not found at %s", model_path)
+        return False
+    try:
+        from sentence_transformers import SentenceTransformer
+        logging.getLogger("sentence_transformers").setLevel(logging.ERROR)
+        logging.getLogger("transformers").setLevel(logging.ERROR)
+        model = SentenceTransformer(str(model_path))
+        model_registry.register("supervisor_matcher", model, version="sliit-v1-trained")
+        logger.info("[Model Loader] [+] Supervisor Matcher loaded")
+        return True
+    except Exception as e:
+        logger.error("[Model Loader] [!] Failed to load Supervisor Matcher: %s", str(e)[:100])
+        return False
+
+
+def _load_pickle_model(name: str, log_label: str) -> bool:
+    """Generic loader for pickle-based models (XGBoost, SBERT classifier, ARIMA)."""
+    model_path = MODULE_PATHS.get(name)
+    if not model_path or not model_path.exists():
+        logger.warning("[Model Loader] %s not found at %s", log_label, model_path)
+        return False
+    try:
+        with open(model_path, "rb") as f:
+            data = pickle.load(f)
+        version = data.get("version", "sliit-v1-trained") if isinstance(data, dict) else "sliit-v1-trained"
+        model_registry.register(name, data, version=version)
+        logger.info("[Model Loader] [+] %s loaded", log_label)
+        return True
+    except Exception as e:
+        logger.error("[Model Loader] [!] Failed to load %s: %s", log_label, str(e)[:100])
+        return False
+
+
+def load_quality_scorer():
+    return _load_pickle_model("quality_scorer", "Quality Scorer (Module 4)")
+
+
+def load_topic_classifier():
+    return _load_pickle_model("topic_classifier", "Topic Classifier (Module 4)")
+
+
+def load_trend_forecaster():
+    return _load_pickle_model("trend_forecaster", "Trend Forecaster (Module 4)")
+
+
 def load_all_trained_models():
     """Load all available trained models."""
     logger.info("\n" + "="*70)
@@ -69,6 +120,10 @@ def load_all_trained_models():
     results = {
         "citation_ner": load_citation_ner(),
         "sbert_plagiarism": load_sbert_plagiarism(),
+        "supervisor_matcher": load_supervisor_matcher(),
+        "quality_scorer": load_quality_scorer(),
+        "topic_classifier": load_topic_classifier(),
+        "trend_forecaster": load_trend_forecaster(),
     }
 
     loaded_count = sum(1 for v in results.values() if v)
