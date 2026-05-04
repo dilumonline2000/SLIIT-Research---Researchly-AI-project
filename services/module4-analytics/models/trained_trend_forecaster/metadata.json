@@ -1,0 +1,64 @@
+{
+  "model_type": "ARIMA / ExponentialSmoothing per topic",
+  "version": "sliit-v1-trend",
+  "topics": [
+    "general",
+    "all",
+    "business",
+    "social_sciences",
+    "computing",
+    "health",
+    "engineering",
+    "sciences"
+  ],
+  "metrics": {
+    "general": {
+      "model_type": "ARIMA(1,1,1)",
+      "rmse": 75.7513493929083,
+      "data_points": 27,
+      "year_range": "2000-2026"
+    },
+    "all": {
+      "model_type": "ARIMA(1,1,1)",
+      "rmse": 131.77356832406835,
+      "data_points": 27,
+      "year_range": "2000-2026"
+    },
+    "business": {
+      "model_type": "ARIMA(1,1,1)",
+      "rmse": 9.618454070315254,
+      "data_points": 20,
+      "year_range": "2003-2026"
+    },
+    "social_sciences": {
+      "model_type": "ARIMA(1,1,1)",
+      "rmse": 10.560087003400156,
+      "data_points": 18,
+      "year_range": "2000-2026"
+    },
+    "computing": {
+      "model_type": "ARIMA(1,1,1)",
+      "rmse": 33.436717987661616,
+      "data_points": 26,
+      "year_range": "2001-2026"
+    },
+    "health": {
+      "model_type": "ARIMA(1,1,1)",
+      "rmse": 7.937498736770925,
+      "data_points": 15,
+      "year_range": "2006-2026"
+    },
+    "engineering": {
+      "model_type": "ARIMA(1,1,1)",
+      "rmse": 5.3828169778204105,
+      "data_points": 18,
+      "year_range": "2003-2026"
+    },
+    "sciences": {
+      "model_type": "ARIMA(1,1,1)",
+      "rmse": 1.2353665340800613,
+      "data_points": 4,
+      "year_range": "2008-2023"
+    }
+  }
+}

@@ -17,15 +17,16 @@ except ImportError:
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .routers import trends, quality, dashboard, mindmap, prediction
+from .routers import trends, quality, dashboard, mindmap, prediction, papers
+from .services.model_loader import load_all_models, get_status
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = FastAPI(
     title="Researchly — Module 4 (Analytics)",
-    description="Trend forecasting, quality scoring, dashboards, concept mind maps, success prediction",
-    version="0.1.0",
+    description="Trend forecasting, quality scoring, dashboards, concept mind maps, success prediction, paper upload",
+    version="1.0.0",
 )
 
 app.add_middleware(
@@ -39,7 +40,12 @@ app.add_middleware(
 
 @app.get("/health")
 def health() -> dict:
-    return {"status": "ok", "service": "module4-analytics", "version": "0.1.0"}
+    return {
+        "status": "ok",
+        "service": "module4-analytics",
+        "version": "1.0.0",
+        "models": get_status(),
+    }
 
 
 app.include_router(trends.router, prefix="/analytics", tags=["trends"])
@@ -47,8 +53,12 @@ app.include_router(quality.router, prefix="/analytics", tags=["quality"])
 app.include_router(dashboard.router, prefix="/analytics", tags=["dashboard"])
 app.include_router(mindmap.router, prefix="/analytics", tags=["mindmap"])
 app.include_router(prediction.router, prefix="/analytics", tags=["prediction"])
+app.include_router(papers.router, prefix="/analytics", tags=["papers"])
 
 
 @app.on_event("startup")
 async def startup() -> None:
-    logger.info("Module 4 (Analytics) starting up")
+    logger.info("Module 4 (Analytics) starting up — loading trained models...")
+    results = load_all_models()
+    loaded = sum(1 for v in results.values() if v)
+    logger.info("Module 4 startup complete: %d/%d models loaded", loaded, len(results))
