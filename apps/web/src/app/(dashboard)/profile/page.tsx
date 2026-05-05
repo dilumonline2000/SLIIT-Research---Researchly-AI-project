@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { User, Mail, Briefcase, AlertCircle } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
-interface Profile {
+interface ProfileRow {
   id: string;
   full_name: string | null;
   role: string | null;
@@ -18,7 +18,7 @@ interface Profile {
 }
 
 export default function ProfilePage() {
-  const [profile, setProfile] = useState<Profile | null>(null);
+  const [profile, setProfile] = useState<ProfileRow | null>(null);
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
   const [department, setDepartment] = useState("");
@@ -27,48 +27,43 @@ export default function ProfilePage() {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const loadedRef = useRef(false);
 
   useEffect(() => {
+    // Guard against React Strict Mode double-invoke
+    if (loadedRef.current) return;
+    loadedRef.current = true;
+
     const load = async () => {
       try {
         const supabase = createClient();
-        const { data: { user }, error: userError } = await supabase.auth.getUser();
 
-        if (userError || !user) {
+        // getSession() reads from localStorage — no network request, never hangs
+        const { data: { session } } = await supabase.auth.getSession();
+
+        if (!session?.user) {
           setError("Not signed in. Please log in to view your profile.");
           setLoading(false);
           return;
         }
 
+        const user = session.user;
         setEmail(user.email || "");
 
-        // Use maybeSingle so we don't error when row is missing
-        const { data, error: profileError } = await (supabase
-          .from("profiles") as unknown as {
-            select: (s: string) => {
-              eq: (col: string, val: string) => {
-                maybeSingle: () => Promise<{ data: Record<string, unknown> | null; error: { message: string } | null }>;
-              };
-            };
-          })
-          .select("*")
+        // Fetch profile row — use maybeSingle via raw fetch to avoid type issues
+        const { data, error: profileError } = await supabase
+          .from("profiles")
+          .select("id, full_name, role, department, research_interests, avatar_url")
           .eq("id", user.id)
-          .maybeSingle();
+          .limit(1);
 
         if (profileError) {
-          console.warn("Profile fetch error:", profileError);
+          console.warn("Profile fetch warning:", profileError.message);
         }
 
-        const row = data as {
-          full_name?: string;
-          role?: string;
-          department?: string;
-          research_interests?: string[];
-          avatar_url?: string;
-        } | null;
+        const row = (data && data.length > 0 ? data[0] : null) as ProfileRow | null;
 
-        // Build profile object - if no row exists, create a default one
-        const p: Profile = {
+        const p: ProfileRow = {
           id: user.id,
           full_name: row?.full_name ?? (user.user_metadata?.full_name as string | undefined) ?? "",
           role: row?.role ?? "student",
@@ -76,17 +71,19 @@ export default function ProfilePage() {
           research_interests: row?.research_interests ?? [],
           avatar_url: row?.avatar_url ?? null,
         };
+
         setProfile(p);
         setFullName(p.full_name || "");
         setDepartment(p.department || "");
         setInterests((p.research_interests || []).join(", "));
       } catch (err) {
-        console.error("Profile load failed:", err);
+        console.error("Profile load error:", err);
         setError(err instanceof Error ? err.message : "Failed to load profile");
       } finally {
         setLoading(false);
       }
     };
+
     load();
   }, []);
 
@@ -97,19 +94,18 @@ export default function ProfilePage() {
     setError("");
     try {
       const supabase = createClient();
-      const payload = {
+      // Cast to any to bypass strict generated-types check for untyped profiles table
+      const { error: upsertError } = await (supabase.from("profiles") as any).upsert({
         id: profile.id,
         full_name: fullName,
         department,
-        research_interests: interests.split(",").map((s) => s.trim()).filter(Boolean),
+        research_interests: interests.split(",").map((s: string) => s.trim()).filter(Boolean),
         role: profile.role || "student",
-      };
-      // Use upsert so it works whether row exists or not
-      const { error: upsertError } = await (supabase.from("profiles") as unknown as {
-        upsert: (p: unknown) => Promise<{ error: { message: string } | null }>;
-      }).upsert(payload);
+        updated_at: new Date().toISOString(),
+      });
       if (upsertError) throw new Error(upsertError.message);
       setMessage("Profile updated successfully.");
+      setProfile((p) => p ? { ...p, full_name: fullName, department } : p);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to save");
     } finally {
@@ -121,7 +117,14 @@ export default function ProfilePage() {
     return (
       <div className="space-y-6">
         <h1 className="text-3xl font-bold">Profile</h1>
-        <Card><CardContent className="py-12 text-center text-muted-foreground">Loading profile...</CardContent></Card>
+        <Card>
+          <CardContent className="py-12 text-center text-muted-foreground">
+            <div className="flex items-center justify-center gap-2">
+              <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+              Loading profile…
+            </div>
+          </CardContent>
+        </Card>
       </div>
     );
   }
@@ -159,7 +162,12 @@ export default function ProfilePage() {
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="fullName">Full Name</Label>
-            <Input id="fullName" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Your full name" />
+            <Input
+              id="fullName"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              placeholder="Your full name"
+            />
           </div>
 
           <div className="space-y-2">
@@ -178,17 +186,27 @@ export default function ProfilePage() {
 
           <div className="space-y-2">
             <Label htmlFor="department">Department</Label>
-            <Input id="department" placeholder="e.g., Computer Science" value={department} onChange={(e) => setDepartment(e.target.value)} />
+            <Input
+              id="department"
+              placeholder="e.g., Computer Science"
+              value={department}
+              onChange={(e) => setDepartment(e.target.value)}
+            />
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="interests">Research Interests (comma-separated)</Label>
-            <Input id="interests" placeholder="e.g., Machine Learning, NLP, IoT" value={interests} onChange={(e) => setInterests(e.target.value)} />
+            <Input
+              id="interests"
+              placeholder="e.g., Machine Learning, NLP, IoT"
+              value={interests}
+              onChange={(e) => setInterests(e.target.value)}
+            />
           </div>
 
           <div className="flex items-center gap-3 pt-2">
             <Button onClick={handleSave} disabled={saving}>
-              {saving ? "Saving..." : "Save Changes"}
+              {saving ? "Saving…" : "Save Changes"}
             </Button>
             {message && <p className="text-sm text-green-600">{message}</p>}
             {error && <p className="text-sm text-destructive">{error}</p>}

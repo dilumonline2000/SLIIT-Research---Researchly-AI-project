@@ -1,9 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { FileText, MessageSquare, CheckCircle2, Loader2, AlertCircle } from "lucide-react";
+import { useState } from "react";
+import { FileText, MessageSquare, CheckCircle2, Loader2, AlertCircle, RefreshCw, ChevronDown, ChevronUp } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import type { UploadedPaper } from "@/stores/paperStore";
+import { apiPost } from "@/lib/api";
+import { API_ROUTES } from "@/lib/constants";
 
 function StatusBadge({ status }: { status: string }) {
   if (status === "ready")
@@ -26,6 +30,26 @@ function StatusBadge({ status }: { status: string }) {
 }
 
 export function PaperCard({ paper }: { paper: UploadedPaper }) {
+  const [retrying, setRetrying] = useState(false);
+  const [retryMsg, setRetryMsg] = useState("");
+  const [showError, setShowError] = useState(false);
+
+  const isFailed = paper.processing_status === "failed";
+  const isStuck = ["extracting", "chunking", "embedding", "indexing"].includes(paper.processing_status);
+
+  const handleRetry = async () => {
+    setRetrying(true);
+    setRetryMsg("");
+    try {
+      await apiPost(API_ROUTES.papers.reprocess(paper.id), {});
+      setRetryMsg("Reprocessing started — refresh in a few seconds.");
+    } catch (err) {
+      setRetryMsg(err instanceof Error ? err.message : "Retry failed");
+    } finally {
+      setRetrying(false);
+    }
+  };
+
   return (
     <Card className="transition-shadow hover:shadow-md">
       <CardContent className="space-y-3 p-4">
@@ -49,15 +73,49 @@ export function PaperCard({ paper }: { paper: UploadedPaper }) {
           <p className="line-clamp-3 text-xs text-muted-foreground">{paper.abstract}</p>
         )}
 
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-2">
           <StatusBadge status={paper.processing_status} />
-          <Link
-            href={`/papers/${paper.id}/chat`}
-            className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
-          >
-            <MessageSquare className="h-3 w-3" /> Chat
-          </Link>
+          <div className="flex items-center gap-2">
+            {isFailed && paper.processing_error && (
+              <button
+                className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-0.5"
+                onClick={() => setShowError(!showError)}
+              >
+                {showError ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
+                Details
+              </button>
+            )}
+            {(isFailed || isStuck) && (
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={handleRetry}
+                disabled={retrying}
+                className="h-7 text-xs"
+                title="Retry processing"
+              >
+                <RefreshCw className={`h-3 w-3 ${retrying ? "animate-spin" : ""}`} />
+                <span className="ml-1">{retrying ? "Retrying..." : "Retry"}</span>
+              </Button>
+            )}
+            <Link
+              href={`/papers/${paper.id}/chat`}
+              className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+            >
+              <MessageSquare className="h-3 w-3" /> Chat
+            </Link>
+          </div>
         </div>
+
+        {isFailed && showError && paper.processing_error && (
+          <div className="rounded-md border border-red-200 bg-red-50 p-2">
+            <p className="text-xs text-red-700 font-mono break-all">{paper.processing_error}</p>
+          </div>
+        )}
+
+        {retryMsg && (
+          <p className="text-xs text-muted-foreground">{retryMsg}</p>
+        )}
       </CardContent>
     </Card>
   );

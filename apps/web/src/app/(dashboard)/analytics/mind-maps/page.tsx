@@ -1,16 +1,14 @@
 "use client";
 
-import { useState, useRef, useEffect, useMemo } from "react";
-import dynamic from "next/dynamic";
+import { useState, useRef, useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Network, Sparkles, AlertCircle, Maximize2, Download } from "lucide-react";
+import { Network, Sparkles, AlertCircle, Download } from "lucide-react";
 import { API_ROUTES } from "@/lib/constants";
 import { apiPost } from "@/lib/api";
-
-const ForceGraph2D = dynamic(() => import("react-force-graph-2d"), { ssr: false });
+import { MindMapGraph, type GraphNode, type GraphLink } from "@/components/shared/MindMapGraph";
 
 interface ConceptNode {
   id: string;
@@ -39,18 +37,8 @@ const CLUSTER_COLORS: Record<string, string> = {
   default: "#6b7280",
 };
 
-interface GraphNode {
-  id: string;
-  label: string;
-  cluster: string;
-  importance: number;
-  val: number;
-  color: string;
-}
-interface GraphLink {
-  source: string;
-  target: string;
-  weight: number;
+function colorFor(cluster: string) {
+  return CLUSTER_COLORS[cluster?.toLowerCase()] || CLUSTER_COLORS.default;
 }
 
 export default function MindMapsPage() {
@@ -60,43 +48,25 @@ export default function MindMapsPage() {
   const [result, setResult] = useState<ConceptMap | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
   const containerRef = useRef<HTMLDivElement>(null);
-  const graphRef = useRef<unknown>(null);
 
-  useEffect(() => {
-    const updateDims = () => {
-      if (containerRef.current) {
-        setDimensions({
-          width: containerRef.current.clientWidth,
-          height: 600,
-        });
-      }
-    };
-    updateDims();
-    window.addEventListener("resize", updateDims);
-    return () => window.removeEventListener("resize", updateDims);
-  }, [result]);
-
-  const colorFor = (cluster: string) =>
-    CLUSTER_COLORS[cluster?.toLowerCase()] || CLUSTER_COLORS.default;
-
-  const graphData = useMemo(() => {
-    if (!result) return { nodes: [], links: [] };
-    const nodes: GraphNode[] = result.nodes.map((n) => ({
+  const graphNodes = useMemo<GraphNode[]>(() => {
+    if (!result) return [];
+    return result.nodes.map((n) => ({
       id: n.id,
       label: n.concept,
-      cluster: n.domain_cluster,
-      importance: n.importance,
-      val: 4 + n.importance * 16,
       color: colorFor(n.domain_cluster),
+      val: 8 + n.importance * 32,
     }));
-    const links: GraphLink[] = result.edges.map((e) => ({
+  }, [result]);
+
+  const graphLinks = useMemo<GraphLink[]>(() => {
+    if (!result) return [];
+    return result.edges.map((e) => ({
       source: e.source,
       target: e.target,
       weight: e.relationship_strength,
     }));
-    return { nodes, links };
   }, [result]);
 
   const handleGenerate = async () => {
@@ -118,35 +88,12 @@ export default function MindMapsPage() {
   };
 
   const handleExport = () => {
-    if (!result) return;
-    const w = 1400;
-    const h = 900;
-    const cx = w / 2;
-    const cy = h / 2;
-    const r = 380;
-    const positions = new Map<string, { x: number; y: number }>();
-    result.nodes.forEach((n, i) => {
-      const angle = (i / result.nodes.length) * 2 * Math.PI;
-      positions.set(n.id, {
-        x: cx + Math.cos(angle) * r * (0.5 + n.importance * 0.5),
-        y: cy + Math.sin(angle) * r * (0.5 + n.importance * 0.5),
-      });
-    });
-    let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><rect width="${w}" height="${h}" fill="white"/>`;
-    result.edges.forEach((e) => {
-      const s = positions.get(e.source);
-      const t = positions.get(e.target);
-      if (s && t) svg += `<line x1="${s.x}" y1="${s.y}" x2="${t.x}" y2="${t.y}" stroke="#cbd5e1" stroke-width="${1 + e.relationship_strength * 3}"/>`;
-    });
-    result.nodes.forEach((n) => {
-      const p = positions.get(n.id);
-      if (!p) return;
-      const radius = 24 + n.importance * 14;
-      svg += `<circle cx="${p.x}" cy="${p.y}" r="${radius}" fill="${colorFor(n.domain_cluster)}" opacity="0.85"/>`;
-      svg += `<text x="${p.x}" y="${p.y + 4}" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="white">${n.concept.replace(/[<>&]/g, "")}</text>`;
-    });
-    svg += "</svg>";
-    const blob = new Blob([svg], { type: "image/svg+xml" });
+    if (!result || !containerRef.current) return;
+    const svgEl = containerRef.current.querySelector("svg");
+    if (!svgEl) return;
+    const serializer = new XMLSerializer();
+    const svgStr = serializer.serializeToString(svgEl);
+    const blob = new Blob([svgStr], { type: "image/svg+xml" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -155,6 +102,9 @@ export default function MindMapsPage() {
     URL.revokeObjectURL(url);
   };
 
+  const graphWidth = 860;
+  const graphHeight = 580;
+
   return (
     <div className="space-y-6">
       <div>
@@ -162,8 +112,8 @@ export default function MindMapsPage() {
           <Network className="h-6 w-6" /> Concept Mind Maps
         </h1>
         <p className="text-muted-foreground">
-          GNN-based concept graph expansion from a topic or department seed. Drag,
-          zoom, and pan to explore relationships.
+          GNN-based concept graph expansion from a topic or department seed.
+          Hover over nodes to highlight relationships.
         </p>
       </div>
 
@@ -176,15 +126,32 @@ export default function MindMapsPage() {
           <div className="grid gap-3 md:grid-cols-3">
             <div className="space-y-2">
               <Label htmlFor="topic">Topic</Label>
-              <Input id="topic" placeholder="e.g., federated learning" value={topic} onChange={(e) => setTopic(e.target.value)} />
+              <Input
+                id="topic"
+                placeholder="e.g., federated learning"
+                value={topic}
+                onChange={(e) => setTopic(e.target.value)}
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="department">Department</Label>
-              <Input id="department" placeholder="e.g., Computer Science" value={department} onChange={(e) => setDepartment(e.target.value)} />
+              <Input
+                id="department"
+                placeholder="e.g., Computer Science"
+                value={department}
+                onChange={(e) => setDepartment(e.target.value)}
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="max">Max Nodes</Label>
-              <Input id="max" type="number" min={5} max={100} value={maxNodes} onChange={(e) => setMaxNodes(Number(e.target.value))} />
+              <Input
+                id="max"
+                type="number"
+                min={5}
+                max={100}
+                value={maxNodes}
+                onChange={(e) => setMaxNodes(Number(e.target.value))}
+              />
             </div>
           </div>
           <Button onClick={handleGenerate} disabled={loading}>
@@ -210,72 +177,25 @@ export default function MindMapsPage() {
               <div>
                 <CardTitle className="text-lg">Interactive Concept Graph</CardTitle>
                 <CardDescription>
-                  {result.nodes.length} concepts · {result.edges.length} relationships
+                  {result.nodes.length} concepts · {result.edges.length} relationships · hover to explore
                 </CardDescription>
               </div>
-              <div className="flex gap-2">
-                <Button size="sm" variant="outline" onClick={handleExport}>
-                  <Download className="mr-2 h-4 w-4" /> Export SVG
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => {
-                    const ref = graphRef.current as { zoomToFit?: (ms: number, padding: number) => void } | null;
-                    ref?.zoomToFit?.(400, 60);
-                  }}
-                >
-                  <Maximize2 className="mr-2 h-4 w-4" /> Fit
-                </Button>
-              </div>
+              <Button size="sm" variant="outline" onClick={handleExport}>
+                <Download className="mr-2 h-4 w-4" /> Export SVG
+              </Button>
             </div>
           </CardHeader>
           <CardContent>
             <div
               ref={containerRef}
               className="rounded-lg border bg-gradient-to-br from-slate-50 to-purple-50 overflow-hidden"
-              style={{ height: 600 }}
+              style={{ height: graphHeight }}
             >
-              <ForceGraph2D
-                ref={graphRef as React.MutableRefObject<unknown>}
-                graphData={graphData}
-                width={dimensions.width}
-                height={dimensions.height}
-                nodeLabel={(n: object) => (n as GraphNode).label}
-                nodeColor={(n: object) => (n as GraphNode).color}
-                nodeVal={(n: object) => (n as GraphNode).val}
-                linkWidth={(l: object) => 1 + (l as GraphLink).weight * 3}
-                linkColor={() => "rgba(100, 116, 139, 0.4)"}
-                linkDirectionalParticles={1}
-                linkDirectionalParticleSpeed={0.005}
-                linkDirectionalParticleColor={(l: object) => {
-                  const sourceNode = graphData.nodes.find(n => n.id === (l as GraphLink).source);
-                  return sourceNode?.color || "#9333ea";
-                }}
-                nodeCanvasObject={(node: object, ctx: CanvasRenderingContext2D, globalScale: number) => {
-                  const n = node as GraphNode & { x?: number; y?: number };
-                  const fontSize = 11 / globalScale;
-                  const radius = n.val;
-                  ctx.beginPath();
-                  ctx.arc(n.x || 0, n.y || 0, radius, 0, 2 * Math.PI);
-                  ctx.fillStyle = n.color;
-                  ctx.fill();
-                  ctx.strokeStyle = "#fff";
-                  ctx.lineWidth = 2 / globalScale;
-                  ctx.stroke();
-                  ctx.font = `${fontSize}px sans-serif`;
-                  ctx.textAlign = "center";
-                  ctx.textBaseline = "middle";
-                  ctx.fillStyle = "#fff";
-                  // Truncate long labels
-                  const label = n.label.length > 18 ? n.label.slice(0, 16) + "…" : n.label;
-                  ctx.fillText(label, n.x || 0, n.y || 0);
-                }}
-                cooldownTicks={120}
-                onEngineStop={() => {
-                  const ref = graphRef.current as { zoomToFit?: (ms: number, padding: number) => void } | null;
-                  ref?.zoomToFit?.(400, 80);
-                }}
+              <MindMapGraph
+                nodes={graphNodes}
+                links={graphLinks}
+                width={graphWidth}
+                height={graphHeight}
               />
             </div>
 

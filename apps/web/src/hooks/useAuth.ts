@@ -13,19 +13,25 @@ export function useAuth() {
   useEffect(() => {
     const supabase = createClient();
 
-    const fetchSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
+    const fetchProfile = async (userId: string) => {
+      try {
+        const { data } = await supabase
+          .from("profiles")
+          .select("id, full_name, role, department, research_interests, avatar_url")
+          .eq("id", userId)
+          .limit(1);
+        return (data && data.length > 0 ? data[0] : null) as Record<string, unknown> | null;
+      } catch {
+        return null;
+      }
+    };
 
+    const fetchSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
       if (session?.user) {
         setUser(session.user);
-        const { data: profileData } = await supabase
-          .from("profiles")
-          .select("*")
-          .eq("id", session.user.id)
-          .single();
-        setProfile(profileData ?? null);
+        const profileData = await fetchProfile(session.user.id);
+        setProfile(profileData as never);
       } else {
         reset();
       }
@@ -39,12 +45,8 @@ export function useAuth() {
     } = supabase.auth.onAuthStateChange(async (_event, session) => {
       setUser(session?.user ?? null);
       if (session?.user) {
-        const { data: profileData } = await supabase
-          .from("profiles")
-          .select("*")
-          .eq("id", session.user.id)
-          .single();
-        setProfile(profileData ?? null);
+        const profileData = await fetchProfile(session.user.id);
+        setProfile(profileData as never);
       } else {
         setProfile(null);
       }

@@ -16,10 +16,14 @@ interface AIProviderState {
   isLocalAvailable: boolean;
   isChecking: boolean;
   modelStatuses: Record<string, ModelStatus>;
+  lastCheckedAt: number;
   setProvider: (p: AIProvider) => void;
   toggleProvider: () => void;
-  checkLocalAvailability: () => Promise<void>;
+  checkLocalAvailability: (force?: boolean) => Promise<void>;
 }
+
+// Throttle: don't recheck within this many ms unless forced
+const CHECK_THROTTLE_MS = 30_000; // 30 seconds
 
 export const useAIProviderStore = create<AIProviderState>()(
   persist(
@@ -28,40 +32,45 @@ export const useAIProviderStore = create<AIProviderState>()(
       isLocalAvailable: false,
       isChecking: false,
       modelStatuses: {},
+      lastCheckedAt: 0,
 
       setProvider: (provider) => set({ provider }),
 
       toggleProvider: () => {
         const { provider, isLocalAvailable } = get();
-        console.log('[AIProvider] Toggle clicked. Current:', { provider, isLocalAvailable });
         if (provider === 'gemini' && !isLocalAvailable) {
           console.warn('[AIProvider] Cannot switch to local - models not ready');
           return;
         }
         const newProvider = provider === 'gemini' ? 'local' : 'gemini';
-        console.log('[AIProvider] Switching to:', newProvider);
         set({ provider: newProvider });
       },
 
-      checkLocalAvailability: async () => {
+      checkLocalAvailability: async (force = false) => {
+        const { lastCheckedAt, isChecking } = get();
+        const now = Date.now();
+
+        // Skip if already checking or if we checked recently (unless forced)
+        if (isChecking) return;
+        if (!force && now - lastCheckedAt < CHECK_THROTTLE_MS) return;
+
         set({ isChecking: true });
         try {
           const gatewayUrl = process.env.NEXT_PUBLIC_API_GATEWAY_URL || 'http://localhost:3001';
-          console.log('[AIProvider] Checking local availability at:', `${gatewayUrl}/api/v1/ai/local/health`);
           const res = await fetch(`${gatewayUrl}/api/v1/ai/local/health`, {
             signal: AbortSignal.timeout(5000),
           });
-          if (!res.ok) throw new Error(`Health check failed with status ${res.status}`);
+          if (!res.ok) throw new Error(`Health check failed: ${res.status}`);
           const data = await res.json();
-          console.log('[AIProvider] Health check response:', data);
           set({
             isLocalAvailable: data.available ?? false,
             modelStatuses: data.models ?? {},
             isChecking: false,
+            lastCheckedAt: Date.now(),
           });
         } catch (err) {
-          console.error('[AIProvider] Local availability check failed:', err);
-          set({ isLocalAvailable: false, isChecking: false });
+          console.warn('[AIProvider] Health check failed:', err);
+          set({ isLocalAvailable: false, isChecking: false, lastCheckedAt: Date.now() });
         }
       },
     }),

@@ -1,15 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { AIProviderToggle } from "@/components/shared/AIProviderToggle";
 import { ModelStatusGrid } from "@/components/shared/ModelStatusGrid";
+import { useAIProviderStore } from "@/stores/aiProviderStore";
 
 export default function SettingsPage() {
   const [theme, setTheme] = useState<"light" | "dark" | "system">("system");
   const [notifications, setNotifications] = useState(true);
+  const { checkLocalAvailability } = useAIProviderStore();
+
+  // Force a fresh model status check every time the settings page opens
+  useEffect(() => {
+    checkLocalAvailability(true);
+  }, [checkLocalAvailability]);
 
   const handleThemeChange = (newTheme: "light" | "dark" | "system") => {
     setTheme(newTheme);

@@ -168,7 +168,7 @@ export function AIProviderToggle({ compact = false }: AIProviderToggleProps) {
               variant="ghost"
               size="icon"
               className="w-6 h-6 ml-1"
-              onClick={checkLocalAvailability}
+              onClick={() => checkLocalAvailability(true)}
               disabled={isChecking}
             >
               <RefreshCw className={cn('w-3 h-3', isChecking && 'animate-spin')} />

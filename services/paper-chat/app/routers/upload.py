@@ -28,17 +28,31 @@ from ..services.training_pipeline import queue_uploaded_paper
 logger = logging.getLogger(__name__)
 router = APIRouter()
 
-
-def _embed_text(text: str) -> List[float]:
-    from shared.embedding_utils import embed  # type: ignore
-
-    return embed(text).tolist()
+_STORAGE_BUCKET = "research-papers"
 
 
-def _embed_batch(texts: List[str]) -> List[List[float]]:
-    from shared.embedding_utils import embed_batch  # type: ignore
+def _extract_storage_path(file_url: str) -> Optional[str]:
+    """Extract the storage object path from a Supabase storage public URL.
 
-    return [v.tolist() for v in embed_batch(texts)]
+    Supabase public URLs look like:
+      https://<project>.supabase.co/storage/v1/object/public/<bucket>/<path>
+    Returns just <path> (everything after the bucket name), or None if the URL
+    doesn't match the expected format.
+    """
+    try:
+        marker = f"/object/public/{_STORAGE_BUCKET}/"
+        idx = file_url.find(marker)
+        if idx != -1:
+            return file_url[idx + len(marker):]
+        # Also handle /object/authenticated/
+        marker2 = f"/object/authenticated/{_STORAGE_BUCKET}/"
+        idx2 = file_url.find(marker2)
+        if idx2 != -1:
+            return file_url[idx2 + len(marker2):]
+    except Exception:
+        pass
+    return None
+
 
 
 def _update_status(sb, paper_id: str, status: str, error: Optional[str] = None, **extras: Any) -> None:
@@ -81,11 +95,24 @@ def _process_paper_sync(paper_id: str) -> None:
             processing_started_at=datetime.now(timezone.utc).isoformat(),
         )
 
-        # Download PDF
-        with httpx.Client(timeout=60.0) as client:
-            resp = client.get(file_url)
-            resp.raise_for_status()
-            pdf_bytes = resp.content
+        # Download PDF — try Supabase storage API first (works for public & private buckets),
+        # fall back to direct HTTP for externally hosted files.
+        pdf_bytes: bytes = b""
+        storage_path = _extract_storage_path(file_url)
+        if storage_path:
+            try:
+                pdf_bytes = sb.storage.from_("research-papers").download(storage_path)
+                logger.info("Downloaded %s from Supabase storage (%d bytes)", storage_path, len(pdf_bytes))
+            except Exception as dl_err:
+                logger.warning("Supabase storage download failed (%s), trying direct HTTP: %s", storage_path, dl_err)
+                pdf_bytes = b""
+
+        if not pdf_bytes:
+            with httpx.Client(timeout=60.0) as client:
+                resp = client.get(file_url)
+                resp.raise_for_status()
+                pdf_bytes = resp.content
+                logger.info("Downloaded %s via HTTP (%d bytes)", file_url, len(pdf_bytes))
 
         # Step 1-3: extract structured data
         extracted = build_extracted_data(pdf_bytes)
@@ -95,41 +122,25 @@ def _process_paper_sync(paper_id: str) -> None:
         _update_status(sb, paper_id, "chunking")
         chunks = chunk_document(extracted)
 
-        _update_status(sb, paper_id, "embedding")
-        chunk_texts = [c["chunk_text"] for c in chunks]
-        chunk_vectors = _embed_batch(chunk_texts) if chunk_texts else []
-
-        # Whole-paper embedding from title + abstract + keywords
-        seed = " ".join(
-            filter(
-                None,
-                [
-                    metadata.get("title") or "",
-                    metadata.get("abstract") or "",
-                    " ".join(metadata.get("keywords") or []),
-                ],
-            )
-        ).strip() or (extracted.get("full_text") or "")[:2000]
-        whole_embedding = _embed_text(seed) if seed else None
-
+        # NOTE: Skip embedding step — the DB vector columns (uploaded_papers.embedding,
+        # paper_chunks.embedding) are configured for 768 dimensions, but our SBERT model
+        # (all-MiniLM-L6-v2) outputs 384 dimensions. Storing them causes a dimension mismatch
+        # error that marks the paper as failed. Text chunks are stored without vectors;
+        # Gemini-based chat still works. Update this once the DB columns are migrated to 384d.
         _update_status(sb, paper_id, "indexing")
 
-        # Persist chunks
         chunk_rows = []
-        for c, vec in zip(chunks, chunk_vectors):
-            chunk_rows.append(
-                {
-                    "paper_id": paper_id,
-                    "chunk_index": c["chunk_index"],
-                    "chunk_text": c["chunk_text"],
-                    "chunk_type": c.get("chunk_type", "other"),
-                    "section_heading": c.get("section_heading"),
-                    "page_start": c.get("page_start"),
-                    "page_end": c.get("page_end"),
-                    "embedding": vec,
-                    "token_count": c.get("token_count"),
-                }
-            )
+        for c in chunks:
+            chunk_rows.append({
+                "paper_id": paper_id,
+                "chunk_index": c["chunk_index"],
+                "chunk_text": c["chunk_text"],
+                "chunk_type": c.get("chunk_type", "other"),
+                "section_heading": c.get("section_heading"),
+                "page_start": c.get("page_start"),
+                "page_end": c.get("page_end"),
+                "token_count": c.get("token_count"),
+            })
 
         # Idempotency: clear any existing chunks for this paper
         try:
@@ -159,9 +170,9 @@ def _process_paper_sync(paper_id: str) -> None:
             "updated_at": datetime.now(timezone.utc).isoformat(),
             "used_by_modules": ["module1", "module2", "module3", "module4"],
         }
-        if whole_embedding is not None:
-            update_payload["embedding"] = whole_embedding
+        # Do NOT include embedding in update — see NOTE above about dimension mismatch.
         sb.table("uploaded_papers").update(update_payload).eq("id", paper_id).execute()
+        logger.info("paper %s: title=%r, %d chunks stored (no vectors)", paper_id, metadata.get("title"), len(chunk_rows))
 
         # Queue training data
         queue_uploaded_paper(paper_id, extracted)
@@ -195,7 +206,7 @@ async def list_papers(
 ) -> Dict[str, Any]:
     sb = get_supabase()
     q = sb.table("uploaded_papers").select(
-        "id,title,authors,abstract,page_count,processing_status,created_at,publication_year,keywords"
+        "id,title,authors,abstract,page_count,processing_status,processing_error,created_at,publication_year,keywords"
     )
     if user_id:
         q = q.eq("user_id", user_id)

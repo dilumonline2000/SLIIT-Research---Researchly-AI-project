@@ -16,6 +16,7 @@ export interface UploadedPaper {
   abstract: string | null;
   page_count: number | null;
   processing_status: ProcessingStatus;
+  processing_error?: string | null;
   created_at?: string;
   publication_year?: number | null;
   keywords?: string[] | null;
