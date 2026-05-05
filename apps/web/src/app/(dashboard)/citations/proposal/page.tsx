@@ -5,16 +5,30 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Download, FileText, Sparkles, AlertCircle, FileDown, Copy, Check } from "lucide-react";
+import { Download, FileText, Sparkles, AlertCircle, FileDown, Copy, Check, BookOpen, ExternalLink, Database } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { API_ROUTES } from "@/lib/constants";
 import { apiPost } from "@/lib/api";
+
+interface RetrievedPaper {
+  paper_id: string;
+  title: string;
+  authors: string[];
+  year: number | string | null;
+  url: string;
+  similarity: number;
+}
 
 interface GeneratedProposal {
   problem_statement: string;
   objectives: string[];
   methodology: string;
   expected_outcomes: string;
+  retrieved_papers?: RetrievedPaper[];
   retrieved_paper_ids: string[];
+  model_version?: string;
+  base_model?: string;
+  source?: "local" | "gemini" | "fallback";
 }
 
 export default function ProposalGeneratorPage() {
@@ -40,6 +54,7 @@ export default function ProposalGeneratorPage() {
         topic,
         domain: domain || undefined,
         user_id: "current",
+        top_k: 5,
       });
       setResult(data);
     } catch (err) {
@@ -250,15 +265,28 @@ export default function ProposalGeneratorPage() {
           <Card className="border-emerald-200 bg-emerald-50/50">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between flex-wrap gap-3">
-                <div>
+                <div className="space-y-1">
                   <p className="text-sm font-medium text-emerald-800">
                     Proposal generated successfully ✓
                   </p>
-                  <p className="text-xs text-emerald-700">
-                    {result.retrieved_paper_ids.length > 0
-                      ? `Based on ${result.retrieved_paper_ids.length} papers from your corpus`
-                      : "No relevant corpus papers found — using model knowledge only"}
-                  </p>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    {result.source === "local" ? (
+                      <Badge variant="outline" className="bg-emerald-100 text-emerald-700 border-emerald-200 text-[10px]">
+                        <Database className="h-3 w-3 mr-1" /> Local SBERT model
+                      </Badge>
+                    ) : result.source === "gemini" ? (
+                      <Badge variant="outline" className="bg-blue-100 text-blue-700 border-blue-200 text-[10px]">
+                        <Sparkles className="h-3 w-3 mr-1" /> Gemini fallback
+                      </Badge>
+                    ) : null}
+                    <p className="text-xs text-emerald-700">
+                      {(result.retrieved_papers && result.retrieved_papers.length > 0)
+                        ? `Grounded in ${result.retrieved_papers.length} SLIIT papers`
+                        : result.retrieved_paper_ids.length > 0
+                          ? `Based on ${result.retrieved_paper_ids.length} corpus papers`
+                          : "Generated from prompt only"}
+                    </p>
+                  </div>
                 </div>
                 <div className="flex gap-2">
                   <Button size="sm" variant="outline" onClick={handleCopyAll}>
@@ -316,6 +344,45 @@ export default function ProposalGeneratorPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm leading-relaxed whitespace-pre-wrap">{result.expected_outcomes}</p>
+              </CardContent>
+            </Card>
+          )}
+
+          {result.retrieved_papers && result.retrieved_papers.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <BookOpen className="h-5 w-5" /> Source SLIIT Papers
+                </CardTitle>
+                <CardDescription>
+                  This proposal was composed from these {result.retrieved_papers.length} most-similar papers in the SLIIT corpus.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {result.retrieved_papers.map((p, i) => (
+                  <div key={i} className="rounded-md border bg-muted/30 p-3 text-sm space-y-1">
+                    <div className="flex items-start justify-between gap-2">
+                      <p className="font-medium flex-1">{p.title}</p>
+                      <Badge variant="secondary" className="text-[10px] shrink-0">
+                        {(p.similarity * 100).toFixed(0)}% match
+                      </Badge>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      {(p.authors || []).slice(0, 3).join(", ") || "Unknown authors"}
+                      {p.year ? ` · ${p.year}` : ""}
+                    </p>
+                    {p.url && (
+                      <a
+                        href={p.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                      >
+                        View on SLIIT RDA <ExternalLink className="h-3 w-3" />
+                      </a>
+                    )}
+                  </div>
+                ))}
               </CardContent>
             </Card>
           )}

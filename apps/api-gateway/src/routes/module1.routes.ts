@@ -65,4 +65,23 @@ router.post("/mindmaps/generate", async (req, res, next) => {
   }
 });
 
+// Local-model status endpoints (used by settings/model-status grid)
+router.get("/gaps/status", async (_req, res, next) => {
+  try {
+    const data = await callMlService(1, "/gaps/status", "GET");
+    res.json(data);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/proposals/status", async (_req, res, next) => {
+  try {
+    const data = await callMlService(1, "/proposals/status", "GET");
+    res.json(data);
+  } catch (err) {
+    next(err);
+  }
+});
+
 export default router;

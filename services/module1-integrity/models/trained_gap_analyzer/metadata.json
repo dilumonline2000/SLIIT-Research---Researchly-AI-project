@@ -1,0 +1,43 @@
+{
+  "version": "1.0.0",
+  "base_model": "sbert_plagiarism (SLIIT fine-tuned)",
+  "n_gaps": 553,
+  "n_papers": 494,
+  "embedding_dim": 384,
+  "gap_type_counts": {
+    "future_work": 117,
+    "limitation": 333,
+    "research_gap": 40,
+    "unexplored": 4,
+    "scarcity": 56,
+    "more_needed": 1,
+    "not_investigated": 2
+  },
+  "year_distribution": {
+    "2003": 1,
+    "2004": 1,
+    "2005": 2,
+    "2006": 2,
+    "2007": 4,
+    "2008": 5,
+    "2009": 3,
+    "2010": 8,
+    "2011": 3,
+    "2012": 6,
+    "2013": 10,
+    "2014": 8,
+    "2015": 12,
+    "2016": 13,
+    "2017": 32,
+    "2018": 15,
+    "2019": 30,
+    "2020": 38,
+    "2021": 80,
+    "2022": 87,
+    "2023": 54,
+    "2024": 48,
+    "2025": 81,
+    "2026": 10
+  },
+  "index_size_mb": 1.142
+}

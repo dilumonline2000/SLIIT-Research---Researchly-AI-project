@@ -1,0 +1,50 @@
+{
+  "description": "Sample queries that hit the trained gap analyzer + proposal retriever. Use these in the viva to demonstrate that the system retrieves real SLIIT-paper-grounded results.",
+  "gap_analysis": [
+    {
+      "query": "machine learning in healthcare",
+      "expected_signal": "Returns gaps from SLIIT papers about ML for disease prediction (CKD, diabetes, etc.)"
+    },
+    {
+      "query": "blockchain supply chain transparency",
+      "expected_signal": "Returns gaps from SLIIT supply-chain / logistics papers"
+    },
+    {
+      "query": "deep learning for crop disease detection",
+      "expected_signal": "Returns gaps from agriculture / image-classification papers"
+    },
+    {
+      "query": "natural language processing for Sinhala",
+      "expected_signal": "Returns gaps about low-resource language NLP from SLIIT papers"
+    },
+    {
+      "query": "IoT security in smart cities",
+      "expected_signal": "Returns IoT / cybersecurity gaps with future-work signals"
+    },
+    {
+      "query": "cybersecurity in banking",
+      "expected_signal": "Returns finance-security gaps with limitation signals"
+    },
+    {
+      "query": "renewable energy forecasting Sri Lanka",
+      "expected_signal": "Returns Sri-Lanka-specific energy / forecasting gaps"
+    }
+  ],
+  "proposal_generation": [
+    {
+      "topic": "deep learning for crop disease detection",
+      "domain": "Agriculture",
+      "expected_signal": "Composes problem statement citing a SLIIT agriculture paper, retrieves 5 top exemplars"
+    },
+    {
+      "topic": "blockchain for academic credential verification",
+      "domain": "Education",
+      "expected_signal": "Retrieves SLIIT blockchain / education papers"
+    },
+    {
+      "topic": "real-time fraud detection in mobile banking",
+      "domain": "Finance",
+      "expected_signal": "Retrieves SLIIT fintech / fraud-detection papers"
+    }
+  ]
+}
