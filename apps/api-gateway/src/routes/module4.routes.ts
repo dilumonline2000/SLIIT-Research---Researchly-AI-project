@@ -31,6 +31,49 @@ router.get("/analytics/trends", async (req, res, next) => {
   }
 });
 
+router.post("/analytics/trends/compare", async (req, res, next) => {
+  try {
+    const data = await callMlService(4, "/analytics/trends/compare", "POST", req.body);
+    res.json(data);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/analytics/trends/insights", async (req, res, next) => {
+  try {
+    const qs = new URLSearchParams(req.query as Record<string, string>).toString();
+    const path = qs ? `/analytics/trends/insights?${qs}` : "/analytics/trends/insights";
+    const data = await callMlService(4, path, "GET");
+    res.json(data);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/analytics/trends/topics", async (_req, res, next) => {
+  try {
+    const data = await callMlService(4, "/analytics/trends/topics", "GET");
+    res.json(data);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/analytics/trends/report", async (req, res, next) => {
+  try {
+    const axios = (await import("axios")).default;
+    const { env } = await import("../config/env");
+    const r = await axios.post(`${env.MODULE4_URL}/analytics/trends/report`, req.body, {
+      responseType: "text", timeout: 30_000,
+    });
+    res.setHeader("Content-Type", "text/html");
+    res.send(r.data);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.post("/analytics/quality-score", async (req, res, next) => {
   try {
     const data = await callMlService(4, "/analytics/quality-score", "POST", req.body);

@@ -61,6 +61,10 @@ export const API_ROUTES = {
   },
   module4: {
     trends: "/api/v1/analytics/trends",
+    trendsCompare: "/api/v1/analytics/trends/compare",
+    trendsInsights: "/api/v1/analytics/trends/insights",
+    trendsTopics: "/api/v1/analytics/trends/topics",
+    trendsReport: "/api/v1/analytics/trends/report",
     qualityScore: "/api/v1/analytics/quality-score",
     dashboard: "/api/v1/analytics/dashboard",
     mindmap: "/api/v1/analytics/mindmap",
