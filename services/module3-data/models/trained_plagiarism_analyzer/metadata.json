@@ -1,0 +1,9 @@
+{
+  "version": "1.0.0",
+  "base_model": "sbert_plagiarism (SLIIT fine-tuned)",
+  "n_topics": 17,
+  "n_records": 27,
+  "n_papers": 3782,
+  "embedding_dim": 384,
+  "index_size_mb": 0.069
+}

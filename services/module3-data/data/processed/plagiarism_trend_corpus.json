@@ -1,0 +1,1776 @@
+{
+  "version": "1.0.0",
+  "base_model": "sbert_plagiarism (SLIIT fine-tuned)",
+  "n_papers": 3782,
+  "n_topics": 103,
+  "n_records": 27,
+  "records": [
+    {
+      "topic": "artificial intelligence",
+      "year": 2020,
+      "n_papers": 4,
+      "avg_similarity": 0.2571,
+      "max_similarity": 0.3928,
+      "p95_similarity": 0.3594,
+      "n_high_similarity_pairs": 0,
+      "trend_direction": "baseline",
+      "top_pairs": [
+        {
+          "similarity": 0.3928,
+          "paper_a": {
+            "paper_id": "e559fc3a-38b0-4ec1-aae5-8cef5761dc2c",
+            "title": "EasyTalk: A Translator for Sri Lankan Sign Language using Machine Learning and Artificial Intelligence",
+            "url": "https://rda.sliit.lk/handle/123456789/2495"
+          },
+          "paper_b": {
+            "paper_id": "4e076351-af7b-471c-ae07-50511c3f5ad9",
+            "title": "Student and Lecturer Performance Enhancement System using Artificial Intelligence",
+            "url": "https://rda.sliit.lk/handle/123456789/1968"
+          }
+        },
+        {
+          "similarity": 0.259,
+          "paper_a": {
+            "paper_id": "e559fc3a-38b0-4ec1-aae5-8cef5761dc2c",
+            "title": "EasyTalk: A Translator for Sri Lankan Sign Language using Machine Learning and Artificial Intelligence",
+            "url": "https://rda.sliit.lk/handle/123456789/2495"
+          },
+          "paper_b": {
+            "paper_id": "399cfced-079a-4807-92ee-ee1316474138",
+            "title": "Effectiveness of artificial intelligence, decentralized and distributed systems for prediction and secure channelling for Medical Tourism",
+            "url": "https://rda.sliit.lk/handle/123456789/1289"
+          }
+        },
+        {
+          "similarity": 0.2432,
+          "paper_a": {
+            "paper_id": "4e076351-af7b-471c-ae07-50511c3f5ad9",
+            "title": "Student and Lecturer Performance Enhancement System using Artificial Intelligence",
+            "url": "https://rda.sliit.lk/handle/123456789/1968"
+          },
+          "paper_b": {
+            "paper_id": "ef86fd68-199d-4cc0-93a8-1a4b75ffcffa",
+            "title": "AI - Driven Smart Bin for Waste Management",
+            "url": "https://rda.sliit.lk/handle/123456789/1326"
+          }
+        },
+        {
+          "similarity": 0.2326,
+          "paper_a": {
+            "paper_id": "4e076351-af7b-471c-ae07-50511c3f5ad9",
+            "title": "Student and Lecturer Performance Enhancement System using Artificial Intelligence",
+            "url": "https://rda.sliit.lk/handle/123456789/1968"
+          },
+          "paper_b": {
+            "paper_id": "399cfced-079a-4807-92ee-ee1316474138",
+            "title": "Effectiveness of artificial intelligence, decentralized and distributed systems for prediction and secure channelling for Medical Tourism",
+            "url": "https://rda.sliit.lk/handle/123456789/1289"
+          }
+        },
+        {
+          "similarity": 0.2114,
+          "paper_a": {
+            "paper_id": "ef86fd68-199d-4cc0-93a8-1a4b75ffcffa",
+            "title": "AI - Driven Smart Bin for Waste Management",
+            "url": "https://rda.sliit.lk/handle/123456789/1326"
+          },
+          "paper_b": {
+            "paper_id": "399cfced-079a-4807-92ee-ee1316474138",
+            "title": "Effectiveness of artificial intelligence, decentralized and distributed systems for prediction and secure channelling for Medical Tourism",
+            "url": "https://rda.sliit.lk/handle/123456789/1289"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "artificial intelligence",
+      "year": 2021,
+      "n_papers": 5,
+      "avg_similarity": 0.2575,
+      "max_similarity": 0.3996,
+      "p95_similarity": 0.3956,
+      "n_high_similarity_pairs": 0,
+      "trend_direction": "stable",
+      "top_pairs": [
+        {
+          "similarity": 0.3996,
+          "paper_a": {
+            "paper_id": "6d0b1f84-a1a4-40b5-bea9-adeccb1d3a0a",
+            "title": "Virtual Dressing Room: Smart Approach to Select and Buy Clothes",
+            "url": "https://rda.sliit.lk/handle/123456789/1224"
+          },
+          "paper_b": {
+            "paper_id": "770bc7ac-1891-4aed-b2fe-eb1a4fa272df",
+            "title": "JESSY: An Intelligence Travel Assistant",
+            "url": "https://rda.sliit.lk/handle/123456789/1129"
+          }
+        },
+        {
+          "similarity": 0.3907,
+          "paper_a": {
+            "paper_id": "6d0b1f84-a1a4-40b5-bea9-adeccb1d3a0a",
+            "title": "Virtual Dressing Room: Smart Approach to Select and Buy Clothes",
+            "url": "https://rda.sliit.lk/handle/123456789/1224"
+          },
+          "paper_b": {
+            "paper_id": "0a6ade1c-73e6-42d9-95a2-94d54dce46a3",
+            "title": "SalFix: Solutions for Small Businesses Using Artificial Intelligence and Machine Learning",
+            "url": "https://rda.sliit.lk/handle/123456789/1161"
+          }
+        },
+        {
+          "similarity": 0.3849,
+          "paper_a": {
+            "paper_id": "bb24ebd5-3160-4a46-9dc1-4a7f077b7e5b",
+            "title": "APlus: An Intelligent Lecture Delivery System using Artificial Intelligence Learning Analytics",
+            "url": "https://rda.sliit.lk/handle/123456789/2123"
+          },
+          "paper_b": {
+            "paper_id": "770bc7ac-1891-4aed-b2fe-eb1a4fa272df",
+            "title": "JESSY: An Intelligence Travel Assistant",
+            "url": "https://rda.sliit.lk/handle/123456789/1129"
+          }
+        },
+        {
+          "similarity": 0.2842,
+          "paper_a": {
+            "paper_id": "bb24ebd5-3160-4a46-9dc1-4a7f077b7e5b",
+            "title": "APlus: An Intelligent Lecture Delivery System using Artificial Intelligence Learning Analytics",
+            "url": "https://rda.sliit.lk/handle/123456789/2123"
+          },
+          "paper_b": {
+            "paper_id": "0a6ade1c-73e6-42d9-95a2-94d54dce46a3",
+            "title": "SalFix: Solutions for Small Businesses Using Artificial Intelligence and Machine Learning",
+            "url": "https://rda.sliit.lk/handle/123456789/1161"
+          }
+        },
+        {
+          "similarity": 0.264,
+          "paper_a": {
+            "paper_id": "bb24ebd5-3160-4a46-9dc1-4a7f077b7e5b",
+            "title": "APlus: An Intelligent Lecture Delivery System using Artificial Intelligence Learning Analytics",
+            "url": "https://rda.sliit.lk/handle/123456789/2123"
+          },
+          "paper_b": {
+            "paper_id": "6d0b1f84-a1a4-40b5-bea9-adeccb1d3a0a",
+            "title": "Virtual Dressing Room: Smart Approach to Select and Buy Clothes",
+            "url": "https://rda.sliit.lk/handle/123456789/1224"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "artificial intelligence",
+      "year": 2022,
+      "n_papers": 3,
+      "avg_similarity": 0.0573,
+      "max_similarity": 0.118,
+      "p95_similarity": 0.1092,
+      "n_high_similarity_pairs": 0,
+      "trend_direction": "decreasing",
+      "top_pairs": [
+        {
+          "similarity": 0.118,
+          "paper_a": {
+            "paper_id": "3572a04f-03f4-4f0c-9ea6-32c3ccbbb6b7",
+            "title": "Cryptocurrency Price Prediction: A Comparative Study using LSTM, GRU and Stacking Ensemble Algorithm for Time Series Forecasting",
+            "url": "https://rda.sliit.lk/handle/123456789/3034"
+          },
+          "paper_b": {
+            "paper_id": "e57f01c5-9124-4513-9853-f6a3e2cfa948",
+            "title": "Converting high resolution multi-lingual printed document images in to editable text using image processing and artificial intelligence",
+            "url": "https://rda.sliit.lk/handle/123456789/2818"
+          }
+        },
+        {
+          "similarity": 0.03,
+          "paper_a": {
+            "paper_id": "ab8b9e23-d7d8-4d99-973a-dbf8be0cf3c5",
+            "title": "Artificial Intelligence-Based Centralized Resource Management Application for Distributed Systems",
+            "url": "https://rda.sliit.lk/handle/123456789/3238"
+          },
+          "paper_b": {
+            "paper_id": "e57f01c5-9124-4513-9853-f6a3e2cfa948",
+            "title": "Converting high resolution multi-lingual printed document images in to editable text using image processing and artificial intelligence",
+            "url": "https://rda.sliit.lk/handle/123456789/2818"
+          }
+        },
+        {
+          "similarity": 0.0239,
+          "paper_a": {
+            "paper_id": "ab8b9e23-d7d8-4d99-973a-dbf8be0cf3c5",
+            "title": "Artificial Intelligence-Based Centralized Resource Management Application for Distributed Systems",
+            "url": "https://rda.sliit.lk/handle/123456789/3238"
+          },
+          "paper_b": {
+            "paper_id": "3572a04f-03f4-4f0c-9ea6-32c3ccbbb6b7",
+            "title": "Cryptocurrency Price Prediction: A Comparative Study using LSTM, GRU and Stacking Ensemble Algorithm for Time Series Forecasting",
+            "url": "https://rda.sliit.lk/handle/123456789/3034"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "artificial intelligence",
+      "year": 2024,
+      "n_papers": 8,
+      "avg_similarity": 0.2221,
+      "max_similarity": 1.0,
+      "p95_similarity": 0.4753,
+      "n_high_similarity_pairs": 1,
+      "trend_direction": "increasing",
+      "top_pairs": [
+        {
+          "similarity": 1.0,
+          "paper_a": {
+            "paper_id": "0b24ee76-53d4-46dd-915c-16bc0219c7d6",
+            "title": "Eco-friendly mix design of slag-ash-based geopolymer concrete using explainable deep learning",
+            "url": "https://rda.sliit.lk/handle/123456789/3750"
+          },
+          "paper_b": {
+            "paper_id": "4ca4e538-6989-42ff-82e3-c316fb9713a8",
+            "title": "Eco-friendly mix design of slag-ash-based geopolymer concrete using explainable deep learning",
+            "url": "https://rda.sliit.lk/handle/123456789/3739"
+          }
+        },
+        {
+          "similarity": 0.4927,
+          "paper_a": {
+            "paper_id": "08416a2e-a717-45cb-935f-01ec3bbefd6c",
+            "title": "‘Rhetoric’ and ‘Reality’ of Artificial Intelligence in Apparel Sector in Sri Lanka: Comparative Case Study",
+            "url": "https://rda.sliit.lk/handle/123456789/3925"
+          },
+          "paper_b": {
+            "paper_id": "f9c2cf9e-472a-4198-86e3-0ef63025662f",
+            "title": "Challenges and Frontiers in Intellectual Property Rights Amidst the Rise of Artificial Intelligence",
+            "url": "https://rda.sliit.lk/handle/123456789/3819"
+          }
+        },
+        {
+          "similarity": 0.4431,
+          "paper_a": {
+            "paper_id": "eee29063-ed43-4c8e-b7e5-3cb86722efb8",
+            "title": "IoT and AI Application for Implementation of Smart Gardening and Irrigation System",
+            "url": "https://rda.sliit.lk/handle/123456789/4075"
+          },
+          "paper_b": {
+            "paper_id": "e4304eaa-f59a-40be-b911-c9dc855e9df2",
+            "title": "A comprehensive review to evaluate the synergy of intelligent food packaging with modern food technology and artificial intelligence field",
+            "url": "https://rda.sliit.lk/handle/123456789/3741"
+          }
+        },
+        {
+          "similarity": 0.3072,
+          "paper_a": {
+            "paper_id": "08416a2e-a717-45cb-935f-01ec3bbefd6c",
+            "title": "‘Rhetoric’ and ‘Reality’ of Artificial Intelligence in Apparel Sector in Sri Lanka: Comparative Case Study",
+            "url": "https://rda.sliit.lk/handle/123456789/3925"
+          },
+          "paper_b": {
+            "paper_id": "e45a7629-8b3d-4f03-b419-e7976796e3d6",
+            "title": "Enriching Resilience in Smart Manufacturing: Critical Analysis of Industry 4.0 Technologies on Sustainable Production Process",
+            "url": "https://rda.sliit.lk/handle/123456789/3786"
+          }
+        },
+        {
+          "similarity": 0.2852,
+          "paper_a": {
+            "paper_id": "e45a7629-8b3d-4f03-b419-e7976796e3d6",
+            "title": "Enriching Resilience in Smart Manufacturing: Critical Analysis of Industry 4.0 Technologies on Sustainable Production Process",
+            "url": "https://rda.sliit.lk/handle/123456789/3786"
+          },
+          "paper_b": {
+            "paper_id": "e4304eaa-f59a-40be-b911-c9dc855e9df2",
+            "title": "A comprehensive review to evaluate the synergy of intelligent food packaging with modern food technology and artificial intelligence field",
+            "url": "https://rda.sliit.lk/handle/123456789/3741"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "artificial intelligence",
+      "year": 2025,
+      "n_papers": 12,
+      "avg_similarity": 0.2167,
+      "max_similarity": 0.764,
+      "p95_similarity": 0.4462,
+      "n_high_similarity_pairs": 0,
+      "trend_direction": "stable",
+      "top_pairs": [
+        {
+          "similarity": 0.764,
+          "paper_a": {
+            "paper_id": "1fae3a98-6f07-4f42-978a-15c1af912010",
+            "title": "Anthropocentricity and Copyright Protection; A Theoretical Emphasis on the Human Authorship Requirement in Copyright after Thaler v. Perlmutter",
+            "url": "https://rda.sliit.lk/handle/123456789/4380"
+          },
+          "paper_b": {
+            "paper_id": "0fea2976-7639-48c3-acb1-1c88bc27724c",
+            "title": "Reshaping Sri Lankan Intellectual Property Law: The Influence of Artificial Intelligence",
+            "url": "https://rda.sliit.lk/handle/123456789/4379"
+          }
+        },
+        {
+          "similarity": 0.5066,
+          "paper_a": {
+            "paper_id": "78988bba-4def-4f6c-9e7a-53bf3e769581",
+            "title": "Behaviour-based AI Algorithm for Crime Against a Person and Inchoate Crime in Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/4571"
+          },
+          "paper_b": {
+            "paper_id": "78feec34-ce0a-4986-bb15-55025886db5e",
+            "title": "How Frequency and Harmonic Profiling of a ‘Voice’ Can Inform Authentication of Deepfake Audio: An Efficiency Investigation",
+            "url": "https://rda.sliit.lk/handle/123456789/3951"
+          }
+        },
+        {
+          "similarity": 0.4696,
+          "paper_a": {
+            "paper_id": "6bdcb183-3463-46a9-968c-d20f8c7bcdaa",
+            "title": "Impact of Artificial Intelligence on Academic Integrity in Higher Education, Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/4446"
+          },
+          "paper_b": {
+            "paper_id": "0fea2976-7639-48c3-acb1-1c88bc27724c",
+            "title": "Reshaping Sri Lankan Intellectual Property Law: The Influence of Artificial Intelligence",
+            "url": "https://rda.sliit.lk/handle/123456789/4379"
+          }
+        },
+        {
+          "similarity": 0.4463,
+          "paper_a": {
+            "paper_id": "1fae3a98-6f07-4f42-978a-15c1af912010",
+            "title": "Anthropocentricity and Copyright Protection; A Theoretical Emphasis on the Human Authorship Requirement in Copyright after Thaler v. Perlmutter",
+            "url": "https://rda.sliit.lk/handle/123456789/4380"
+          },
+          "paper_b": {
+            "paper_id": "e81addfc-c19e-4ded-86b2-b27be4138c18",
+            "title": "Rewriting Delictual Liability in the Age of AI: Assessing Negligence for Physical Harm Caused by AI Driven Robots in Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/4378"
+          }
+        },
+        {
+          "similarity": 0.4459,
+          "paper_a": {
+            "paper_id": "895c9a34-6cf0-478b-964e-7720d3316ebe",
+            "title": "Nutria: An AI-Driven Personalized Meal and Exercise Recommender System for Diabetes Management",
+            "url": "https://rda.sliit.lk/handle/123456789/4180"
+          },
+          "paper_b": {
+            "paper_id": "4303c33b-3fef-4dd4-bff5-2fe01e156654",
+            "title": "Developing AI-Powered Android Application about Self-financial Management for Individuals “FinGuard”",
+            "url": "https://rda.sliit.lk/handle/123456789/4173"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "construction industry",
+      "year": 2022,
+      "n_papers": 4,
+      "avg_similarity": 0.5577,
+      "max_similarity": 0.6056,
+      "p95_similarity": 0.6055,
+      "n_high_similarity_pairs": 0,
+      "trend_direction": "baseline",
+      "top_pairs": [
+        {
+          "similarity": 0.6056,
+          "paper_a": {
+            "paper_id": "8ecd58d5-c86e-4560-9a56-856a3b8997a4",
+            "title": "Causes for Death and Injuries in Construction Industry in Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/3033"
+          },
+          "paper_b": {
+            "paper_id": "4e8b1490-f35e-43ee-809d-51cec0f64584",
+            "title": "Level of risk management knowledge among construction project managers in Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/2801"
+          }
+        },
+        {
+          "similarity": 0.6051,
+          "paper_a": {
+            "paper_id": "4870fcff-0c02-465a-8180-2cb39b9f0e00",
+            "title": "Factors influencing the timely completion of construction projects in Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/3131"
+          },
+          "paper_b": {
+            "paper_id": "8ecd58d5-c86e-4560-9a56-856a3b8997a4",
+            "title": "Causes for Death and Injuries in Construction Industry in Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/3033"
+          }
+        },
+        {
+          "similarity": 0.5862,
+          "paper_a": {
+            "paper_id": "4870fcff-0c02-465a-8180-2cb39b9f0e00",
+            "title": "Factors influencing the timely completion of construction projects in Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/3131"
+          },
+          "paper_b": {
+            "paper_id": "4e8b1490-f35e-43ee-809d-51cec0f64584",
+            "title": "Level of risk management knowledge among construction project managers in Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/2801"
+          }
+        },
+        {
+          "similarity": 0.5384,
+          "paper_a": {
+            "paper_id": "4870fcff-0c02-465a-8180-2cb39b9f0e00",
+            "title": "Factors influencing the timely completion of construction projects in Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/3131"
+          },
+          "paper_b": {
+            "paper_id": "83ca26bd-1bfd-4f9a-b468-e5cbd0ca7dab",
+            "title": "Attributes of ADR in the Sri Lankan Construction Industry",
+            "url": "https://rda.sliit.lk/handle/123456789/3121"
+          }
+        },
+        {
+          "similarity": 0.5104,
+          "paper_a": {
+            "paper_id": "83ca26bd-1bfd-4f9a-b468-e5cbd0ca7dab",
+            "title": "Attributes of ADR in the Sri Lankan Construction Industry",
+            "url": "https://rda.sliit.lk/handle/123456789/3121"
+          },
+          "paper_b": {
+            "paper_id": "4e8b1490-f35e-43ee-809d-51cec0f64584",
+            "title": "Level of risk management knowledge among construction project managers in Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/2801"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "construction industry",
+      "year": 2023,
+      "n_papers": 4,
+      "avg_similarity": 0.54,
+      "max_similarity": 0.678,
+      "p95_similarity": 0.6632,
+      "n_high_similarity_pairs": 0,
+      "trend_direction": "stable",
+      "top_pairs": [
+        {
+          "similarity": 0.678,
+          "paper_a": {
+            "paper_id": "bf22333f-a693-4bc0-813c-05f8bb0fc90d",
+            "title": "The Effect of Timely Delivery of Construction Projects on the Economic Growth in Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/3563"
+          },
+          "paper_b": {
+            "paper_id": "c1878c73-d157-4947-97be-1ce5e5c74268",
+            "title": "The Impact of Labour Motivation on Project Performance with an Insight into the Sri Lankan Construction Industry",
+            "url": "https://rda.sliit.lk/handle/123456789/3560"
+          }
+        },
+        {
+          "similarity": 0.6187,
+          "paper_a": {
+            "paper_id": "bf22333f-a693-4bc0-813c-05f8bb0fc90d",
+            "title": "The Effect of Timely Delivery of Construction Projects on the Economic Growth in Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/3563"
+          },
+          "paper_b": {
+            "paper_id": "8ae3dc35-2b49-4189-bef8-31292455ff4f",
+            "title": "Strategies Used by the Sri Lankan Construction Industry to Overcome the Challenges Posed by the Covid-19",
+            "url": "https://rda.sliit.lk/handle/123456789/3375"
+          }
+        },
+        {
+          "similarity": 0.5354,
+          "paper_a": {
+            "paper_id": "c1878c73-d157-4947-97be-1ce5e5c74268",
+            "title": "The Impact of Labour Motivation on Project Performance with an Insight into the Sri Lankan Construction Industry",
+            "url": "https://rda.sliit.lk/handle/123456789/3560"
+          },
+          "paper_b": {
+            "paper_id": "8ae3dc35-2b49-4189-bef8-31292455ff4f",
+            "title": "Strategies Used by the Sri Lankan Construction Industry to Overcome the Challenges Posed by the Covid-19",
+            "url": "https://rda.sliit.lk/handle/123456789/3375"
+          }
+        },
+        {
+          "similarity": 0.5094,
+          "paper_a": {
+            "paper_id": "c1878c73-d157-4947-97be-1ce5e5c74268",
+            "title": "The Impact of Labour Motivation on Project Performance with an Insight into the Sri Lankan Construction Industry",
+            "url": "https://rda.sliit.lk/handle/123456789/3560"
+          },
+          "paper_b": {
+            "paper_id": "edb5550d-9a2b-4094-bf3c-91604d4056d5",
+            "title": "Negotiation as an ADR Technique in the Sri Lankan Construction Industry",
+            "url": "https://rda.sliit.lk/handle/123456789/3559"
+          }
+        },
+        {
+          "similarity": 0.4532,
+          "paper_a": {
+            "paper_id": "bf22333f-a693-4bc0-813c-05f8bb0fc90d",
+            "title": "The Effect of Timely Delivery of Construction Projects on the Economic Growth in Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/3563"
+          },
+          "paper_b": {
+            "paper_id": "edb5550d-9a2b-4094-bf3c-91604d4056d5",
+            "title": "Negotiation as an ADR Technique in the Sri Lankan Construction Industry",
+            "url": "https://rda.sliit.lk/handle/123456789/3559"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "machine learning",
+      "year": 2019,
+      "n_papers": 4,
+      "avg_similarity": 0.2852,
+      "max_similarity": 0.4025,
+      "p95_similarity": 0.3962,
+      "n_high_similarity_pairs": 0,
+      "trend_direction": "baseline",
+      "top_pairs": [
+        {
+          "similarity": 0.4025,
+          "paper_a": {
+            "paper_id": "d3b55726-b24e-4eef-9285-1675f9c64c38",
+            "title": "Real-time credit card fraud detection using machine learning",
+            "url": "https://rda.sliit.lk/handle/123456789/2096"
+          },
+          "paper_b": {
+            "paper_id": "93f45011-f243-42d1-bd76-14034ff49d75",
+            "title": "Code Vulnerability Identification and Code Improvement using Advanced Machine Learning",
+            "url": "https://rda.sliit.lk/handle/123456789/1630"
+          }
+        },
+        {
+          "similarity": 0.3773,
+          "paper_a": {
+            "paper_id": "d3b55726-b24e-4eef-9285-1675f9c64c38",
+            "title": "Real-time credit card fraud detection using machine learning",
+            "url": "https://rda.sliit.lk/handle/123456789/2096"
+          },
+          "paper_b": {
+            "paper_id": "f6858759-9fb3-4778-ad65-933f2095e320",
+            "title": "Behavior & Bio metric based Masquerade Detection Mobile Application",
+            "url": "https://rda.sliit.lk/handle/123456789/2092"
+          }
+        },
+        {
+          "similarity": 0.3381,
+          "paper_a": {
+            "paper_id": "f6858759-9fb3-4778-ad65-933f2095e320",
+            "title": "Behavior & Bio metric based Masquerade Detection Mobile Application",
+            "url": "https://rda.sliit.lk/handle/123456789/2092"
+          },
+          "paper_b": {
+            "paper_id": "93f45011-f243-42d1-bd76-14034ff49d75",
+            "title": "Code Vulnerability Identification and Code Improvement using Advanced Machine Learning",
+            "url": "https://rda.sliit.lk/handle/123456789/1630"
+          }
+        },
+        {
+          "similarity": 0.2723,
+          "paper_a": {
+            "paper_id": "f6858759-9fb3-4778-ad65-933f2095e320",
+            "title": "Behavior & Bio metric based Masquerade Detection Mobile Application",
+            "url": "https://rda.sliit.lk/handle/123456789/2092"
+          },
+          "paper_b": {
+            "paper_id": "739f5a61-af5a-430c-9f05-bdcbaf10a843",
+            "title": "Smart Mirror with Virtual Twin",
+            "url": "https://rda.sliit.lk/handle/123456789/490"
+          }
+        },
+        {
+          "similarity": 0.1726,
+          "paper_a": {
+            "paper_id": "d3b55726-b24e-4eef-9285-1675f9c64c38",
+            "title": "Real-time credit card fraud detection using machine learning",
+            "url": "https://rda.sliit.lk/handle/123456789/2096"
+          },
+          "paper_b": {
+            "paper_id": "739f5a61-af5a-430c-9f05-bdcbaf10a843",
+            "title": "Smart Mirror with Virtual Twin",
+            "url": "https://rda.sliit.lk/handle/123456789/490"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "machine learning",
+      "year": 2020,
+      "n_papers": 4,
+      "avg_similarity": 0.2364,
+      "max_similarity": 0.4075,
+      "p95_similarity": 0.4004,
+      "n_high_similarity_pairs": 0,
+      "trend_direction": "decreasing",
+      "top_pairs": [
+        {
+          "similarity": 0.4075,
+          "paper_a": {
+            "paper_id": "8c31de73-2abe-4349-9528-fefb3f23fae7",
+            "title": "HemoSmart: A Non-invasive, Machine Learning Based Device and Mobile App for Anemia Detection",
+            "url": "https://rda.sliit.lk/handle/123456789/1814"
+          },
+          "paper_b": {
+            "paper_id": "2acbbe99-aa85-45ce-9a7a-b0d050d6851c",
+            "title": "An Integrated Framework for Predicting Health Based on Sensor Data Using Machine Learning",
+            "url": "https://rda.sliit.lk/handle/123456789/1359"
+          }
+        },
+        {
+          "similarity": 0.3791,
+          "paper_a": {
+            "paper_id": "eeb339d3-ea13-44fb-97d8-9b2f98851453",
+            "title": "VirtualPT: Virtual Reality based Home Care Physiotherapy Rehabilitation for Elderly",
+            "url": "https://rda.sliit.lk/handle/123456789/1597"
+          },
+          "paper_b": {
+            "paper_id": "2acbbe99-aa85-45ce-9a7a-b0d050d6851c",
+            "title": "An Integrated Framework for Predicting Health Based on Sensor Data Using Machine Learning",
+            "url": "https://rda.sliit.lk/handle/123456789/1359"
+          }
+        },
+        {
+          "similarity": 0.2667,
+          "paper_a": {
+            "paper_id": "8c31de73-2abe-4349-9528-fefb3f23fae7",
+            "title": "HemoSmart: A Non-invasive, Machine Learning Based Device and Mobile App for Anemia Detection",
+            "url": "https://rda.sliit.lk/handle/123456789/1814"
+          },
+          "paper_b": {
+            "paper_id": "eeb339d3-ea13-44fb-97d8-9b2f98851453",
+            "title": "VirtualPT: Virtual Reality based Home Care Physiotherapy Rehabilitation for Elderly",
+            "url": "https://rda.sliit.lk/handle/123456789/1597"
+          }
+        },
+        {
+          "similarity": 0.1852,
+          "paper_a": {
+            "paper_id": "6099c39d-96de-4107-bdee-098cd1a55904",
+            "title": "WANHEDA: A Machine Learning Based DDoS Detection System",
+            "url": "https://rda.sliit.lk/handle/123456789/2080"
+          },
+          "paper_b": {
+            "paper_id": "8c31de73-2abe-4349-9528-fefb3f23fae7",
+            "title": "HemoSmart: A Non-invasive, Machine Learning Based Device and Mobile App for Anemia Detection",
+            "url": "https://rda.sliit.lk/handle/123456789/1814"
+          }
+        },
+        {
+          "similarity": 0.1806,
+          "paper_a": {
+            "paper_id": "6099c39d-96de-4107-bdee-098cd1a55904",
+            "title": "WANHEDA: A Machine Learning Based DDoS Detection System",
+            "url": "https://rda.sliit.lk/handle/123456789/2080"
+          },
+          "paper_b": {
+            "paper_id": "2acbbe99-aa85-45ce-9a7a-b0d050d6851c",
+            "title": "An Integrated Framework for Predicting Health Based on Sensor Data Using Machine Learning",
+            "url": "https://rda.sliit.lk/handle/123456789/1359"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "machine learning",
+      "year": 2021,
+      "n_papers": 5,
+      "avg_similarity": 0.3155,
+      "max_similarity": 0.4618,
+      "p95_similarity": 0.4543,
+      "n_high_similarity_pairs": 0,
+      "trend_direction": "increasing",
+      "top_pairs": [
+        {
+          "similarity": 0.4618,
+          "paper_a": {
+            "paper_id": "d5e3c792-7808-4b07-8911-ddced036df17",
+            "title": "Smart Office Automation System for Covid Prevention",
+            "url": "https://rda.sliit.lk/handle/123456789/1216"
+          },
+          "paper_b": {
+            "paper_id": "fdd41e20-b2db-43d6-aad5-2b340588d45e",
+            "title": "E-Agrigo",
+            "url": "https://rda.sliit.lk/handle/123456789/1071"
+          }
+        },
+        {
+          "similarity": 0.445,
+          "paper_a": {
+            "paper_id": "5b0f19d6-01fb-4432-9c80-a82def0efd33",
+            "title": "Machine Learning-Based Skin And Heart Disease Diagnose Mobile App",
+            "url": "https://rda.sliit.lk/handle/123456789/2521"
+          },
+          "paper_b": {
+            "paper_id": "d5e3c792-7808-4b07-8911-ddced036df17",
+            "title": "Smart Office Automation System for Covid Prevention",
+            "url": "https://rda.sliit.lk/handle/123456789/1216"
+          }
+        },
+        {
+          "similarity": 0.3991,
+          "paper_a": {
+            "paper_id": "f1137585-ed45-4b04-84bf-79b3943722fa",
+            "title": "Machine Learning Modelling of the Relationship between Weather and Paddy Yield in Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/2656"
+          },
+          "paper_b": {
+            "paper_id": "fdd41e20-b2db-43d6-aad5-2b340588d45e",
+            "title": "E-Agrigo",
+            "url": "https://rda.sliit.lk/handle/123456789/1071"
+          }
+        },
+        {
+          "similarity": 0.3761,
+          "paper_a": {
+            "paper_id": "5b0f19d6-01fb-4432-9c80-a82def0efd33",
+            "title": "Machine Learning-Based Skin And Heart Disease Diagnose Mobile App",
+            "url": "https://rda.sliit.lk/handle/123456789/2521"
+          },
+          "paper_b": {
+            "paper_id": "61d884c2-e8d9-4428-b926-de1be683107f",
+            "title": "Machine Learning Based Emotion Level Assessment",
+            "url": "https://rda.sliit.lk/handle/123456789/2143"
+          }
+        },
+        {
+          "similarity": 0.3448,
+          "paper_a": {
+            "paper_id": "5b0f19d6-01fb-4432-9c80-a82def0efd33",
+            "title": "Machine Learning-Based Skin And Heart Disease Diagnose Mobile App",
+            "url": "https://rda.sliit.lk/handle/123456789/2521"
+          },
+          "paper_b": {
+            "paper_id": "fdd41e20-b2db-43d6-aad5-2b340588d45e",
+            "title": "E-Agrigo",
+            "url": "https://rda.sliit.lk/handle/123456789/1071"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "machine learning",
+      "year": 2022,
+      "n_papers": 4,
+      "avg_similarity": 0.2346,
+      "max_similarity": 0.447,
+      "p95_similarity": 0.3976,
+      "n_high_similarity_pairs": 0,
+      "trend_direction": "decreasing",
+      "top_pairs": [
+        {
+          "similarity": 0.447,
+          "paper_a": {
+            "paper_id": "247185f5-5ce6-456d-a279-eb0509657a8b",
+            "title": "AgroPro: Optimizer for Traditional Agricultural System in Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/3386"
+          },
+          "paper_b": {
+            "paper_id": "e7b52cd4-5b72-402a-b6c9-9c96a70e917f",
+            "title": "Machine learning based classification of ripening and decay stages of Mango (Mangifera indica L.) cv. Tom EJC",
+            "url": "https://rda.sliit.lk/handle/123456789/2817"
+          }
+        },
+        {
+          "similarity": 0.2496,
+          "paper_a": {
+            "paper_id": "23da6583-0434-41c7-afec-9de309bad51b",
+            "title": "Deep Vision-Data Mining To Find Insights and Visualization in Code Repositories",
+            "url": "https://rda.sliit.lk/handle/123456789/3167"
+          },
+          "paper_b": {
+            "paper_id": "e7b52cd4-5b72-402a-b6c9-9c96a70e917f",
+            "title": "Machine learning based classification of ripening and decay stages of Mango (Mangifera indica L.) cv. Tom EJC",
+            "url": "https://rda.sliit.lk/handle/123456789/2817"
+          }
+        },
+        {
+          "similarity": 0.2362,
+          "paper_a": {
+            "paper_id": "247185f5-5ce6-456d-a279-eb0509657a8b",
+            "title": "AgroPro: Optimizer for Traditional Agricultural System in Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/3386"
+          },
+          "paper_b": {
+            "paper_id": "0371ead5-cbe3-485a-82dd-c84941bdf9c7",
+            "title": "Secure Smart Parking Solution Using Image Processing and Machine Learning",
+            "url": "https://rda.sliit.lk/handle/123456789/2955"
+          }
+        },
+        {
+          "similarity": 0.181,
+          "paper_a": {
+            "paper_id": "23da6583-0434-41c7-afec-9de309bad51b",
+            "title": "Deep Vision-Data Mining To Find Insights and Visualization in Code Repositories",
+            "url": "https://rda.sliit.lk/handle/123456789/3167"
+          },
+          "paper_b": {
+            "paper_id": "0371ead5-cbe3-485a-82dd-c84941bdf9c7",
+            "title": "Secure Smart Parking Solution Using Image Processing and Machine Learning",
+            "url": "https://rda.sliit.lk/handle/123456789/2955"
+          }
+        },
+        {
+          "similarity": 0.1697,
+          "paper_a": {
+            "paper_id": "0371ead5-cbe3-485a-82dd-c84941bdf9c7",
+            "title": "Secure Smart Parking Solution Using Image Processing and Machine Learning",
+            "url": "https://rda.sliit.lk/handle/123456789/2955"
+          },
+          "paper_b": {
+            "paper_id": "e7b52cd4-5b72-402a-b6c9-9c96a70e917f",
+            "title": "Machine learning based classification of ripening and decay stages of Mango (Mangifera indica L.) cv. Tom EJC",
+            "url": "https://rda.sliit.lk/handle/123456789/2817"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "geographical correlation",
+      "year": 2025,
+      "n_papers": 3,
+      "avg_similarity": 0.9984,
+      "max_similarity": 1.0,
+      "p95_similarity": 0.9998,
+      "n_high_similarity_pairs": 3,
+      "trend_direction": "baseline",
+      "top_pairs": [
+        {
+          "similarity": 1.0,
+          "paper_a": {
+            "paper_id": "304b823e-fb91-4dbf-b493-191cf4ade87c",
+            "title": "Impact of geographical variation on nutritional and antioxidant properties of Basella alba L. from Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/4624"
+          },
+          "paper_b": {
+            "paper_id": "289e8572-ee63-48b0-8670-d3f09d10c35e",
+            "title": "Impact of geographical variation on nutritional and antioxidant properties of Basella alba L. from Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/4048"
+          }
+        },
+        {
+          "similarity": 0.9976,
+          "paper_a": {
+            "paper_id": "304b823e-fb91-4dbf-b493-191cf4ade87c",
+            "title": "Impact of geographical variation on nutritional and antioxidant properties of Basella alba L. from Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/4624"
+          },
+          "paper_b": {
+            "paper_id": "727607af-8a58-4c7c-89a0-56c5bd3d23ab",
+            "title": "Impact of geographical variation on nutritional and antioxidant properties of Basella alba L. from Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/4143"
+          }
+        },
+        {
+          "similarity": 0.9976,
+          "paper_a": {
+            "paper_id": "727607af-8a58-4c7c-89a0-56c5bd3d23ab",
+            "title": "Impact of geographical variation on nutritional and antioxidant properties of Basella alba L. from Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/4143"
+          },
+          "paper_b": {
+            "paper_id": "289e8572-ee63-48b0-8670-d3f09d10c35e",
+            "title": "Impact of geographical variation on nutritional and antioxidant properties of Basella alba L. from Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/4048"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "english as a second language",
+      "year": 2021,
+      "n_papers": 3,
+      "avg_similarity": 0.3925,
+      "max_similarity": 0.4231,
+      "p95_similarity": 0.4187,
+      "n_high_similarity_pairs": 0,
+      "trend_direction": "baseline",
+      "top_pairs": [
+        {
+          "similarity": 0.4231,
+          "paper_a": {
+            "paper_id": "cbc0bc04-5933-46ec-b701-114e9eb459f0",
+            "title": "Effectiveness of L2 Grammar Videos: A Dialogue between Teachers and Learners",
+            "url": "https://rda.sliit.lk/handle/123456789/522"
+          },
+          "paper_b": {
+            "paper_id": "e85e8029-fda9-4fc1-b4e6-bd6265b60b1c",
+            "title": "Student Engagement in Online ESL Classroom: A Tale of Teachers",
+            "url": "https://rda.sliit.lk/handle/123456789/378"
+          }
+        },
+        {
+          "similarity": 0.3789,
+          "paper_a": {
+            "paper_id": "cbc0bc04-5933-46ec-b701-114e9eb459f0",
+            "title": "Effectiveness of L2 Grammar Videos: A Dialogue between Teachers and Learners",
+            "url": "https://rda.sliit.lk/handle/123456789/522"
+          },
+          "paper_b": {
+            "paper_id": "e562ce9a-111d-4084-ac4b-412b0cd7562b",
+            "title": "Gender Differences in The Preferred Learning Styles Among STEM Undergraduates in Learning ESL",
+            "url": "https://rda.sliit.lk/handle/123456789/387"
+          }
+        },
+        {
+          "similarity": 0.3755,
+          "paper_a": {
+            "paper_id": "e562ce9a-111d-4084-ac4b-412b0cd7562b",
+            "title": "Gender Differences in The Preferred Learning Styles Among STEM Undergraduates in Learning ESL",
+            "url": "https://rda.sliit.lk/handle/123456789/387"
+          },
+          "paper_b": {
+            "paper_id": "e85e8029-fda9-4fc1-b4e6-bd6265b60b1c",
+            "title": "Student Engagement in Online ESL Classroom: A Tale of Teachers",
+            "url": "https://rda.sliit.lk/handle/123456789/378"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "convolutional neural networks",
+      "year": 2021,
+      "n_papers": 3,
+      "avg_similarity": 0.3541,
+      "max_similarity": 0.4392,
+      "p95_similarity": 0.4305,
+      "n_high_similarity_pairs": 0,
+      "trend_direction": "baseline",
+      "top_pairs": [
+        {
+          "similarity": 0.4392,
+          "paper_a": {
+            "paper_id": "0a591f14-23c4-4e78-91df-133f133ef1be",
+            "title": "iParking—Smart Way to Automate the Management of the Parking System for a Smart City",
+            "url": "https://rda.sliit.lk/handle/123456789/1811"
+          },
+          "paper_b": {
+            "paper_id": "932e1020-a64e-49a9-a1cc-874571af0854",
+            "title": "Computer-Vision Enabled Waste Management System for Green Environment",
+            "url": "https://rda.sliit.lk/handle/123456789/988"
+          }
+        },
+        {
+          "similarity": 0.3524,
+          "paper_a": {
+            "paper_id": "94d2e60a-f439-443e-b6bd-d91db943130c",
+            "title": "Smart Attendance and Progress Management System",
+            "url": "https://rda.sliit.lk/handle/123456789/2193"
+          },
+          "paper_b": {
+            "paper_id": "0a591f14-23c4-4e78-91df-133f133ef1be",
+            "title": "iParking—Smart Way to Automate the Management of the Parking System for a Smart City",
+            "url": "https://rda.sliit.lk/handle/123456789/1811"
+          }
+        },
+        {
+          "similarity": 0.2706,
+          "paper_a": {
+            "paper_id": "94d2e60a-f439-443e-b6bd-d91db943130c",
+            "title": "Smart Attendance and Progress Management System",
+            "url": "https://rda.sliit.lk/handle/123456789/2193"
+          },
+          "paper_b": {
+            "paper_id": "932e1020-a64e-49a9-a1cc-874571af0854",
+            "title": "Computer-Vision Enabled Waste Management System for Green Environment",
+            "url": "https://rda.sliit.lk/handle/123456789/988"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "natural language processing",
+      "year": 2020,
+      "n_papers": 6,
+      "avg_similarity": 0.3146,
+      "max_similarity": 0.9136,
+      "p95_similarity": 0.5822,
+      "n_high_similarity_pairs": 1,
+      "trend_direction": "baseline",
+      "top_pairs": [
+        {
+          "similarity": 0.9136,
+          "paper_a": {
+            "paper_id": "fa811984-90fa-429b-8f00-4c04ad7fef17",
+            "title": "NoFish; Total Anti-Phishing Protection System",
+            "url": "https://rda.sliit.lk/handle/123456789/2090"
+          },
+          "paper_b": {
+            "paper_id": "c82aaf63-fc7d-4874-809f-b5b90dfcfbf0",
+            "title": "NoFish; Total Anti-Phishing Protection System",
+            "url": "https://rda.sliit.lk/handle/123456789/1562"
+          }
+        },
+        {
+          "similarity": 0.4402,
+          "paper_a": {
+            "paper_id": "a970ea6d-10fe-473c-a5fe-45d51f955f45",
+            "title": "User Awareness System to Diagnose Dermatological Diseases",
+            "url": "https://rda.sliit.lk/handle/123456789/2511"
+          },
+          "paper_b": {
+            "paper_id": "c82aaf63-fc7d-4874-809f-b5b90dfcfbf0",
+            "title": "NoFish; Total Anti-Phishing Protection System",
+            "url": "https://rda.sliit.lk/handle/123456789/1562"
+          }
+        },
+        {
+          "similarity": 0.3975,
+          "paper_a": {
+            "paper_id": "a6112830-b50c-4451-adf4-4615aab20373",
+            "title": "Arunalu: Learning Ecosystem to Overcome Sinhala Reading Weakness due to Dyslexia",
+            "url": "https://rda.sliit.lk/handle/123456789/1362"
+          },
+          "paper_b": {
+            "paper_id": "9d6b6ee4-26e0-4ee1-a612-ab9f9b450af7",
+            "title": "An AI based Chatbot to Self-Learn and Self-Assess Performance in Ordinary Level Chemistry",
+            "url": "https://rda.sliit.lk/handle/123456789/1357"
+          }
+        },
+        {
+          "similarity": 0.378,
+          "paper_a": {
+            "paper_id": "a970ea6d-10fe-473c-a5fe-45d51f955f45",
+            "title": "User Awareness System to Diagnose Dermatological Diseases",
+            "url": "https://rda.sliit.lk/handle/123456789/2511"
+          },
+          "paper_b": {
+            "paper_id": "a6112830-b50c-4451-adf4-4615aab20373",
+            "title": "Arunalu: Learning Ecosystem to Overcome Sinhala Reading Weakness due to Dyslexia",
+            "url": "https://rda.sliit.lk/handle/123456789/1362"
+          }
+        },
+        {
+          "similarity": 0.3679,
+          "paper_a": {
+            "paper_id": "a970ea6d-10fe-473c-a5fe-45d51f955f45",
+            "title": "User Awareness System to Diagnose Dermatological Diseases",
+            "url": "https://rda.sliit.lk/handle/123456789/2511"
+          },
+          "paper_b": {
+            "paper_id": "fa811984-90fa-429b-8f00-4c04ad7fef17",
+            "title": "NoFish; Total Anti-Phishing Protection System",
+            "url": "https://rda.sliit.lk/handle/123456789/2090"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "natural language processing",
+      "year": 2021,
+      "n_papers": 10,
+      "avg_similarity": 0.3194,
+      "max_similarity": 0.5939,
+      "p95_similarity": 0.4425,
+      "n_high_similarity_pairs": 0,
+      "trend_direction": "stable",
+      "top_pairs": [
+        {
+          "similarity": 0.5939,
+          "paper_a": {
+            "paper_id": "80113b25-43de-4920-8806-b7812dbfb02d",
+            "title": "Use of Natural Language Processing and Deep Learning towards Guiding Healthy Cholesterol Free Life",
+            "url": "https://rda.sliit.lk/handle/123456789/1222"
+          },
+          "paper_b": {
+            "paper_id": "956e352b-fa41-463b-8d65-1bd5f05c6f43",
+            "title": "SriHealth: A Single Platform for Meal Plans, Workouts, Yoga Schedules Based on SriLankan Lifestyle",
+            "url": "https://rda.sliit.lk/handle/123456789/1217"
+          }
+        },
+        {
+          "similarity": 0.511,
+          "paper_a": {
+            "paper_id": "956e352b-fa41-463b-8d65-1bd5f05c6f43",
+            "title": "SriHealth: A Single Platform for Meal Plans, Workouts, Yoga Schedules Based on SriLankan Lifestyle",
+            "url": "https://rda.sliit.lk/handle/123456789/1217"
+          },
+          "paper_b": {
+            "paper_id": "5fa7fdf5-f626-41c9-ba09-169ad146e0a5",
+            "title": "Mobile Medical Assistant and Analytical System for Dengue Patients",
+            "url": "https://rda.sliit.lk/handle/123456789/1147"
+          }
+        },
+        {
+          "similarity": 0.4441,
+          "paper_a": {
+            "paper_id": "80113b25-43de-4920-8806-b7812dbfb02d",
+            "title": "Use of Natural Language Processing and Deep Learning towards Guiding Healthy Cholesterol Free Life",
+            "url": "https://rda.sliit.lk/handle/123456789/1222"
+          },
+          "paper_b": {
+            "paper_id": "5fa7fdf5-f626-41c9-ba09-169ad146e0a5",
+            "title": "Mobile Medical Assistant and Analytical System for Dengue Patients",
+            "url": "https://rda.sliit.lk/handle/123456789/1147"
+          }
+        },
+        {
+          "similarity": 0.4359,
+          "paper_a": {
+            "paper_id": "eb3c3d6e-6e4a-45aa-bca5-b6a729ecd3a6",
+            "title": "Automate Traditional Interviewing Process Using Natural Language Processing and Machine Learning",
+            "url": "https://rda.sliit.lk/handle/123456789/1433"
+          },
+          "paper_b": {
+            "paper_id": "5fa7fdf5-f626-41c9-ba09-169ad146e0a5",
+            "title": "Mobile Medical Assistant and Analytical System for Dengue Patients",
+            "url": "https://rda.sliit.lk/handle/123456789/1147"
+          }
+        },
+        {
+          "similarity": 0.4354,
+          "paper_a": {
+            "paper_id": "eb3c3d6e-6e4a-45aa-bca5-b6a729ecd3a6",
+            "title": "Automate Traditional Interviewing Process Using Natural Language Processing and Machine Learning",
+            "url": "https://rda.sliit.lk/handle/123456789/1433"
+          },
+          "paper_b": {
+            "paper_id": "d727495b-87d2-4b58-b103-d02504860f6a",
+            "title": "SmartCoach: Comprehensive Tutor Recommender and Student Attentiveness Measuring Platform",
+            "url": "https://rda.sliit.lk/handle/123456789/1235"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "natural language processing",
+      "year": 2022,
+      "n_papers": 6,
+      "avg_similarity": 0.2476,
+      "max_similarity": 0.4046,
+      "p95_similarity": 0.3591,
+      "n_high_similarity_pairs": 0,
+      "trend_direction": "decreasing",
+      "top_pairs": [
+        {
+          "similarity": 0.4046,
+          "paper_a": {
+            "paper_id": "d5fa40d8-54ff-49c3-b51e-d976e81ff310",
+            "title": "BlossomSnap: A Single Platform for all Anthurium Planters Based on The Sri Lankan Market",
+            "url": "https://rda.sliit.lk/handle/123456789/3159"
+          },
+          "paper_b": {
+            "paper_id": "0bf9bca1-0377-45d3-8515-edc78b030c31",
+            "title": "Intelligent System for Skin Disease Detection of Dogs with Ontology Based Clinical Information Extraction",
+            "url": "https://rda.sliit.lk/handle/123456789/3148"
+          }
+        },
+        {
+          "similarity": 0.3396,
+          "paper_a": {
+            "paper_id": "7a718521-4a32-4ab4-8a1e-2cbc77e7e224",
+            "title": "Information extraction for business process  enhancement using Natural Language  Processing and Machine Learning",
+            "url": "https://rda.sliit.lk/handle/123456789/3448"
+          },
+          "paper_b": {
+            "paper_id": "edcc4d80-8724-4cc5-9c77-789d4fc8b2b1",
+            "title": "Anonymo: Automatic Response and Analysis of Anonymous Caller Complaints",
+            "url": "https://rda.sliit.lk/handle/123456789/3164"
+          }
+        },
+        {
+          "similarity": 0.3183,
+          "paper_a": {
+            "paper_id": "d5fa40d8-54ff-49c3-b51e-d976e81ff310",
+            "title": "BlossomSnap: A Single Platform for all Anthurium Planters Based on The Sri Lankan Market",
+            "url": "https://rda.sliit.lk/handle/123456789/3159"
+          },
+          "paper_b": {
+            "paper_id": "ca4a4eda-dfc9-4c0e-910c-83f6490a76c3",
+            "title": "Deep Learning for Code-Mixed Text Mining in Social Media: A Brief Review",
+            "url": "https://rda.sliit.lk/handle/123456789/3083"
+          }
+        },
+        {
+          "similarity": 0.312,
+          "paper_a": {
+            "paper_id": "6192f4f5-c6d7-49ec-bf26-be0568af5534",
+            "title": "Assistant Zone – Homeschooling Assistance System based on Natural Language Processing",
+            "url": "https://rda.sliit.lk/handle/123456789/3304"
+          },
+          "paper_b": {
+            "paper_id": "0bf9bca1-0377-45d3-8515-edc78b030c31",
+            "title": "Intelligent System for Skin Disease Detection of Dogs with Ontology Based Clinical Information Extraction",
+            "url": "https://rda.sliit.lk/handle/123456789/3148"
+          }
+        },
+        {
+          "similarity": 0.2921,
+          "paper_a": {
+            "paper_id": "7a718521-4a32-4ab4-8a1e-2cbc77e7e224",
+            "title": "Information extraction for business process  enhancement using Natural Language  Processing and Machine Learning",
+            "url": "https://rda.sliit.lk/handle/123456789/3448"
+          },
+          "paper_b": {
+            "paper_id": "d5fa40d8-54ff-49c3-b51e-d976e81ff310",
+            "title": "BlossomSnap: A Single Platform for all Anthurium Planters Based on The Sri Lankan Market",
+            "url": "https://rda.sliit.lk/handle/123456789/3159"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "political globalisation",
+      "year": 2025,
+      "n_papers": 4,
+      "avg_similarity": 0.8254,
+      "max_similarity": 1.0,
+      "p95_similarity": 0.9504,
+      "n_high_similarity_pairs": 3,
+      "trend_direction": "baseline",
+      "top_pairs": [
+        {
+          "similarity": 1.0,
+          "paper_a": {
+            "paper_id": "bc046eb6-059c-4d0c-9895-0062c2992b4f",
+            "title": "The interplay between globalisation and economic growth: a multi‑regional analysis",
+            "url": "https://rda.sliit.lk/handle/123456789/4152"
+          },
+          "paper_b": {
+            "paper_id": "1c479dda-2341-49c2-b057-1bc9c379c40b",
+            "title": "The interplay between globalisation and economic growth: a multi-regional analysis",
+            "url": "https://rda.sliit.lk/handle/123456789/4137"
+          }
+        },
+        {
+          "similarity": 0.8016,
+          "paper_a": {
+            "paper_id": "bc046eb6-059c-4d0c-9895-0062c2992b4f",
+            "title": "The interplay between globalisation and economic growth: a multi‑regional analysis",
+            "url": "https://rda.sliit.lk/handle/123456789/4152"
+          },
+          "paper_b": {
+            "paper_id": "b5694f6b-2a4d-4dbe-86b4-0f44c80209f7",
+            "title": "Interweaving globalisation and growth: A causal exploration across income levels",
+            "url": "https://rda.sliit.lk/handle/123456789/4058"
+          }
+        },
+        {
+          "similarity": 0.8016,
+          "paper_a": {
+            "paper_id": "1c479dda-2341-49c2-b057-1bc9c379c40b",
+            "title": "The interplay between globalisation and economic growth: a multi-regional analysis",
+            "url": "https://rda.sliit.lk/handle/123456789/4137"
+          },
+          "paper_b": {
+            "paper_id": "b5694f6b-2a4d-4dbe-86b4-0f44c80209f7",
+            "title": "Interweaving globalisation and growth: A causal exploration across income levels",
+            "url": "https://rda.sliit.lk/handle/123456789/4058"
+          }
+        },
+        {
+          "similarity": 0.79,
+          "paper_a": {
+            "paper_id": "b6b9a0a7-5723-47c4-8865-e67e5e4de814",
+            "title": "Globalisation and growth nexus: Evidence from Africa through Granger Causality and Wavelet Coherence",
+            "url": "https://rda.sliit.lk/handle/123456789/4154"
+          },
+          "paper_b": {
+            "paper_id": "bc046eb6-059c-4d0c-9895-0062c2992b4f",
+            "title": "The interplay between globalisation and economic growth: a multi‑regional analysis",
+            "url": "https://rda.sliit.lk/handle/123456789/4152"
+          }
+        },
+        {
+          "similarity": 0.79,
+          "paper_a": {
+            "paper_id": "b6b9a0a7-5723-47c4-8865-e67e5e4de814",
+            "title": "Globalisation and growth nexus: Evidence from Africa through Granger Causality and Wavelet Coherence",
+            "url": "https://rda.sliit.lk/handle/123456789/4154"
+          },
+          "paper_b": {
+            "paper_id": "1c479dda-2341-49c2-b057-1bc9c379c40b",
+            "title": "The interplay between globalisation and economic growth: a multi-regional analysis",
+            "url": "https://rda.sliit.lk/handle/123456789/4137"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "mobile application",
+      "year": 2022,
+      "n_papers": 3,
+      "avg_similarity": 0.3875,
+      "max_similarity": 0.4435,
+      "p95_similarity": 0.4368,
+      "n_high_similarity_pairs": 0,
+      "trend_direction": "baseline",
+      "top_pairs": [
+        {
+          "similarity": 0.4435,
+          "paper_a": {
+            "paper_id": "3535f598-97d4-4763-b174-ef09eab15e09",
+            "title": "SPAVIS: Mobile Application for Visually Impaired Based on Assistive Software and Volunteerism",
+            "url": "https://rda.sliit.lk/handle/123456789/3334"
+          },
+          "paper_b": {
+            "paper_id": "8186da65-ca00-4a78-b712-616c260a61b8",
+            "title": "Mobile Application for Mental Health Using Machine Learning",
+            "url": "https://rda.sliit.lk/handle/123456789/3306"
+          }
+        },
+        {
+          "similarity": 0.3762,
+          "paper_a": {
+            "paper_id": "daeba8bb-936a-4a82-bbd1-ee8679aebe7d",
+            "title": "Investigation of Routing Techniques to Develop a Model for Software-Defined Networks using Border Gateway Protocol",
+            "url": "https://rda.sliit.lk/handle/123456789/3393"
+          },
+          "paper_b": {
+            "paper_id": "8186da65-ca00-4a78-b712-616c260a61b8",
+            "title": "Mobile Application for Mental Health Using Machine Learning",
+            "url": "https://rda.sliit.lk/handle/123456789/3306"
+          }
+        },
+        {
+          "similarity": 0.3428,
+          "paper_a": {
+            "paper_id": "daeba8bb-936a-4a82-bbd1-ee8679aebe7d",
+            "title": "Investigation of Routing Techniques to Develop a Model for Software-Defined Networks using Border Gateway Protocol",
+            "url": "https://rda.sliit.lk/handle/123456789/3393"
+          },
+          "paper_b": {
+            "paper_id": "3535f598-97d4-4763-b174-ef09eab15e09",
+            "title": "SPAVIS: Mobile Application for Visually Impaired Based on Assistive Software and Volunteerism",
+            "url": "https://rda.sliit.lk/handle/123456789/3334"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "monitoring system",
+      "year": 2022,
+      "n_papers": 3,
+      "avg_similarity": 0.2671,
+      "max_similarity": 0.3167,
+      "p95_similarity": 0.3103,
+      "n_high_similarity_pairs": 0,
+      "trend_direction": "baseline",
+      "top_pairs": [
+        {
+          "similarity": 0.3167,
+          "paper_a": {
+            "paper_id": "63584a35-2edd-4fb1-8422-7219f980244f",
+            "title": "Image Processing and IoT-based Fish Diseases Identification and Fish Tank Monitoring System",
+            "url": "https://rda.sliit.lk/handle/123456789/3339"
+          },
+          "paper_b": {
+            "paper_id": "6a37c6f8-2ead-46cb-8299-6ff84bc9eb54",
+            "title": "IOT-based Monitoring System for Oyster Mushroom Farms in Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/2106"
+          }
+        },
+        {
+          "similarity": 0.2524,
+          "paper_a": {
+            "paper_id": "7b6ff2f5-28bc-4b72-88f6-495d6fd04bb3",
+            "title": "Monitoring System for Underage Smart Phone Users",
+            "url": "https://rda.sliit.lk/handle/123456789/3298"
+          },
+          "paper_b": {
+            "paper_id": "6a37c6f8-2ead-46cb-8299-6ff84bc9eb54",
+            "title": "IOT-based Monitoring System for Oyster Mushroom Farms in Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/2106"
+          }
+        },
+        {
+          "similarity": 0.2323,
+          "paper_a": {
+            "paper_id": "63584a35-2edd-4fb1-8422-7219f980244f",
+            "title": "Image Processing and IoT-based Fish Diseases Identification and Fish Tank Monitoring System",
+            "url": "https://rda.sliit.lk/handle/123456789/3339"
+          },
+          "paper_b": {
+            "paper_id": "7b6ff2f5-28bc-4b72-88f6-495d6fd04bb3",
+            "title": "Monitoring System for Underage Smart Phone Users",
+            "url": "https://rda.sliit.lk/handle/123456789/3298"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "signalized intersections",
+      "year": 2017,
+      "n_papers": 3,
+      "avg_similarity": 0.7797,
+      "max_similarity": 1.0,
+      "p95_similarity": 0.967,
+      "n_high_similarity_pairs": 1,
+      "trend_direction": "baseline",
+      "top_pairs": [
+        {
+          "similarity": 1.0,
+          "paper_a": {
+            "paper_id": "ec31c1f2-db82-4235-928c-fdf3dcf8ad9b",
+            "title": "Estimating the fuel loss during idling ofvehicles at signalized intersections in colombo",
+            "url": "https://rda.sliit.lk/handle/123456789/1901"
+          },
+          "paper_b": {
+            "paper_id": "4a53610a-dc78-4ff0-a362-92e16b104f6e",
+            "title": "Estimating the fuel loss during idling of vehicles at signalized intersections in colombo",
+            "url": "https://rda.sliit.lk/handle/123456789/930"
+          }
+        },
+        {
+          "similarity": 0.6696,
+          "paper_a": {
+            "paper_id": "b4ac9893-8b1c-452a-bf65-203abc36c164",
+            "title": "An analysis of signalized intersections: Case of traffic light failure",
+            "url": "https://rda.sliit.lk/handle/123456789/1905"
+          },
+          "paper_b": {
+            "paper_id": "ec31c1f2-db82-4235-928c-fdf3dcf8ad9b",
+            "title": "Estimating the fuel loss during idling ofvehicles at signalized intersections in colombo",
+            "url": "https://rda.sliit.lk/handle/123456789/1901"
+          }
+        },
+        {
+          "similarity": 0.6696,
+          "paper_a": {
+            "paper_id": "b4ac9893-8b1c-452a-bf65-203abc36c164",
+            "title": "An analysis of signalized intersections: Case of traffic light failure",
+            "url": "https://rda.sliit.lk/handle/123456789/1905"
+          },
+          "paper_b": {
+            "paper_id": "4a53610a-dc78-4ff0-a362-92e16b104f6e",
+            "title": "Estimating the fuel loss during idling of vehicles at signalized intersections in colombo",
+            "url": "https://rda.sliit.lk/handle/123456789/930"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "construction safety",
+      "year": 2022,
+      "n_papers": 3,
+      "avg_similarity": 1.0,
+      "max_similarity": 1.0,
+      "p95_similarity": 1.0,
+      "n_high_similarity_pairs": 3,
+      "trend_direction": "baseline",
+      "top_pairs": [
+        {
+          "similarity": 1.0,
+          "paper_a": {
+            "paper_id": "11f3c981-eeb7-44ff-9992-92a56570a941",
+            "title": "IMPLEMENTING SAFE WORKING CYCLE (SWC) CONCEPT AMIDST THE COVID-19 CRISIS IN SRI LANKA",
+            "url": "https://rda.sliit.lk/handle/123456789/3180"
+          },
+          "paper_b": {
+            "paper_id": "1709c257-2a38-4bf2-ac97-b29225ed1f98",
+            "title": "Implementing Safe Working Cycle (SWC) concept amidst the COVID-19 crisis in Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/2808"
+          }
+        },
+        {
+          "similarity": 1.0,
+          "paper_a": {
+            "paper_id": "11f3c981-eeb7-44ff-9992-92a56570a941",
+            "title": "IMPLEMENTING SAFE WORKING CYCLE (SWC) CONCEPT AMIDST THE COVID-19 CRISIS IN SRI LANKA",
+            "url": "https://rda.sliit.lk/handle/123456789/3180"
+          },
+          "paper_b": {
+            "paper_id": "3b429394-f9f4-4261-9180-4c99ad39db8e",
+            "title": "IMPLEMENTING SAFE WORKING CYCLE (SWC) CONCEPT AMIDST THE COVID-19 CRISIS IN SRI LANKA",
+            "url": "https://rda.sliit.lk/handle/123456789/2797"
+          }
+        },
+        {
+          "similarity": 1.0,
+          "paper_a": {
+            "paper_id": "1709c257-2a38-4bf2-ac97-b29225ed1f98",
+            "title": "Implementing Safe Working Cycle (SWC) concept amidst the COVID-19 crisis in Sri Lanka",
+            "url": "https://rda.sliit.lk/handle/123456789/2808"
+          },
+          "paper_b": {
+            "paper_id": "3b429394-f9f4-4261-9180-4c99ad39db8e",
+            "title": "IMPLEMENTING SAFE WORKING CYCLE (SWC) CONCEPT AMIDST THE COVID-19 CRISIS IN SRI LANKA",
+            "url": "https://rda.sliit.lk/handle/123456789/2797"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "android application",
+      "year": 2019,
+      "n_papers": 3,
+      "avg_similarity": 0.5876,
+      "max_similarity": 1.0,
+      "p95_similarity": 0.9381,
+      "n_high_similarity_pairs": 1,
+      "trend_direction": "baseline",
+      "top_pairs": [
+        {
+          "similarity": 1.0,
+          "paper_a": {
+            "paper_id": "ab578820-7604-40ae-ac57-62697fbf3192",
+            "title": "Agro-Genius: Crop Prediction Using Machine Learning",
+            "url": "https://rda.sliit.lk/handle/123456789/2169"
+          },
+          "paper_b": {
+            "paper_id": "ed5c9514-6ce0-48f1-948f-d500e9ad6a96",
+            "title": "Agro-Genius: Crop Prediction Using Machine Learning",
+            "url": "https://rda.sliit.lk/handle/123456789/1031"
+          }
+        },
+        {
+          "similarity": 0.3814,
+          "paper_a": {
+            "paper_id": "630bf1ba-70d1-47a6-80e5-054ecf1df1f5",
+            "title": "Smart Monitor for Tracking Child's Brain Development",
+            "url": "https://rda.sliit.lk/handle/123456789/2607"
+          },
+          "paper_b": {
+            "paper_id": "ab578820-7604-40ae-ac57-62697fbf3192",
+            "title": "Agro-Genius: Crop Prediction Using Machine Learning",
+            "url": "https://rda.sliit.lk/handle/123456789/2169"
+          }
+        },
+        {
+          "similarity": 0.3814,
+          "paper_a": {
+            "paper_id": "630bf1ba-70d1-47a6-80e5-054ecf1df1f5",
+            "title": "Smart Monitor for Tracking Child's Brain Development",
+            "url": "https://rda.sliit.lk/handle/123456789/2607"
+          },
+          "paper_b": {
+            "paper_id": "ed5c9514-6ce0-48f1-948f-d500e9ad6a96",
+            "title": "Agro-Genius: Crop Prediction Using Machine Learning",
+            "url": "https://rda.sliit.lk/handle/123456789/1031"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "artificial neural network",
+      "year": 2020,
+      "n_papers": 3,
+      "avg_similarity": 0.6088,
+      "max_similarity": 0.683,
+      "p95_similarity": 0.6746,
+      "n_high_similarity_pairs": 0,
+      "trend_direction": "baseline",
+      "top_pairs": [
+        {
+          "similarity": 0.683,
+          "paper_a": {
+            "paper_id": "b7aadc08-6156-4181-8f5d-c27cf17af6a2",
+            "title": "Comparison of different Artificial Neural Network (ANN) training algorithms to predict atmospheric temperature in Tabuk, Saudi Arabia",
+            "url": "https://rda.sliit.lk/handle/123456789/2571"
+          },
+          "paper_b": {
+            "paper_id": "c3c11c2e-0e85-4c6e-bc9c-9728b033676d",
+            "title": "Artificial neural network to estimate the paddy yield prediction using climatic data",
+            "url": "https://rda.sliit.lk/handle/123456789/823"
+          }
+        },
+        {
+          "similarity": 0.5988,
+          "paper_a": {
+            "paper_id": "c3c11c2e-0e85-4c6e-bc9c-9728b033676d",
+            "title": "Artificial neural network to estimate the paddy yield prediction using climatic data",
+            "url": "https://rda.sliit.lk/handle/123456789/823"
+          },
+          "paper_b": {
+            "paper_id": "c2735011-3541-4291-800d-cc51e85f68c4",
+            "title": "Development of an artificial neural network model to simulate the growth of microalga Chlorella vulgaris incorporating the effect of micronutrients",
+            "url": "https://rda.sliit.lk/handle/123456789/461"
+          }
+        },
+        {
+          "similarity": 0.5445,
+          "paper_a": {
+            "paper_id": "b7aadc08-6156-4181-8f5d-c27cf17af6a2",
+            "title": "Comparison of different Artificial Neural Network (ANN) training algorithms to predict atmospheric temperature in Tabuk, Saudi Arabia",
+            "url": "https://rda.sliit.lk/handle/123456789/2571"
+          },
+          "paper_b": {
+            "paper_id": "c2735011-3541-4291-800d-cc51e85f68c4",
+            "title": "Development of an artificial neural network model to simulate the growth of microalga Chlorella vulgaris incorporating the effect of micronutrients",
+            "url": "https://rda.sliit.lk/handle/123456789/461"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "innovation performance",
+      "year": 2019,
+      "n_papers": 3,
+      "avg_similarity": 0.9198,
+      "max_similarity": 1.0,
+      "p95_similarity": 0.988,
+      "n_high_similarity_pairs": 3,
+      "trend_direction": "baseline",
+      "top_pairs": [
+        {
+          "similarity": 1.0,
+          "paper_a": {
+            "paper_id": "7284608c-a06f-4d00-b6aa-0f2330c1f301",
+            "title": "Sequential Coherence: A Novel Determinant of Open Innovation",
+            "url": "https://rda.sliit.lk/handle/123456789/2382"
+          },
+          "paper_b": {
+            "paper_id": "f22701df-dca1-4269-ae7d-c381eb496eb3",
+            "title": "Sequential Coherence: A Novel Determinant of Open Innovation Performance",
+            "url": "https://rda.sliit.lk/handle/123456789/2378"
+          }
+        },
+        {
+          "similarity": 0.8796,
+          "paper_a": {
+            "paper_id": "7284608c-a06f-4d00-b6aa-0f2330c1f301",
+            "title": "Sequential Coherence: A Novel Determinant of Open Innovation",
+            "url": "https://rda.sliit.lk/handle/123456789/2382"
+          },
+          "paper_b": {
+            "paper_id": "62b2d22c-8ed3-4826-9130-3288bdb13156",
+            "title": "The role of Sequential Coherence in Open Innovation: A qualitative inquiry",
+            "url": "https://rda.sliit.lk/handle/123456789/2379"
+          }
+        },
+        {
+          "similarity": 0.8796,
+          "paper_a": {
+            "paper_id": "62b2d22c-8ed3-4826-9130-3288bdb13156",
+            "title": "The role of Sequential Coherence in Open Innovation: A qualitative inquiry",
+            "url": "https://rda.sliit.lk/handle/123456789/2379"
+          },
+          "paper_b": {
+            "paper_id": "f22701df-dca1-4269-ae7d-c381eb496eb3",
+            "title": "Sequential Coherence: A Novel Determinant of Open Innovation Performance",
+            "url": "https://rda.sliit.lk/handle/123456789/2378"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "business intelligence",
+      "year": 2021,
+      "n_papers": 4,
+      "avg_similarity": 0.5314,
+      "max_similarity": 1.0,
+      "p95_similarity": 0.8817,
+      "n_high_similarity_pairs": 1,
+      "trend_direction": "baseline",
+      "top_pairs": [
+        {
+          "similarity": 1.0,
+          "paper_a": {
+            "paper_id": "7db56fc0-57bd-4886-b4a8-569c7aa8c564",
+            "title": "A New Approach for Consumer Protection with Business Intelligence and Data Visualization",
+            "url": "https://rda.sliit.lk/handle/123456789/1809"
+          },
+          "paper_b": {
+            "paper_id": "36985852-784b-4bd4-93e3-63d2499f6ba2",
+            "title": "A New Approach for Consumer Protection with Business Intelligence and Data Visualization",
+            "url": "https://rda.sliit.lk/handle/123456789/952"
+          }
+        },
+        {
+          "similarity": 0.5268,
+          "paper_a": {
+            "paper_id": "677d5098-aa2d-4229-9735-32c8442d8683",
+            "title": "Data-driven Business Intelligence Platform for Smart Retail Stores",
+            "url": "https://rda.sliit.lk/handle/123456789/2108"
+          },
+          "paper_b": {
+            "paper_id": "7db56fc0-57bd-4886-b4a8-569c7aa8c564",
+            "title": "A New Approach for Consumer Protection with Business Intelligence and Data Visualization",
+            "url": "https://rda.sliit.lk/handle/123456789/1809"
+          }
+        },
+        {
+          "similarity": 0.5268,
+          "paper_a": {
+            "paper_id": "677d5098-aa2d-4229-9735-32c8442d8683",
+            "title": "Data-driven Business Intelligence Platform for Smart Retail Stores",
+            "url": "https://rda.sliit.lk/handle/123456789/2108"
+          },
+          "paper_b": {
+            "paper_id": "36985852-784b-4bd4-93e3-63d2499f6ba2",
+            "title": "A New Approach for Consumer Protection with Business Intelligence and Data Visualization",
+            "url": "https://rda.sliit.lk/handle/123456789/952"
+          }
+        },
+        {
+          "similarity": 0.4024,
+          "paper_a": {
+            "paper_id": "7db56fc0-57bd-4886-b4a8-569c7aa8c564",
+            "title": "A New Approach for Consumer Protection with Business Intelligence and Data Visualization",
+            "url": "https://rda.sliit.lk/handle/123456789/1809"
+          },
+          "paper_b": {
+            "paper_id": "f39e0035-223c-428e-8f50-d990023d5946",
+            "title": "Auto Training an AI for Detecting Plant Disease Using Twitter Data Annexed With a Plant Anthology",
+            "url": "https://rda.sliit.lk/handle/123456789/973"
+          }
+        },
+        {
+          "similarity": 0.4024,
+          "paper_a": {
+            "paper_id": "f39e0035-223c-428e-8f50-d990023d5946",
+            "title": "Auto Training an AI for Detecting Plant Disease Using Twitter Data Annexed With a Plant Anthology",
+            "url": "https://rda.sliit.lk/handle/123456789/973"
+          },
+          "paper_b": {
+            "paper_id": "36985852-784b-4bd4-93e3-63d2499f6ba2",
+            "title": "A New Approach for Consumer Protection with Business Intelligence and Data Visualization",
+            "url": "https://rda.sliit.lk/handle/123456789/952"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "two-wheel mobile manipulator",
+      "year": 2010,
+      "n_papers": 3,
+      "avg_similarity": 0.6542,
+      "max_similarity": 0.7575,
+      "p95_similarity": 0.7432,
+      "n_high_similarity_pairs": 0,
+      "trend_direction": "baseline",
+      "top_pairs": [
+        {
+          "similarity": 0.7575,
+          "paper_a": {
+            "paper_id": "09cfbe91-02c0-4ee6-9a30-a0893be679cb",
+            "title": "Self-sustaining control of two-wheel mobile manipulator using sliding mode control",
+            "url": "https://rda.sliit.lk/handle/123456789/1092"
+          },
+          "paper_b": {
+            "paper_id": "54f6570b-cdd7-44f6-9579-4f93cafd27b1",
+            "title": "Vibration suppression of two-wheel mobile manipulator using resonance-ratio-control-based null-space control",
+            "url": "https://rda.sliit.lk/handle/123456789/1091"
+          }
+        },
+        {
+          "similarity": 0.6142,
+          "paper_a": {
+            "paper_id": "fe40d500-e37e-4bc0-9f4d-bebe49156f21",
+            "title": "Control of two wheel mobile manipulator on a rough terrain using reaction torque observer feedback",
+            "url": "https://rda.sliit.lk/handle/123456789/1118"
+          },
+          "paper_b": {
+            "paper_id": "54f6570b-cdd7-44f6-9579-4f93cafd27b1",
+            "title": "Vibration suppression of two-wheel mobile manipulator using resonance-ratio-control-based null-space control",
+            "url": "https://rda.sliit.lk/handle/123456789/1091"
+          }
+        },
+        {
+          "similarity": 0.5908,
+          "paper_a": {
+            "paper_id": "fe40d500-e37e-4bc0-9f4d-bebe49156f21",
+            "title": "Control of two wheel mobile manipulator on a rough terrain using reaction torque observer feedback",
+            "url": "https://rda.sliit.lk/handle/123456789/1118"
+          },
+          "paper_b": {
+            "paper_id": "09cfbe91-02c0-4ee6-9a30-a0893be679cb",
+            "title": "Self-sustaining control of two-wheel mobile manipulator using sliding mode control",
+            "url": "https://rda.sliit.lk/handle/123456789/1092"
+          }
+        }
+      ]
+    }
+  ]
+}
