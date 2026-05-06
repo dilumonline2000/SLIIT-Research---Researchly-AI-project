@@ -25,6 +25,51 @@ router.post("/citations/format", async (req, res, next) => {
   }
 });
 
+router.post("/citations/lookup-doi", async (req, res, next) => {
+  try {
+    const data = await callMlService(1, "/citations/lookup-doi", "POST", req.body);
+    res.json(data);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/citations/lookup-title", async (req, res, next) => {
+  try {
+    const data = await callMlService(1, "/citations/lookup-title", "POST", req.body);
+    res.json(data);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/citations/in-text", async (req, res, next) => {
+  try {
+    const data = await callMlService(1, "/citations/in-text", "POST", req.body);
+    res.json(data);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/citations/reference-list", async (req, res, next) => {
+  try {
+    const data = await callMlService(1, "/citations/reference-list", "POST", req.body);
+    res.json(data);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/citations/similar-papers", async (req, res, next) => {
+  try {
+    const data = await callMlService(1, "/citations/similar-papers", "POST", req.body);
+    res.json(data);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // Gap analysis
 router.post("/gaps/analyze", async (req, res, next) => {
   try {

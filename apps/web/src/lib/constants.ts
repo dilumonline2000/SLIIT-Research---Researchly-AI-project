@@ -14,6 +14,11 @@ export const API_ROUTES = {
   module1: {
     parseCitation: "/api/v1/citations/parse",
     formatCitation: "/api/v1/citations/format",
+    citationDoiLookup: "/api/v1/citations/lookup-doi",
+    citationTitleLookup: "/api/v1/citations/lookup-title",
+    citationInText: "/api/v1/citations/in-text",
+    referenceList: "/api/v1/citations/reference-list",
+    citationSimilarPapers: "/api/v1/citations/similar-papers",
     analyzeGaps: "/api/v1/gaps/analyze",
     generateProposal: "/api/v1/proposals/generate",
     checkPlagiarism: "/api/v1/plagiarism/check",
