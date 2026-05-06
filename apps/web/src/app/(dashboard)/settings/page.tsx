@@ -4,12 +4,20 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { Sun, Moon, Monitor } from "lucide-react";
 import { AIProviderToggle } from "@/components/shared/AIProviderToggle";
 import { ModelStatusGrid } from "@/components/shared/ModelStatusGrid";
 import { useAIProviderStore } from "@/stores/aiProviderStore";
+import { useThemeStore, type Theme } from "@/stores/themeStore";
+
+const THEME_META: Record<Theme, { Icon: typeof Sun }> = {
+  light:  { Icon: Sun },
+  dark:   { Icon: Moon },
+  system: { Icon: Monitor },
+};
 
 export default function SettingsPage() {
-  const [theme, setTheme] = useState<"light" | "dark" | "system">("system");
+  const { theme, setTheme } = useThemeStore();
   const [notifications, setNotifications] = useState(true);
   const { checkLocalAvailability } = useAIProviderStore();
 
@@ -17,18 +25,6 @@ export default function SettingsPage() {
   useEffect(() => {
     checkLocalAvailability(true);
   }, [checkLocalAvailability]);
-
-  const handleThemeChange = (newTheme: "light" | "dark" | "system") => {
-    setTheme(newTheme);
-    if (newTheme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else if (newTheme === "light") {
-      document.documentElement.classList.remove("dark");
-    } else {
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      document.documentElement.classList.toggle("dark", prefersDark);
-    }
-  };
 
   return (
     <div className="space-y-6">
@@ -43,12 +39,24 @@ export default function SettingsPage() {
           <div className="space-y-2">
             <Label>Theme</Label>
             <div className="flex gap-2">
-              {(["light", "dark", "system"] as const).map((t) => (
-                <Button key={t} variant={theme === t ? "default" : "outline"} size="sm" onClick={() => handleThemeChange(t)}>
-                  {t.charAt(0).toUpperCase() + t.slice(1)}
-                </Button>
-              ))}
+              {(["light", "dark", "system"] as const).map((t) => {
+                const { Icon } = THEME_META[t];
+                return (
+                  <Button
+                    key={t}
+                    variant={theme === t ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setTheme(t)}
+                  >
+                    <Icon className="mr-2 h-4 w-4" />
+                    {t.charAt(0).toUpperCase() + t.slice(1)}
+                  </Button>
+                );
+              })}
             </div>
+            <p className="text-xs text-muted-foreground">
+              Tip: there&apos;s also a quick toggle in the navbar for one-click switching.
+            </p>
           </div>
         </CardContent>
       </Card>

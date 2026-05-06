@@ -11,9 +11,29 @@ export const metadata: Metadata = {
   description: APP_DESCRIPTION,
 };
 
+// Runs synchronously before React hydration so dark-mode users never see a
+// flash of light. Reads the same key Zustand persist uses (r26-theme).
+const themeBootstrap = `
+(function () {
+  try {
+    var raw = localStorage.getItem('r26-theme');
+    var t = 'system';
+    if (raw) {
+      var parsed = JSON.parse(raw);
+      t = (parsed && parsed.state && parsed.state.theme) || 'system';
+    }
+    var dark = t === 'dark' || (t === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    if (dark) document.documentElement.classList.add('dark');
+  } catch (e) { /* ignore */ }
+})();
+`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
+      </head>
       <body className={`${inter.variable} font-sans antialiased`}>
         {children}
         <Toaster richColors position="top-right" />

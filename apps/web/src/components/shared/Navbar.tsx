@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/hooks/useAuth";
 import { AIProviderToggle } from "./AIProviderToggle";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function Navbar() {
   const { profile, signOut } = useAuth();
@@ -22,6 +23,7 @@ export function Navbar() {
         <Input placeholder="Search papers, authors, topics…" className="pl-10" />
       </div>
       <div className="flex items-center gap-3">
+        <ThemeToggle compact />
         <AIProviderToggle compact={true} />
         <div className="hidden text-right sm:block">
           <p className="text-sm font-medium">{profile?.full_name ?? "User"}</p>
