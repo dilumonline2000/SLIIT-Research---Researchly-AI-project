@@ -22,7 +22,19 @@ export const API_ROUTES = {
   module2: {
     matchSupervisors: "/api/v1/matching/supervisors",
     matchPeers: "/api/v1/matching/peers",
+    // Peer-Connect groups
+    createGroup: "/api/v1/matching/groups",
+    listGroups: "/api/v1/matching/groups",
+    getGroup: (id: string) => `/api/v1/matching/groups/${id}`,
+    joinGroup: (id: string) => `/api/v1/matching/groups/${id}/join-request`,
+    // Feedback / supervisor ratings
     analyzeFeedback: "/api/v1/feedback/analyze",
+    supervisorList: "/api/v1/feedback/supervisors",
+    submitFeedback: "/api/v1/feedback/submit",
+    feedbackBySupervisor: "/api/v1/feedback/by-supervisor",
+    // Effectiveness
+    effectivenessList: "/api/v1/effectiveness",
+    effectivenessByKey: "/api/v1/effectiveness/by-key",
     effectiveness: (id: string) => `/api/v1/effectiveness/${id}`,
   },
   module3: {

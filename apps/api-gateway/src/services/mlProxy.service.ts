@@ -46,9 +46,24 @@ export async function callMlService<T>(
         { moduleId, path, status: err.response?.status, data: err.response?.data },
         "ML service call failed",
       );
+      // FastAPI returns { detail: string | [{loc, msg, type}, ...] }; flatten it.
+      const detail = (err.response?.data as { detail?: unknown } | undefined)?.detail;
+      let humanMsg: string;
+      if (Array.isArray(detail)) {
+        humanMsg = detail
+          .map((d: { loc?: unknown[]; msg?: string }) => {
+            const field = Array.isArray(d.loc) ? d.loc.slice(-1)[0] : "field";
+            return `${String(field)}: ${d.msg ?? "invalid"}`;
+          })
+          .join("; ");
+      } else if (typeof detail === "string") {
+        humanMsg = detail;
+      } else {
+        humanMsg = err.message;
+      }
       throw new ApiError(
         err.response?.status ?? 502,
-        `ML service (module ${moduleId}) error: ${err.message}`,
+        `ML service (module ${moduleId}) error: ${humanMsg}`,
         err.response?.data,
       );
     }
