@@ -16,7 +16,11 @@ import os
 import sys
 from typing import Literal, Optional
 
+from datetime import datetime
+from typing import Any
+
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, Field
 
 router = APIRouter()
@@ -202,6 +206,102 @@ async def summarize_upload(
         filename=file.filename,
         pdf_text_length=len(text),
     )
+
+
+class ReportRequest(BaseModel):
+    summary: str = ""
+    key_points: list[KeyPoint] = []
+    grouped_points: dict[str, list[KeyPoint]] = {}
+    sentences: list[str] = []
+    n_sentences_input: int = 0
+    n_sentences_output: int = 0
+    compression_ratio: float = 0.0
+    model_version: str = "unknown"
+    source: str = "unknown"
+    filename: Optional[str] = None
+    pdf_text_length: Optional[int] = None
+    title: Optional[str] = None  # optional human title for the report header
+
+
+_CATEGORY_BG = {
+    "background":  "#e2e8f0",
+    "objective":   "#dbeafe",
+    "methodology": "#dbeafe",
+    "results":     "#d1fae5",
+    "limitations": "#fef3c7",
+    "conclusion":  "#ede9fe",
+    "general":     "#f3f4f6",
+}
+
+
+def _esc(s: Any) -> str:
+    return (str(s) if s is not None else "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+@router.post("/summarize/report", response_class=HTMLResponse)
+async def summarize_report(req: ReportRequest) -> HTMLResponse:
+    """Render a previously-generated summary as a styled, downloadable HTML page.
+
+    The frontend calls this with the same SummarizeResponse it just received,
+    so no re-computation happens server-side.
+    """
+    now = datetime.now().strftime("%Y-%m-%d %H:%M")
+    title = _esc(req.title or req.filename or "Research Paper Summary")
+
+    grouped_html = ""
+    if req.grouped_points:
+        for cat, points in req.grouped_points.items():
+            if not points:
+                continue
+            label = points[0].category_label if points else cat.title()
+            bg = _CATEGORY_BG.get(cat, "#f3f4f6")
+            items = "".join(f"<li>{_esc(p.text)}</li>" for p in points)
+            grouped_html += (
+                f'<section style="background:{bg};border-radius:6px;padding:.75rem 1rem;margin:.6rem 0;">'
+                f'<h3 style="margin:.2rem 0;color:#312e81">{_esc(label)}'
+                f' <span style="font-size:.75rem;color:#6b7280">({len(points)} points)</span></h3>'
+                f'<ul style="margin:.4rem 0 0 1.2rem">{items}</ul></section>'
+            )
+    elif req.summary:
+        grouped_html = (
+            f'<section style="background:#f3f4f6;border-radius:6px;padding:.75rem 1rem;margin:.6rem 0;">'
+            f'<p>{_esc(req.summary)}</p></section>'
+        )
+
+    meta_chips = []
+    if req.filename:
+        meta_chips.append(f"📄 {_esc(req.filename)}")
+    if req.pdf_text_length:
+        meta_chips.append(f"{req.pdf_text_length:,} chars extracted")
+    if req.n_sentences_input:
+        meta_chips.append(
+            f"{req.n_sentences_input} → {req.n_sentences_output} sentences "
+            f"({(req.compression_ratio * 100):.0f}% of original)"
+        )
+    if req.source:
+        meta_chips.append(f"source: {_esc(req.source)}")
+    meta_html = " · ".join(meta_chips)
+
+    html = f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8" />
+<title>{title}</title>
+<style>
+  body {{ font-family: Georgia, 'Times New Roman', serif; max-width: 880px; margin: 2rem auto; padding: 0 1.5rem; color: #1f2937; line-height: 1.6; }}
+  h1 {{ color: #312e81; border-bottom: 3px solid #6366f1; padding-bottom: .5rem; }}
+  .meta {{ color: #4b5563; font-size: .85rem; margin-bottom: 1.5rem; }}
+  ul {{ padding-left: 1.25rem; margin: .35rem 0; }}
+  li {{ margin: .25rem 0; }}
+  .footer {{ margin-top: 3rem; color: #9ca3af; font-size: .75rem; border-top: 1px solid #e5e7eb; padding-top: .75rem; }}
+</style></head><body>
+  <h1>{title}</h1>
+  <p class="meta">Generated {now}{f' · {meta_html}' if meta_html else ''}</p>
+
+  {grouped_html or '<p>No summary content.</p>'}
+
+  <p class="footer">Researchly AI · Module 3 (Data Management) · model: {_esc(req.model_version)}</p>
+</body></html>"""
+
+    return HTMLResponse(content=html)
 
 
 @router.get("/summarize/status")

@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import {
   Database, Sparkles, FileText, Copy, Check, Upload, FileUp, X,
   BookOpen, Target, FlaskConical, BarChart3, AlertTriangle, CheckCircle2,
+  Download,
 } from "lucide-react";
 import api from "@/lib/api";
 import { apiPost } from "@/lib/api";
@@ -104,6 +105,36 @@ export default function SummarizePage() {
       setError(err instanceof Error ? err.message : "Summarization failed");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDownloadReport = async () => {
+    if (!result) return;
+    try {
+      const r = await api.post(API_ROUTES.module3.summarizeReport, {
+        summary: result.summary,
+        key_points: result.key_points,
+        grouped_points: result.grouped_points,
+        sentences: result.sentences,
+        n_sentences_input: result.n_sentences_input,
+        n_sentences_output: result.n_sentences_output,
+        compression_ratio: result.compression_ratio,
+        model_version: result.model_version,
+        source: result.source ?? "unknown",
+        filename: result.filename,
+        pdf_text_length: result.pdf_text_length,
+        title: result.filename ? `Summary — ${result.filename}` : "Research Paper Summary",
+      }, { responseType: "text" });
+      const blob = new Blob([r.data as string], { type: "text/html" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      const safeName = (result.filename || "summary").replace(/\.pdf$/i, "").replace(/[^a-z0-9]+/gi, "_");
+      a.download = `summary-${safeName}-${Date.now()}.html`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not download the report");
     }
   };
 
@@ -299,10 +330,15 @@ export default function SummarizePage() {
                   {" · "}{(result.compression_ratio * 100).toFixed(0)}% of original
                 </span>
               )}
-              <Button size="sm" variant="outline" className="ml-auto" onClick={handleCopy}>
-                {copied ? <Check className="mr-2 h-4 w-4 text-emerald-600" /> : <Copy className="mr-2 h-4 w-4" />}
-                {copied ? "Copied" : "Copy as bullets"}
-              </Button>
+              <div className="ml-auto flex gap-2">
+                <Button size="sm" variant="outline" onClick={handleDownloadReport}>
+                  <Download className="mr-2 h-4 w-4" /> Download report
+                </Button>
+                <Button size="sm" variant="outline" onClick={handleCopy}>
+                  {copied ? <Check className="mr-2 h-4 w-4 text-emerald-600" /> : <Copy className="mr-2 h-4 w-4" />}
+                  {copied ? "Copied" : "Copy as bullets"}
+                </Button>
+              </div>
             </CardContent>
           </Card>
 

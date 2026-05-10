@@ -33,12 +33,35 @@ class TopCategory(BaseModel):
     confidence: float
 
 
+class RelatedPaper(BaseModel):
+    paper_id: str = ""
+    title: str = ""
+    authors: list[str] = []
+    year: int | str | None = None
+    url: str = ""
+    subject: str | list[str] | None = None
+    similarity: float = 0.0
+    abstract_excerpt: str = ""
+
+
 class CategorizeResponse(BaseModel):
     categories: list[str]
     confidence_scores: dict[str, float]
     top_categories: list[TopCategory] = []
+    related_papers: list[RelatedPaper] = []
     model_version: str
     source: str = "unknown"  # "local" | "gemini" | "fallback"
+
+
+def _related_papers(text: str, top_k: int = 5) -> list[RelatedPaper]:
+    """Best-effort SLIIT-paper retrieval. Empty list if the index isn't loaded."""
+    try:
+        from app.services import paper_index
+        rows = paper_index.find_related(text, top_k=top_k, min_similarity=0.18)
+        return [RelatedPaper(**r) for r in rows]
+    except Exception as e:
+        logger.warning("Related-paper lookup failed: %s", e)
+        return []
 
 
 @router.post("/categorize", response_model=CategorizeResponse)
@@ -62,6 +85,7 @@ async def categorize(req: CategorizeRequest) -> CategorizeResponse:
                 categories=result["categories"],
                 confidence_scores=result["confidence_scores"],
                 top_categories=[TopCategory(**tc) for tc in result.get("top_categories", [])],
+                related_papers=_related_papers(req.text, top_k=6),
                 model_version=f"local-tfidf-logreg-{result.get('model_version','1.0.0')}",
                 source="local",
             )
@@ -100,6 +124,7 @@ Return JSON with all relevant categories and confidence scores (0.0-1.0):
             categories=cats,
             confidence_scores=scores,
             top_categories=top[: req.top_k],
+            related_papers=_related_papers(req.text, top_k=6),
             model_version="gemini-2.5-flash",
             source="gemini",
         )

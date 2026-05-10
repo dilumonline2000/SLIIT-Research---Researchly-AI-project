@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { Database, Sparkles, Tag } from "lucide-react";
+import { Database, Sparkles, Tag, BookOpen, ExternalLink } from "lucide-react";
 import { API_ROUTES } from "@/lib/constants";
 import { apiPost } from "@/lib/api";
 
@@ -14,10 +14,22 @@ interface TopCategory {
   confidence: number;
 }
 
+interface RelatedPaper {
+  paper_id: string;
+  title: string;
+  authors: string[];
+  year: number | string | null;
+  url: string;
+  subject?: string | string[] | null;
+  similarity: number;
+  abstract_excerpt: string;
+}
+
 interface CategorizeResponse {
   categories: string[];
   confidence_scores: Record<string, number>;
   top_categories: TopCategory[];
+  related_papers?: RelatedPaper[];
   model_version: string;
   source?: "local" | "gemini" | "fallback";
 }
@@ -172,6 +184,52 @@ export default function CategorizePage() {
             <Card>
               <CardContent className="py-6 text-center text-sm text-muted-foreground">
                 No categories matched. Try pasting a longer paper abstract.
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Related SLIIT papers — surfaced from the 4,219-paper SBERT index */}
+          {result.related_papers && result.related_papers.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <BookOpen className="h-5 w-5" /> Related SLIIT Papers
+                </CardTitle>
+                <CardDescription>
+                  Papers from the SLIIT research library most semantically similar to your input.
+                  Useful for finding existing work in the same area.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {result.related_papers.map((p) => (
+                  <div key={p.paper_id} className="rounded-md border bg-muted/30 p-3 text-sm space-y-1">
+                    <div className="flex items-start justify-between gap-2">
+                      <p className="font-medium flex-1">{p.title}</p>
+                      <Badge variant="secondary" className="text-[10px] shrink-0">
+                        {(p.similarity * 100).toFixed(0)}% match
+                      </Badge>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      {(p.authors || []).slice(0, 3).join(", ") || "Unknown authors"}
+                      {p.year ? ` · ${p.year}` : ""}
+                    </p>
+                    {p.abstract_excerpt && (
+                      <p className="text-xs italic text-muted-foreground">
+                        {p.abstract_excerpt}
+                      </p>
+                    )}
+                    {p.url && (
+                      <a
+                        href={p.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                      >
+                        View on SLIIT RDA <ExternalLink className="h-3 w-3" />
+                      </a>
+                    )}
+                  </div>
+                ))}
               </CardContent>
             </Card>
           )}

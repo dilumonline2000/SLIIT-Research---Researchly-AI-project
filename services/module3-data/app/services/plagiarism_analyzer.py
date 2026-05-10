@@ -97,23 +97,31 @@ def load() -> bool:
 # ─────────────────────────────────────────────────────────────────────────────
 
 
-def search_trends(query: str, top_k: int = 5) -> dict[str, Any]:
+def search_trends(
+    query: str, top_k: int = 5, min_topic_similarity: float = 0.25,
+    include_related_papers: bool = True, related_papers_top_k: int = 6,
+) -> dict[str, Any]:
+    """Find trend buckets close to `query` AND surface real SLIIT papers
+    matching the query (so the user always gets relevant evidence even when
+    no precomputed bucket is a close match)."""
     if not load():
-        return {"loaded": False, "matches": []}
+        return {"loaded": False, "matches": [], "related_papers": []}
     if _INDEX is None:
-        return {"loaded": False, "error": "trend index missing", "matches": []}
+        return {"loaded": False, "error": "trend index missing", "matches": [], "related_papers": []}
     assert _MODEL is not None
 
     qvec = _MODEL.encode([query], convert_to_numpy=True, normalize_embeddings=True).astype("float32")[0]
     sims = _INDEX["embeddings"] @ qvec
-    order = np.argsort(-sims)[:top_k]
+    order = np.argsort(-sims)
+    # Filter by similarity threshold so unrelated buckets don't pollute results.
+    kept = [int(i) for i in order if float(sims[int(i)]) >= min_topic_similarity][:top_k]
 
     matches = []
-    for idx in order:
-        meta = _INDEX["topic_meta"][int(idx)]
+    for idx in kept:
+        meta = _INDEX["topic_meta"][idx]
         matches.append({
             "topic": meta["topic"],
-            "similarity": round(float(sims[int(idx)]), 4),
+            "similarity": round(float(sims[idx]), 4),
             "n_records": meta["n_records"],
             "n_papers_total": meta["n_papers_total"],
             "avg_similarity_overall": meta["avg_similarity_overall"],
@@ -124,9 +132,20 @@ def search_trends(query: str, top_k: int = 5) -> dict[str, Any]:
             "yearly": meta["yearly"],
         })
 
+    related_papers: list[dict[str, Any]] = []
+    if include_related_papers:
+        try:
+            from app.services import paper_index
+            related_papers = paper_index.find_related(
+                query, top_k=related_papers_top_k, min_similarity=0.18,
+            )
+        except Exception as e:
+            logger.info("[PlagiarismAnalyzer] related-paper lookup failed: %s", e)
+
     return {
         "loaded": True,
         "matches": matches,
+        "related_papers": related_papers,
         "total_topics": len(_INDEX["topics"]),
         "model_version": _INDEX.get("version", "unknown"),
         "base_model": _INDEX.get("base_model", "unknown"),
@@ -259,3 +278,155 @@ def get_model_info() -> dict[str, Any]:
         info["n_topics"] = len(_INDEX["topics"])
         info["index_version"] = _INDEX.get("version")
     return info
+
+
+# ─── HTML report renderers ────────────────────────────────────────────────
+
+
+def _esc(s: Any) -> str:
+    return (str(s) if s is not None else "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+_REPORT_BASE_CSS = """
+  body { font-family: Georgia, 'Times New Roman', serif; max-width: 880px; margin: 2rem auto; padding: 0 1.5rem; color: #1f2937; line-height: 1.55; }
+  h1, h2, h3 { color: #312e81; }
+  h1 { border-bottom: 3px solid #6366f1; padding-bottom: .5rem; }
+  h2 { margin-top: 2rem; border-bottom: 1px solid #c7d2fe; padding-bottom: .25rem; }
+  .meta { color: #4b5563; font-size: .9rem; margin-bottom: 2rem; }
+  .block { border: 1px solid #e5e7eb; border-radius: 6px; padding: .75rem 1rem; margin: .75rem 0; background: #f9fafb; }
+  .pair { background: #fff; border: 1px solid #e5e7eb; border-radius: 6px; padding: .6rem .9rem; margin: .5rem 0; }
+  .badge { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: .75rem; }
+  .badge-high   { background: #fee2e2; color: #991b1b; }
+  .badge-medium { background: #fef3c7; color: #92400e; }
+  .badge-low    { background: #fef9c3; color: #854d0e; }
+  .badge-minimal{ background: #d1fae5; color: #047857; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+  .num { font-size: 1.4rem; font-weight: bold; }
+  .label { font-size: .7rem; text-transform: uppercase; color: #6b7280; }
+  table { border-collapse: collapse; width: 100%; margin-top: .5rem; }
+  th, td { padding: .35rem .5rem; border-bottom: 1px solid #e5e7eb; text-align: left; font-size: .85rem; }
+  ul { padding-left: 1.25rem; }
+  a { color: #4f46e5; }
+"""
+
+
+def generate_search_report_html(payload: dict[str, Any]) -> str:
+    """Render a topic-search result (trends + related papers) as a full HTML page."""
+    from datetime import datetime
+    now = datetime.now().strftime("%Y-%m-%d %H:%M")
+    query = _esc(payload.get("query") or "(unspecified)")
+
+    # Topic-bucket matches
+    matches_html = ""
+    for m in payload.get("matches", []):
+        yearly_rows = "".join(
+            f"<tr><td>{_esc(y['year'])}</td><td>{_esc(y['n_papers'])}</td>"
+            f"<td>{(y['avg_similarity'] * 100):.1f}%</td>"
+            f"<td>{(y['max_similarity'] * 100):.1f}%</td>"
+            f"<td>{_esc(y['trend_direction'])}</td></tr>"
+            for y in m.get("yearly", [])
+        )
+        pairs_html = ""
+        for y in m.get("yearly", []):
+            for p in (y.get("top_pairs") or [])[:2]:
+                pairs_html += (
+                    f"<div class='pair'><strong>{(p['similarity']*100):.1f}%</strong> · {_esc(y['year'])}<br/>"
+                    f"<em>A:</em> {_esc(p['paper_a']['title'])}<br/>"
+                    f"<em>B:</em> {_esc(p['paper_b']['title'])}</div>"
+                )
+        matches_html += f"""
+        <div class="block">
+          <h3>{_esc(m['topic']).title()}
+            <span class="badge badge-low">{(m['similarity']*100):.0f}% match</span>
+          </h3>
+          <p class="meta">
+            {m['n_papers_total']} papers · peak avg sim {(m['max_avg_similarity']*100):.1f}% ·
+            latest direction: {_esc(m['latest_trend_direction'])}
+          </p>
+          <table>
+            <thead><tr><th>Year</th><th>Papers</th><th>Avg sim</th><th>Max sim</th><th>Trend</th></tr></thead>
+            <tbody>{yearly_rows}</tbody>
+          </table>
+          {f'<h4 style="margin-top:.75rem">Most-similar pairs</h4>{pairs_html}' if pairs_html else ''}
+        </div>
+        """
+
+    # Related papers
+    related_html = ""
+    for r in payload.get("related_papers", []):
+        link = f' · <a href="{_esc(r["url"])}" target="_blank">SLIIT RDA</a>' if r.get("url") else ""
+        related_html += (
+            f"<li><strong>{_esc(r['title'])}</strong>"
+            f" · <em>{(r.get('similarity', 0) * 100):.0f}% match</em>"
+            f"{link}<br/>"
+            f"<span style='font-size:.85rem;color:#4b5563'>"
+            f"{_esc(', '.join((r.get('authors') or [])[:3]))}"
+            f"{(' · ' + _esc(r.get('year'))) if r.get('year') else ''}</span></li>"
+        )
+
+    return f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8" />
+<title>Plagiarism Trend Report — {query}</title>
+<style>{_REPORT_BASE_CSS}</style></head><body>
+  <h1>Plagiarism Trend Report</h1>
+  <p class="meta">Query: <strong>{query}</strong> · Generated {now}</p>
+
+  <h2>1 · Matched topic buckets ({len(payload.get('matches', []))})</h2>
+  {matches_html or '<p>No topic buckets passed the similarity threshold.</p>'}
+
+  <h2>2 · Related SLIIT papers</h2>
+  <ul>{related_html or '<li>None matched at this similarity threshold.</li>'}</ul>
+
+  <hr style="margin-top:3rem"/>
+  <p style="font-size:.75rem;color:#9ca3af;">Researchly AI · Module 3 (Data Management)</p>
+</body></html>"""
+
+
+def generate_compare_report_html(result: dict[str, Any], title_a: str = "Paper A", title_b: str = "Paper B") -> str:
+    """Render a two-paper comparison result as a full HTML page."""
+    from datetime import datetime
+    now = datetime.now().strftime("%Y-%m-%d %H:%M")
+    risk = _esc(result.get("risk_level", "minimal"))
+
+    pairs_html = ""
+    for i, p in enumerate(result.get("flagged_pairs", []), start=1):
+        sim = p.get("similarity", 0)
+        tone = "badge-high" if sim >= 0.85 else "badge-medium" if sim >= 0.7 else "badge-low"
+        pairs_html += f"""
+        <div class="pair">
+          <span class="badge {tone}">{(sim*100):.1f}% similar</span>
+          <span style="margin-left:.5rem;font-size:.75rem;color:#6b7280">A#{p['index_a']+1} ↔ B#{p['index_b']+1}</span>
+          <p style="margin:.4rem 0 .15rem;font-size:.8rem;color:#4b5563">A:</p>
+          <p style="margin:0">{_esc(p['sentence_a'])}</p>
+          <p style="margin:.4rem 0 .15rem;font-size:.8rem;color:#4b5563">B:</p>
+          <p style="margin:0">{_esc(p['sentence_b'])}</p>
+        </div>
+        """
+
+    return f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8" />
+<title>Plagiarism Comparison Report</title>
+<style>{_REPORT_BASE_CSS}</style></head><body>
+  <h1>Plagiarism Comparison Report</h1>
+  <p class="meta">Generated {now} · {_esc(title_a)} ↔ {_esc(title_b)}</p>
+
+  <h2>Risk: <span class="badge badge-{risk}">{risk.upper()}</span>
+       <span class="meta" style="margin-left:.5rem">
+         Score {(result.get('risk_score', 0)*100):.0f}%
+       </span></h2>
+
+  <div class="grid-2">
+    <div class="block"><div class="label">Document similarity (SBERT)</div><div class="num">{(result.get('document_similarity', 0)*100):.1f}%</div></div>
+    <div class="block"><div class="label">N-gram Jaccard (4-grams)</div><div class="num">{(result.get('ngram_jaccard', 0)*100):.1f}%</div></div>
+    <div class="block"><div class="label">Overlap in A</div><div class="num">{(result.get('ngram_overlap_in_a', 0)*100):.1f}%</div></div>
+    <div class="block"><div class="label">Overlap in B</div><div class="num">{(result.get('ngram_overlap_in_b', 0)*100):.1f}%</div></div>
+  </div>
+
+  <h2>Most similar sentence pairs ({len(result.get('flagged_pairs', []))})</h2>
+  {pairs_html or '<p>No flagged pairs above the similarity threshold.</p>'}
+
+  <hr style="margin-top:3rem"/>
+  <p style="font-size:.75rem;color:#9ca3af;">
+    Researchly AI · Module 3 (Data Management) · {_esc(result.get('model_version', 'unknown'))}
+  </p>
+</body></html>"""

@@ -141,6 +141,116 @@ router.post("/data/plagiarism-trends/compare", async (req, res, next) => {
   }
 });
 
+// HTML-report endpoints (responses are text/html, not JSON — passthrough as text)
+router.post("/data/plagiarism-trends/search/report", async (req, res, next) => {
+  try {
+    const r = await axios.post(
+      `${env.MODULE3_URL}/data/plagiarism-trends/search/report`,
+      req.body,
+      { responseType: "text", timeout: 30_000 },
+    );
+    res.setHeader("Content-Type", "text/html");
+    res.send(r.data);
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      next(new ApiError(err.response?.status ?? 502, err.message));
+    } else {
+      next(err);
+    }
+  }
+});
+
+router.post("/data/plagiarism-trends/compare/report", async (req, res, next) => {
+  try {
+    const r = await axios.post(
+      `${env.MODULE3_URL}/data/plagiarism-trends/compare/report`,
+      req.body,
+      { responseType: "text", timeout: 30_000 },
+    );
+    res.setHeader("Content-Type", "text/html");
+    res.send(r.data);
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      next(new ApiError(err.response?.status ?? 502, err.message));
+    } else {
+      next(err);
+    }
+  }
+});
+
+router.post("/data/summarize/report", async (req, res, next) => {
+  try {
+    const r = await axios.post(
+      `${env.MODULE3_URL}/data/summarize/report`,
+      req.body,
+      { responseType: "text", timeout: 30_000 },
+    );
+    res.setHeader("Content-Type", "text/html");
+    res.send(r.data);
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      next(new ApiError(err.response?.status ?? 502, err.message));
+    } else {
+      next(err);
+    }
+  }
+});
+
+// Two-PDF comparison (multipart with two files)
+router.post(
+  "/data/plagiarism-trends/compare-pdf",
+  upload.fields([{ name: "file_a", maxCount: 1 }, { name: "file_b", maxCount: 1 }]),
+  async (req, res, next) => {
+    try {
+      const files = req.files as { file_a?: Express.Multer.File[]; file_b?: Express.Multer.File[] } | undefined;
+      const fa = files?.file_a?.[0];
+      const fb = files?.file_b?.[0];
+      if (!fa || !fb) throw new ApiError(400, "Both file_a and file_b are required.");
+
+      const formData = new FormData();
+      formData.append("file_a", fa.buffer, {
+        filename: fa.originalname || "paper-a.pdf",
+        contentType: fa.mimetype || "application/pdf",
+      });
+      formData.append("file_b", fb.buffer, {
+        filename: fb.originalname || "paper-b.pdf",
+        contentType: fb.mimetype || "application/pdf",
+      });
+      if (req.body.title_a) formData.append("title_a", String(req.body.title_a));
+      if (req.body.title_b) formData.append("title_b", String(req.body.title_b));
+      if (req.body.top_pairs) formData.append("top_pairs", String(req.body.top_pairs));
+
+      const response = await axios.post(
+        `${env.MODULE3_URL}/data/plagiarism-trends/compare-pdf`,
+        formData,
+        {
+          headers: formData.getHeaders(),
+          maxContentLength: Infinity,
+          maxBodyLength: Infinity,
+          timeout: 180_000,
+        },
+      );
+      res.json(response.data);
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        let message: string;
+        const detail = err.response?.data?.detail;
+        if (Array.isArray(detail)) {
+          message = detail.map((d: { loc?: string[]; msg?: string }) =>
+            `${(d.loc || []).slice(-1)[0] || "field"}: ${d.msg}`).join("; ");
+        } else if (typeof detail === "string") {
+          message = detail;
+        } else {
+          message = err.message;
+        }
+        next(new ApiError(err.response?.status ?? 502, message, err.response?.data));
+      } else {
+        next(err);
+      }
+    }
+  },
+);
+
 // Status endpoints (for Settings → Model Status grid)
 router.get("/data/categorize/status", async (_req, res, next) => {
   try {
