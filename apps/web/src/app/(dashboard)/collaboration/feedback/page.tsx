@@ -8,10 +8,13 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import {
   Star, MessageSquare, CheckCircle2, AlertCircle, Loader2, User, Search,
+  Mail, ShieldCheck, Send, KeyRound,
 } from "lucide-react";
 import { API_ROUTES } from "@/lib/constants";
 import { apiGet, apiPost } from "@/lib/api";
 import { useAuthStore } from "@/stores/authStore";
+import { invalidateCache } from "@/lib/supervisorCache";
+import { useCollaborationStore } from "@/stores/collaborationStore";
 
 // ─── Types ────────────────────────────────────────────────────────────────
 
@@ -44,15 +47,7 @@ const sentimentColor = (s: string | null) => {
 
 // ─── Star rating ─────────────────────────────────────────────────────────
 
-function StarPicker({
-  value,
-  onChange,
-  size = 28,
-}: {
-  value: number;
-  onChange: (n: number) => void;
-  size?: number;
-}) {
+function StarPicker({ value, onChange, size = 28 }: { value: number; onChange: (n: number) => void; size?: number }) {
   const [hover, setHover] = useState(0);
   const display = hover || value;
   return (
@@ -69,11 +64,7 @@ function StarPicker({
         >
           <Star
             style={{ width: size, height: size }}
-            className={
-              i <= display
-                ? "fill-amber-400 text-amber-400"
-                : "text-muted-foreground/40"
-            }
+            className={i <= display ? "fill-amber-400 text-amber-400" : "text-muted-foreground/40"}
           />
         </button>
       ))}
@@ -84,15 +75,201 @@ function StarPicker({
   );
 }
 
-// ─── Page ────────────────────────────────────────────────────────────────
+// ─── Email OTP step ───────────────────────────────────────────────────────
+
+type OtpState = "idle" | "sending" | "sent" | "verifying" | "verified";
+
+function EmailVerificationStep({
+  verifiedEmail,
+  onVerified,
+}: {
+  verifiedEmail: string | null;
+  onVerified: (email: string) => void;
+}) {
+  const [email, setEmail] = useState(verifiedEmail ?? "");
+  const [otp, setOtp] = useState("");
+  const [otpState, setOtpState] = useState<OtpState>(verifiedEmail ? "verified" : "idle");
+  const [message, setMessage] = useState("");
+  const [devOtp, setDevOtp] = useState<string | null>(null);
+  const [error, setError] = useState("");
+
+  if (otpState === "verified") {
+    return (
+      <div className="flex items-center gap-2 rounded-md border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900">
+        <ShieldCheck className="h-4 w-4 shrink-0" />
+        <span>
+          Email verified: <strong>{verifiedEmail}</strong>
+        </span>
+      </div>
+    );
+  }
+
+  const handleSendOtp = async () => {
+    setError("");
+    setDevOtp(null);
+    if (!email.trim() || !email.includes("@")) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+    setOtpState("sending");
+    try {
+      const res = await apiPost<{ success: boolean; message: string; email_sent: boolean; dev_otp?: string }>(
+        API_ROUTES.module2.requestOtp,
+        { email: email.trim() },
+      );
+      setMessage(res.message);
+      if (res.dev_otp) {
+        // SMTP not configured — backend returned the code directly for dev/demo
+        setDevOtp(res.dev_otp);
+        setOtp(res.dev_otp);
+      }
+      setOtpState("sent");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not send code.");
+      setOtpState("idle");
+    }
+  };
+
+  const handleVerify = async () => {
+    setError("");
+    if (!otp.trim() || otp.trim().length !== 6) {
+      setError("Please enter the 6-digit code.");
+      return;
+    }
+    setOtpState("verifying");
+    try {
+      const res = await apiPost<{ verified: boolean; message: string }>(
+        API_ROUTES.module2.verifyOtp,
+        { email: email.trim(), otp: otp.trim() },
+      );
+      if (res.verified) {
+        setOtpState("verified");
+        onVerified(email.trim());
+      } else {
+        setError(res.message);
+        setOtpState("sent");
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Verification failed.");
+      setOtpState("sent");
+    }
+  };
+
+  const isBusy = otpState === "sending" || otpState === "verifying";
+
+  return (
+    <div className="space-y-3">
+      <div className="space-y-2">
+        <Label htmlFor="rater-email">
+          Your email address <span className="text-destructive">*</span>
+        </Label>
+        <div className="flex gap-2">
+          <div className="relative flex-1">
+            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              id="rater-email"
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="pl-9"
+              disabled={otpState === "sent" || isBusy}
+            />
+          </div>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={otpState === "sent" ? () => { setOtpState("idle"); setDevOtp(null); setOtp(""); } : handleSendOtp}
+            disabled={isBusy}
+          >
+            {otpState === "sending" ? (
+              <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending…</>
+            ) : otpState === "sent" ? (
+              "Resend"
+            ) : (
+              <><Send className="mr-2 h-4 w-4" /> Send Code</>
+            )}
+          </Button>
+        </div>
+        <p className="text-xs text-muted-foreground">
+          A 6-digit verification code will be sent to this address. This prevents fake submissions.
+        </p>
+      </div>
+
+      {message && !devOtp && (
+        <p className="text-xs text-emerald-700 bg-emerald-50 border border-emerald-200 rounded px-3 py-2">
+          {message}
+        </p>
+      )}
+
+      {/* Dev mode: SMTP not configured — show code directly */}
+      {devOtp && (
+        <div className="rounded-md border border-amber-200 bg-amber-50 px-4 py-3 space-y-1">
+          <p className="text-xs font-semibold text-amber-800">
+            SMTP not configured — verification code shown here for demo:
+          </p>
+          <p className="text-2xl font-mono font-bold tracking-[0.3em] text-amber-900">{devOtp}</p>
+          <p className="text-[10px] text-amber-700">
+            Configure <code>SMTP_HOST / SMTP_USER / SMTP_PASS</code> in{" "}
+            <code>services/module2-collaboration/.env</code> to send real emails.
+          </p>
+        </div>
+      )}
+
+      {(otpState === "sent" || otpState === "verifying") && (
+        <div className="space-y-2">
+          <Label htmlFor="otp-code">Verification code</Label>
+          <div className="flex gap-2">
+            <div className="relative flex-1">
+              <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                id="otp-code"
+                type="text"
+                inputMode="numeric"
+                maxLength={6}
+                placeholder="123456"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                className="pl-9 font-mono tracking-widest text-center text-lg"
+              />
+            </div>
+            <Button
+              type="button"
+              onClick={handleVerify}
+              disabled={otpState === "verifying" || otp.trim().length < 6}
+            >
+              {otpState === "verifying" ? (
+                <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Verifying…</>
+              ) : (
+                <><ShieldCheck className="mr-2 h-4 w-4" /> Verify</>
+              )}
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {error && (
+        <div className="flex items-center gap-2 text-sm text-destructive rounded border border-destructive/30 bg-destructive/10 px-3 py-2">
+          <AlertCircle className="h-4 w-4 shrink-0" />
+          {error}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Page ─────────────────────────────────────────────────────────────────
 
 export default function FeedbackAnalysisPage() {
   const { user, profile } = useAuthStore();
+  const { otpEnabled } = useCollaborationStore();
 
   const [supervisors, setSupervisors] = useState<SupervisorEntry[]>([]);
   const [loadingSups, setLoadingSups] = useState(false);
   const [search, setSearch] = useState("");
   const [selectedKey, setSelectedKey] = useState<string>("");
+
+  const [verifiedEmail, setVerifiedEmail] = useState<string | null>(null);
 
   const [stars, setStars] = useState(0);
   const [feedback, setFeedback] = useState("");
@@ -100,22 +277,17 @@ export default function FeedbackAnalysisPage() {
   const [error, setError] = useState("");
   const [result, setResult] = useState<SubmitResponse | null>(null);
 
+  // When OTP is disabled, email verification is not required
+  const emailReady = !otpEnabled || verifiedEmail !== null;
+
   useEffect(() => {
     let cancelled = false;
     setLoadingSups(true);
     apiGet<{ supervisors: SupervisorEntry[]; total: number }>(API_ROUTES.module2.supervisorList)
-      .then((d) => {
-        if (!cancelled) setSupervisors(d.supervisors);
-      })
-      .catch(() => {
-        if (!cancelled) setSupervisors([]);
-      })
-      .finally(() => {
-        if (!cancelled) setLoadingSups(false);
-      });
-    return () => {
-      cancelled = true;
-    };
+      .then((d) => { if (!cancelled) setSupervisors(d.supervisors); })
+      .catch(() => { if (!cancelled) setSupervisors([]); })
+      .finally(() => { if (!cancelled) setLoadingSups(false); });
+    return () => { cancelled = true; };
   }, []);
 
   const selected = useMemo(
@@ -126,24 +298,21 @@ export default function FeedbackAnalysisPage() {
   const filtered = useMemo(() => {
     if (!search.trim()) return supervisors;
     const q = search.toLowerCase();
-    return supervisors.filter((s) =>
-      s.name.toLowerCase().includes(q) ||
-      (s.department || "").toLowerCase().includes(q) ||
-      (s.research_areas.join(" ").toLowerCase()).includes(q),
+    return supervisors.filter(
+      (s) =>
+        s.name.toLowerCase().includes(q) ||
+        (s.department || "").toLowerCase().includes(q) ||
+        s.research_areas.join(" ").toLowerCase().includes(q),
     );
   }, [supervisors, search]);
 
   const handleSubmit = async () => {
     setError("");
     setResult(null);
-    if (!selectedKey) {
-      setError("Please select a supervisor first.");
-      return;
-    }
-    if (stars < 1) {
-      setError("Please give a star rating between 1 and 5.");
-      return;
-    }
+    if (!selectedKey) { setError("Please select a supervisor first."); return; }
+    if (stars < 1) { setError("Please give a star rating between 1 and 5."); return; }
+    if (!emailReady) { setError("Please verify your email before submitting."); return; }
+
     setSubmitting(true);
     try {
       const profileObj = profile as { full_name?: string } | null;
@@ -153,10 +322,13 @@ export default function FeedbackAnalysisPage() {
         feedback_text: feedback.trim() || null,
         rater_id: user?.id ?? null,
         rater_name: profileObj?.full_name ?? null,
+        rater_email: verifiedEmail,
       });
       setResult(data);
       setStars(0);
       setFeedback("");
+      // Invalidate effectiveness cache so it reloads fresh data
+      invalidateCache("effectiveness-supervisors");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not submit feedback.");
     } finally {
@@ -166,28 +338,30 @@ export default function FeedbackAnalysisPage() {
 
   return (
     <div className="space-y-6">
+      {/* Hero */}
       <div className="rounded-2xl bg-gradient-to-br from-amber-500 via-orange-500 to-pink-500 p-6 text-white shadow-lg">
         <h1 className="text-2xl font-bold flex items-center gap-2">
           <MessageSquare className="h-7 w-7" /> Supervisor Feedback
         </h1>
         <p className="mt-1 text-sm text-white/85 max-w-2xl">
-          Rate a supervisor and leave written feedback. Your rating contributes to that
-          supervisor&apos;s effectiveness score visible in the next tab.
+          Rate a supervisor and leave written feedback. Email verification is required to
+          prevent fake submissions and ensure authentic reviews.
         </p>
       </div>
 
+      {/* Step 1 — Choose supervisor */}
       <Card>
         <CardHeader>
           <CardTitle className="text-lg">1 · Choose a supervisor</CardTitle>
           <CardDescription>
-            Pick from {supervisors.length} supervisors (74 from SLIIT + system supervisors).
+            Pick from {supervisors.length} supervisors (SLIIT + system supervisors).
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
           <div className="flex items-center gap-2 rounded-md border bg-background px-2">
             <Search className="h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search by name, department, or research area..."
+              placeholder="Search by name, department, or research area…"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="border-0 focus-visible:ring-0 shadow-none"
@@ -215,11 +389,14 @@ export default function FeedbackAnalysisPage() {
                 <span className="font-semibold">
                   {selected.rank ? `${selected.rank} ` : ""}{selected.name}
                 </span>
-                <Badge variant="outline" className={
-                  selected.source === "sliit"
-                    ? "bg-blue-50 text-blue-700 border-blue-200 text-[10px]"
-                    : "bg-purple-50 text-purple-700 border-purple-200 text-[10px]"
-                }>
+                <Badge
+                  variant="outline"
+                  className={
+                    selected.source === "sliit"
+                      ? "bg-blue-50 text-blue-700 border-blue-200 text-[10px]"
+                      : "bg-purple-50 text-purple-700 border-purple-200 text-[10px]"
+                  }
+                >
                   {selected.source.toUpperCase()}
                 </Badge>
                 {selected.availability === false && (
@@ -247,11 +424,42 @@ export default function FeedbackAnalysisPage() {
         </CardContent>
       </Card>
 
-      <Card>
+      {/* Step 2 — Email verification (hidden when OTP is disabled) */}
+      {otpEnabled && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg flex items-center gap-2">
+              2 · Verify your email
+              {verifiedEmail && (
+                <Badge variant="outline" className="ml-auto bg-emerald-50 text-emerald-700 border-emerald-200 text-[10px]">
+                  <ShieldCheck className="h-3 w-3 mr-1" /> Verified
+                </Badge>
+              )}
+            </CardTitle>
+            <CardDescription>
+              A one-time code will be sent to your email address to verify your identity.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <EmailVerificationStep
+              verifiedEmail={verifiedEmail}
+              onVerified={(email) => setVerifiedEmail(email)}
+            />
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Step 3 — Rate & review */}
+      <Card className={!emailReady ? "opacity-60 pointer-events-none" : ""}>
         <CardHeader>
-          <CardTitle className="text-lg">2 · Rate &amp; review</CardTitle>
+          <CardTitle className="text-lg">{otpEnabled ? "3" : "2"} · Rate &amp; review</CardTitle>
           <CardDescription>
-            Stars are mandatory. Written feedback is optional but adds rich context.
+            Stars are mandatory. Written feedback is optional but adds rich sentiment context.
+            {!emailReady && (
+              <span className="block mt-1 text-amber-600 text-xs">
+                ↑ Complete email verification above to unlock this section.
+              </span>
+            )}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -274,11 +482,12 @@ export default function FeedbackAnalysisPage() {
             </p>
           </div>
 
-          <Button onClick={handleSubmit} disabled={submitting || !selectedKey || stars < 1}>
+          <Button
+            onClick={handleSubmit}
+            disabled={submitting || !selectedKey || stars < 1 || !emailReady}
+          >
             {submitting ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Submitting…
-              </>
+              <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Submitting…</>
             ) : (
               "Submit Feedback"
             )}
@@ -286,7 +495,7 @@ export default function FeedbackAnalysisPage() {
 
           {error && (
             <div className="flex items-start gap-2 rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive">
-              <AlertCircle className="h-4 w-4 mt-0.5 flex-shrink-0" />
+              <AlertCircle className="h-4 w-4 mt-0.5 shrink-0" />
               <span>{error}</span>
             </div>
           )}
@@ -295,12 +504,15 @@ export default function FeedbackAnalysisPage() {
             <div className="rounded-md border border-emerald-200 bg-emerald-50 p-3 text-sm space-y-1">
               <div className="flex items-center gap-2 font-medium text-emerald-900">
                 <CheckCircle2 className="h-4 w-4" />
-                Feedback saved.
+                Feedback saved successfully.
               </div>
               <div className="flex flex-wrap gap-2 text-xs">
-                <Badge variant="outline" className="bg-white">
-                  {result.stars} ★
-                </Badge>
+                <Badge variant="outline" className="bg-white">{result.stars} ★</Badge>
+                {verifiedEmail && (
+                  <Badge variant="outline" className="bg-white">
+                    <Mail className="h-3 w-3 mr-1" />{verifiedEmail}
+                  </Badge>
+                )}
                 {result.overall_sentiment && (
                   <Badge variant="outline" className={sentimentColor(result.overall_sentiment)}>
                     Sentiment: {result.overall_sentiment}

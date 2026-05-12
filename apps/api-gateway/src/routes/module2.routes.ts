@@ -16,6 +16,15 @@ router.post("/matching/supervisors", async (req, res, next) => {
   }
 });
 
+router.get("/matching/supervisors/:id/papers", async (req, res, next) => {
+  try {
+    const data = await callMlService(2, `/matching/supervisors/${req.params.id}/papers`, "GET");
+    res.json(data);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // ── Peer matching (legacy SBERT) ───────────────────────────────────────
 router.post("/matching/peers", async (req, res, next) => {
   try {
@@ -92,6 +101,24 @@ router.get("/feedback/supervisors", async (_req, res, next) => {
 router.post("/feedback/submit", async (req, res, next) => {
   try {
     const data = await callMlService(2, "/feedback/submit", "POST", req.body);
+    res.json(data);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/feedback/request-otp", async (req, res, next) => {
+  try {
+    const data = await callMlService(2, "/feedback/request-otp", "POST", req.body);
+    res.json(data);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/feedback/verify-otp", async (req, res, next) => {
+  try {
+    const data = await callMlService(2, "/feedback/verify-otp", "POST", req.body);
     res.json(data);
   } catch (err) {
     next(err);

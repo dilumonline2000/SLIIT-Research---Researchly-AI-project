@@ -29,6 +29,7 @@ export const API_ROUTES = {
   },
   module2: {
     matchSupervisors: "/api/v1/matching/supervisors",
+    supervisorPapers: (id: number) => `/api/v1/matching/supervisors/${id}/papers`,
     matchPeers: "/api/v1/matching/peers",
     // Peer-Connect groups
     createGroup: "/api/v1/matching/groups",
@@ -39,6 +40,8 @@ export const API_ROUTES = {
     analyzeFeedback: "/api/v1/feedback/analyze",
     supervisorList: "/api/v1/feedback/supervisors",
     submitFeedback: "/api/v1/feedback/submit",
+    requestOtp: "/api/v1/feedback/request-otp",
+    verifyOtp: "/api/v1/feedback/verify-otp",
     feedbackBySupervisor: "/api/v1/feedback/by-supervisor",
     // Effectiveness
     effectivenessList: "/api/v1/effectiveness",

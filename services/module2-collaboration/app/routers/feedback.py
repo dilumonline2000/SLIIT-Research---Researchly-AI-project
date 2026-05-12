@@ -12,7 +12,12 @@ from __future__ import annotations
 
 import logging
 import os
+import random
+import smtplib
 import sys
+import time
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from typing import Any, Optional
 
 from fastapi import APIRouter, HTTPException, Query
@@ -20,6 +25,10 @@ from pydantic import BaseModel, Field
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
+
+# ─── In-memory OTP store (email -> (otp, expiry_ts)) ─────────────────────────
+_otp_store: dict[str, tuple[str, float]] = {}
+_OTP_TTL: float = 600.0  # 10 minutes
 
 _services_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
 sys.path.insert(0, _services_root)
@@ -70,6 +79,7 @@ class SubmitFeedbackRequest(BaseModel):
     feedback_text: Optional[str] = Field(default=None, max_length=4000)
     rater_id: Optional[str] = None
     rater_name: Optional[str] = None
+    rater_email: Optional[str] = None
 
 
 class SubmitFeedbackResponse(BaseModel):
@@ -87,6 +97,7 @@ class RatingEntry(BaseModel):
     overall_sentiment: Optional[str] = None
     sentiment_score: Optional[float] = None
     rater_name: Optional[str] = None
+    rater_email: Optional[str] = None
     created_at: Optional[str] = None
 
 
@@ -187,7 +198,129 @@ def _stars_to_sentiment(stars: int) -> dict[str, Any]:
     return {"overall_sentiment": "neutral", "overall_score": 0.0}
 
 
+# ─── OTP helpers ──────────────────────────────────────────────────────────
+
+
+def _build_otp_message(smtp_user: str, to_email: str, otp: str) -> MIMEMultipart:
+    msg = MIMEMultipart("alternative")
+    msg["Subject"] = "Researchly AI — Email Verification Code"
+    msg["From"] = smtp_user
+    msg["To"] = to_email
+    html = f"""
+    <div style="font-family:Arial,sans-serif;max-width:480px;margin:0 auto;">
+      <h2 style="color:#6d28d9;">Verify Your Feedback</h2>
+      <p>Your one-time verification code is:</p>
+      <div style="font-size:36px;font-weight:bold;letter-spacing:10px;color:#6d28d9;
+                  margin:20px 0;padding:16px;background:#f5f3ff;border-radius:8px;
+                  text-align:center;">{otp}</div>
+      <p style="color:#6b7280;">This code expires in 10 minutes. Do not share it.</p>
+      <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0;"/>
+      <p style="font-size:12px;color:#9ca3af;">Researchly AI · Research Collaboration Platform</p>
+    </div>"""
+    msg.attach(MIMEText(html, "html"))
+    return msg
+
+
+def _send_otp_email(to_email: str, otp: str) -> bool:
+    smtp_host = os.environ.get("SMTP_HOST", "")
+    smtp_user = os.environ.get("SMTP_USER", "")
+    smtp_pass = os.environ.get("SMTP_PASS", "")
+    smtp_port = int(os.environ.get("SMTP_PORT", "587"))
+
+    if not (smtp_host and smtp_user and smtp_pass):
+        logger.info("[DEV] OTP for %s → %s  (SMTP not configured — set SMTP_HOST/SMTP_USER/SMTP_PASS in .env)", to_email, otp)
+        return False
+
+    msg = _build_otp_message(smtp_user, to_email, otp)
+    try:
+        if smtp_port == 465:
+            # SSL from the start (e.g. Gmail SSL)
+            import ssl as _ssl
+            ctx = _ssl.create_default_context()
+            with smtplib.SMTP_SSL(smtp_host, smtp_port, context=ctx) as server:
+                server.login(smtp_user, smtp_pass)
+                server.sendmail(smtp_user, to_email, msg.as_string())
+        else:
+            # STARTTLS upgrade (e.g. Gmail TLS on port 587)
+            with smtplib.SMTP(smtp_host, smtp_port) as server:
+                server.ehlo()
+                server.starttls()
+                server.ehlo()  # re-identify after TLS handshake — required by Gmail
+                server.login(smtp_user, smtp_pass)
+                server.sendmail(smtp_user, to_email, msg.as_string())
+        logger.info("OTP email sent to %s", to_email)
+        return True
+    except Exception as exc:
+        logger.error("SMTP send failed for %s: %s", to_email, exc)
+        return False
+
+
+class RequestOtpRequest(BaseModel):
+    email: str = Field(..., description="Rater's email address for verification")
+
+
+class RequestOtpResponse(BaseModel):
+    success: bool
+    message: str
+    email_sent: bool
+    dev_otp: Optional[str] = None  # Returned only when SMTP is not configured (dev/demo mode)
+
+
+class VerifyOtpRequest(BaseModel):
+    email: str
+    otp: str
+
+
+class VerifyOtpResponse(BaseModel):
+    verified: bool
+    message: str
+
+
 # ─── Endpoints ────────────────────────────────────────────────────────────
+
+
+@router.post("/request-otp", response_model=RequestOtpResponse)
+async def request_otp(req: RequestOtpRequest) -> RequestOtpResponse:
+    """Generate and send a 6-digit OTP. Returns dev_otp in the response when SMTP is not configured."""
+    email = req.email.strip().lower()
+    if not email or "@" not in email:
+        raise HTTPException(status_code=400, detail="Invalid email address")
+    otp = str(random.randint(100000, 999999))
+    _otp_store[email] = (otp, time.time() + _OTP_TTL)
+    sent = _send_otp_email(req.email.strip(), otp)
+    if sent:
+        return RequestOtpResponse(
+            success=True,
+            message="Verification code sent to your email.",
+            email_sent=True,
+        )
+    # SMTP not configured — surface the OTP in the response so the demo works
+    return RequestOtpResponse(
+        success=True,
+        message="Email service not configured. Use the code shown below to continue.",
+        email_sent=False,
+        dev_otp=otp,
+    )
+
+
+@router.post("/verify-otp", response_model=VerifyOtpResponse)
+async def verify_otp(req: VerifyOtpRequest) -> VerifyOtpResponse:
+    """Verify the OTP for a given email (single-use, 10-minute TTL)."""
+    email = req.email.strip().lower()
+    stored = _otp_store.get(email)
+    if not stored:
+        return VerifyOtpResponse(
+            verified=False,
+            message="No verification code was requested for this email. Please request a new code.",
+        )
+    otp, expiry = stored
+    if time.time() > expiry:
+        del _otp_store[email]
+        return VerifyOtpResponse(verified=False, message="Code expired. Please request a new one.")
+    if req.otp.strip() != otp:
+        return VerifyOtpResponse(verified=False, message="Incorrect code. Please try again.")
+    del _otp_store[email]
+    return VerifyOtpResponse(verified=True, message="Email verified successfully.")
 
 
 @router.post("/analyze", response_model=AnalyzeFeedbackResponse)
@@ -241,6 +374,7 @@ async def submit_feedback(req: SubmitFeedbackRequest) -> SubmitFeedbackResponse:
         "aspect_sentiments": sent.get("aspect_probabilities"),
         "rater_id": req.rater_id,
         "rater_name": req.rater_name,
+        "rater_email": req.rater_email,
     }
     if src == "sliit":
         payload["sliit_supervisor_id"] = int(ident)
@@ -300,6 +434,7 @@ async def by_supervisor(
             overall_sentiment=r.get("overall_sentiment"),
             sentiment_score=r.get("sentiment_score"),
             rater_name=r.get("rater_name"),
+            rater_email=r.get("rater_email"),
             created_at=r.get("created_at"),
         )
         for r in rows

@@ -224,6 +224,7 @@ async def effectiveness_by_key(
             "overall_sentiment": r.get("overall_sentiment"),
             "sentiment_score": r.get("sentiment_score"),
             "rater_name": r.get("rater_name"),
+            "rater_email": r.get("rater_email"),
             "created_at": r.get("created_at"),
         }
         for r in ratings[:10]

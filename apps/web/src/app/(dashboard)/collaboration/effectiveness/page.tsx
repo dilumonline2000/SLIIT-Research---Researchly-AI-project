@@ -7,9 +7,11 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import {
   TrendingUp, Search, Star, Mail, ArrowLeft, Loader2, Users, MessageSquare,
+  ShieldCheck,
 } from "lucide-react";
 import { API_ROUTES } from "@/lib/constants";
 import { apiGet } from "@/lib/api";
+import { getCache, setCache } from "@/lib/supervisorCache";
 
 // ─── Types ────────────────────────────────────────────────────────────────
 
@@ -38,6 +40,7 @@ interface RecentFeedback {
   overall_sentiment: string | null;
   sentiment_score: number | null;
   rater_name: string | null;
+  rater_email: string | null;
   created_at: string | null;
 }
 
@@ -53,7 +56,11 @@ interface EffectivenessDetail {
   recent_feedback: RecentFeedback[];
 }
 
-// ─── Star display ────────────────────────────────────────────────────────
+// ─── Cache key ────────────────────────────────────────────────────────────
+
+const CACHE_KEY = "effectiveness-supervisors";
+
+// ─── Star display ─────────────────────────────────────────────────────────
 
 function StarDisplay({ value, size = 16 }: { value: number; size?: number }) {
   const full = Math.round(value);
@@ -76,7 +83,7 @@ const sentimentColor = (s: string | null) => {
   return "text-amber-700 bg-amber-50 border-amber-200";
 };
 
-// ─── Page ────────────────────────────────────────────────────────────────
+// ─── Page ─────────────────────────────────────────────────────────────────
 
 export default function EffectivenessPage() {
   const [supervisors, setSupervisors] = useState<SupervisorSummary[]>([]);
@@ -89,29 +96,30 @@ export default function EffectivenessPage() {
   const [loadingDetail, setLoadingDetail] = useState(false);
   const [error, setError] = useState("");
 
+  // Load supervisor list — check module-level cache first
   useEffect(() => {
+    const cached = getCache<SupervisorSummary[]>(CACHE_KEY);
+    if (cached) {
+      setSupervisors(cached);
+      return;
+    }
     let cancelled = false;
     setLoadingList(true);
     apiGet<{ supervisors: SupervisorSummary[]; total: number }>(API_ROUTES.module2.effectivenessList)
       .then((d) => {
-        if (!cancelled) setSupervisors(d.supervisors);
+        if (!cancelled) {
+          setSupervisors(d.supervisors);
+          setCache(CACHE_KEY, d.supervisors);
+        }
       })
-      .catch(() => {
-        if (!cancelled) setSupervisors([]);
-      })
-      .finally(() => {
-        if (!cancelled) setLoadingList(false);
-      });
-    return () => {
-      cancelled = true;
-    };
+      .catch(() => { if (!cancelled) setSupervisors([]); })
+      .finally(() => { if (!cancelled) setLoadingList(false); });
+    return () => { cancelled = true; };
   }, []);
 
+  // Load detail when a supervisor is selected
   useEffect(() => {
-    if (!selectedKey) {
-      setDetail(null);
-      return;
-    }
+    if (!selectedKey) { setDetail(null); return; }
     let cancelled = false;
     setLoadingDetail(true);
     setError("");
@@ -131,16 +139,17 @@ export default function EffectivenessPage() {
     if (filter !== "all") list = list.filter((s) => s.source === filter);
     if (search.trim()) {
       const q = search.toLowerCase();
-      list = list.filter((s) =>
-        s.name.toLowerCase().includes(q) ||
-        (s.department || "").toLowerCase().includes(q) ||
-        s.research_areas.join(" ").toLowerCase().includes(q),
+      list = list.filter(
+        (s) =>
+          s.name.toLowerCase().includes(q) ||
+          (s.department || "").toLowerCase().includes(q) ||
+          s.research_areas.join(" ").toLowerCase().includes(q),
       );
     }
     return list;
   }, [supervisors, search, filter]);
 
-  // ── Detail view ─────────────────────────────────────────────
+  // ── Detail view ──────────────────────────────────────────────────────
   if (selectedKey && (loadingDetail || detail || error)) {
     return (
       <div className="space-y-6">
@@ -172,7 +181,8 @@ export default function EffectivenessPage() {
                   <div>
                     <div className="flex items-center gap-2 flex-wrap">
                       <h2 className="text-xl font-bold">
-                        {detail.supervisor.rank ? `${detail.supervisor.rank} ` : ""}{detail.supervisor.name}
+                        {detail.supervisor.rank ? `${detail.supervisor.rank} ` : ""}
+                        {detail.supervisor.name}
                       </h2>
                       <Badge variant="outline" className="bg-white/15 border-white/30 text-white text-[10px]">
                         {detail.supervisor.source === "sliit" ? "SLIIT" : "System"}
@@ -221,8 +231,10 @@ export default function EffectivenessPage() {
                   <p className="text-xs text-muted-foreground">Effectiveness</p>
                   <p className="text-2xl font-bold">{(detail.overall_score * 100).toFixed(0)}%</p>
                   <div className="h-1.5 mt-1 rounded-full bg-secondary overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-purple-500 to-indigo-500"
-                         style={{ width: `${(detail.overall_score * 100).toFixed(0)}%` }} />
+                    <div
+                      className="h-full bg-gradient-to-r from-purple-500 to-indigo-500"
+                      style={{ width: `${(detail.overall_score * 100).toFixed(0)}%` }}
+                    />
                   </div>
                 </div>
                 <div>
@@ -265,40 +277,63 @@ export default function EffectivenessPage() {
                   <MessageSquare className="h-4 w-4" /> Recent feedback ({detail.recent_feedback.length})
                 </CardTitle>
                 <CardDescription>
-                  Real comments from students who&apos;ve worked with this supervisor.
+                  Verified reviews from students who have worked with this supervisor.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-3">
                 {detail.recent_feedback.length === 0 ? (
                   <p className="text-sm text-muted-foreground">
-                    No feedback yet. Be the first to <a href="/collaboration/feedback" className="text-primary hover:underline">leave a rating</a>.
+                    No feedback yet. Be the first to{" "}
+                    <a href="/collaboration/feedback" className="text-primary hover:underline">
+                      leave a rating
+                    </a>
+                    .
                   </p>
                 ) : (
                   detail.recent_feedback.map((fb) => (
-                    <div key={fb.id} className="rounded-md border bg-muted/30 p-3 space-y-1.5">
+                    <div key={fb.id} className="rounded-md border bg-muted/30 p-3 space-y-2">
+                      {/* Reviewer identity */}
                       <div className="flex items-center justify-between flex-wrap gap-2">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 flex-wrap">
                           <StarDisplay value={fb.stars} size={14} />
-                          <span className="text-xs text-muted-foreground">
-                            {fb.rater_name || "Anonymous"}
-                          </span>
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-xs font-medium">
+                              {fb.rater_name || "Anonymous"}
+                            </span>
+                            {fb.rater_email && (
+                              <span className="inline-flex items-center gap-1 rounded-full border bg-background px-2 py-0.5 text-[10px] text-muted-foreground">
+                                <ShieldCheck className="h-3 w-3 text-emerald-500" />
+                                {fb.rater_email}
+                              </span>
+                            )}
+                          </div>
                         </div>
                         {fb.overall_sentiment && (
-                          <Badge variant="outline" className={`text-[10px] ${sentimentColor(fb.overall_sentiment)}`}>
+                          <Badge
+                            variant="outline"
+                            className={`text-[10px] ${sentimentColor(fb.overall_sentiment)}`}
+                          >
                             {fb.overall_sentiment}
                           </Badge>
                         )}
                       </div>
+
+                      {/* Comment */}
                       {fb.feedback_text ? (
                         <p className="text-sm leading-relaxed">{fb.feedback_text}</p>
                       ) : (
                         <p className="text-xs text-muted-foreground italic">(no written comment)</p>
                       )}
-                      {fb.created_at && (
-                        <p className="text-[10px] text-muted-foreground">
-                          {new Date(fb.created_at).toLocaleDateString()}
-                        </p>
-                      )}
+
+                      {/* Meta */}
+                      <div className="flex items-center gap-3 text-[10px] text-muted-foreground">
+                        {fb.created_at && (
+                          <span>{new Date(fb.created_at).toLocaleDateString()}</span>
+                        )}
+                        {fb.sentiment_score !== null && (
+                          <span>Sentiment score: {fb.sentiment_score?.toFixed(2)}</span>
+                        )}
+                      </div>
                     </div>
                   ))
                 )}
@@ -310,7 +345,7 @@ export default function EffectivenessPage() {
     );
   }
 
-  // ── List view ───────────────────────────────────────────────
+  // ── List view ────────────────────────────────────────────────────────
   return (
     <div className="space-y-6">
       <div className="rounded-2xl bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-600 p-6 text-white shadow-lg">
@@ -318,8 +353,8 @@ export default function EffectivenessPage() {
           <TrendingUp className="h-7 w-7" /> Supervisor Effectiveness
         </h1>
         <p className="mt-1 text-sm text-white/85 max-w-2xl">
-          Browse all supervisors with their aggregate ratings and feedback. Click any row to see the
-          full effectiveness breakdown and recent comments.
+          Browse all supervisors with their aggregate ratings and verified feedback. Click any row
+          to see the full effectiveness breakdown and recent comments.
         </p>
       </div>
 
@@ -328,7 +363,7 @@ export default function EffectivenessPage() {
           <div className="flex items-center gap-2 flex-1 min-w-[200px]">
             <Search className="h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search by name, department, or research area..."
+              placeholder="Search by name, department, or research area…"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="border-0 focus-visible:ring-0 shadow-none"
@@ -367,11 +402,14 @@ export default function EffectivenessPage() {
                   <h3 className="font-semibold">
                     {s.rank ? `${s.rank} ` : ""}{s.name}
                   </h3>
-                  <Badge variant="outline" className={
-                    s.source === "sliit"
-                      ? "bg-blue-50 text-blue-700 border-blue-200 text-[10px]"
-                      : "bg-purple-50 text-purple-700 border-purple-200 text-[10px]"
-                  }>
+                  <Badge
+                    variant="outline"
+                    className={
+                      s.source === "sliit"
+                        ? "bg-blue-50 text-blue-700 border-blue-200 text-[10px]"
+                        : "bg-purple-50 text-purple-700 border-purple-200 text-[10px]"
+                    }
+                  >
                     {s.source.toUpperCase()}
                   </Badge>
                   {s.availability === false && (
@@ -394,7 +432,9 @@ export default function EffectivenessPage() {
                       </span>
                     ))}
                     {s.research_areas.length > 4 && (
-                      <span className="text-[10px] text-muted-foreground">+{s.research_areas.length - 4}</span>
+                      <span className="text-[10px] text-muted-foreground">
+                        +{s.research_areas.length - 4}
+                      </span>
                     )}
                   </div>
                 )}

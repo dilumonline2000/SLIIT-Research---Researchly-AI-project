@@ -2,9 +2,14 @@
 
 from __future__ import annotations
 
+import json
 import logging
+import os
+import time
+from typing import Optional
 
-from fastapi import APIRouter
+import httpx
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
 from app.services.supervisor_matcher import match_supervisors as find_supervisors
@@ -112,3 +117,135 @@ async def match_supervisors(req: MatchSupervisorsRequest) -> MatchSupervisorsRes
     except Exception as e:
         logger.error(f"Supervisor matching failed: {e}", exc_info=True)
         return MatchSupervisorsResponse(matches=[])
+
+
+# ─── Supervisor publications via Semantic Scholar ──────────────────────────
+
+_SLIIT_JSON = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..", "..", "data", "sliit_supervisors.json")
+)
+_sliit_data: list[dict] | None = None
+
+
+def _load_sliit() -> list[dict]:
+    global _sliit_data
+    if _sliit_data is None:
+        try:
+            with open(_SLIIT_JSON, encoding="utf-8") as f:
+                _sliit_data = json.load(f)
+        except Exception as exc:
+            logger.error("Cannot load sliit_supervisors.json: %s", exc)
+            _sliit_data = []
+    return _sliit_data
+
+
+def _get_sliit_supervisor(sid: int) -> dict | None:
+    return next((s for s in _load_sliit() if s.get("id") == sid), None)
+
+
+_ss_cache: dict[int, tuple[list, float]] = {}
+_SS_TTL: float = 3600.0
+
+
+class PaperEntry(BaseModel):
+    paper_id: str = ""
+    title: str
+    year: Optional[int] = None
+    venue: Optional[str] = None
+    url: Optional[str] = None
+    doi: Optional[str] = None
+
+
+class SupervisorPapersResponse(BaseModel):
+    supervisor_id: int
+    name: str
+    department: str
+    research_interests: list[str]
+    papers: list[PaperEntry]
+    total: int
+    year_distribution: dict[str, int]
+    topic_distribution: list[dict]
+
+
+async def _query_semantic_scholar(name: str) -> list[dict]:
+    """Fetch papers from Semantic Scholar by author name (best-effort)."""
+    try:
+        async with httpx.AsyncClient(timeout=15.0) as client:
+            for query in [f"{name} SLIIT", name]:
+                r = await client.get(
+                    "https://api.semanticscholar.org/graph/v1/author/search",
+                    params={"query": query, "fields": "name,papers", "limit": 3},
+                )
+                authors = r.json().get("data", []) if r.status_code == 200 else []
+                if authors:
+                    break
+
+            if not authors:
+                return []
+
+            author_id = authors[0].get("authorId", "")
+            if not author_id:
+                return []
+
+            rp = await client.get(
+                f"https://api.semanticscholar.org/graph/v1/author/{author_id}/papers",
+                params={"fields": "title,year,venue,externalIds,openAccessPdf", "limit": 50},
+            )
+            return rp.json().get("data", []) if rp.status_code == 200 else []
+    except Exception as exc:
+        logger.warning("Semantic Scholar API error for '%s': %s", name, exc)
+        return []
+
+
+@router.get("/supervisors/{supervisor_id}/papers", response_model=SupervisorPapersResponse)
+async def get_supervisor_papers(supervisor_id: int) -> SupervisorPapersResponse:
+    """Return publications and visual analytics for a SLIIT supervisor."""
+    supervisor = _get_sliit_supervisor(supervisor_id)
+    if not supervisor:
+        raise HTTPException(status_code=404, detail=f"Supervisor {supervisor_id} not found")
+
+    cached = _ss_cache.get(supervisor_id)
+    if cached and (time.time() - cached[1]) < _SS_TTL:
+        raw_papers = cached[0]
+    else:
+        raw_papers = await _query_semantic_scholar(supervisor["name"])
+        _ss_cache[supervisor_id] = (raw_papers, time.time())
+
+    papers: list[PaperEntry] = []
+    for p in raw_papers:
+        ext = p.get("externalIds") or {}
+        doi = ext.get("DOI")
+        oap = p.get("openAccessPdf") or {}
+        url = oap.get("url") or (f"https://doi.org/{doi}" if doi else None)
+        if not url and p.get("paperId"):
+            url = f"https://www.semanticscholar.org/paper/{p['paperId']}"
+        papers.append(PaperEntry(
+            paper_id=p.get("paperId") or "",
+            title=p.get("title") or "Untitled",
+            year=p.get("year"),
+            venue=(p.get("venue") or "").strip() or None,
+            url=url,
+            doi=doi,
+        ))
+
+    papers.sort(key=lambda x: x.year or 0, reverse=True)
+
+    year_dist: dict[str, int] = {}
+    for p in papers:
+        if p.year and p.year >= 2010:
+            k = str(p.year)
+            year_dist[k] = year_dist.get(k, 0) + 1
+
+    research_interests: list[str] = supervisor.get("research_interests", [])
+    topic_dist = [{"name": ri, "value": 1} for ri in research_interests[:10]]
+
+    return SupervisorPapersResponse(
+        supervisor_id=supervisor_id,
+        name=supervisor.get("name", ""),
+        department=supervisor.get("department", ""),
+        research_interests=research_interests,
+        papers=papers,
+        total=len(papers),
+        year_distribution=dict(sorted(year_dist.items())),
+        topic_distribution=topic_dist,
+    )

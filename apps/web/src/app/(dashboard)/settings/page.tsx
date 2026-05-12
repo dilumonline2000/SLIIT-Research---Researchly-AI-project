@@ -4,11 +4,12 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Sun, Moon, Monitor } from "lucide-react";
+import { Sun, Moon, Monitor, ShieldCheck, ShieldOff } from "lucide-react";
 import { AIProviderToggle } from "@/components/shared/AIProviderToggle";
 import { ModelStatusGrid } from "@/components/shared/ModelStatusGrid";
 import { useAIProviderStore } from "@/stores/aiProviderStore";
 import { useThemeStore, type Theme } from "@/stores/themeStore";
+import { useCollaborationStore } from "@/stores/collaborationStore";
 
 const THEME_META: Record<Theme, { Icon: typeof Sun }> = {
   light:  { Icon: Sun },
@@ -20,6 +21,7 @@ export default function SettingsPage() {
   const { theme, setTheme } = useThemeStore();
   const [notifications, setNotifications] = useState(true);
   const { checkLocalAvailability } = useAIProviderStore();
+  const { otpEnabled, setOtpEnabled } = useCollaborationStore();
 
   // Force a fresh model status check every time the settings page opens
   useEffect(() => {
@@ -78,6 +80,71 @@ export default function SettingsPage() {
             >
               <span className={`inline-block h-4 w-4 rounded-full bg-white transition-transform ${notifications ? "translate-x-6" : "translate-x-1"}`} />
             </button>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            {otpEnabled ? (
+              <ShieldCheck className="h-5 w-5 text-emerald-600" />
+            ) : (
+              <ShieldOff className="h-5 w-5 text-muted-foreground" />
+            )}
+            Collaboration Security
+          </CardTitle>
+          <CardDescription>
+            Control security settings for the Supervisor Feedback feature.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-center justify-between gap-4">
+            <div className="space-y-1">
+              <Label className="text-sm font-medium">Email OTP Verification</Label>
+              <p className="text-xs text-muted-foreground max-w-sm">
+                When enabled, users must verify their email address with a one-time code before
+                submitting supervisor feedback. Disable this during demos or when SMTP is not
+                configured.
+              </p>
+            </div>
+            <button
+              role="switch"
+              aria-checked={otpEnabled}
+              onClick={() => setOtpEnabled(!otpEnabled)}
+              className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                otpEnabled ? "bg-primary" : "bg-secondary"
+              }`}
+            >
+              <span
+                className={`inline-block h-4 w-4 rounded-full bg-white transition-transform ${
+                  otpEnabled ? "translate-x-6" : "translate-x-1"
+                }`}
+              />
+            </button>
+          </div>
+          <div
+            className={`rounded-md px-3 py-2 text-xs border ${
+              otpEnabled
+                ? "bg-emerald-50 border-emerald-200 text-emerald-800"
+                : "bg-amber-50 border-amber-200 text-amber-800"
+            }`}
+          >
+            {otpEnabled ? (
+              <span>
+                <strong>Enabled</strong> — Feedback requires email verification. Configure{" "}
+                <code className="font-mono">SMTP_HOST</code>,{" "}
+                <code className="font-mono">SMTP_USER</code>,{" "}
+                <code className="font-mono">SMTP_PASS</code> in{" "}
+                <code className="font-mono">services/module2-collaboration/.env</code> to send real
+                emails. If SMTP is not set up, the code will be shown on-screen.
+              </span>
+            ) : (
+              <span>
+                <strong>Disabled</strong> — Feedback can be submitted without email verification.
+                Useful for demos and development.
+              </span>
+            )}
           </div>
         </CardContent>
       </Card>
