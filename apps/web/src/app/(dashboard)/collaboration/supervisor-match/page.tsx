@@ -114,10 +114,10 @@ export default function SupervisorMatchingPage() {
                     <span className="font-medium">{(m.similarity_score * 100).toFixed(1)}%</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Availability:</span>
+                    {/* <span className="text-muted-foreground">Availability:</span>
                     <span className={`font-medium ${m.availability ? "text-green-600" : "text-red-600"}`}>
                       {m.availability ? `Available (${m.max_students - m.current_students} slots)` : "Not available"}
-                    </span>
+                    </span> */}
                   </div>
                 </div>
                 {m.research_interests.length > 0 && (
