@@ -15,10 +15,13 @@ from __future__ import annotations
 import logging
 from typing import Optional
 
+import re
+
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 from pydantic import BaseModel, Field
 
 from ..services import quality_predictor, topic_classifier
+from ..services.quality_predictor import is_research_document
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
@@ -33,6 +36,8 @@ class PaperTextRequest(BaseModel):
 
 class QualityAnalysisResponse(BaseModel):
     title: str
+    is_research_document: bool = True
+    document_warning: Optional[str] = None
     overall_score: float
     originality_score: float
     citation_impact_score: float
@@ -61,42 +66,66 @@ def _extract_pdf_text(content: bytes) -> tuple[str, str]:
     if not all_text.strip():
         raise HTTPException(400, "PDF contains no extractable text")
 
-    # First non-empty line as title
     lines = [ln.strip() for ln in all_text.split("\n") if ln.strip()]
-    title = lines[0][:300] if lines else "Untitled Paper"
 
-    # Try to find abstract section
+    # Skip metadata artifacts (article IDs, DOIs, short labels) to find real title.
+    _META_RE = re.compile(
+        r'^(article[-\s]?\d+|vol\.?\s*\d|doi:|issn|isbn|https?://|www\.|'
+        r'received:|accepted:|published:|copyright|©|\d{4}[-–]\d{4}|\d+$)',
+        re.IGNORECASE,
+    )
+    title = "Untitled Paper"
+    for line in lines[:30]:
+        if len(line) < 20:
+            continue
+        if _META_RE.match(line):
+            continue
+        title = line[:300]
+        break
+
     text_lower = all_text.lower()
     abstract = ""
     for kw in ["abstract\n", "abstract:", "abstract "]:
         idx = text_lower.find(kw)
         if idx >= 0:
             start = idx + len(kw)
-            # Take next 2000 chars as abstract
-            abstract = all_text[start:start + 2500].strip()
-            # Stop at "Introduction" or "Keywords"
-            for stop_kw in ["\nintroduction", "\nkeywords", "\n1.", "\n1 "]:
+            abstract = all_text[start:start + 3000].strip()
+            for stop_kw in ["\nintroduction", "\nkeywords", "\n1.", "\n1 ", "\ni."]:
                 stop_idx = abstract.lower().find(stop_kw)
-                if stop_idx > 100:
+                if stop_idx > 150:
                     abstract = abstract[:stop_idx].strip()
                     break
             break
 
-    if not abstract:
-        # Fallback: take first 1500 chars after title
-        abstract = all_text[len(title):len(title) + 1500].strip()
+    # If abstract wasn't found or is too short, use the paper body text.
+    if len(abstract) < 200:
+        skip = min(500, len(all_text) // 4)
+        abstract = all_text[skip:skip + 3500].strip()
 
     return title, abstract
 
 
 def _build_response(title: str, abstract: str, authors: Optional[list] = None,
                      year: Optional[int] = None) -> QualityAnalysisResponse:
-    quality = quality_predictor.predict_quality(title, abstract, authors, year)
     full_text = f"{title} {abstract}"
-    topic = topic_classifier.classify(full_text)
+    is_research, not_research_reason = is_research_document(full_text, abstract)
+
+    quality = quality_predictor.predict_quality(title, abstract, authors, year)
+    topic   = topic_classifier.classify(full_text)
+
+    warning = None
+    if not is_research:
+        warning = (
+            "This does not appear to be a research paper "
+            f"({not_research_reason}). "
+            "Quality scoring is designed for academic research papers with an abstract, "
+            "methodology, and findings. The scores below may not be meaningful."
+        )
 
     return QualityAnalysisResponse(
         title=title,
+        is_research_document=is_research,
+        document_warning=warning,
         overall_score=quality["overall_score"],
         originality_score=quality["originality_score"],
         citation_impact_score=quality["citation_impact_score"],

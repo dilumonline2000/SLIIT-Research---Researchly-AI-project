@@ -7,6 +7,7 @@ Predicts the probability that a paper/proposal will be considered "successful"
 from __future__ import annotations
 
 import logging
+import re
 from typing import Optional
 
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile
@@ -69,7 +70,22 @@ def _extract_pdf_text(content: bytes) -> tuple[str, str]:
         raise HTTPException(400, "PDF contains no extractable text")
 
     lines = [ln.strip() for ln in all_text.split("\n") if ln.strip()]
-    title = lines[0][:300] if lines else "Untitled"
+
+    # Skip metadata artifacts (article IDs, DOIs, short labels) to find the real title.
+    # Real titles are typically >= 20 chars and don't look like identifiers.
+    _META_RE = re.compile(
+        r'^(article[-\s]?\d+|vol\.?\s*\d|doi:|issn|isbn|https?://|www\.|'
+        r'received:|accepted:|published:|copyright|©|\d{4}[-–]\d{4}|\d+$)',
+        re.IGNORECASE,
+    )
+    title = "Untitled"
+    for line in lines[:30]:
+        if len(line) < 20:
+            continue
+        if _META_RE.match(line):
+            continue
+        title = line[:300]
+        break
 
     text_lower = all_text.lower()
     abstract = ""
@@ -77,15 +93,20 @@ def _extract_pdf_text(content: bytes) -> tuple[str, str]:
         idx = text_lower.find(kw)
         if idx >= 0:
             start = idx + len(kw)
-            abstract = all_text[start:start + 2500].strip()
-            for stop_kw in ["\nintroduction", "\nkeywords", "\n1.", "\n1 "]:
+            abstract = all_text[start:start + 3000].strip()
+            for stop_kw in ["\nintroduction", "\nkeywords", "\n1.", "\n1 ", "\ni."]:
                 stop_idx = abstract.lower().find(stop_kw)
-                if stop_idx > 100:
+                if stop_idx > 150:
                     abstract = abstract[:stop_idx].strip()
                     break
             break
-    if not abstract:
-        abstract = all_text[len(title):len(title) + 1500].strip()
+
+    # If abstract wasn't found or is too short, use the paper body text.
+    # Skip the first ~500 chars (header/authors/affiliations) and take the next 3500.
+    if len(abstract) < 200:
+        skip = min(500, len(all_text) // 4)
+        abstract = all_text[skip:skip + 3500].strip()
+
     return title, abstract
 
 

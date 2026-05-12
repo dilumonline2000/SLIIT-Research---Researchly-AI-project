@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Upload, FileText, Sparkles, AlertCircle, CheckCircle2 } from "lucide-react";
+import { Upload, FileText, Sparkles, AlertCircle, CheckCircle2, AlertTriangle } from "lucide-react";
 import { API_ROUTES, API_GATEWAY_URL } from "@/lib/constants";
 import { apiPost } from "@/lib/api";
 import { createClient } from "@/lib/supabase/client";
@@ -18,6 +18,8 @@ interface TopicPrediction {
 interface AnalysisResponse {
   title?: string;
   proposal_id?: string;
+  is_research_document?: boolean;
+  document_warning?: string | null;
   overall_score: number;
   originality_score: number;
   citation_impact_score: number;
@@ -235,7 +237,21 @@ export default function QualityScoresPage() {
 
       {result && (
         <>
-          <Card>
+          {/* Non-research document warning */}
+          {result.is_research_document === false && (
+            <div className="flex items-start gap-3 rounded-xl border-2 border-amber-300 bg-amber-50 px-5 py-4">
+              <AlertTriangle className="h-6 w-6 shrink-0 text-amber-600 mt-0.5" />
+              <div className="space-y-1">
+                <p className="font-semibold text-amber-900">Not a research paper</p>
+                <p className="text-sm text-amber-800">
+                  {result.document_warning ||
+                    "This document does not appear to be an academic research paper. Quality scores are designed for research papers with an abstract, methodology, and findings — the numbers below may not be meaningful for this document."}
+                </p>
+              </div>
+            </div>
+          )}
+
+          <Card className={result.is_research_document === false ? "opacity-60" : ""}>
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
                 <span className="text-lg">{result.title || "Quality Analysis"}</span>
