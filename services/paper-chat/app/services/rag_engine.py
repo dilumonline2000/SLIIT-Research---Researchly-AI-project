@@ -144,13 +144,14 @@ def build_answer(question: str, chunks: List[Dict[str, Any]]) -> Dict[str, Any]:
 
         prompt = f"""You are an expert research assistant. Answer the question based ONLY on the provided paper excerpts.
 Be precise, cite specific papers when relevant, and acknowledge if the papers don't fully address the question.
+Always respond in English regardless of the language of the question.
 
 Paper excerpts:
 {context}
 
 Question: {question}
 
-Provide a clear, well-structured answer:"""
+Provide a clear, well-structured answer in English:"""
 
         answer_text = generate(prompt, temperature=0.2, max_tokens=1024)
 

@@ -2,11 +2,17 @@
 
 import os
 import json
+import time
+import logging
 import requests
 from typing import Optional
 
+logger = logging.getLogger(__name__)
+
 _API_KEY: Optional[str] = None
 _MODEL: str = "gemini-2.5-flash"
+# Ordered fallback chain — tried in sequence on 429
+_FALLBACK_MODELS: list = ["gemini-2.0-flash", "gemini-flash-latest", "gemini-flash-lite-latest"]
 _BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models"
 
 
@@ -24,10 +30,12 @@ def _get_model() -> str:
 
 
 def generate(prompt: str, temperature: float = 0.3, max_tokens: int = 2048) -> str:
-    """Call Gemini generateContent and return the text response."""
+    """Call Gemini generateContent and return the text response.
+
+    Retries once with the fallback model on 429 rate-limit errors so a
+    temporarily exhausted quota on the primary model doesn't break chat.
+    """
     key = _get_key()
-    model = _get_model()
-    url = f"{_BASE_URL}/{model}:generateContent?key={key}"
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {
@@ -35,13 +43,32 @@ def generate(prompt: str, temperature: float = 0.3, max_tokens: int = 2048) -> s
             "maxOutputTokens": max_tokens,
         },
     }
-    r = requests.post(url, json=payload, timeout=60)
-    r.raise_for_status()
-    data = r.json()
-    try:
-        return data["candidates"][0]["content"]["parts"][0]["text"].strip()
-    except (KeyError, IndexError) as e:
-        raise RuntimeError(f"Unexpected Gemini response: {data}") from e
+
+    models_to_try = [_get_model()] + _FALLBACK_MODELS
+    last_exc: Optional[Exception] = None
+
+    for attempt, model in enumerate(models_to_try):
+        url = f"{_BASE_URL}/{model}:generateContent?key={key}"
+        try:
+            r = requests.post(url, json=payload, timeout=60)
+            if r.status_code == 429:
+                logger.warning("Gemini 429 on %s (attempt %d/%d)",
+                               model, attempt + 1, len(models_to_try))
+                if attempt < len(models_to_try) - 1:
+                    time.sleep(1)
+                    continue
+                raise requests.exceptions.HTTPError(response=r)
+            r.raise_for_status()
+            data = r.json()
+            try:
+                return data["candidates"][0]["content"]["parts"][0]["text"].strip()
+            except (KeyError, IndexError) as e:
+                raise RuntimeError(f"Unexpected Gemini response: {data}") from e
+        except requests.exceptions.HTTPError as exc:
+            last_exc = exc
+            if attempt < len(models_to_try) - 1:
+                continue
+    raise last_exc or RuntimeError("All Gemini models exhausted")
 
 
 def generate_json(prompt: str, temperature: float = 0.1) -> dict:

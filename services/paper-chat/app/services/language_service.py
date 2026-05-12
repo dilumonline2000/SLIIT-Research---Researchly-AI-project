@@ -8,11 +8,14 @@ Falls back to identity translation otherwise so the chat flow never breaks.
 from __future__ import annotations
 
 import json
+import logging
 import os
 import re
 from functools import lru_cache
 from pathlib import Path
 from typing import Tuple
+
+logger = logging.getLogger(__name__)
 
 # Sinhala U+0D80..U+0DFF, Tamil U+0B80..U+0BFF
 _SINHALA_RE = re.compile(r"[\u0D80-\u0DFF]")
@@ -98,7 +101,7 @@ def detect_language(text: str) -> Tuple[str, float, bool]:
 
 
 def singlish_to_english(text: str) -> str:
-    """Best-effort token-level transliteration."""
+    """Token-level Singlish transliteration using built-in dictionary."""
     mapping = _load_singlish_dict()
     out = []
     for tok in re.findall(r"\S+|\s+", text):
@@ -111,35 +114,44 @@ def singlish_to_english(text: str) -> str:
 
 
 def normalise_query(text: str) -> Tuple[str, str, bool]:
-    """Detect language and return an English query suitable for embedding.
+    """Detect language and normalise the query for retrieval.
 
-    Returns (english_query, detected_language, is_singlish).
+    Returns (normalised_query, detected_language, is_singlish).
+
+    Sinhala/Tamil are kept as-is — Gemini understands multilingual prompts and
+    keyword retrieval still works because technical terms (IoMT, blockchain, etc.)
+    appear in both the native-script query and the English paper chunks.
+    Singlish is mapped with the built-in dictionary (no API call needed).
     """
     lang, _conf, is_singlish = detect_language(text)
     if is_singlish:
         return singlish_to_english(text), "singlish", True
-    if lang == "si" or lang == "ta":
-        return translate(text, source=lang, target="en"), lang, False
     return text, lang, False
 
 
 def translate(text: str, source: str = "auto", target: str = "en") -> str:
-    """Translate text. Falls back to identity if no translation backend is available."""
+    """Translate text using Gemini. Falls back to the original text on failure."""
     if not text:
         return text
     if source == target:
         return text
-    # Optional: try Helsinki-NLP MarianMT if installed
-    try:
-        from transformers import MarianMTModel, MarianTokenizer  # type: ignore
 
-        pair = f"{source}-{target}" if source != "auto" else f"en-{target}"
-        model_name = f"Helsinki-NLP/opus-mt-{pair}"
-        tokenizer = MarianTokenizer.from_pretrained(model_name)
-        model = MarianMTModel.from_pretrained(model_name)
-        batch = tokenizer([text], return_tensors="pt", padding=True, truncation=True)
-        gen = model.generate(**batch, max_length=512)
-        return tokenizer.decode(gen[0], skip_special_tokens=True)
-    except Exception:
-        # Graceful fallback: return original text
+    _LANG_NAMES = {
+        "si": "Sinhala", "ta": "Tamil", "en": "English",
+        "singlish": "Sri Lankan Singlish (romanised Sinhala mixed with English)",
+    }
+    src_name = _LANG_NAMES.get(source, source)
+    tgt_name = _LANG_NAMES.get(target, target)
+
+    try:
+        from shared.gemini_client import generate  # type: ignore
+
+        prompt = (
+            f"Translate the following {src_name} text to {tgt_name}.\n"
+            "Output ONLY the translated text with no explanations or extra words.\n\n"
+            f"{text}"
+        )
+        return generate(prompt, temperature=0.1, max_tokens=512)
+    except Exception as e:
+        logger.warning("Gemini translation failed (%s→%s): %s", source, target, e)
         return text
