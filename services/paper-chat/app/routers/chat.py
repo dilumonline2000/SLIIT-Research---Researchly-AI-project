@@ -116,11 +116,15 @@ async def send_message(session_id: UUID, req: SendMessageRequest) -> Dict[str, A
     try:
         query_vec = _embed(english_query)
     except Exception as e:
-        logger.warning("embed failed, retrieval will be empty: %s", e)
+        logger.warning("embed failed, will use keyword fallback: %s", e)
         query_vec = []
 
-    # 3. Retrieve
-    chunks = retrieve(query_vec, paper_ids=paper_ids if paper_ids else None) if query_vec else []
+    # 3. Retrieve — keyword fallback kicks in automatically when chunks have no vectors
+    chunks = retrieve(
+        query_vec,
+        paper_ids=paper_ids if paper_ids else None,
+        query_text=english_query,
+    )
 
     # 4. Generate
     result = build_answer(english_query, chunks)

@@ -122,16 +122,27 @@ def _process_paper_sync(paper_id: str) -> None:
         _update_status(sb, paper_id, "chunking")
         chunks = chunk_document(extracted)
 
-        # NOTE: Skip embedding step — the DB vector columns (uploaded_papers.embedding,
-        # paper_chunks.embedding) are configured for 768 dimensions, but our SBERT model
-        # (all-MiniLM-L6-v2) outputs 384 dimensions. Storing them causes a dimension mismatch
-        # error that marks the paper as failed. Text chunks are stored without vectors;
-        # Gemini-based chat still works. Update this once the DB columns are migrated to 384d.
         _update_status(sb, paper_id, "indexing")
 
+        # Attempt to embed chunk texts. If the DB vector column dimension does not
+        # match the model output (e.g. column is 768d, model is 384d), the insert
+        # will fail for that batch — we catch this and fall back to storing chunks
+        # without embeddings. The keyword-search fallback in rag_engine.py ensures
+        # chat still works even without vectors.
+        chunk_embeddings: dict[int, list] = {}
+        try:
+            from shared.embedding_utils import embed_batch  # type: ignore
+            texts = [c["chunk_text"] for c in chunks if c.get("chunk_text")]
+            if texts:
+                vecs = embed_batch(texts)
+                for i, vec in enumerate(vecs):
+                    chunk_embeddings[i] = vec.tolist()
+        except Exception as emb_err:
+            logger.warning("Embedding generation skipped: %s", emb_err)
+
         chunk_rows = []
-        for c in chunks:
-            chunk_rows.append({
+        for idx, c in enumerate(chunks):
+            row: dict = {
                 "paper_id": paper_id,
                 "chunk_index": c["chunk_index"],
                 "chunk_text": c["chunk_text"],
@@ -140,7 +151,10 @@ def _process_paper_sync(paper_id: str) -> None:
                 "page_start": c.get("page_start"),
                 "page_end": c.get("page_end"),
                 "token_count": c.get("token_count"),
-            })
+            }
+            if idx in chunk_embeddings:
+                row["embedding"] = chunk_embeddings[idx]
+            chunk_rows.append(row)
 
         # Idempotency: clear any existing chunks for this paper
         try:
@@ -148,10 +162,21 @@ def _process_paper_sync(paper_id: str) -> None:
         except Exception:
             pass
 
-        # Batch insert chunks
+        # Batch insert chunks — if embedding dimension mismatches the DB column,
+        # retry without the embedding field so the text content is always stored.
         BATCH = 50
-        for i in range(0, len(chunk_rows), BATCH):
-            sb.table("paper_chunks").insert(chunk_rows[i : i + BATCH]).execute()
+        _has_embeddings = any("embedding" in r for r in chunk_rows)
+        try:
+            for i in range(0, len(chunk_rows), BATCH):
+                sb.table("paper_chunks").insert(chunk_rows[i : i + BATCH]).execute()
+        except Exception as insert_err:
+            if _has_embeddings and "dimension" in str(insert_err).lower():
+                logger.warning("Embedding dimension mismatch — retrying without vectors: %s", insert_err)
+                stripped = [{k: v for k, v in r.items() if k != "embedding"} for r in chunk_rows]
+                for i in range(0, len(stripped), BATCH):
+                    sb.table("paper_chunks").insert(stripped[i : i + BATCH]).execute()
+            else:
+                raise
 
         # Update paper row with final metadata + status
         update_payload: Dict[str, Any] = {
