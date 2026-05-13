@@ -10,6 +10,9 @@ import router from "./routes";
 
 const app = express();
 
+// Trust Railway's load balancer so express-rate-limit reads X-Forwarded-For correctly
+app.set("trust proxy", 1);
+
 // Security + ergonomics
 app.use(helmet());
 app.use(
