@@ -39,8 +39,8 @@ api.interceptors.response.use(
     else if (data?.message) message = data.message;
     else if (typeof data?.detail === "string") message = data.detail;
     else if (Array.isArray(data?.detail)) {
-      message = data.detail
-        .map((d: { loc?: string[]; msg?: string }) => `${(d.loc || []).slice(-1)[0] || "field"}: ${d.msg}`)
+      message = (data.detail as { loc?: string[]; msg?: string }[])
+        .map((d) => `${(d.loc || []).slice(-1)[0] || "field"}: ${d.msg}`)
         .join("; ");
     }
     return Promise.reject(new Error(message ?? error.message));

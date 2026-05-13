@@ -35,7 +35,7 @@ const PALETTE = {
 
 export type NodeType = keyof typeof PALETTE;
 
-function paletteFor(node: GraphNode): typeof PALETTE.central {
+function paletteFor(node: GraphNode): typeof PALETTE[NodeType] {
   return PALETTE[(node.type ?? "detail") as NodeType] ?? PALETTE.detail;
 }
 
