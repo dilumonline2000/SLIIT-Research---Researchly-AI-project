@@ -1,0 +1,57 @@
+name: Auto Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # Allow manual trigger from GitHub Actions UI
+
+env:
+  # Vercel project info (not secrets — just IDs)
+  VERCEL_ORG_ID: team_8WooNHjdZdVLuHI7PhUWnPhS
+  VERCEL_PROJECT_ID: prj_rmmLPgTnBLJIbrEFLCNR8AN8jRQP
+
+jobs:
+  # ── Frontend: deploy to Vercel ─────────────────────────────────────────────
+  deploy-frontend:
+    name: "Frontend → Vercel"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Deploy to Vercel (production)
+        working-directory: apps/web
+        run: |
+          npm install -g vercel@latest
+          vercel --prod --yes
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ env.VERCEL_PROJECT_ID }}
+
+  # ── Backend: deploy all Railway services in parallel ───────────────────────
+  deploy-backend:
+    name: "Backend → Railway (${{ matrix.service }})"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false # keep deploying other services even if one fails
+      matrix:
+        service:
+          - api-gateway
+          - module1-integrity
+          - module2-collaboration
+          - module3-data
+          - module4-analytics
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+
+      - name: Deploy ${{ matrix.service }}
+        run: railway up --service "${{ matrix.service }}" --environment production --detach
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
