@@ -1,0 +1,28 @@
+{
+  "experimentalServices": {
+    "api-gateway": {
+      "entrypoint": "apps/api-gateway",
+      "routePrefix": "/_/api-gateway"
+    },
+    "module1-integrity": {
+      "entrypoint": "services/module1-integrity",
+      "routePrefix": "/_/module1-integrity"
+    },
+    "module2-collaboration": {
+      "entrypoint": "services/module2-collaboration",
+      "routePrefix": "/_/module2-collaboration"
+    },
+    "module3-data": {
+      "entrypoint": "services/module3-data",
+      "routePrefix": "/_/module3-data"
+    },
+    "module4-analytics": {
+      "entrypoint": "services/module4-analytics",
+      "routePrefix": "/_/module4-analytics"
+    },
+    "paper-chat": {
+      "entrypoint": "services/paper-chat",
+      "routePrefix": "/_/paper-chat"
+    }
+  }
+}
