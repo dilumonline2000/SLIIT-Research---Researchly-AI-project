@@ -38,6 +38,7 @@ logger = logging.getLogger(__name__)
 SERVICE_ROOT = Path(__file__).resolve().parent.parent.parent
 
 PAPERS_PATH = SERVICE_ROOT / "data" / "papers_raw_sliit.json"
+EMBEDDINGS_PATH = SERVICE_ROOT / "data" / "paper_embeddings.npy"
 MODULE1_SBERT = SERVICE_ROOT / "models" / "sbert_plagiarism"
 FALLBACK_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
@@ -89,32 +90,33 @@ def _load_model() -> bool:
 
 
 def load() -> bool:
-    """Load papers + model + encode the full corpus into a numpy matrix."""
+    """Load papers + pre-computed embeddings + model for query encoding."""
     global _EMBEDDINGS
     if _EMBEDDINGS is not None:
         return True
     with _LOAD_LOCK:
-        if _EMBEDDINGS is not None:  # re-check inside lock
+        if _EMBEDDINGS is not None:
             return True
         if not _load_papers() or not _load_model():
             return False
-    assert _PAPERS is not None and _MODEL is not None
+        assert _PAPERS is not None
 
-    logger.info("[paper_index] encoding %d abstracts (one-off, ~90s on CPU)…", len(_PAPERS))
-    texts: list[str] = []
-    for p in _PAPERS:
-        title = (p.get("title") or "").strip()
-        abstract = (p.get("abstract") or "").strip()
-        # Title + first 800 chars of abstract — enough for semantic match without
-        # blowing memory on long abstracts.
-        texts.append(f"{title}. {abstract[:800]}")
+        if EMBEDDINGS_PATH.exists():
+            emb = np.load(str(EMBEDDINGS_PATH))
+            if emb.shape[0] == len(_PAPERS):
+                _EMBEDDINGS = emb.astype("float32")
+                logger.info("[paper_index] loaded pre-computed embeddings %s", _EMBEDDINGS.shape)
+                return True
+            logger.warning("[paper_index] embeddings shape mismatch (%d vs %d papers), re-encoding", emb.shape[0], len(_PAPERS))
 
-    _EMBEDDINGS = _MODEL.encode(
-        texts, batch_size=64, show_progress_bar=False,
-        convert_to_numpy=True, normalize_embeddings=True,
-    ).astype("float32")
-    logger.info("[paper_index] index shape=%s", _EMBEDDINGS.shape)
-    return True
+        # Fallback: encode on the fly (slow, high RAM — only if .npy missing)
+        logger.info("[paper_index] encoding %d abstracts on the fly…", len(_PAPERS))
+        assert _MODEL is not None
+        texts = [f"{(p.get('title') or '').strip()}. {(p.get('abstract') or '').strip()[:800]}" for p in _PAPERS]
+        _EMBEDDINGS = _MODEL.encode(texts, batch_size=32, show_progress_bar=False,
+                                    convert_to_numpy=True, normalize_embeddings=True).astype("float32")
+        logger.info("[paper_index] index shape=%s", _EMBEDDINGS.shape)
+        return True
 
 
 def _normalize_subject(s: Any) -> str:

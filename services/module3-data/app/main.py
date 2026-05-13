@@ -53,5 +53,4 @@ app.include_router(quality.router, prefix="/data", tags=["quality"])
 @app.on_event("startup")
 async def startup() -> None:
     logger.info("Module 3 (Data Management) starting up")
-    import asyncio
-    asyncio.get_event_loop().run_in_executor(None, paper_index.load)
+    paper_index.load()  # pre-computed .npy — loads in <2s, no OOM risk
