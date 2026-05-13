@@ -7,7 +7,7 @@ const router = Router();
 const PAPER_CHAT_SERVICE = env.PAPER_CHAT_URL ?? 'http://localhost:8005';
 
 // Health check — no auth needed (called on app load)
-router.get('/local/health', async (req, res) => {
+router.get('/local/health', async (_req, res) => {
   try {
     const { data } = await axios.get(`${PAPER_CHAT_SERVICE}/local/health`, {
       timeout: 4000,
