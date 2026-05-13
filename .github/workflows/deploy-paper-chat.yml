@@ -1,0 +1,44 @@
+name: Deploy Paper Chat → HuggingFace Spaces
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "services/paper-chat/**"
+      - "services/shared/**"
+  workflow_dispatch: # Allow manual trigger from GitHub Actions UI
+
+jobs:
+  deploy:
+    name: Push to HuggingFace Space
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Assemble standalone Space files
+        run: |
+          mkdir -p /tmp/hf-space
+          # Dockerfile — HF-specific (port 7860, no monorepo context)
+          cp services/paper-chat/Dockerfile.spaces /tmp/hf-space/Dockerfile
+          # App source and requirements
+          cp services/paper-chat/requirements.txt /tmp/hf-space/
+          cp -r services/paper-chat/app /tmp/hf-space/app
+          # Shared utilities (embedding, Gemini client, etc.)
+          cp -r services/shared /tmp/hf-space/shared
+          # HF Space README (must be README.md at root)
+          cp services/paper-chat/README.hf.md /tmp/hf-space/README.md
+
+      - name: Push to HuggingFace Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_USERNAME: ${{ secrets.HF_USERNAME }}
+        run: |
+          git config --global user.email "ci@researchly.ai"
+          git config --global user.name "Researchly CI"
+          cd /tmp/hf-space
+          git init
+          git add .
+          git commit -m "Deploy from GitHub ${{ github.sha }}"
+          git push \
+            https://${HF_USERNAME}:${HF_TOKEN}@huggingface.co/spaces/${HF_USERNAME}/researchly-paper-chat \
+            HEAD:main --force
