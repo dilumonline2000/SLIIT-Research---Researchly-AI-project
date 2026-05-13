@@ -14,6 +14,8 @@ RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 COPY services/module2-collaboration/app ./app
+COPY services/module2-collaboration/data ./data
+COPY services/module2-collaboration/models ./models
 COPY services/shared ./shared
 
 EXPOSE 8002
