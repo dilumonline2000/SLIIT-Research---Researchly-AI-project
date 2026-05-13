@@ -4,7 +4,7 @@ import { LogOut, Menu, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/hooks/useAuth";
-import { AIProviderToggle } from "./AIProviderToggle";
+// import { AIProviderToggle } from "./AIProviderToggle";
 import { ThemeToggle } from "./ThemeToggle";
 
 interface NavbarProps {
@@ -41,7 +41,7 @@ export function Navbar({ onMenuClick }: NavbarProps) {
       {/* Right: original items unchanged */}
       <div className="flex items-center gap-3">
         <ThemeToggle compact />
-        <AIProviderToggle compact={true} />
+        {/* <AIProviderToggle compact={true} /> */}
         <div className="hidden text-right sm:block">
           <p className="text-sm font-medium">{profile?.full_name ?? "User"}</p>
           <p className="text-xs text-muted-foreground capitalize">
