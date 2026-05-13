@@ -18,7 +18,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .routers import pipeline, categorization, plagiarism_trends, summarizer, quality
-from .services import paper_index
+from .services import paper_index, extractive_summarizer, plagiarism_analyzer
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -53,4 +53,6 @@ app.include_router(quality.router, prefix="/data", tags=["quality"])
 @app.on_event("startup")
 async def startup() -> None:
     logger.info("Module 3 (Data Management) starting up")
-    paper_index.load()  # pre-computed .npy — loads in <2s, no OOM risk
+    paper_index.load()           # pre-computed .npy — loads in <2s
+    extractive_summarizer.load() # loads SBERT into memory at startup
+    plagiarism_analyzer.load()   # loads SBERT + trend index at startup

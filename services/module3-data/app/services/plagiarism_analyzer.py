@@ -36,10 +36,9 @@ import numpy as np
 logger = logging.getLogger(__name__)
 
 SERVICE_ROOT = Path(__file__).resolve().parent.parent.parent
-PROJECT_ROOT = SERVICE_ROOT.parent.parent
 
 INDEX_PATH = SERVICE_ROOT / "models" / "trained_plagiarism_analyzer" / "trend_index.pkl"
-MODULE1_SBERT = PROJECT_ROOT / "services" / "module1-integrity" / "models" / "sbert_plagiarism"
+MODULE1_SBERT = SERVICE_ROOT / "models" / "sbert_plagiarism"
 FALLBACK_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 _INDEX: Optional[dict[str, Any]] = None
@@ -168,7 +167,8 @@ def _split_sentences(text: str) -> list[str]:
     if not text:
         return []
     parts = re.split(r"(?<=[.!?])\s+(?=[A-Z0-9\"'\(])", text)
-    return [p.strip() for p in parts if 20 <= len(p) <= 600][:300]
+    # Cap at 60 sentences per paper — enough for plagiarism detection, keeps encoding fast
+    return [p.strip() for p in parts if 20 <= len(p) <= 600][:60]
 
 
 def _risk_level(sim: float) -> str:
@@ -220,8 +220,11 @@ def compare_papers(text_a: str, text_b: str, top_pairs: int = 5) -> dict[str, An
     sents_b = _split_sentences(text_b)
     flagged_pairs: list[dict[str, Any]] = []
     if sents_a and sents_b:
-        sa = _MODEL.encode(sents_a, batch_size=32, convert_to_numpy=True, normalize_embeddings=True).astype("float32")
-        sb = _MODEL.encode(sents_b, batch_size=32, convert_to_numpy=True, normalize_embeddings=True).astype("float32")
+        # Encode both sentence sets in one batch call — faster than two separate calls
+        all_sents = sents_a + sents_b
+        all_embs = _MODEL.encode(all_sents, batch_size=64, convert_to_numpy=True, normalize_embeddings=True).astype("float32")
+        sa = all_embs[:len(sents_a)]
+        sb = all_embs[len(sents_a):]
         M = sa @ sb.T
         # Find top_pairs sentence-pair similarities
         flat = M.ravel()

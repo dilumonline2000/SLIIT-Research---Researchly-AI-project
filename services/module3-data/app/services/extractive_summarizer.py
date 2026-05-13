@@ -41,22 +41,21 @@ import numpy as np
 logger = logging.getLogger(__name__)
 
 SERVICE_ROOT = Path(__file__).resolve().parent.parent.parent
-PROJECT_ROOT = SERVICE_ROOT.parent.parent
-MODULE1_SBERT = PROJECT_ROOT / "services" / "module1-integrity" / "models" / "sbert_plagiarism"
+MODULE1_SBERT = SERVICE_ROOT / "models" / "sbert_plagiarism"
 FALLBACK_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 # Length presets — number of *key points* to extract.
-# "short"/"medium"/"detailed" kept as aliases for backwards compatibility.
 LENGTHS: dict[str, int] = {
     "quick":    5,
-    "short":    5,    # alias of quick
+    "short":    5,
     "standard": 9,
-    "medium":   9,    # alias of standard
+    "medium":   9,
     "detailed": 14,
     "extensive": 18,
 }
 
-MAX_SENTENCES = 250
+# Cap sentence count to keep encoding fast on Railway CPU
+MAX_SENTENCES = 80
 
 # Heuristic keyword cues for categorising a sentence by section. The order of
 # checks matters — we evaluate from most-specific to least-specific.
@@ -218,7 +217,7 @@ def summarize(text: str, length: str = "standard") -> dict[str, Any]:
             "model_version": _MODEL_NAME,
         }
 
-    embs = _MODEL.encode(sents, batch_size=32, convert_to_numpy=True, normalize_embeddings=True).astype("float32")
+    embs = _MODEL.encode(sents, batch_size=64, convert_to_numpy=True, normalize_embeddings=True).astype("float32")
     centroid = embs.mean(axis=0)
     centroid /= max(1e-9, float(np.linalg.norm(centroid)))
     centroid_sim = embs @ centroid
