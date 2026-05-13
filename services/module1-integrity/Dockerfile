@@ -17,6 +17,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # so `from shared.embedding_utils import embed` works via the sys.path bootstrap
 # in app/main.py.
 COPY services/module1-integrity/app ./app
+COPY services/module1-integrity/models ./models
 COPY services/shared ./shared
 
 EXPOSE 8001

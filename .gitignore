@@ -60,13 +60,13 @@ ml/models/**/*.bin
 ml/models/**/*.pt
 ml/models/**/*.safetensors
 ml/checkpoints/
-*.pkl
 *.h5
 *.onnx
 
-# Trained ML models (service-specific)
+# Fine-tuned SBERT (88MB safetensors — too large for git, falls back to HuggingFace)
+services/**/models/sbert_plagiarism/
+# Large HuggingFace model caches
 services/**/models/**/*.safetensors
-services/**/models/**/*.bin
 services/**/models/**/*.pt
 
 # Jupyter

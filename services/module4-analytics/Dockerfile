@@ -14,6 +14,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 COPY services/module4-analytics/app ./app
+COPY services/module4-analytics/models ./models
 COPY services/shared ./shared
 
 EXPOSE 8004
