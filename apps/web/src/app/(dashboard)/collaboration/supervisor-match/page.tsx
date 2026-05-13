@@ -171,83 +171,6 @@ function SupervisorDetailView({
         </CardContent>
       </Card>
 
-      {/* Publications */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base flex items-center gap-2">
-            <BookOpen className="h-4 w-4 text-indigo-500" />
-            Research Publications
-            {papers && (
-              <Badge variant="secondary" className="ml-auto text-xs">
-                {papers.total} found via Semantic Scholar
-              </Badge>
-            )}
-          </CardTitle>
-          <CardDescription>
-            Academic papers published by this supervisor, sourced from Semantic Scholar.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          {loadingPapers && (
-            <div className="flex items-center gap-2 text-sm text-muted-foreground py-4">
-              <Loader2 className="h-4 w-4 animate-spin" />
-              Fetching publications from Semantic Scholar…
-            </div>
-          )}
-
-          {!loadingPapers && papers && papers.papers.length === 0 && (
-            <p className="text-sm text-muted-foreground italic">
-              No publications found in Semantic Scholar for this supervisor.
-              The research topic chart below is based on their stated research interests.
-            </p>
-          )}
-
-          {!loadingPapers && papers && papers.papers.length > 0 && (
-            <div className="grid gap-2 md:grid-cols-2">
-              {papers.papers.map((paper, i) => (
-                <div
-                  key={paper.paper_id || i}
-                  className="rounded-md border bg-muted/30 p-3 space-y-1.5 hover:bg-muted/50 transition-colors"
-                >
-                  <div className="flex items-start gap-2">
-                    <div className="flex-1 min-w-0">
-                      {paper.url ? (
-                        <a
-                          href={paper.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-sm font-medium text-primary hover:underline line-clamp-2 leading-snug"
-                        >
-                          {paper.title}
-                          <ExternalLink className="inline ml-1 h-3 w-3 opacity-60" />
-                        </a>
-                      ) : (
-                        <p className="text-sm font-medium line-clamp-2 leading-snug">{paper.title}</p>
-                      )}
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    {paper.year && (
-                      <Badge variant="outline" className="text-[10px] font-mono">{paper.year}</Badge>
-                    )}
-                    {paper.venue && (
-                      <span className="text-[10px] text-muted-foreground truncate max-w-[200px]">
-                        {paper.venue}
-                      </span>
-                    )}
-                    {paper.doi && (
-                      <span className="text-[10px] text-muted-foreground font-mono">
-                        DOI:{paper.doi.slice(0, 20)}…
-                      </span>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </CardContent>
-      </Card>
-
       {/* Analytics dashboard */}
       {!loadingPapers && papers && (
         <Card>
@@ -359,6 +282,83 @@ function SupervisorDetailView({
           </CardContent>
         </Card>
       )}
+
+      {/* Publications */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base flex items-center gap-2">
+            <BookOpen className="h-4 w-4 text-indigo-500" />
+            Research Publications
+            {papers && (
+              <Badge variant="secondary" className="ml-auto text-xs">
+                {papers.total} found via Semantic Scholar
+              </Badge>
+            )}
+          </CardTitle>
+          <CardDescription>
+            Academic papers published by this supervisor, sourced from Semantic Scholar.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {loadingPapers && (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground py-4">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              Fetching publications from Semantic Scholar…
+            </div>
+          )}
+
+          {!loadingPapers && papers && papers.papers.length === 0 && (
+            <p className="text-sm text-muted-foreground italic">
+              No publications found in Semantic Scholar for this supervisor.
+              The research topic chart above is based on their stated research interests.
+            </p>
+          )}
+
+          {!loadingPapers && papers && papers.papers.length > 0 && (
+            <div className="grid gap-2 md:grid-cols-2">
+              {papers.papers.map((paper, i) => (
+                <div
+                  key={paper.paper_id || i}
+                  className="rounded-md border bg-muted/30 p-3 space-y-1.5 hover:bg-muted/50 transition-colors"
+                >
+                  <div className="flex items-start gap-2">
+                    <div className="flex-1 min-w-0">
+                      {paper.url ? (
+                        <a
+                          href={paper.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm font-medium text-primary hover:underline line-clamp-2 leading-snug"
+                        >
+                          {paper.title}
+                          <ExternalLink className="inline ml-1 h-3 w-3 opacity-60" />
+                        </a>
+                      ) : (
+                        <p className="text-sm font-medium line-clamp-2 leading-snug">{paper.title}</p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    {paper.year && (
+                      <Badge variant="outline" className="text-[10px] font-mono">{paper.year}</Badge>
+                    )}
+                    {paper.venue && (
+                      <span className="text-[10px] text-muted-foreground truncate max-w-[200px]">
+                        {paper.venue}
+                      </span>
+                    )}
+                    {paper.doi && (
+                      <span className="text-[10px] text-muted-foreground font-mono">
+                        DOI:{paper.doi.slice(0, 20)}…
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }
