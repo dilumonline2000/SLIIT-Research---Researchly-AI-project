@@ -1,8 +1,8 @@
 [build]
 builder = "dockerfile"
-dockerfilePath = "../../docker/Dockerfile.gateway"
-# Build context must be repo root so Dockerfile can see monorepo manifests.
-# In Railway UI, set Root Directory = "" (repo root) and Dockerfile = "docker/Dockerfile.gateway"
+dockerfilePath = "docker/Dockerfile.gateway"
+# Root Directory in Railway UI must be "" (repo root) so the build context
+# includes the full monorepo (pnpm-workspace.yaml, apps/, etc.).
 
 [deploy]
 startCommand = "node apps/api-gateway/dist/index.js"
