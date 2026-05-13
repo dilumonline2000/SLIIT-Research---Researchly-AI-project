@@ -31,8 +31,9 @@ app.use("/api/v1", router);
 app.use(notFoundHandler);
 app.use(errorHandler);
 
-app.listen(env.API_GATEWAY_PORT, () => {
+const port = process.env.PORT ? parseInt(process.env.PORT, 10) : env.API_GATEWAY_PORT;
+app.listen(port, () => {
   logger.info(
-    `🚀 API Gateway running on http://localhost:${env.API_GATEWAY_PORT} (${env.NODE_ENV})`,
+    `🚀 API Gateway running on http://localhost:${port} (${env.NODE_ENV})`,
   );
 });

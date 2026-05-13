@@ -7,6 +7,6 @@ dockerfilePath = "docker/Dockerfile.gateway"
 [deploy]
 startCommand = "node apps/api-gateway/dist/index.js"
 healthcheckPath = "/api/v1/health"
-healthcheckTimeout = 30
+healthcheckTimeout = 120
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 3
