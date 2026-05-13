@@ -49,7 +49,7 @@ def load_model() -> SentenceTransformer:
 async def match_supervisors(
     student_proposal: str,
     top_k: int = 5,
-    min_similarity: float = 0.45,
+    min_similarity: float = 0.2,
 ) -> List[Dict]:
     """
     Match a student research proposal to the top-K supervisors.

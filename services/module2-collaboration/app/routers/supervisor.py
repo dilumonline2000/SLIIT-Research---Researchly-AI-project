@@ -31,7 +31,7 @@ class MatchSupervisorsRequest(BaseModel):
     research_interests: list[str] = Field(default_factory=list)  # Legacy format
     abstract: str | None = None  # Legacy format
     top_k: int = 5
-    min_similarity: float = 0.45
+    min_similarity: float = 0.2
 
 
 class SupervisorMatch(BaseModel):
