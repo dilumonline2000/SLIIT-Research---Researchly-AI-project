@@ -40,6 +40,7 @@ class PredictResponse(BaseModel):
 def _build_response(title: str, abstract: str, authors: Optional[list] = None,
                      year: Optional[int] = None) -> PredictResponse:
     result = success_predictor.predict_success(title, abstract, authors, year)
+    # success_predictor is fast (XGBoost) — no concurrency needed here
     return PredictResponse(
         title=title,
         success_probability=result["success_probability"],

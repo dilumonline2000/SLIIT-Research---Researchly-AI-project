@@ -17,6 +17,9 @@ COPY services/module4-analytics/app ./app
 COPY services/module4-analytics/models ./models
 COPY services/shared ./shared
 
+# Pre-download SBERT so runtime startup doesn't hit HuggingFace
+RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')"
+
 EXPOSE 8004
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \

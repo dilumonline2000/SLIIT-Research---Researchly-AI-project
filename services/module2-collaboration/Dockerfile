@@ -18,6 +18,9 @@ COPY services/module2-collaboration/data ./data
 COPY services/module2-collaboration/models ./models
 COPY services/shared ./shared
 
+# Pre-download SBERT so runtime startup doesn't hit HuggingFace
+RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')"
+
 EXPOSE 8002
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \

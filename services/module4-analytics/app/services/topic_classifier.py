@@ -56,6 +56,8 @@ def classify(text: str, top_k: int = 3) -> dict:
     if not load_model():
         return _fallback_classify()
 
+    # SBERT truncates to 512 tokens; truncate text upfront to avoid wasted tokenization
+    text = text[:500] if len(text) > 500 else text
     embedding = _ENCODER.encode([text], convert_to_numpy=True, show_progress_bar=False)
     clf = _CLASSIFIER_DATA["classifier"]
     proba = clf.predict_proba(embedding)[0]

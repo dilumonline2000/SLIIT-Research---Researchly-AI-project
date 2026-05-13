@@ -110,8 +110,13 @@ def _build_response(title: str, abstract: str, authors: Optional[list] = None,
     full_text = f"{title} {abstract}"
     is_research, not_research_reason = is_research_document(full_text, abstract)
 
-    quality = quality_predictor.predict_quality(title, abstract, authors, year)
-    topic   = topic_classifier.classify(full_text)
+    # Run quality + topic concurrently — they're independent
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(max_workers=2) as ex:
+        f_quality = ex.submit(quality_predictor.predict_quality, title, abstract, authors, year)
+        f_topic   = ex.submit(topic_classifier.classify, full_text)
+        quality = f_quality.result()
+        topic   = f_topic.result()
 
     warning = None
     if not is_research:
