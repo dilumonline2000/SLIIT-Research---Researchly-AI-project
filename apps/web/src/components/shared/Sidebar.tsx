@@ -14,6 +14,7 @@ import {
   MessageSquare,
   Sparkles,
   LogOut,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { APP_NAME } from "@/lib/constants";
@@ -85,7 +86,51 @@ const navGroups = [
   },
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+  open?: boolean;
+  onClose?: () => void;
+}
+
+// Shared nav list — used by both desktop and mobile drawer
+function NavLinks({ pathname, onLinkClick }: { pathname: string; onLinkClick?: () => void }) {
+  return (
+    <nav className="flex-1 space-y-6 overflow-y-auto p-4 text-sm">
+      {navGroups.map((group) => (
+        <div key={group.label}>
+          <p className="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            {group.label}
+          </p>
+          <ul className="space-y-1">
+            {group.items.map((item) => {
+              const Icon = "icon" in item ? item.icon : null;
+              const active = pathname === item.href;
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    onClick={onLinkClick}
+                    className={cn(
+                      "flex items-center gap-2 rounded-md px-3 py-2 transition-colors",
+                      active
+                        ? "bg-primary text-primary-foreground"
+                        : "hover:bg-accent hover:text-accent-foreground",
+                      !Icon && "pl-9",
+                    )}
+                  >
+                    {Icon && <Icon className="h-4 w-4" />}
+                    <span>{item.label}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ))}
+    </nav>
+  );
+}
+
+export function Sidebar({ open = false, onClose }: SidebarProps) {
   const pathname = usePathname();
   const { signOut, profile } = useAuth();
 
@@ -95,61 +140,67 @@ export function Sidebar() {
     }
   };
 
+  const footer = (
+    <div className="shrink-0 border-t p-3">
+      {profile && (
+        <div className="mb-2 px-2 text-xs">
+          <p className="font-medium truncate">{profile.full_name || "User"}</p>
+          <p className="text-muted-foreground capitalize">{profile.role || "student"}</p>
+        </div>
+      )}
+      <button
+        onClick={handleSignOut}
+        className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm text-rose-600 transition-colors hover:bg-rose-50"
+      >
+        <LogOut className="h-4 w-4" />
+        <span>Sign Out</span>
+      </button>
+    </div>
+  );
+
   return (
-    <aside className="hidden h-screen w-64 shrink-0 flex-col border-r bg-card md:flex">
-      <div className="flex h-16 shrink-0 items-center gap-2 border-b px-6 font-bold">
-        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-          R
-        </span>
-        {APP_NAME}
-      </div>
-      <nav className="flex-1 space-y-6 overflow-y-auto p-4 text-sm">
-        {navGroups.map((group) => (
-          <div key={group.label}>
-            <p className="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              {group.label}
-            </p>
-            <ul className="space-y-1">
-              {group.items.map((item) => {
-                const Icon = "icon" in item ? item.icon : null;
-                const active = pathname === item.href;
-                return (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className={cn(
-                        "flex items-center gap-2 rounded-md px-3 py-2 transition-colors",
-                        active
-                          ? "bg-primary text-primary-foreground"
-                          : "hover:bg-accent hover:text-accent-foreground",
-                        !Icon && "pl-9",
-                      )}
-                    >
-                      {Icon && <Icon className="h-4 w-4" />}
-                      <span>{item.label}</span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        ))}
-      </nav>
-      <div className="shrink-0 border-t p-3">
-        {profile && (
-          <div className="mb-2 px-2 text-xs">
-            <p className="font-medium truncate">{profile.full_name || "User"}</p>
-            <p className="text-muted-foreground capitalize">{profile.role || "student"}</p>
-          </div>
-        )}
-        <button
-          onClick={handleSignOut}
-          className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm text-rose-600 transition-colors hover:bg-rose-50"
-        >
-          <LogOut className="h-4 w-4" />
-          <span>Sign Out</span>
-        </button>
-      </div>
-    </aside>
+    <>
+      {/* ── DESKTOP sidebar — UNCHANGED from original ── */}
+      <aside className="hidden h-screen w-64 shrink-0 flex-col border-r bg-card md:flex">
+        <div className="flex h-16 shrink-0 items-center gap-2 border-b px-6 font-bold">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+            R
+          </span>
+          {APP_NAME}
+        </div>
+        <NavLinks pathname={pathname} />
+        {footer}
+      </aside>
+
+      {/* ── MOBILE drawer — only shown when open=true, hidden on md+ ── */}
+      {open && (
+        <div className="fixed inset-0 z-50 md:hidden">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/50"
+            onClick={onClose}
+            aria-hidden="true"
+          />
+          {/* Drawer panel */}
+          <aside className="absolute inset-y-0 left-0 flex w-64 flex-col border-r bg-card">
+            <div className="flex h-16 shrink-0 items-center gap-2 border-b px-6 font-bold">
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                R
+              </span>
+              <span className="flex-1">{APP_NAME}</span>
+              <button
+                onClick={onClose}
+                className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-accent"
+                aria-label="Close menu"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            <NavLinks pathname={pathname} onLinkClick={onClose} />
+            {footer}
+          </aside>
+        </div>
+      )}
+    </>
   );
 }
