@@ -19,6 +19,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 COPY services/module3-data/app ./app
+COPY services/module3-data/data ./data
 COPY services/module3-data/models ./models
 COPY services/shared ./shared
 

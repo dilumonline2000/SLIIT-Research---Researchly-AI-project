@@ -35,10 +35,9 @@ import numpy as np
 logger = logging.getLogger(__name__)
 
 SERVICE_ROOT = Path(__file__).resolve().parent.parent.parent
-PROJECT_ROOT = SERVICE_ROOT.parent.parent
 
-PAPERS_PATH = PROJECT_ROOT / "ml" / "data" / "raw" / "sliit_papers" / "papers_raw_sliit.json"
-MODULE1_SBERT = PROJECT_ROOT / "services" / "module1-integrity" / "models" / "sbert_plagiarism"
+PAPERS_PATH = SERVICE_ROOT / "data" / "papers_raw_sliit.json"
+MODULE1_SBERT = SERVICE_ROOT / "models" / "sbert_plagiarism"
 FALLBACK_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 _PAPERS: list[dict[str, Any]] | None = None
