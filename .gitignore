@@ -38,6 +38,7 @@ dist/
 # IDE
 .vscode/
 .idea/
+.vercel/
 *.swp
 *.swo
 .DS_Store
