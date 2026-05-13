@@ -35,10 +35,12 @@ def load_model() -> SentenceTransformer:
     if _model:
         return _model
 
-    model_path = MODEL_DIR if MODEL_DIR.exists() else FALLBACK
+    model_weights = MODEL_DIR / "model.safetensors"
+    use_finetuned = MODEL_DIR.exists() and model_weights.exists()
+    model_path = MODEL_DIR if use_finetuned else FALLBACK
 
     _model = SentenceTransformer(str(model_path))
-    version = "fine-tuned-v1" if MODEL_DIR.exists() else "base-pretrained"
+    version = "fine-tuned-v1" if use_finetuned else "base-pretrained"
 
     print(f"[SupervisorMatcher] Model loaded: {model_path} ({version})")
     return _model
