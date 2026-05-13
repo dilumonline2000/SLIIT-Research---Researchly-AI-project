@@ -12,10 +12,13 @@ const moduleUrls: Record<ModuleId, string> = {
   4: env.MODULE4_URL,
 };
 
+// Module 3 encodes 4k papers on first request (~90s); others are fast
+const MODULE_TIMEOUTS: Record<ModuleId, number> = { 1: 60_000, 2: 60_000, 3: 150_000, 4: 60_000 };
+
 function buildClient(moduleId: ModuleId) {
   return axios.create({
     baseURL: moduleUrls[moduleId],
-    timeout: 60_000,
+    timeout: MODULE_TIMEOUTS[moduleId],
     headers: { "Content-Type": "application/json" },
   });
 }

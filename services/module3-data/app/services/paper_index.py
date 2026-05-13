@@ -27,6 +27,7 @@ from __future__ import annotations
 import json
 import logging
 import re
+import threading
 from pathlib import Path
 from typing import Any, Optional
 
@@ -44,6 +45,7 @@ _PAPERS: list[dict[str, Any]] | None = None
 _EMBEDDINGS: np.ndarray | None = None
 _MODEL = None
 _MODEL_NAME = "unknown"
+_LOAD_LOCK = threading.Lock()
 
 
 def is_loaded() -> bool:
@@ -91,8 +93,11 @@ def load() -> bool:
     global _EMBEDDINGS
     if _EMBEDDINGS is not None:
         return True
-    if not _load_papers() or not _load_model():
-        return False
+    with _LOAD_LOCK:
+        if _EMBEDDINGS is not None:  # re-check inside lock
+            return True
+        if not _load_papers() or not _load_model():
+            return False
     assert _PAPERS is not None and _MODEL is not None
 
     logger.info("[paper_index] encoding %d abstracts (one-off, ~90s on CPU)…", len(_PAPERS))

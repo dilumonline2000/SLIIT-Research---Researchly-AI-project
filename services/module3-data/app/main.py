@@ -18,6 +18,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .routers import pipeline, categorization, plagiarism_trends, summarizer, quality
+from .services import paper_index
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -52,3 +53,5 @@ app.include_router(quality.router, prefix="/data", tags=["quality"])
 @app.on_event("startup")
 async def startup() -> None:
     logger.info("Module 3 (Data Management) starting up")
+    import asyncio
+    asyncio.get_event_loop().run_in_executor(None, paper_index.load)
