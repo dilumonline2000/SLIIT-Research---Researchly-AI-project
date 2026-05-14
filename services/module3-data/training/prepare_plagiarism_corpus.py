@@ -77,7 +77,8 @@ def _normalize_topic(raw: Any) -> str:
 
 def load_sbert():
     from sentence_transformers import SentenceTransformer
-    if MODULE1_SBERT.exists() and any(MODULE1_SBERT.iterdir()):
+    _has_weights = (MODULE1_SBERT / "model.safetensors").exists() or (MODULE1_SBERT / "pytorch_model.bin").exists()
+    if MODULE1_SBERT.exists() and _has_weights:
         log.info("Loading SLIIT-tuned SBERT from %s", MODULE1_SBERT)
         try:
             return SentenceTransformer(str(MODULE1_SBERT)), "sbert_plagiarism (SLIIT fine-tuned)"

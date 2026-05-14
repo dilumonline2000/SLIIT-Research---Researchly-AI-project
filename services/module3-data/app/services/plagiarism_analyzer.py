@@ -61,7 +61,8 @@ def _load_sbert() -> bool:
         return True
     try:
         from sentence_transformers import SentenceTransformer
-        if MODULE1_SBERT.exists() and any(MODULE1_SBERT.iterdir()):
+        _has_weights = (MODULE1_SBERT / "model.safetensors").exists() or (MODULE1_SBERT / "pytorch_model.bin").exists()
+        if MODULE1_SBERT.exists() and _has_weights:
             _MODEL = SentenceTransformer(str(MODULE1_SBERT))
             _MODEL_NAME = "sbert_plagiarism (SLIIT fine-tuned)"
         else:

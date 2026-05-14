@@ -46,7 +46,8 @@ def load_sbert():
     """Load SentenceTransformer — prefer the project's fine-tuned model."""
     from sentence_transformers import SentenceTransformer
 
-    if LOCAL_SBERT_DIR.exists() and any(LOCAL_SBERT_DIR.iterdir()):
+    _has_weights = (LOCAL_SBERT_DIR / "model.safetensors").exists() or (LOCAL_SBERT_DIR / "pytorch_model.bin").exists()
+    if LOCAL_SBERT_DIR.exists() and _has_weights:
         log.info("Loading fine-tuned SBERT from %s", LOCAL_SBERT_DIR)
         try:
             return SentenceTransformer(str(LOCAL_SBERT_DIR)), "sbert_plagiarism (SLIIT fine-tuned)"

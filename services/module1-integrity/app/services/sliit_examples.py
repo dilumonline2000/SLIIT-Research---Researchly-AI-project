@@ -42,7 +42,8 @@ def _load() -> bool:
         return False
     try:
         from sentence_transformers import SentenceTransformer
-        if LOCAL_SBERT_DIR.exists() and any(LOCAL_SBERT_DIR.iterdir()):
+        _has_weights = (LOCAL_SBERT_DIR / "model.safetensors").exists() or (LOCAL_SBERT_DIR / "pytorch_model.bin").exists()
+        if LOCAL_SBERT_DIR.exists() and _has_weights:
             _MODEL = SentenceTransformer(str(LOCAL_SBERT_DIR))
         else:
             _MODEL = SentenceTransformer(FALLBACK_MODEL)

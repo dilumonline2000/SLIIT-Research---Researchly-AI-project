@@ -34,7 +34,8 @@ FALLBACK_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 def load_sbert():
     from sentence_transformers import SentenceTransformer
-    if MODULE1_SBERT.exists() and any(MODULE1_SBERT.iterdir()):
+    _has_weights = (MODULE1_SBERT / "model.safetensors").exists() or (MODULE1_SBERT / "pytorch_model.bin").exists()
+    if MODULE1_SBERT.exists() and _has_weights:
         try:
             return SentenceTransformer(str(MODULE1_SBERT)), "sbert_plagiarism (SLIIT fine-tuned)"
         except Exception as e:
