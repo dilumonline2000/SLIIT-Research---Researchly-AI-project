@@ -15,9 +15,18 @@ app.set("trust proxy", 1);
 
 // Security + ergonomics
 app.use(helmet());
+const allowedOrigins = env.CORS_ORIGIN.split(",").map((o) => o.trim());
 app.use(
   cors({
-    origin: env.CORS_ORIGIN.split(",").map((o) => o.trim()),
+    origin: (origin, cb) => {
+      // Allow requests with no origin (curl, Postman, server-to-server)
+      if (!origin) return cb(null, true);
+      // Exact match
+      if (allowedOrigins.includes(origin)) return cb(null, true);
+      // Allow any Vercel deployment of this project
+      if (/^https:\/\/researchly-ai(-[a-z0-9-]+)?\.vercel\.app$/.test(origin)) return cb(null, true);
+      cb(new Error(`CORS: ${origin} not allowed`));
+    },
     credentials: true,
   }),
 );
