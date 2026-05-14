@@ -167,15 +167,24 @@ class SupervisorPapersResponse(BaseModel):
     topic_distribution: list[dict]
 
 
+def _s2_headers() -> dict:
+    key = os.environ.get("SEMANTIC_SCHOLAR_API_KEY", "")
+    return {"x-api-key": key} if key else {}
+
+
 async def _query_semantic_scholar(name: str) -> list[dict]:
     """Fetch papers from Semantic Scholar by author name (best-effort)."""
     try:
-        async with httpx.AsyncClient(timeout=15.0) as client:
+        headers = _s2_headers()
+        async with httpx.AsyncClient(timeout=15.0, headers=headers) as client:
             for query in [f"{name} SLIIT", name]:
                 r = await client.get(
                     "https://api.semanticscholar.org/graph/v1/author/search",
                     params={"query": query, "fields": "name,papers", "limit": 3},
                 )
+                if r.status_code == 429:
+                    logger.warning("Semantic Scholar rate limit hit for '%s'", name)
+                    return []
                 authors = r.json().get("data", []) if r.status_code == 200 else []
                 if authors:
                     break
@@ -191,6 +200,9 @@ async def _query_semantic_scholar(name: str) -> list[dict]:
                 f"https://api.semanticscholar.org/graph/v1/author/{author_id}/papers",
                 params={"fields": "title,year,venue,externalIds,openAccessPdf", "limit": 50},
             )
+            if rp.status_code == 429:
+                logger.warning("Semantic Scholar rate limit hit fetching papers for '%s'", name)
+                return []
             return rp.json().get("data", []) if rp.status_code == 200 else []
     except Exception as exc:
         logger.warning("Semantic Scholar API error for '%s': %s", name, exc)
