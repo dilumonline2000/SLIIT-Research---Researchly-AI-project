@@ -32,31 +32,8 @@ jobs:
           VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ env.VERCEL_PROJECT_ID }}
 
-  # ── Backend: deploy all Railway services in parallel ───────────────────────
-  deploy-backend:
-    name: "Backend → Railway (${{ matrix.service }})"
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false # keep deploying other services even if one fails
-      matrix:
-        service:
-          - api-gateway
-          - module1-integrity
-          - module2-collaboration
-          - module3-data
-          - module4-analytics
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install Railway CLI
-        run: npm install -g @railway/cli
-
-      - name: Deploy ${{ matrix.service }}
-        run: |
-          railway up \
-            --service "${{ matrix.service }}" \
-            --environment production \
-            --detach
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-          RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
+  # ── Backend: Railway auto-deploys via its native GitHub integration ───────
+  # Each Railway service is connected directly to this GitHub repo in the
+  # Railway dashboard (Service → Settings → Source → GitHub). Railway watches
+  # the relevant sub-path and redeploys automatically on every push to main.
+  # No Railway CLI token is needed here.
