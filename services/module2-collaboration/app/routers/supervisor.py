@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
 import os
@@ -143,8 +144,9 @@ def _get_sliit_supervisor(sid: int) -> dict | None:
     return next((s for s in _load_sliit() if s.get("id") == sid), None)
 
 
-_ss_cache: dict[int, tuple[list, float]] = {}
-_SS_TTL: float = 3600.0
+_ss_cache: dict[int, tuple[list, float, bool]] = {}
+_SS_TTL: float = 3600.0          # successful (non-empty or genuinely-empty) lookups
+_SS_FAILURE_TTL: float = 90.0    # rate-limited / errored lookups — retry soon instead of for an hour
 
 
 class PaperEntry(BaseModel):
@@ -172,41 +174,87 @@ def _s2_headers() -> dict:
     return {"x-api-key": key} if key else {}
 
 
-async def _query_semantic_scholar(name: str) -> list[dict]:
-    """Fetch papers from Semantic Scholar by author name (best-effort)."""
+# Semantic Scholar's rate limit is 1 request/second, CUMULATIVE across all
+# endpoints and all concurrent callers of this process. A single supervisor
+# lookup already needs 2-3 sequential calls (author search retry + papers
+# fetch), so without spacing them out the 2nd/3rd call reliably 429s. This
+# lock+timestamp pair serializes every Semantic Scholar call process-wide.
+_S2_LOCK = asyncio.Lock()
+_S2_LAST_CALL: float = 0.0
+_S2_MIN_INTERVAL = 1.05
+
+
+async def _s2_get(client: httpx.AsyncClient, url: str, params: dict) -> httpx.Response:
+    """GET with process-wide pacing plus backoff retries on 429.
+
+    Semantic Scholar's free/keyed tier is easy to trip (1 req/s, shared across
+    every caller of the key — not just this process). A single 429 doesn't
+    mean "no data", so we retry a few times with increasing delay before
+    giving up.
+    """
+    global _S2_LAST_CALL
+    last_resp: httpx.Response | None = None
+    for attempt in range(3):
+        async with _S2_LOCK:
+            wait = _S2_MIN_INTERVAL - (time.time() - _S2_LAST_CALL)
+            if wait > 0:
+                await asyncio.sleep(wait)
+            try:
+                last_resp = await client.get(url, params=params)
+            finally:
+                _S2_LAST_CALL = time.time()
+        if last_resp.status_code != 429:
+            return last_resp
+        await asyncio.sleep(1.5 * (attempt + 1))
+    return last_resp
+
+
+async def _query_semantic_scholar(name: str) -> tuple[list[dict], bool]:
+    """Fetch papers from Semantic Scholar by author name (best-effort).
+
+    Returns (papers, ok) — ok=False means the lookup failed/rate-limited
+    (as opposed to succeeding with a genuinely empty result), so the caller
+    can avoid caching a transient failure for a long time.
+    """
     try:
         headers = _s2_headers()
         async with httpx.AsyncClient(timeout=15.0, headers=headers) as client:
-            for query in [f"{name} SLIIT", name]:
-                r = await client.get(
-                    "https://api.semanticscholar.org/graph/v1/author/search",
-                    params={"query": query, "fields": "name,papers", "limit": 3},
-                )
-                if r.status_code == 429:
-                    logger.warning("Semantic Scholar rate limit hit for '%s'", name)
-                    return []
-                authors = r.json().get("data", []) if r.status_code == 200 else []
-                if authors:
-                    break
+            # A bare name search matches Semantic Scholar's author index far
+            # more reliably than appending "SLIIT" (which searches for that
+            # literal string as part of the author's name and rarely hits).
+            # One query instead of two also halves the calls spent per
+            # lookup, which matters a lot under a 1 req/s shared limit.
+            r = await _s2_get(
+                client,
+                "https://api.semanticscholar.org/graph/v1/author/search",
+                {"query": name, "fields": "name,papers", "limit": 5},
+            )
+            if r.status_code == 429:
+                logger.warning("Semantic Scholar rate limit hit for '%s'", name)
+                return [], False
+            authors = r.json().get("data", []) if r.status_code == 200 else []
 
             if not authors:
-                return []
+                return [], True
 
             author_id = authors[0].get("authorId", "")
             if not author_id:
-                return []
+                return [], True
 
-            rp = await client.get(
+            rp = await _s2_get(
+                client,
                 f"https://api.semanticscholar.org/graph/v1/author/{author_id}/papers",
-                params={"fields": "title,year,venue,externalIds,openAccessPdf", "limit": 50},
+                {"fields": "title,year,venue,externalIds,openAccessPdf", "limit": 50},
             )
             if rp.status_code == 429:
                 logger.warning("Semantic Scholar rate limit hit fetching papers for '%s'", name)
-                return []
-            return rp.json().get("data", []) if rp.status_code == 200 else []
+                return [], False
+            if rp.status_code != 200:
+                return [], False
+            return rp.json().get("data", []), True
     except Exception as exc:
         logger.warning("Semantic Scholar API error for '%s': %s", name, exc)
-        return []
+        return [], False
 
 
 @router.get("/supervisors/{supervisor_id}/papers", response_model=SupervisorPapersResponse)
@@ -217,11 +265,17 @@ async def get_supervisor_papers(supervisor_id: int) -> SupervisorPapersResponse:
         raise HTTPException(status_code=404, detail=f"Supervisor {supervisor_id} not found")
 
     cached = _ss_cache.get(supervisor_id)
-    if cached and (time.time() - cached[1]) < _SS_TTL:
-        raw_papers = cached[0]
+    if cached:
+        cached_papers, cached_at, cached_ok = cached
+        ttl = _SS_TTL if cached_ok else _SS_FAILURE_TTL
+        if (time.time() - cached_at) < ttl:
+            raw_papers = cached_papers
+        else:
+            raw_papers, ok = await _query_semantic_scholar(supervisor["name"])
+            _ss_cache[supervisor_id] = (raw_papers, time.time(), ok)
     else:
-        raw_papers = await _query_semantic_scholar(supervisor["name"])
-        _ss_cache[supervisor_id] = (raw_papers, time.time())
+        raw_papers, ok = await _query_semantic_scholar(supervisor["name"])
+        _ss_cache[supervisor_id] = (raw_papers, time.time(), ok)
 
     papers: list[PaperEntry] = []
     for p in raw_papers:
