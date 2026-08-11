@@ -11,8 +11,11 @@ logger = logging.getLogger(__name__)
 
 _API_KEY: Optional[str] = None
 _MODEL: str = "gemini-2.5-flash"
-# Ordered fallback chain — tried in sequence on 429
-_FALLBACK_MODELS: list = ["gemini-2.0-flash", "gemini-flash-latest", "gemini-flash-lite-latest"]
+# Ordered fallback chain — tried in sequence on 429.
+# gemini-2.0-flash was removed from the v1beta API (404, not 429) — dropped
+# from this list since a dead pinned model would just fail the fallback too.
+# The two "-latest" aliases stay current automatically as Google rotates models.
+_FALLBACK_MODELS: list = ["gemini-flash-latest", "gemini-flash-lite-latest"]
 _BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models"
 
 

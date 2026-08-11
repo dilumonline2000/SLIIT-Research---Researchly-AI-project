@@ -12,8 +12,9 @@ export interface GenerativeChat {
   stream: (message: string, onChunk: (chunk: string) => void) => Promise<void>;
 }
 
-// gemini-2.0-flash is the current stable model (1.5-flash removed from v1beta API).
-const MODEL_ID = 'gemini-2.0-flash';
+// gemini-2.0-flash was removed from the v1beta API — gemini-2.5-flash is the
+// current stable model (matches the backend's Gemini client default).
+const MODEL_ID = 'gemini-2.5-flash';
 
 /** Parse "Please retry in X.XXXs." from a 429 error body and return ms to wait. */
 function parseRetryDelay(msg: string): number {

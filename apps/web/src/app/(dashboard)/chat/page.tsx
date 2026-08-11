@@ -93,7 +93,7 @@ export default function ChatHomePage() {
       if (raw.includes("429") || raw.toLowerCase().includes("quota")) {
         friendly = "Gemini API quota exceeded. You've hit the free-tier rate limit. Please wait a minute and try again, or check your API key billing at ai.google.dev.";
       } else if (raw.includes("404") || raw.toLowerCase().includes("not found")) {
-        friendly = "Gemini model unavailable. Check that NEXT_PUBLIC_GEMINI_API_KEY is valid and has access to Gemini 2.0 Flash.";
+        friendly = "Gemini model unavailable. Check that NEXT_PUBLIC_GEMINI_API_KEY is valid and has access to Gemini 2.5 Flash.";
       } else if (raw.includes("403") || raw.toLowerCase().includes("permission")) {
         friendly = "Gemini API key doesn't have permission for this model. Verify your key at ai.google.dev.";
       } else if (raw.includes("400")) {
@@ -275,7 +275,7 @@ export default function ChatHomePage() {
                 </Button>
               </div>
               <p className="mt-1.5 text-xs text-muted-foreground">
-                Powered by Gemini 2.0 Flash · Provider: <strong>{provider}</strong>
+                Powered by Gemini 2.5 Flash · Provider: <strong>{provider}</strong>
               </p>
             </div>
           </CardContent>
