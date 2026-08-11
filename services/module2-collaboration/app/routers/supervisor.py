@@ -158,6 +158,12 @@ class PaperEntry(BaseModel):
     doi: Optional[str] = None
 
 
+class ResearchFocus(BaseModel):
+    summary: str
+    recent_focus_areas: list[str] = []
+    activity_level: str = ""
+
+
 class SupervisorPapersResponse(BaseModel):
     supervisor_id: int
     name: str
@@ -167,6 +173,7 @@ class SupervisorPapersResponse(BaseModel):
     total: int
     year_distribution: dict[str, int]
     topic_distribution: list[dict]
+    research_focus: Optional[ResearchFocus] = None
 
 
 def _s2_headers() -> dict:
@@ -257,6 +264,54 @@ async def _query_semantic_scholar(name: str) -> tuple[list[dict], bool]:
         return [], False
 
 
+# ─── AI-generated "recent research focus" summary ──────────────────────────
+# LLM calls are far more expensive than a Semantic Scholar lookup, so this is
+# cached much longer (a supervisor's research focus doesn't shift hour to
+# hour) and is strictly best-effort: any failure just omits the field, it
+# never breaks the existing papers/charts response.
+
+_focus_cache: dict[int, tuple[Optional[dict], float]] = {}
+_FOCUS_TTL: float = 86_400.0  # 24h
+
+
+def _generate_research_focus(name: str, papers: list[PaperEntry]) -> Optional[dict]:
+    if not papers:
+        return None
+    try:
+        from shared.gemini_client import generate_json
+
+        recent = [p for p in papers if p.title][:15]
+        paper_lines = "\n".join(
+            f"- {p.title} ({p.year or 'year unknown'})" for p in recent
+        )
+        prompt = f"""You are helping a student decide whether to pick this research supervisor.
+
+Supervisor: {name}
+Their recent publications (most recent first):
+{paper_lines}
+
+Based only on these titles and years, analyze what this supervisor has actually
+been researching lately and how active they currently are.
+
+Return JSON:
+{{
+  "summary": "2-3 sentence plain-language summary of what they've recently worked on and whether it's a good time to approach them",
+  "recent_focus_areas": ["short topic", "short topic", "short topic"],
+  "activity_level": "Actively publishing" | "Occasional publications" | "Limited recent activity"
+}}"""
+        data = generate_json(prompt)
+        if not isinstance(data, dict) or not data.get("summary"):
+            return None
+        return {
+            "summary": str(data.get("summary", "")).strip(),
+            "recent_focus_areas": [str(a) for a in (data.get("recent_focus_areas") or [])][:5],
+            "activity_level": str(data.get("activity_level", "")).strip(),
+        }
+    except Exception as exc:
+        logger.warning("Gemini research-focus summary failed for '%s': %s", name, exc)
+        return None
+
+
 @router.get("/supervisors/{supervisor_id}/papers", response_model=SupervisorPapersResponse)
 async def get_supervisor_papers(supervisor_id: int) -> SupervisorPapersResponse:
     """Return publications and visual analytics for a SLIIT supervisor."""
@@ -305,6 +360,13 @@ async def get_supervisor_papers(supervisor_id: int) -> SupervisorPapersResponse:
     research_interests: list[str] = supervisor.get("research_interests", [])
     topic_dist = [{"name": ri, "value": 1} for ri in research_interests[:10]]
 
+    focus_cached = _focus_cache.get(supervisor_id)
+    if focus_cached and (time.time() - focus_cached[1]) < _FOCUS_TTL:
+        focus_data = focus_cached[0]
+    else:
+        focus_data = _generate_research_focus(supervisor.get("name", ""), papers)
+        _focus_cache[supervisor_id] = (focus_data, time.time())
+
     return SupervisorPapersResponse(
         supervisor_id=supervisor_id,
         name=supervisor.get("name", ""),
@@ -314,4 +376,5 @@ async def get_supervisor_papers(supervisor_id: int) -> SupervisorPapersResponse:
         total=len(papers),
         year_distribution=dict(sorted(year_dist.items())),
         topic_distribution=topic_dist,
+        research_focus=ResearchFocus(**focus_data) if focus_data else None,
     )

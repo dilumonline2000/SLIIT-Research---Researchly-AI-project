@@ -12,7 +12,7 @@ import {
 } from "recharts";
 import {
   ArrowLeft, ExternalLink, BookOpen, BarChart2, Mail, Loader2,
-  Users, GraduationCap, Search, ChevronRight,
+  Users, GraduationCap, Search, ChevronRight, Sparkles,
 } from "lucide-react";
 import { API_ROUTES } from "@/lib/constants";
 import { apiPost, apiGet } from "@/lib/api";
@@ -43,6 +43,12 @@ interface PaperEntry {
   doi: string | null;
 }
 
+interface ResearchFocus {
+  summary: string;
+  recent_focus_areas: string[];
+  activity_level: string;
+}
+
 interface SupervisorPapersResponse {
   supervisor_id: number;
   name: string;
@@ -52,6 +58,7 @@ interface SupervisorPapersResponse {
   total: number;
   year_distribution: Record<string, number>;
   topic_distribution: Array<{ name: string; value: number }>;
+  research_focus: ResearchFocus | null;
 }
 
 // ─── Constants ─────────────────────────────────────────────────────────────
@@ -170,6 +177,41 @@ function SupervisorDetailView({
           <p className="text-sm text-muted-foreground leading-relaxed">{match.explanation}</p>
         </CardContent>
       </Card>
+
+      {/* AI research focus summary — "what has this supervisor been working on lately" */}
+      {!loadingPapers && papers?.research_focus && (
+        <Card className="border-indigo-200/60 bg-indigo-50/40 dark:border-indigo-900/40 dark:bg-indigo-950/20">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-indigo-500" />
+              AI Research Focus Summary
+              {papers.research_focus.activity_level && (
+                <Badge variant="secondary" className="ml-auto text-xs font-normal">
+                  {papers.research_focus.activity_level}
+                </Badge>
+              )}
+            </CardTitle>
+            <CardDescription>
+              Based on their recent publications — helps you gauge whether now is a good time to reach out.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <p className="text-sm leading-relaxed">{papers.research_focus.summary}</p>
+            {papers.research_focus.recent_focus_areas.length > 0 && (
+              <div className="flex flex-wrap gap-1.5">
+                {papers.research_focus.recent_focus_areas.map((area) => (
+                  <span
+                    key={area}
+                    className="rounded-full bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 px-2.5 py-0.5 text-[11px] font-medium"
+                  >
+                    {area}
+                  </span>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
 
       {/* Analytics dashboard */}
       {!loadingPapers && papers && (
