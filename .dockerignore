@@ -1,0 +1,16 @@
+.git
+.github
+.venv
+node_modules
+**/node_modules
+.turbo
+.vercel
+checkpoints
+supervisor data
+ml/data
+*.md
+*.log
+.env
+.env.local
+**/.env
+**/.env.local
