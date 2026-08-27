@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Module 4 — Research Performance Analytics</title>
+<style>
+  :root {
+    --indigo: #4338ca; --indigo-dark:#312e81; --indigo-light:#eef2ff;
+    --gray-900:#1f2937; --gray-700:#374151; --gray-600:#4b5563; --gray-200:#e5e7eb; --gray-50:#f9fafb;
+  }
+  @page { size: A4; margin: 20mm 18mm 18mm; }
+  * { box-sizing: border-box; }
+  body { font-family: Georgia, 'Times New Roman', serif; color: var(--gray-900); line-height:1.55; font-size: 10.5pt; margin:0; }
+  h1 { font-size: 20pt; color: var(--indigo); border-bottom: 3px solid var(--indigo); padding-bottom: 6px; margin-top:0;}
+  h2 { font-size: 14.5pt; color: var(--indigo); margin-top: 26px; border-bottom:1px solid var(--gray-200); padding-bottom:4px; page-break-after: avoid;}
+  h3 { font-size: 12pt; color:var(--indigo-dark); margin-top:16px; page-break-after: avoid;}
+  h4 { font-size: 10.5pt; color:var(--gray-700); margin-top: 12px; margin-bottom:4px;}
+  p, li { font-size: 10.2pt; }
+  ul, ol { margin: 6px 0; padding-left: 20px; }
+  li { margin: 3px 0; }
+  code, pre { font-family: Consolas, 'Courier New', monospace; }
+  pre { background: var(--gray-50); border:1px solid var(--gray-200); border-radius:6px; padding:9px 11px; font-size:8.6pt; overflow-x:auto; white-space:pre-wrap; page-break-inside: avoid; line-height:1.4;}
+  code.inline, code { background:var(--gray-50); padding:1px 5px; border-radius:4px; font-size: 9.2pt;}
+  table {border-collapse:collapse; width:100%; margin: 8px 0 14px; font-size:9.1pt;}
+  th,td {border:1px solid var(--gray-200); padding:5px 7px; text-align:left; vertical-align:top;}
+  th {background: var(--indigo-light); color:var(--indigo-dark);}
+  .cover {text-align:center; padding-top: 24vh; page-break-after: always;}
+  .cover .kicker {letter-spacing:3px; text-transform:uppercase; color:var(--indigo); font-size:10.5pt; font-weight:bold;}
+  .cover h1 {border:none; font-size:27pt; margin:14px 0 6px; color:var(--indigo-dark);}
+  .cover .subtitle {font-size:12.5pt; color:var(--gray-600); max-width:480px; margin:0 auto;}
+  .cover .meta {margin-top: 46px; font-size:9.5pt; color:var(--gray-600); line-height:1.9;}
+  .cover .meta b { color: var(--gray-900); }
+  .section-break {page-break-before: always;}
+  .callout {background: var(--indigo-light); border-left:4px solid var(--indigo); padding:9px 13px; margin:10px 0; font-size:9.4pt; border-radius:0 6px 6px 0;}
+  .note {background:#fef9c3; border-left:4px solid #ca8a04; padding:9px 13px; margin:10px 0; font-size:9.4pt; border-radius:0 6px 6px 0;}
+  .formula {background:#f8fafc; border:1px dashed #94a3b8; padding:9px 13px; margin:8px 0; font-family: Consolas, monospace; font-size:9.3pt; border-radius:6px;}
+  .badge {display:inline-block; background:var(--indigo); color:#fff; border-radius:999px; padding:1px 9px; font-size:7.8pt; font-weight:bold; margin-right:4px; letter-spacing:.3px;}
+  .badge.gray {background:#6b7280;}
+  .badge.amber {background:#b45309;}
+  .toc div {display:flex; justify-content:space-between; border-bottom:1px dotted var(--gray-200); padding:4px 0; font-size:10pt;}
+  .endpoint {font-family:Consolas,monospace; font-size:9pt; background:#eef2ff; color:var(--indigo-dark); padding:1px 6px; border-radius:4px;}
+  .method-post {color:#047857; font-weight:bold;}
+  .method-get {color:#1d4ed8; font-weight:bold;}
+  footer.page-footer {font-size:8pt; color:#9ca3af; margin-top:28px; border-top:1px solid var(--gray-200); padding-top:8px;}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="kicker">Researchly AI &middot; R26-IT-116</div>
+  <h1>Module 4<br/>Research Performance Analytics</h1>
+  <div class="subtitle">ARIMA trend forecasting, XGBoost quality &amp; success scoring, GCN-based concept mind maps, and cross-module dashboards &mdash; architecture, ML methodology, and calculation logic</div>
+  <div class="meta">
+    <b>Module owner:</b> H. W. S. S. Jayasundara<br/>
+    <b>Service:</b> <code>services/module4-analytics</code> (FastAPI, port 8004)<br/>
+    <b>Frontend:</b> <code>apps/web/src/app/(dashboard)/analytics/*</code><br/>
+    <b>Document generated:</b> 27 August 2026
+  </div>
+</div>
+
+<h2 style="margin-top:0;border:none;">Contents</h2>
+<div class="toc">
+  <div><span>1. Overview</span><span>How the module works</span></div>
+  <div><span>2. System Architecture &amp; Data Flow</span><span>Frontend &rarr; Gateway &rarr; ML service &rarr; DB</span></div>
+  <div><span>3. Feature A — Trend Forecasting</span><span>Per-topic ARIMA with confidence intervals</span></div>
+  <div><span>4. Feature B — Quality Scoring</span><span>XGBoost + calibrated heuristic blend</span></div>
+  <div><span>5. Feature C — Success Prediction</span><span>XGBoost + heuristic safety net</span></div>
+  <div><span>6. Feature D — Concept Mind Maps</span><span>KeyBERT seeds + GCN expansion</span></div>
+  <div><span>7. Feature E — Cross-Module Dashboard</span><span>Aggregated KPIs across Supabase tables</span></div>
+  <div><span>8. Planned vs. Production Models</span><span>Spec ensemble design vs. shipped code</span></div>
+  <div><span>9. Endpoint Reference</span><span>Full API surface</span></div>
+</div>
+
+<div class="section-break"></div>
+
+<h2>1&nbsp;&middot;&nbsp;Overview</h2>
+<p>Module&nbsp;4 is the <b>analytics and foresight layer</b> of the platform — it turns the corpus and
+activity generated by the other three modules into forward-looking, decision-supporting numbers. It covers:</p>
+<ol>
+  <li><b>Trend forecasting</b> — per-topic publication-count forecasts with confidence intervals, emerging-topic
+    detection, and "where should I focus" recommendations.</li>
+  <li><b>Quality scoring</b> — four-dimension quality score (originality, citation impact, methodology, clarity)
+    for any proposal/paper text.</li>
+  <li><b>Success prediction</b> — probability that a paper/proposal will be "successful" (publishable,
+    methodologically sound), with actionable recommendations.</li>
+  <li><b>Concept mind maps</b> — department/topic-level concept graphs for exploratory visualisation.</li>
+  <li><b>Cross-module dashboard</b> — a single KPI snapshot aggregating data written by all four modules.</li>
+</ol>
+<p>All five live in one FastAPI microservice (<code>services/module4-analytics</code>, port <code>8004</code>),
+consumed by pages under <code>apps/web/src/app/(dashboard)/analytics/</code>
+(<code>trends</code>, <code>quality-scores</code>, <code>predictions</code>, <code>mind-maps</code>,
+<code>dashboards</code>).</p>
+
+<div class="callout">
+<b>A recurring pattern in this module:</b> every trained model (ARIMA, the two XGBoost regressor/classifier
+sets) is <b>blended with a hand-calibrated heuristic</b> rather than trusted alone at inference time. The code
+comments are explicit about why: the training heuristics the models learned from are narrow and can be
+unfair to legitimate technical/CS papers (e.g. penalising normal academic vocabulary length), so a
+calibrated heuristic acts as a fairness/safety net layered on top of the statistically-fit model rather than
+replacing it outright.
+</div>
+
+<h2>2&nbsp;&middot;&nbsp;System Architecture &amp; Data Flow</h2>
+<div class="formula">
+Next.js page (analytics/*)
+      │  fetch() with Supabase JWT
+      ▼
+Express API Gateway  (apps/api-gateway, port 3001)
+      │  requireAuth → mlRateLimiter → callMlService(4, path, method, body)
+      ▼
+FastAPI Module 4 service  (services/module4-analytics, port 8004)
+      │  router → service layer (trend_forecaster / quality_predictor /
+      │           success_predictor) → models/*
+      ▼
+ ┌─── models/trained_trend_forecaster/trend_models.pkl   (per-topic fitted ARIMA)
+ ├─── models/trained_quality_predictor/quality_models.pkl (per-dimension XGBoost regressors)
+ ├─── models/trained_success_predictor/success_model.pkl  (XGBoost classifier)
+ ├─── models/mindmap/  (GCN weights + concepts.json, torch-geometric)
+ └─── Supabase Postgres  (research_proposals, quality_scores, success_predictions,
+                          supervisor_matches, research_papers)
+</div>
+<p>The gateway route file is <code>apps/api-gateway/src/routes/module4.routes.ts</code>, following the same
+<code>requireAuth</code> → <code>mlRateLimiter</code> → <code>callMlService(4, …)</code> pattern as the other
+three modules (60-second proxy timeout).</p>
+
+<div class="section-break"></div>
+
+<h2>3&nbsp;&middot;&nbsp;Feature A — Trend Forecasting</h2>
+<p><span class="badge">Per-topic ARIMA with 95% confidence intervals</span></p>
+<h4>What it does</h4>
+<p><span class="endpoint">GET /trends</span> returns, per research topic, a historical year-by-year publication
+count and a forecast for the next N years (with lower/upper confidence bounds), a trend-direction label
+(rising/declining/stable), a projected growth percentage, a plain-English interpretation, and the model's
+in-sample accuracy (RMSE/MAE). <span class="endpoint">/trends/compare</span> ranks multiple topics by growth;
+<span class="endpoint">/trends/insights</span> surfaces "emerging" topics and auto-generated research-area
+recommendations.</p>
+<h4>Why ARIMA per topic</h4>
+<p>Publication-count-over-time is a classic univariate time series, and ARIMA (AutoRegressive Integrated
+Moving Average) is well suited to short, noisy annual count series like this — it natively models trend
+(via the differencing/integration term) and produces principled confidence intervals from the fitted model's
+own residual distribution, which a naive linear-regression forecast would not give for free. A separate ARIMA
+model is fit per topic (rather than one global model) because different research areas have genuinely
+different growth dynamics.</p>
+<h4>How it is implemented (<code>app/services/trend_forecaster.py</code>)</h4>
+<ol>
+  <li>Loads <code>models/trained_trend_forecaster/trend_models.pkl</code> — a dict of fitted
+    <code>statsmodels</code> ARIMA results objects, one per topic, each carrying its historical
+    <code>years</code>/<code>counts</code> series.</li>
+  <li><b>Forecast + CI</b> (<code>_forecast_with_ci</code>) — calls the fitted model's
+    <code>get_forecast(steps=horizon)</code>, extracting the predicted mean and the 95% (<code>alpha=0.05</code>)
+    prediction interval directly from <code>statsmodels</code>. Negative forecasts are clamped to 0 (a paper
+    count can't be negative), and the upper bound is capped at 3× the historical maximum to guard against
+    pathologically wide bands when residual variance is large. If the model object lacks
+    <code>get_forecast()</code>, a heuristic fallback uses <code>±1.96·σ</code> from the residual standard
+    deviation instead.</li>
+  <li><b>Trend direction</b> (<code>_trend_direction</code>) — compares the mean of the last 3 years against
+    the mean of everything before: <code>&gt;1.2×</code> earlier → "rising", <code>&lt;0.8×</code> → "declining",
+    else "stable".</li>
+  <li><b>Growth %</b> — <code>(forecast_end − latest_historical) / latest_historical × 100</code>.</li>
+  <li><b>Accuracy</b> (<code>_accuracy</code>) — RMSE and MAE computed against the model's own in-sample
+    <code>fittedvalues</code> (aligned to account for ARIMA's differencing dropping the first <i>d</i>
+    observations), normalised into an <code>nrmse</code> (RMSE / mean) for a scale-free 0..1 quality
+    indicator.</li>
+</ol>
+<h4>Emerging-topic detection</h4>
+<div class="formula">
+recent_slope = least_squares_slope(counts[last 4 years])
+long_slope   = least_squares_slope(counts[all years])
+emergence    = recent_slope − long_slope
+growth_ratio = latest_count / mean(counts[:-3])
+
+score = 0.5 · emergence + 0.5 · growth_ratio
+  (kept only if recent_slope &gt; 0 and latest_count ≥ 2 — filters out noise from thin/declining topics)
+</div>
+<h4>Recommendation scoring</h4>
+<div class="formula">
+growth_norm = clamp(growth_pct / 100, −1.0, 2.0)
+saturation  = latest_count(topic) / max_count(across all topics)
+score       = growth_norm − 0.4 · saturation
+  (rewards high projected growth, penalises topics that are already heavily published in — "low competition")
+</div>
+
+<div class="section-break"></div>
+
+<h2>4&nbsp;&middot;&nbsp;Feature B — Quality Scoring</h2>
+<p><span class="badge">XGBoost regressors + calibrated heuristic blend</span></p>
+<h4>What it does</h4>
+<p><span class="endpoint">POST /quality/quality-score</span> takes a title + abstract (or a stored
+<code>proposal_id</code>) and returns four 0&ndash;1 dimension scores — <i>originality, citation_impact,
+methodology, clarity</i> — plus an overall weighted score, the paper's predicted topic, and targeted
+recommendations for improvement.</p>
+<h4>Why a model + heuristic blend, and why the blend ratio varies per dimension</h4>
+<p>The trained XGBoost regressors were fit on a training heuristic that turned out to be unevenly reliable
+across the four dimensions — the code's own comments explain that <i>methodology</i> and <i>originality</i>
+are the most biased in the model (it over-relies on narrow keyword/length signals), so the heuristic is given
+almost full authority there, while <i>citation_impact</i> and <i>clarity</i> get more weight from the trained
+model since those signals generalise better. This produces a fairer score for legitimate technical/CS papers
+than either the raw model or the raw heuristic alone.</p>
+<h4>How it is implemented (<code>app/services/quality_predictor.py</code>)</h4>
+<ol>
+  <li><b>Feature extraction</b> (<code>extract_features</code>) — word/sentence counts, average word/sentence
+    length, a count of methodology keywords (25-term list, e.g. "experiment", "regression", "deep learning"),
+    author count, and a citation-signal count (regex hits for <code>[1]</code>-style brackets,
+    <code>(Author, Year)</code> parenthetical citations, and "et al." mentions in the abstract).</li>
+  <li><b>Calibrated heuristic</b> (<code>_compute_quality_scores</code>) — deliberately designed to separate
+    genuine research writing from generic documents (forms, rubrics, reports):
+    <div class="formula">
+research_sig  = min(1, count_of_matched_research_phrases / 4)     e.g. "we propose", "this paper", "our approach"
+strong_method = count of 45 strict research-specific methodology terms (not generic words like "method")
+
+originality      = min(1, 0.30·min(1, abstract_len/1200) + 0.70·research_sig)
+citation_impact  = min(1, citation_base + (0.25 if multiple authors else 0))
+                     citation_base: 0.70·min(1,signals/3) if signals&gt;0,
+                                    else 0.30 if long research text, 0.15 if some research signal, else 0.05
+methodology      = min(1, strong_method_count / 4)
+clarity          = clamp(1 − max(0,(avg_word_len−7.5)/4) − max(0,(avg_sent_len−30)/30), 0.30, 1.0)
+
+overall = 0.30·originality + 0.25·citation_impact + 0.25·methodology + 0.20·clarity
+    </div>
+  </li>
+  <li><b>Model blend</b> — if the trained bundle is available, each dimension's XGBoost prediction is blended
+    with its heuristic counterpart at a <i>dimension-specific</i> ratio:
+    <table>
+    <tr><th>Dimension</th><th>Model weight</th><th>Heuristic weight</th><th>Rationale (from code comments)</th></tr>
+    <tr><td>methodology</td><td>0.10</td><td>0.90</td><td>Heuristic uses strict research-specific terms — near-fully authoritative</td></tr>
+    <tr><td>originality</td><td>0.15</td><td>0.85</td><td>Heuristic uses research-phrase detection, not just length — strongly authoritative</td></tr>
+    <tr><td>citation_impact</td><td>0.20</td><td>0.80</td><td>Model has some signal but heuristic still dominates</td></tr>
+    <tr><td>clarity</td><td>0.40</td><td>0.60</td><td>Model is comparatively more reliable here</td></tr>
+    </table>
+    <code>overall</code> is then recomputed from the blended dimension scores using the same 0.30/0.25/0.25/0.20
+    weights shown above, rather than blending the model's own overall output directly.
+  </li>
+</ol>
+<p>A companion function, <code>is_research_document()</code>, checks for the presence of standard academic
+sections (abstract/introduction/methodology/results/conclusion/references) before scoring, so a non-research
+document (e.g. an accidentally-uploaded form) can be flagged rather than silently scored as a weak paper.</p>
+
+<div class="section-break"></div>
+
+<h2>5&nbsp;&middot;&nbsp;Feature C — Success Prediction</h2>
+<p><span class="badge">XGBoost classifier + heuristic safety net</span></p>
+<h4>What it does</h4>
+<p><span class="endpoint">POST /predict/predict</span> (and <span class="endpoint">/predict/upload</span> for
+PDF/TXT files) returns a 0&ndash;1 <code>success_probability</code>, a binary
+<i>successful / needs_improvement</i> label, a confidence score, a <i>low/medium/high</i> risk level, and
+targeted improvement recommendations.</p>
+<h4>Why the same features feed a classifier here, not a regressor</h4>
+<p>This reuses the exact same <code>extract_features()</code> function as quality scoring (Section&nbsp;4) but
+the trained artifact here is a binary XGBoost <b>classifier</b> — success is framed as a pass/fail outcome
+(publishable vs. not) rather than a continuous quality dimension, and <code>predict_proba</code> gives the
+probability of the positive class directly.</p>
+<h4>How it is implemented (<code>app/services/success_predictor.py</code>)</h4>
+<div class="formula">
+heuristic  = _heuristic_score(features)     — same structural formula as quality's overall score (0.30/0.25/0.25/0.20
+             weights) but with thresholds recalibrated specifically to avoid penalising technical/security papers:
+             avg_word_length penalty starts at 7.5 (not 6.5), methodology needs only 4 keyword hits (not 6),
+             citation_impact gives 0.25 partial credit even with zero abstract-citations
+
+model_proba = XGBoost.predict_proba(features)[1]     (if trained bundle available)
+
+success_probability = 0.40 · model_proba + 0.60 · heuristic
+   (heuristic dominates — code comment: "prevents extreme 0%/100% outputs for legitimate technical papers")
+</div>
+<p>The final label thresholds at 0.5 (successful / needs_improvement); risk level is
+&ge;0.7&nbsp;low, &ge;0.4&nbsp;medium, else high. Recommendations are generated directly from which raw
+feature fell short (e.g. <i>"Strengthen methodology section"</i> if fewer than 3 methodology keywords were
+found, <i>"Include citations…"</i> if fewer than 2 citation signals). For PDF uploads,
+<code>_extract_pdf_text</code> uses PyMuPDF to pull text, then a regex-based heuristic
+(<code>_META_RE</code>) skips article-ID/DOI/copyright header lines to find the real title, and searches for
+an explicit "Abstract" marker before falling back to the first ~3500 characters of body text (skipping the
+first 500, likely header/author block) if no abstract section is found or it's too short.</p>
+
+<div class="section-break"></div>
+
+<h2>6&nbsp;&middot;&nbsp;Feature D — Concept Mind Maps</h2>
+<p><span class="badge">KeyBERT keyword extraction + 2-layer GCN expansion</span></p>
+<h4>What it does</h4>
+<p><span class="endpoint">POST /mindmap/mindmap</span> builds a department- or topic-scoped concept graph —
+nodes are concepts with an importance weight and a domain cluster, edges carry a relationship-strength — for
+the frontend's D3 force-directed visualisation.</p>
+<h4>Why KeyBERT + a graph neural network</h4>
+<p>This is a two-stage pipeline: KeyBERT first extracts a small set of seed keyphrases from the free-text
+topic (using MMR-diversified extraction so the seeds themselves aren't redundant), then a trained 2-layer
+Graph Convolutional Network (GCN, via <code>torch_geometric</code>) expands those seeds into a richer concept
+neighbourhood by propagating information across a pre-built concept graph — the GCN captures relationships
+between concepts that keyword extraction alone cannot (e.g. that "convolutional neural network" and "image
+classification" are related even without shared vocabulary).</p>
+<h4>How it is implemented</h4>
+<ol>
+  <li><b>Seed extraction</b> (<code>app/routers/mindmap.py</code>) — if a topic is given,
+    <code>KeyBERT().extract_keywords(topic, keyphrase_ngram_range=(1,2), top_n=5, use_mmr=True,
+    diversity=0.5)</code> extracts up to 5 diverse 1&ndash;2-word seed concepts; on any import/runtime failure
+    it falls back to simply splitting the topic string into its first 5 words.</li>
+  <li><b>GCN expansion</b> (<code>app/models/mindmap_gnn.py::MindMapGNNModel</code>) — the
+    <code>_GCNEncoder</code> is a standard 2-layer <code>GCNConv &rarr; ReLU &rarr; dropout(0.3) &rarr;
+    GCNConv</code> stack producing concept embeddings; weights are loaded from
+    <code>models/mindmap/model.pt</code> with dimensions read from a bundled
+    <code>training_metadata.json</code>. Seed concepts are matched to the model's known
+    <code>concepts.json</code> vocabulary via case-insensitive substring matching; nearby concepts (by index
+    proximity within &plusmn;3 — a proxy for graph adjacency baked in at training time) are added as related
+    nodes, with edge weight decaying by 0.1 per index-step of distance
+    (<code>0.8 − |offset|·0.1</code>). All seed nodes are additionally fully-connected to each other at a
+    fixed weight of 0.9.</li>
+  <li><b>Graceful degradation</b> — if <code>torch_geometric</code> isn't installed or no seed concept matches
+    the model's vocabulary, the router falls back to a trivial star graph (all seed keywords connected
+    directly to the first seed) rather than returning an empty response.</li>
+</ol>
+
+<div class="section-break"></div>
+
+<h2>7&nbsp;&middot;&nbsp;Feature E — Cross-Module Dashboard</h2>
+<p><span class="badge gray">Aggregation only, no ML</span></p>
+<h4>What it does</h4>
+<p><span class="endpoint">GET /analytics/dashboard</span> returns a single KPI snapshot: total proposals,
+average quality score, top-5 trending topics, count of "at-risk" projects, and count of active supervisors.</p>
+<h4>How it is implemented (<code>app/routers/dashboard.py</code>)</h4>
+<p>This endpoint is a pure Supabase aggregation layer that pulls from tables <i>written by every module</i> —
+it is the one place in the codebase that visibly demonstrates cross-module integration:</p>
+<table>
+<tr><th>KPI</th><th>Source table</th><th>Computation</th></tr>
+<tr><td>Total proposals</td><td><code>research_proposals</code></td><td><code>count="exact"</code> row count</td></tr>
+<tr><td>Avg quality score</td><td><code>quality_scores</code> (written by Feature&nbsp;B)</td><td>mean of <code>overall_score</code></td></tr>
+<tr><td>Top trending topics</td><td><code>research_papers.keywords</code> (written by Module&nbsp;3's categorizer)</td><td>top-5 most frequent keywords, up to 500 papers sampled</td></tr>
+<tr><td>At-risk projects</td><td><code>success_predictions</code> (written by Feature&nbsp;C)</td><td>count where <code>success_probability &lt; 0.5</code></td></tr>
+<tr><td>Active supervisors</td><td><code>supervisor_matches</code> (written by Module&nbsp;2)</td><td>distinct <code>supervisor_id</code> where <code>status = "active"</code></td></tr>
+</table>
+<p>Every query is individually wrapped in its own try/except, so a failure in one table (e.g. a table not yet
+populated) degrades that one KPI to zero rather than failing the whole dashboard.</p>
+
+<div class="section-break"></div>
+
+<h2>8&nbsp;&middot;&nbsp;Planned vs. Production Models</h2>
+<table>
+<tr><th>Spec design</th><th>Status</th><th>What actually runs</th></tr>
+<tr><td>ARIMA + Prophet <b>ensemble</b>, weighted by validation MAPE, target MAPE &lt;22%, directional accuracy &gt;75%</td>
+    <td>Only ARIMA is wired into the live forecaster</td>
+    <td>Per-topic ARIMA alone (Feature&nbsp;A) — accuracy is reported per-topic as RMSE/MAE/NRMSE rather than
+        a single blended MAPE across a two-model ensemble</td></tr>
+<tr><td>Success prediction — Random Forest (n=300, depth=8) <b>+</b> XGBoost (n=200, depth=6, lr=0.1) soft
+    voting ensemble, target F1&gt;0.75, ROC-AUC&gt;0.80</td>
+    <td>Only XGBoost is present in the trained bundle</td>
+    <td>XGBoost classifier blended 40/60 with a calibrated heuristic (Feature&nbsp;C) — the RF half of the
+        planned soft-voting ensemble is replaced by the heuristic safety net instead</td></tr>
+</table>
+<div class="note"><b>Why this matters for the report:</b> both simplifications follow the same underlying
+engineering judgement seen across the whole platform — a single well-tuned model blended with an explicit,
+inspectable heuristic is easier to calibrate, debug and justify to a viva panel than a second black-box
+model stacked on top of the first, while still meeting the spirit of the spec's ensembling intent (combining
+two independent signal sources rather than trusting one score blindly).</div>
+
+<div class="section-break"></div>
+
+<h2>9&nbsp;&middot;&nbsp;Endpoint Reference</h2>
+<table>
+<tr><th>Method &amp; Path (via gateway <code>/api/v1/module4/…</code>)</th><th>Feature</th><th>Backing service</th></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/trends</span></td><td>Per-topic forecast</td><td>trend_forecaster.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/trends/compare</span></td><td>Multi-topic comparison</td><td>trend_forecaster.py</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/trends/insights</span></td><td>Emerging topics + recommendations</td><td>trend_forecaster.py</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/trends/topics</span></td><td>Available topics list</td><td>trend_forecaster.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/trends/report</span></td><td>HTML report download</td><td>trend_forecaster.generate_report_html</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/quality/quality-score</span></td><td>Quality scoring</td><td>quality_predictor.py + topic_classifier.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/predict/predict</span></td><td>Success prediction (text)</td><td>success_predictor.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/predict/predict/upload</span></td><td>Success prediction (PDF/TXT)</td><td>PyMuPDF + success_predictor.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/mindmap/mindmap</span></td><td>Concept mind map</td><td>KeyBERT + mindmap_gnn.py</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/analytics/dashboard</span></td><td>Cross-module KPI snapshot</td><td>dashboard.py + Supabase</td></tr>
+</table>
+
+<footer class="page-footer">Researchly AI &middot; Module 4 — Research Performance Analytics &middot; R26-IT-116 &middot; SLIIT</footer>
+
+</body>
+</html>

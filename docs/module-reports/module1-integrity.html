@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Module 1 — Research Integrity & Compliance</title>
+<style>
+  :root {
+    --indigo: #4338ca; --indigo-dark:#312e81; --indigo-light:#eef2ff;
+    --gray-900:#1f2937; --gray-700:#374151; --gray-600:#4b5563; --gray-200:#e5e7eb; --gray-50:#f9fafb;
+  }
+  @page { size: A4; margin: 20mm 18mm 18mm; }
+  * { box-sizing: border-box; }
+  body { font-family: Georgia, 'Times New Roman', serif; color: var(--gray-900); line-height:1.55; font-size: 10.5pt; margin:0; }
+  h1 { font-size: 20pt; color: var(--indigo); border-bottom: 3px solid var(--indigo); padding-bottom: 6px; margin-top:0;}
+  h2 { font-size: 14.5pt; color: var(--indigo); margin-top: 26px; border-bottom:1px solid var(--gray-200); padding-bottom:4px; page-break-after: avoid;}
+  h3 { font-size: 12pt; color:var(--indigo-dark); margin-top:16px; page-break-after: avoid;}
+  h4 { font-size: 10.5pt; color:var(--gray-700); margin-top: 12px; margin-bottom:4px;}
+  p, li { font-size: 10.2pt; }
+  ul, ol { margin: 6px 0; padding-left: 20px; }
+  li { margin: 3px 0; }
+  code, pre { font-family: Consolas, 'Courier New', monospace; }
+  pre { background: var(--gray-50); border:1px solid var(--gray-200); border-radius:6px; padding:9px 11px; font-size:8.6pt; overflow-x:auto; white-space:pre-wrap; page-break-inside: avoid; line-height:1.4;}
+  code.inline, code { background:var(--gray-50); padding:1px 5px; border-radius:4px; font-size: 9.2pt;}
+  table {border-collapse:collapse; width:100%; margin: 8px 0 14px; font-size:9.1pt;}
+  th,td {border:1px solid var(--gray-200); padding:5px 7px; text-align:left; vertical-align:top;}
+  th {background: var(--indigo-light); color:var(--indigo-dark);}
+  .cover {text-align:center; padding-top: 24vh; page-break-after: always;}
+  .cover .kicker {letter-spacing:3px; text-transform:uppercase; color:var(--indigo); font-size:10.5pt; font-weight:bold;}
+  .cover h1 {border:none; font-size:27pt; margin:14px 0 6px; color:var(--indigo-dark);}
+  .cover .subtitle {font-size:12.5pt; color:var(--gray-600); max-width:480px; margin:0 auto;}
+  .cover .meta {margin-top: 46px; font-size:9.5pt; color:var(--gray-600); line-height:1.9;}
+  .cover .meta b { color: var(--gray-900); }
+  .section-break {page-break-before: always;}
+  .callout {background: var(--indigo-light); border-left:4px solid var(--indigo); padding:9px 13px; margin:10px 0; font-size:9.4pt; border-radius:0 6px 6px 0;}
+  .note {background:#fef9c3; border-left:4px solid #ca8a04; padding:9px 13px; margin:10px 0; font-size:9.4pt; border-radius:0 6px 6px 0;}
+  .formula {background:#f8fafc; border:1px dashed #94a3b8; padding:9px 13px; margin:8px 0; font-family: Consolas, monospace; font-size:9.3pt; border-radius:6px;}
+  .badge {display:inline-block; background:var(--indigo); color:#fff; border-radius:999px; padding:1px 9px; font-size:7.8pt; font-weight:bold; margin-right:4px; letter-spacing:.3px;}
+  .badge.gray {background:#6b7280;}
+  .badge.amber {background:#b45309;}
+  .toc div {display:flex; justify-content:space-between; border-bottom:1px dotted var(--gray-200); padding:4px 0; font-size:10pt;}
+  .feature-header {display:flex; align-items:baseline; gap:8px;}
+  .endpoint {font-family:Consolas,monospace; font-size:9pt; background:#eef2ff; color:var(--indigo-dark); padding:1px 6px; border-radius:4px;}
+  .method-post {color:#047857; font-weight:bold;}
+  .method-get {color:#1d4ed8; font-weight:bold;}
+  footer.page-footer {font-size:8pt; color:#9ca3af; margin-top:28px; border-top:1px solid var(--gray-200); padding-top:8px;}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="kicker">Researchly AI &middot; R26-IT-116</div>
+  <h1>Module 1<br/>Research Integrity &amp; Compliance</h1>
+  <div class="subtitle">Citation intelligence, research-gap analysis, proposal generation, plagiarism detection, and mind-map construction &mdash; architecture, ML methodology, and calculation logic</div>
+  <div class="meta">
+    <b>Module owner:</b> K. D. T. Kariyawasam<br/>
+    <b>Service:</b> <code>services/module1-integrity</code> (FastAPI, port 8001)<br/>
+    <b>Frontend:</b> <code>apps/web/src/app/(dashboard)/citations/*</code><br/>
+    <b>Document generated:</b> 27 August 2026
+  </div>
+</div>
+
+<h2 style="margin-top:0;border:none;">Contents</h2>
+<div class="toc">
+  <div><span>1. Overview</span><span>How the module works</span></div>
+  <div><span>2. System Architecture &amp; Data Flow</span><span>Frontend &rarr; Gateway &rarr; ML service &rarr; DB</span></div>
+  <div><span>3. Feature A — Citation Parser &amp; Formatter</span><span>Regex engine, no ML</span></div>
+  <div><span>4. Feature B — Research Gap Analysis</span><span>SBERT retrieval + intelligence layer</span></div>
+  <div><span>5. Feature C — Proposal Generator</span><span>Retrieval-augmented composition</span></div>
+  <div><span>6. Feature D — Plagiarism Checker</span><span>SBERT + pgvector</span></div>
+  <div><span>7. Feature E — Mind Map Builder</span><span>Gemini + local fallback</span></div>
+  <div><span>8. Planned vs. Production Models</span><span>Spec deep-learning models vs. shipped code</span></div>
+  <div><span>9. Endpoint Reference</span><span>Full API surface</span></div>
+</div>
+
+<div class="section-break"></div>
+
+<h2>1&nbsp;&middot;&nbsp;Overview</h2>
+<p>Module&nbsp;1 is the <b>research-integrity toolkit</b> of the platform. It helps a student move from a raw
+idea to a defensible, correctly-cited research proposal by automating five tasks that would otherwise be
+manual and error-prone:</p>
+<ol>
+  <li><b>Citation parsing &amp; formatting</b> — turn a messy pasted reference into structured fields and render it in APA/IEEE.</li>
+  <li><b>Research-gap analysis</b> — given a topic, surface concrete, evidenced gaps in the existing SLIIT literature.</li>
+  <li><b>Proposal generation</b> — draft a problem statement, objectives, methodology and expected outcomes grounded in real prior work.</li>
+  <li><b>Plagiarism checking</b> — flag passages of a draft that are semantically too close to papers already in the corpus.</li>
+  <li><b>Mind-map building</b> — turn free text into a hierarchical concept graph for visual brainstorming.</li>
+</ol>
+<p>All five features live in one FastAPI microservice (<code>services/module1-integrity</code>, port <code>8001</code>)
+and are consumed by five corresponding pages under <code>apps/web/src/app/(dashboard)/citations/</code>
+(<code>parser</code>, <code>gaps</code>, <code>proposal</code>, <code>plagiarism</code>, <code>mindmap</code>).</p>
+
+<div class="callout">
+<b>Design principle used throughout Module&nbsp;1:</b> every feature that needs semantic understanding is built
+on <b>SBERT sentence embeddings</b> over a corpus of <b>3,858&ndash;4,219 real SLIIT undergraduate research papers</b>
+(scraped by Module&nbsp;3 and shared across modules). This keeps every result <i>grounded</i> in real prior work —
+gaps, proposals and similar-paper suggestions all cite an actual paper, author and year, rather than being
+invented by a language model.
+</div>
+
+<h2>2&nbsp;&middot;&nbsp;System Architecture &amp; Data Flow</h2>
+<p>Every request follows the same path through the stack:</p>
+<div class="formula">
+Next.js page (citations/*)
+      │  fetch() with Supabase JWT
+      ▼
+Express API Gateway  (apps/api-gateway, port 3001)
+      │  requireAuth  →  mlRateLimiter  →  callMlService(1, path, method, body)
+      ▼
+FastAPI Module 1 service  (services/module1-integrity, port 8001)
+      │  router → service layer (citation_engine / gap_analyzer / gap_intelligence /
+      │           proposal_retriever / plagiarism / mindmap)
+      ▼
+Supabase Postgres + pgvector  (research_papers.embedding, 768-dim)
+   or  local pickled SBERT index (models/trained_gap_analyzer, trained_proposal_retriever)
+   or  Gemini 2.5 Flash API (fallback / concept extraction)
+</div>
+<p>The gateway route file is <code>apps/api-gateway/src/routes/module1.routes.ts</code>. It applies
+<code>requireAuth</code> (Supabase JWT check) and <code>mlRateLimiter</code> to every route, then forwards the
+request body verbatim to the FastAPI service via <code>callMlService(1, path, method, body)</code>
+(<code>apps/api-gateway/src/services/mlProxy.service.ts</code>). PDF uploads
+(<code>/gaps/analyze-pdf</code>) are the one exception — they are re-packaged as
+<code>multipart/form-data</code> and proxied directly with <code>axios</code> because Multer already holds the
+file in memory on the gateway side. Module&nbsp;1 calls get a 60-second proxy timeout.</p>
+<p>Every ML-capable sub-feature follows the same <b>three-tier fallback</b> pattern so the product never hard-fails:</p>
+<table>
+<tr><th>Tier</th><th>Source</th><th>Used by</th></tr>
+<tr><td>1</td><td>Locally-trained SBERT index (pickled <code>.pkl</code> in <code>models/trained_*</code>)</td><td>Gap analysis, proposal generation, similar-papers, plagiarism</td></tr>
+<tr><td>2</td><td>Gemini 2.5&nbsp;Flash (<code>services/shared/gemini_client.py</code>)</td><td>Proposal generation fallback, mind-map concept extraction</td></tr>
+<tr><td>3</td><td>Deterministic local heuristic (regex / term-frequency)</td><td>Citation parsing (always), mind-map fallback, proposal last-resort template</td></tr>
+</table>
+
+<div class="section-break"></div>
+
+<h2>3&nbsp;&middot;&nbsp;Feature A — Citation Parser &amp; Formatter</h2>
+<p><span class="badge gray">No ML — deterministic engine</span></p>
+<h4>What it does</h4>
+<p>The Citation Parser page lets a student paste a raw reference string (in any rough shape) and get back:
+structured fields (authors, title, year, journal/conference/publisher, volume, issue, pages, DOI), a fully
+formatted APA and IEEE citation, in-text citation forms, and a list of missing-field warnings. It also looks
+up a DOI or title against CrossRef, and can format a whole reference list in either style.</p>
+<h4>Why no ML here</h4>
+<p>Citation strings follow well-defined bibliographic conventions (author-year-title-venue ordering, ISO DOI
+format, etc.). A carefully-tuned regex/heuristic pipeline is both more accurate and far cheaper than an ML
+model for this structured-extraction task, and — critically — it is <i>fully deterministic and auditable</i>,
+which matters for something a student will submit in an actual thesis.</p>
+<h4>How it is implemented</h4>
+<p>The engine lives in <code>app/services/citation_engine.py</code> (self-contained, no external calls) and is
+invoked from <code>app/routers/citation.py</code>. The pipeline for <span class="endpoint">POST /citations/parse</span>:</p>
+<ol>
+  <li><code>detect_source_type()</code> — regex hints classify the reference as <i>journal / conference / book / website</i>
+    (URL without DOI/journal hint → website; "Proc./Conf./Workshop" → conference; "Journal/Trans./Review" → journal;
+    known publisher names → book; DOI present with no other hint → journal by default).</li>
+  <li>DOI (<code>10\.\d{4,9}/…</code>), URL, publisher, volume, issue and page-range are each extracted by dedicated
+    regexes.</li>
+  <li><b>Year extraction</b>: every 4-digit token between 1800&ndash;2099 is collected; the latest one is taken as the
+    publication year (handles "in press since 2019, published 2021" style strings).</li>
+  <li><b>Author/title split</b>: if a year was found, the text is split at the year marker — everything before is
+    parsed as the author list (<code>_extract_authors</code>, pairing "Last, Initials" tokens via
+    <code>_smart_split_authors</code>), everything after up to the first sentence boundary is the title, and the
+    remainder is attached as the venue (<code>_attach_venue</code>) depending on source type. When no year is found,
+    a coarser first/second-sentence fallback (<code>_fallback_split</code>) is used.</li>
+  <li>A <b>confidence score</b> (0&ndash;1) is computed as a weighted sum over which fields were successfully
+    extracted — see formula below.</li>
+</ol>
+<div class="formula">
+confidence = 0.25·[authors found] + 0.25·[title found] + 0.15·[year found]
+           + 0.10·[venue found, field depends on source_type]
+           + 0.10·[doi found]  +  (0.05·[url found] only for websites)
+</div>
+<p>Formatting (<code>format_apa</code> / <code>format_ieee</code>) then renders the structured record per
+style: APA orders <i>Authors. (Year). Title. Journal, vol(issue), pages. DOI</i> with sentence-case titles
+(<code>_sentence_case</code> lower-cases everything except the first word, ALL-CAPS acronyms, and the word
+after a colon); IEEE orders <i>Initials. Last, "Title," in Venue, pp. xx, Year, doi:</i> with quoted titles.
+In-text citations follow the same duality: APA gives <code>(Last, Year)</code> / <code>(Last &amp; Second, Year)</code>
+/ <code>(Last et al., Year)</code> depending on author count, IEEE gives a bracketed running index
+<code>[n]</code>. <span class="endpoint">POST /citations/reference-list</span> renders a whole list —
+IEEE preserves input order (numbered), APA re-sorts alphabetically by first-author surname then year.</p>
+<h4>DOI / title lookup</h4>
+<p><code>app/services/crossref_lookup.py</code> calls the free CrossRef REST API
+(<code>api.crossref.org/works/{doi}</code> or <code>/works?query.bibliographic=</code>) and normalises its
+JSON shape into the same internal <code>parsed</code> record used everywhere else, so a DOI lookup goes
+through the identical formatter/warning pipeline as a manually-typed citation.</p>
+<h4>Similar-papers (the one SBERT touchpoint in this feature)</h4>
+<p><span class="endpoint">POST /citations/similar-papers</span> reuses the same SBERT index built for the
+proposal retriever (<code>models/trained_proposal_retriever/proposal_index.pkl</code>, 3,858 SLIIT papers) via
+<code>app/services/sliit_examples.py</code>: the query is embedded, cosine-scored against every paper's
+pre-computed embedding (<code>_INDEX["embeddings"] @ qvec</code>), and the top-K rows are returned with a
+280-character abstract excerpt. This lets a student check "has someone already written this exact paper?"
+directly from the citation-parser screen.</p>
+
+<div class="section-break"></div>
+
+<h2>4&nbsp;&middot;&nbsp;Feature B — Research Gap Analysis</h2>
+<p><span class="badge">SBERT retrieval</span><span class="badge amber">rule-based intelligence layer</span></p>
+<h4>What it does</h4>
+<p>Given a free-text topic (or an uploaded/pasted full paper), the Gaps page returns: a ranked list of
+concrete research gaps (each grounded in a real supporting SLIIT paper), a classification of each gap
+(future-work / methodology / dataset / domain / performance), year-over-year trend analysis with a plain-English
+interpretation, cross-domain opportunity suggestions, over-researched ("saturated") subtopics to avoid
+duplicating, and 3&ndash;5 auto-generated research-direction recommendations with problem statements. A
+downloadable, self-contained HTML report (printable to PDF) is also available.</p>
+<h4>Why SBERT (and why a two-layer design)</h4>
+<p>"Research gap" is not a field in any database — it is a <i>semantic property</i> of the corpus: a
+sentence like <i>"further work is needed on X in the Sri Lankan context"</i> is a gap regardless of exact
+wording. SBERT sentence embeddings let the system match a student's topic against a pre-built index of
+such gap sentences purely by meaning, without keyword overlap. The retrieval step alone (<code>gap_analyzer.py</code>)
+gives similarity-ranked candidates; a second <b>intelligence layer</b> (<code>gap_intelligence.py</code>) is
+rule-based on top of that — it classifies, scores, explains, and synthesises trends/recommendations without
+requiring its own trained model, keeping the pipeline fast, deterministic and cheap to run on CPU.</p>
+<h4>How it is implemented — retrieval (<code>app/services/gap_analyzer.py</code>)</h4>
+<ol>
+  <li>Lazy-loads <code>models/trained_gap_analyzer/gap_index.pkl</code> — a pickle of pre-extracted gap sentences
+    (<code>gap_text</code>, <code>gap_type</code>, <code>year</code>, <code>paper_id</code>, …) plus their SBERT
+    embeddings — and the SLIIT-fine-tuned SBERT encoder from <code>models/sbert_plagiarism/</code> (falls back to
+    base <code>all-MiniLM-L6-v2</code> if fine-tuned weights are absent).</li>
+  <li>The query topic is encoded and normalised; since both query and index vectors are L2-normalised, cosine
+    similarity reduces to a single matrix multiply: <code>sims = embeddings @ query_vec</code>.</li>
+  <li>The top <code>max(40, top_k·5)</code> candidates are pulled, filtered by <code>min_similarity</code>, and each
+    is scored on three axes (formulas below), then <b>near-duplicate clustered</b>: a greedy pass keeps a gap
+    only if its cosine similarity to every already-kept gap is below <code>DEDUP_THRESHOLD&nbsp;=&nbsp;0.78</code>,
+    so the same underlying gap surfaced by several papers isn't shown three times.</li>
+</ol>
+<div class="formula">
+gap_score   = min(1, similarity × type_weight)          type_weight ∈ {0.95 … 1.10}, e.g. research_gap=1.10, limitation=0.95
+recency     = min(0.95, 0.20 + (current_year − paper_year)/12)     — older supporting paper ⇒ "staler" gap
+novelty     = min(1, 0.5·(1 − (current_year − paper_year)/10) + 0.5·similarity)   — recent AND relevant ⇒ high novelty
+</div>
+<h4>How it is implemented — intelligence layer (<code>app/services/gap_intelligence.py</code>)</h4>
+<ul>
+  <li><b>Classification</b> — five regex pattern families (<code>CLASS_PATTERNS</code>) map each gap sentence to
+    one of <i>future_work / methodology / dataset / performance / domain</i>, falling back to the corpus's own
+    <code>gap_type</code> tag, else <i>general</i>.</li>
+  <li><b>Multi-dimensional ranking score</b> (used to sort the final top-K instead of raw similarity):</li>
+</ul>
+<div class="formula">
+multi_dim_score = 0.45·(similarity × type_weight) + 0.20·(1 − recency) + 0.20·novelty + 0.15·similarity
+</div>
+<ul>
+  <li><b>Trend analysis</b> (<code>compute_trends</code>) — buckets supporting papers by year, then fits a
+    least-squares linear slope over the last five years (<code>numpy.polyfit</code>). The slope is normalised
+    by the mean count; &gt;+15%/yr → "rising", &lt;&minus;15%/yr → "declining", otherwise "stable" — each
+    mapped to a canned interpretation sentence.</li>
+  <li><b>Cross-domain opportunities</b> (<code>cross_domain_opportunities</code>) — ten hand-authored domain
+    regexes (AI/ML, Healthcare, Agriculture, Education, Finance, Tourism, IoT, Cybersecurity, Sustainability,
+    Sri&nbsp;Lanka/Regional). The query's primary domain is matched against every other domain; a pair with
+    an intersection ratio <code>&lt; 0.20</code> of the primary domain's paper count is flagged as an
+    opportunity, scored as <code>1 − ratio</code>.</li>
+  <li><b>Saturation detection</b> (<code>detect_saturation</code>) — simple term-frequency count across matched
+    papers' titles/topics (stop-words removed); any term appearing in &ge;4 papers is flagged as
+    "well-explored — differentiate your contribution".</li>
+  <li><b>Recommendation synthesis</b> (<code>recommend_directions</code>) — one templated research-direction
+    title/rationale/problem-statement per gap category present (from <code>_gap_to_title</code> /
+    <code>_gap_to_rationale</code> / <code>_gap_to_problem</code> template dictionaries), plus up to two more
+    from the strongest cross-domain pairs — capped at 5 total.</li>
+</ul>
+<h4>PDF / full-paper input path</h4>
+<p><span class="endpoint">POST /gaps/analyze-pdf</span> and <span class="endpoint">POST /gaps/analyze-full-paper</span>
+extract text (<code>pdf_extractor.py</code>, pypdf → pdfplumber fallback), split it into abstract /
+methodology / conclusion sections via <code>split_paper_sections</code>, and build a focused query string
+(abstract first 1500 chars + methodology 1000 chars + conclusion 800 chars) before running the same
+<code>gap_intelligence.analyze()</code> pipeline — so an uploaded paper is analysed against the corpus using
+its most gap-relevant sections rather than the whole raw text.</p>
+
+<div class="section-break"></div>
+
+<h2>5&nbsp;&middot;&nbsp;Feature C — Proposal Generator</h2>
+<p><span class="badge">Retrieval-augmented composition</span><span class="badge amber">Gemini fallback</span></p>
+<h4>What it does</h4>
+<p>Given a topic (and optional domain), the Proposal page returns a structured draft: a problem statement, 3&ndash;5
+objectives, a methodology paragraph, expected outcomes, and the list of SLIIT papers the draft was grounded
+in (with similarity scores).</p>
+<h4>Why retrieval instead of a generative LLM</h4>
+<p>The spec originally called for a fine-tuned RAG+LoRA causal LLM (Mistral-7B/Llama-2 — see
+<code>app/models/proposal_generator.py</code>, still present as a wrapper class). In production, the live
+endpoint uses a lighter <b>retrieval + templating</b> approach instead
+(<code>app/services/proposal_retriever.py</code>): find the top-K most similar real SLIIT proposals by SBERT
+cosine similarity, then stitch a new proposal by combining the topic with sentence fragments pulled from
+those exemplars (their problem-statement/abstract, methodology snippets, and objective verbs). This trades a
+small amount of generative flexibility for two things that matter more here: <i>zero hallucination</i> (every
+claim is traceable to a cited SLIIT paper and author) and <i>zero GPU/latency cost</i> (a CPU matmul instead
+of an LLM forward pass), while a Gemini-based generative fallback still exists for genuinely novel topics
+with no close precedent in the corpus.</p>
+<h4>How it is implemented</h4>
+<ol>
+  <li>Loads <code>models/trained_proposal_retriever/proposal_index.pkl</code> (SLIIT paper records + embeddings)
+    and the same SLIIT-tuned SBERT encoder.</li>
+  <li>The query <code>"{topic} ({domain})"</code> is embedded and cosine-scored against every paper
+    (<code>embeddings @ qvec</code>); the top-K exemplars are kept with their similarity.</li>
+  <li><b>Problem statement</b> (<code>_compose_problem_statement</code>) — quotes the top exemplar's problem
+    statement/abstract (truncated to 350 chars) attributed to its authors and year, wrapped in a fixed
+    template sentence.</li>
+  <li><b>Objectives</b> (<code>_compose_objectives</code>) — starts from two generic SLR-style objectives, then
+    regex-extracts 1&ndash;2 action sentences per exemplar (pattern:
+    <code>\b(propose|develop|design|evaluate|implement|analyze|assess|construct)\b…</code>) up to 5 total,
+    de-duplicated by an 80-character key.</li>
+  <li><b>Methodology</b> (<code>_compose_methodology</code>) — concatenates methodology-text snippets (truncated
+    to 220 chars, up to 3 exemplars) into a fixed "mixed-methods" template paragraph.</li>
+  <li><b>Expected outcomes</b> (<code>_compose_expected_outcomes</code>) — three fixed contribution sentences plus
+    one noting how many prior SLIIT studies the work directly extends.</li>
+</ol>
+<p>If the local index is unavailable, the router falls back to a Gemini prompt asking for the same JSON shape
+(problem_statement/objectives/methodology/expected_outcomes); if even that fails, a final deterministic
+template fills in generic sentences so the endpoint never returns an error to the UI.</p>
+
+<div class="section-break"></div>
+
+<h2>6&nbsp;&middot;&nbsp;Feature D — Plagiarism Checker</h2>
+<p><span class="badge">SBERT + pgvector</span></p>
+<h4>What it does</h4>
+<p>A student pastes a draft passage; the checker returns an overall risk level (<i>low/medium/high</i>), an
+overall similarity score, and a list of flagged sentence-chunks with the exact matched source paper (title +
+year) and its similarity score.</p>
+<h4>Why SBERT + a vector database instead of string matching</h4>
+<p>Academic plagiarism is most often paraphrasing, not verbatim copying, so exact-match or n-gram techniques
+alone would miss most real cases. Embedding each chunk and comparing it against the <b>live, indexed corpus
+in Supabase</b> (rather than a static offline index) lets Module&nbsp;1 catch semantic overlap against the
+full, continuously-growing set of scraped papers, including ones added after any model was last trained.</p>
+<h4>How it is implemented (<code>app/routers/plagiarism.py</code>)</h4>
+<ol>
+  <li><code>_chunk_text</code> splits the input into groups of 3 sentences (regex sentence-boundary split), each
+    chunk padded until &gt;30 characters, so short single-sentence fragments don't get treated as full chunks.</li>
+  <li>Each chunk is embedded with the shared SBERT encoder (<code>services/shared/embedding_utils.embed</code>,
+    which lazy-loads <code>settings.sbert_model_name</code>).</li>
+  <li>The embedding is sent to the Postgres RPC function <code>match_papers(query_embedding, match_threshold,
+    match_count)</code> (defined in <code>supabase/migrations/008_functions_realtime.sql</code>), which uses
+    pgvector's cosine-distance operator directly in SQL:
+    <pre>SELECT rp.id, rp.title, rp.abstract, 1 - (rp.embedding &lt;=&gt; query_embedding) AS similarity
+FROM research_papers rp
+WHERE rp.embedding IS NOT NULL AND 1 - (rp.embedding &lt;=&gt; query_embedding) &gt; match_threshold
+ORDER BY rp.embedding &lt;=&gt; query_embedding LIMIT match_count;</pre>
+  </li>
+  <li>The single nearest match (<code>match_count = 1</code>) is kept per chunk; if its similarity clears the
+    caller-supplied <code>threshold</code> (default 0.8) it is added to <code>flagged_passages</code>.</li>
+</ol>
+<div class="formula">
+overall_score = max(similarity across all chunks)
+risk_level =  "high"    if overall_score ≥ 0.90  OR  ≥3 chunks flagged
+              "medium"  if overall_score ≥ threshold  OR  ≥1 chunk flagged
+              "low"     otherwise
+</div>
+<p>If the shared Supabase/embedding utilities cannot be imported (e.g. local dev without a DB), the endpoint
+degrades gracefully to <code>risk_level="low"</code> with an empty flag list rather than erroring.</p>
+
+<div class="section-break"></div>
+
+<h2>7&nbsp;&middot;&nbsp;Feature E — Mind Map Builder</h2>
+<p><span class="badge">Gemini concept extraction</span><span class="badge amber">term-frequency fallback</span></p>
+<h4>What it does</h4>
+<p>Given a block of text (e.g. an abstract or a set of notes), the Mind Map page returns a hierarchical
+graph — one central node, and up to <code>max_nodes&minus;1</code> concept nodes tiered into
+<i>primary/secondary/detail</i> importance — rendered by the frontend as an interactive D3/force graph.</p>
+<h4>Why Gemini, with a deterministic fallback</h4>
+<p>Extracting "the 20 most important concepts and how they relate" from arbitrary free text is a task
+generative LLMs are well-suited to (it needs real language understanding of importance and hierarchy, not
+just retrieval). Because this is best-effort/visual rather than something a mark depends on, Module&nbsp;1
+accepts an LLM in the loop here — unlike the gap/proposal/plagiarism features, which stay grounded in the
+corpus. A pure-local fallback still guarantees the endpoint always returns <i>something</i> even with no
+Gemini quota.</p>
+<h4>How it is implemented (<code>app/routers/mindmap.py</code>)</h4>
+<ol>
+  <li><b>Gemini path</b>: a structured prompt asks for a JSON object
+    <code>{"central": str, "concepts": [{"label", "weight" 0.1-1.0, "related_to_central", "parent"?}]}</code>
+    over the first 4000 characters of input, parsed via <code>shared/gemini_client.generate_json</code>.
+    Each concept becomes a node; edges connect either to its declared <code>parent</code> or to the central node.</li>
+  <li><b>Local fallback</b> (<code>_fallback_mindmap</code>, triggered on any Gemini exception): regex-extracts
+    words &ge;4 letters, removes ~35 stop-words, and counts frequency with <code>collections.Counter</code>.
+    The most frequent term becomes the central node; every node's weight is its count normalised by the
+    top term's count (<code>count / top_count</code>); every node gets a direct edge to the centre.</li>
+  <li><b>Tier assignment</b> (<code>_assign_tiers</code>, applied to both paths): non-central nodes are sorted by
+    weight and bucketed — top 25% → <i>primary</i>, next 35% → <i>secondary</i>, remainder → <i>detail</i> —
+    so the frontend can colour nodes by importance regardless of which path produced them.</li>
+</ol>
+
+<div class="section-break"></div>
+
+<h2>8&nbsp;&middot;&nbsp;Planned vs. Production Models</h2>
+<p>The original R26-IT-116 spec called for two deep-learning models for this module. Both exist in the codebase
+as inference-time wrapper classes but are <b>not wired into any live router</b> — the shipped product uses the
+lighter approaches described above instead:</p>
+<table>
+<tr><th>Spec model</th><th>File</th><th>Status</th><th>What runs in production instead</th></tr>
+<tr><td>Citation NER — fine-tuned spaCy <code>en_core_web_trf</code>,<br/>entities: AUTHOR/TITLE/JOURNAL/YEAR/VOLUME/PAGES/DOI</td>
+    <td><code>app/models/citation_ner.py</code></td><td>Wrapper class present; not imported by any router</td>
+    <td>Regex-based <code>citation_engine.py</code> (Feature&nbsp;A)</td></tr>
+<tr><td>Proposal Generator — Mistral-7B/Llama-2 + RAG (pgvector top-5) + LoRA (r=16, α=32), JSON output</td>
+    <td><code>app/models/proposal_generator.py</code></td><td>Wrapper class present (falls back to raw GPT-2 if
+    no LoRA weights found); not imported by any router</td>
+    <td>SBERT retrieval + templating, <code>proposal_retriever.py</code> (Feature&nbsp;C)</td></tr>
+</table>
+<div class="note"><b>Why this matters for the report:</b> this is a deliberate engineering trade-off, not an
+oversight — the retrieval-based approaches are faster, cheaper to run, fully explainable, and immune to LLM
+hallucination, which matters more for an academic-integrity tool than raw generative fluency. Both wrapper
+classes remain in the codebase and are trainable via <code>services/module1-integrity/training/</code> scripts,
+so they can be swapped in if/when GPU inference becomes available.</div>
+
+<div class="section-break"></div>
+
+<h2>9&nbsp;&middot;&nbsp;Endpoint Reference</h2>
+<table>
+<tr><th>Method &amp; Path (via gateway <code>/api/v1/module1/…</code>)</th><th>Feature</th><th>Backing service</th></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/citations/parse</span></td><td>Citation parser</td><td>citation_engine.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/citations/format</span></td><td>Citation formatter</td><td>citation_engine.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/citations/lookup-doi</span></td><td>DOI lookup</td><td>crossref_lookup.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/citations/lookup-title</span></td><td>Title search</td><td>crossref_lookup.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/citations/in-text</span></td><td>In-text citation</td><td>citation_engine.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/citations/reference-list</span></td><td>Reference list render</td><td>citation_engine.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/citations/similar-papers</span></td><td>SBERT similar-paper lookup</td><td>sliit_examples.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/gaps/analyze</span></td><td>Gap analysis (topic)</td><td>gap_intelligence.py + gap_analyzer.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/gaps/analyze-pdf</span></td><td>Gap analysis (PDF upload)</td><td>pdf_extractor.py + gap_intelligence.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/gaps/analyze-full-paper</span></td><td>Gap analysis (pasted text)</td><td>pdf_extractor.py + gap_intelligence.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/gaps/report</span></td><td>HTML report download</td><td>gap_intelligence.generate_report_html</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/gaps/status</span></td><td>Model health</td><td>gap_analyzer.get_model_info</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/proposals/generate</span></td><td>Proposal generation</td><td>proposal_retriever.py (+ Gemini fallback)</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/proposals/status</span></td><td>Model health</td><td>proposal_retriever.get_model_info</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/plagiarism/check</span></td><td>Plagiarism check</td><td>embedding_utils.py + pgvector RPC</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/mindmaps/generate</span></td><td>Mind map</td><td>Gemini + local term-frequency fallback</td></tr>
+</table>
+
+<footer class="page-footer">Researchly AI &middot; Module 1 — Research Integrity &amp; Compliance &middot; R26-IT-116 &middot; SLIIT</footer>
+
+</body>
+</html>

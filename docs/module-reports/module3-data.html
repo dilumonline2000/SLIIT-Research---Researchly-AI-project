@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Module 3 — Research Data Collection &amp; Management</title>
+<style>
+  :root {
+    --indigo: #4338ca; --indigo-dark:#312e81; --indigo-light:#eef2ff;
+    --gray-900:#1f2937; --gray-700:#374151; --gray-600:#4b5563; --gray-200:#e5e7eb; --gray-50:#f9fafb;
+  }
+  @page { size: A4; margin: 20mm 18mm 18mm; }
+  * { box-sizing: border-box; }
+  body { font-family: Georgia, 'Times New Roman', serif; color: var(--gray-900); line-height:1.55; font-size: 10.5pt; margin:0; }
+  h1 { font-size: 20pt; color: var(--indigo); border-bottom: 3px solid var(--indigo); padding-bottom: 6px; margin-top:0;}
+  h2 { font-size: 14.5pt; color: var(--indigo); margin-top: 26px; border-bottom:1px solid var(--gray-200); padding-bottom:4px; page-break-after: avoid;}
+  h3 { font-size: 12pt; color:var(--indigo-dark); margin-top:16px; page-break-after: avoid;}
+  h4 { font-size: 10.5pt; color:var(--gray-700); margin-top: 12px; margin-bottom:4px;}
+  p, li { font-size: 10.2pt; }
+  ul, ol { margin: 6px 0; padding-left: 20px; }
+  li { margin: 3px 0; }
+  code, pre { font-family: Consolas, 'Courier New', monospace; }
+  pre { background: var(--gray-50); border:1px solid var(--gray-200); border-radius:6px; padding:9px 11px; font-size:8.6pt; overflow-x:auto; white-space:pre-wrap; page-break-inside: avoid; line-height:1.4;}
+  code.inline, code { background:var(--gray-50); padding:1px 5px; border-radius:4px; font-size: 9.2pt;}
+  table {border-collapse:collapse; width:100%; margin: 8px 0 14px; font-size:9.1pt;}
+  th,td {border:1px solid var(--gray-200); padding:5px 7px; text-align:left; vertical-align:top;}
+  th {background: var(--indigo-light); color:var(--indigo-dark);}
+  .cover {text-align:center; padding-top: 24vh; page-break-after: always;}
+  .cover .kicker {letter-spacing:3px; text-transform:uppercase; color:var(--indigo); font-size:10.5pt; font-weight:bold;}
+  .cover h1 {border:none; font-size:27pt; margin:14px 0 6px; color:var(--indigo-dark);}
+  .cover .subtitle {font-size:12.5pt; color:var(--gray-600); max-width:480px; margin:0 auto;}
+  .cover .meta {margin-top: 46px; font-size:9.5pt; color:var(--gray-600); line-height:1.9;}
+  .cover .meta b { color: var(--gray-900); }
+  .section-break {page-break-before: always;}
+  .callout {background: var(--indigo-light); border-left:4px solid var(--indigo); padding:9px 13px; margin:10px 0; font-size:9.4pt; border-radius:0 6px 6px 0;}
+  .note {background:#fef9c3; border-left:4px solid #ca8a04; padding:9px 13px; margin:10px 0; font-size:9.4pt; border-radius:0 6px 6px 0;}
+  .formula {background:#f8fafc; border:1px dashed #94a3b8; padding:9px 13px; margin:8px 0; font-family: Consolas, monospace; font-size:9.3pt; border-radius:6px;}
+  .badge {display:inline-block; background:var(--indigo); color:#fff; border-radius:999px; padding:1px 9px; font-size:7.8pt; font-weight:bold; margin-right:4px; letter-spacing:.3px;}
+  .badge.gray {background:#6b7280;}
+  .badge.amber {background:#b45309;}
+  .toc div {display:flex; justify-content:space-between; border-bottom:1px dotted var(--gray-200); padding:4px 0; font-size:10pt;}
+  .endpoint {font-family:Consolas,monospace; font-size:9pt; background:#eef2ff; color:var(--indigo-dark); padding:1px 6px; border-radius:4px;}
+  .method-post {color:#047857; font-weight:bold;}
+  .method-get {color:#1d4ed8; font-weight:bold;}
+  footer.page-footer {font-size:8pt; color:#9ca3af; margin-top:28px; border-top:1px solid var(--gray-200); padding-top:8px;}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="kicker">Researchly AI &middot; R26-IT-116</div>
+  <h1>Module 3<br/>Research Data Collection &amp; Management</h1>
+  <div class="subtitle">Scraping &amp; ETL pipeline, topic categorization, point-wise summarization, and plagiarism-trend analysis &mdash; architecture, ML methodology, and calculation logic</div>
+  <div class="meta">
+    <b>Module owner:</b> N. V. Hewamanne<br/>
+    <b>Service:</b> <code>services/module3-data</code> (FastAPI, port 8003)<br/>
+    <b>Frontend:</b> <code>apps/web/src/app/(dashboard)/data-management/*</code><br/>
+    <b>Document generated:</b> 27 August 2026
+  </div>
+</div>
+
+<h2 style="margin-top:0;border:none;">Contents</h2>
+<div class="toc">
+  <div><span>1. Overview</span><span>How the module works</span></div>
+  <div><span>2. System Architecture &amp; Data Flow</span><span>Frontend &rarr; Gateway &rarr; ML service &rarr; DB</span></div>
+  <div><span>3. Feature A — Data Pipeline (Scraping/ETL)</span><span>arXiv &amp; Semantic Scholar scrapers</span></div>
+  <div><span>4. Feature B — Topic Categorization</span><span>TF-IDF + One-vs-Rest LogReg</span></div>
+  <div><span>5. Feature C — Point-Wise Summarizer</span><span>Extractive SBERT centroid + MMR</span></div>
+  <div><span>6. Feature D — Plagiarism Trend Analysis</span><span>Topic buckets + pairwise comparison</span></div>
+  <div><span>7. Feature E — Data Quality Metrics</span><span>Completeness / consistency / duplicates</span></div>
+  <div><span>8. Shared Infrastructure — SLIIT Paper Index</span><span>4,219-paper SBERT retrieval, used by 3 features</span></div>
+  <div><span>9. Planned vs. Production Models</span><span>Spec models vs. shipped code</span></div>
+  <div><span>10. Endpoint Reference</span><span>Full API surface</span></div>
+</div>
+
+<div class="section-break"></div>
+
+<h2>1&nbsp;&middot;&nbsp;Overview</h2>
+<p>Module&nbsp;3 is the <b>data backbone</b> of the platform — every other module's ML features ultimately
+depend on the corpus this module builds and maintains. It covers:</p>
+<ol>
+  <li><b>Data pipeline / ETL</b> — background scraper jobs that pull papers from external sources (arXiv,
+    Semantic Scholar, and others) into Supabase.</li>
+  <li><b>Topic categorization</b> — multi-label classification of a paper's research category.</li>
+  <li><b>Point-wise summarization</b> — turns a full paper (text or uploaded PDF) into a structured,
+    section-aware bullet summary.</li>
+  <li><b>Plagiarism-trend analysis</b> — topic-level plagiarism trend buckets over time, plus direct
+    pairwise comparison of two papers.</li>
+  <li><b>Data quality metrics</b> — completeness/consistency/duplicate-rate reporting over the whole
+    scraped corpus.</li>
+</ol>
+<p>All five live in one FastAPI microservice (<code>services/module3-data</code>, port <code>8003</code>),
+consumed by four pages under <code>apps/web/src/app/(dashboard)/data-management/</code>
+(<code>pipeline</code>, <code>categorization</code>, <code>summarizer</code>, <code>plagiarism-trends</code>).</p>
+
+<div class="callout">
+<b>Central design decision:</b> Module&nbsp;3 owns and encodes the 4,219-paper SLIIT corpus
+(<code>data/papers_raw_sliit.json</code> + <code>data/paper_embeddings.npy</code>) once, in-memory, and shares
+that SBERT index across topic categorization, plagiarism trends, and (indirectly, via a shared model file)
+Module&nbsp;1's similar-papers/gap-analysis features. This avoids re-encoding the same corpus multiple times
+across modules and keeps every module's "real paper" evidence consistent.
+</div>
+
+<h2>2&nbsp;&middot;&nbsp;System Architecture &amp; Data Flow</h2>
+<div class="formula">
+Next.js page (data-management/*)
+      │  fetch() with Supabase JWT
+      ▼
+Express API Gateway  (apps/api-gateway, port 3001)
+      │  requireAuth → mlRateLimiter → callMlService(3, path, method, body)   [150s timeout — first-load encode]
+      ▼
+FastAPI Module 3 service  (services/module3-data, port 8003)
+      │  router → service layer (topic_classifier / extractive_summarizer /
+      │           plagiarism_analyzer / paper_index) → scrapers (background jobs)
+      ▼
+ ┌─── models/trained_topic_classifier/classifier.pkl   (TF-IDF + LogReg bundle)
+ ├─── models/trained_plagiarism_analyzer/trend_index.pkl (topic buckets)
+ ├─── models/sbert_plagiarism/  (SLIIT fine-tuned SBERT, shared with Module 1)
+ ├─── data/papers_raw_sliit.json + paper_embeddings.npy  (4,219-paper index)
+ ├─── Supabase Postgres  (research_papers, research_summaries, plagiarism_trends)
+ └─── Gemini 2.5 Flash  (categorization + summarization fallback only)
+</div>
+<p>The gateway route file is <code>apps/api-gateway/src/routes/module3.routes.ts</code> (282 lines — the
+largest of the four, owing to PDF-upload multipart passthrough for both the summarizer and the plagiarism
+comparator). Module&nbsp;3 is given a longer proxy timeout (150s vs. 60s for the other three modules) because
+the first request after a cold start triggers a one-time ~90-second encode of the full 4,219-paper corpus if
+the pre-computed <code>paper_embeddings.npy</code> is missing.</p>
+
+<div class="section-break"></div>
+
+<h2>3&nbsp;&middot;&nbsp;Feature A — Data Pipeline (Scraping / ETL)</h2>
+<p><span class="badge gray">Async scraper jobs, no ML</span></p>
+<h4>What it does</h4>
+<p>The Pipeline page lets an admin/user kick off a background scrape job for a chosen source
+(<span class="endpoint">POST /data/scrape</span>) and poll its status (<span class="endpoint">GET
+/data/scrape/{job_id}</span>) — papers collected, current status, and any error.</p>
+<h4>Why this exists as a separate ETL layer</h4>
+<p>Every downstream ML feature — categorization, summarization, plagiarism, gap analysis, proposal
+generation, supervisor matching — depends on having a large, real, continuously-refreshable corpus of
+research papers. Centralising ingestion here (rather than each module scraping its own data) keeps
+<code>research_papers</code> as a single source of truth with consistent schema and embeddings.</p>
+<h4>How it is implemented (<code>app/routers/pipeline.py</code>)</h4>
+<ul>
+  <li>Six source scrapers exist under <code>app/scrapers/</code> (IEEE, arXiv, ACM, SLIIT, Scholar, Semantic
+    Scholar), each subclassing a common <code>base_scraper.Paper</code> dataclass shape; at present the
+    router only wires up <code>arxiv</code> and <code>semantic_scholar</code> as callable
+    (<code>_get_scraper</code>) — requesting another source returns a 400 with the list of currently
+    available ones.</li>
+  <li>Jobs run as FastAPI <code>BackgroundTasks</code> against an in-memory <code>_jobs</code> dict keyed by a
+    short UUID — status transitions <i>queued &rarr; running &rarr; success/failed</i>. With no explicit
+    <code>query</code>, arXiv scrapes across 11 pre-defined categories and Semantic Scholar across 13
+    pre-defined topics, splitting <code>max_papers</code> roughly evenly per bucket
+    (<code>max_papers // 11</code> / <code>// 13</code>) so a broad crawl still gets topical diversity rather
+    than exhausting the quota on one category.</li>
+</ul>
+
+<div class="section-break"></div>
+
+<h2>4&nbsp;&middot;&nbsp;Feature B — Topic Categorization</h2>
+<p><span class="badge">TF-IDF + One-vs-Rest Logistic Regression</span><span class="badge amber">Gemini fallback</span></p>
+<h4>What it does</h4>
+<p>Given a paper's text, <span class="endpoint">POST /data/categorize</span> returns every category whose
+confidence clears a threshold, a confidence score per category, the top-K categories regardless of threshold
+(for a "did you mean" UI), and up to 6 related real SLIIT papers in the same space.</p>
+<h4>Why TF-IDF + linear classification (not a transformer)</h4>
+<p>Multi-label topic classification over a fixed, moderate-size label set is a well-understood problem where a
+classical TF-IDF vectoriser + One-vs-Rest logistic regression bundle already reaches strong accuracy, trains
+in seconds on CPU, and returns calibrated per-label probabilities directly from
+<code>predict_proba</code> — with none of a transformer's GPU/latency overhead for what is, in production
+use, a request-time classification of short text.</p>
+<h4>How it is implemented (<code>app/services/topic_classifier.py</code>)</h4>
+<ol>
+  <li>Loads <code>models/trained_topic_classifier/classifier.pkl</code> — a bundle containing a fitted
+    <code>vectorizer</code> (TF-IDF), a <code>classifier</code> (One-vs-Rest logistic regression), and the
+    ordered <code>labels</code> list.</li>
+  <li>Input text is TF-IDF transformed (<code>vec.transform([text])</code>) and passed to
+    <code>clf.predict_proba(X)[0]</code> to get a probability per label; if the underlying estimator has no
+    <code>predict_proba</code> (non-probabilistic OvR), the raw decision-function score is passed through a
+    manual sigmoid: <code>1 / (1 + e^(&minus;score))</code>.</li>
+  <li>Labels are sorted descending by probability; the top-K (regardless of threshold) become
+    <code>top_categories</code>, and every label at or above the caller's <code>threshold</code> (default 0.3)
+    becomes the returned <code>categories</code> list.</li>
+</ol>
+<p>If a <code>paper_id</code> is supplied, the resulting categories are written back to
+<code>research_papers.keywords</code> — so classifying a paper also tags it for future retrieval/filtering.
+If the local bundle is missing, the router falls back to a Gemini prompt requesting the same
+<code>{classifications: [{category, confidence}]}</code> shape.</p>
+
+<div class="section-break"></div>
+
+<h2>5&nbsp;&middot;&nbsp;Feature C — Point-Wise Summarizer</h2>
+<p><span class="badge">Extractive SBERT (centroid + lead-bias + MMR)</span><span class="badge amber">Gemini abstractive fallback</span></p>
+<h4>What it does</h4>
+<p>Given a paper's full text (pasted or PDF-uploaded), <span class="endpoint">POST /data/summarize</span> /
+<span class="endpoint">/summarize/upload</span> return a length-controlled bullet summary (<i>quick / standard /
+detailed / extensive</i>, 5&ndash;18 points), each bullet tagged with a section category
+(<i>background / objective / methodology / results / limitations / conclusion</i>), plus a compression ratio
+and a downloadable styled HTML report.</p>
+<h4>Why extractive, not abstractive (BART/T5)</h4>
+<p>The spec called for a <code>facebook/bart-large-cnn</code> or <code>flan-t5-base</code> + LoRA abstractive
+summarizer. In production the live path is <b>extractive</b> instead — every returned sentence is
+<i>verbatim from the source paper</i>. The code's own docstring states the rationale directly: no fine-tuned
+BART weights are bundled for the SLIIT domain, extractive output carries <i>zero hallucination risk</i> for
+academic use (a summary that invents a claim the paper never made would be far worse than one that's merely
+less fluent), and it runs in ~80ms per paper on CPU versus ~5s for a BART forward pass. A Gemini abstractive
+fallback exists for when the extractive pipeline itself fails.</p>
+<h4>How it is implemented (<code>app/services/extractive_summarizer.py</code>)</h4>
+<ol>
+  <li><b>Sentence splitting</b> — regex sentence-boundary split, keeping only 20&ndash;600 character sentences,
+    capped at 80 sentences total (<code>MAX_SENTENCES</code>) to bound encoding time.</li>
+  <li><b>Encoding</b> — every sentence is embedded with the SLIIT-fine-tuned SBERT (shared with Module&nbsp;1's
+    <code>models/sbert_plagiarism</code>); the corpus <b>centroid</b> (mean embedding, re-normalised) represents
+    the "topical core" of the whole document.</li>
+  <li><b>Per-sentence base score</b> — a weighted sum of three signals:</li>
+</ol>
+<div class="formula">
+centroid_sim   = embedding(sentence) · centroid                         (cosine, since both normalised)
+position_score = 1.0                         if sentence in first 20% of document (lead-bias)
+                  0.7 / 0.5                   if in last 10% / 25% (papers often restate key points near the end)
+                  linearly decays otherwise
+length_score   = 1.0 for 60–250 chars; linear penalty outside that range (too short = fragment, too long = rambling)
+
+base = 0.55·centroid_sim + 0.20·position_score + 0.10·length_score
+</div>
+<ol start="4">
+  <li><b>Greedy MMR selection</b> (Maximal Marginal Relevance) — sentences are picked one at a time; at each
+    step, every remaining candidate is scored as <code>base[i] − 0.15·redundancy</code>, where
+    <code>redundancy = max cosine similarity to any sentence already selected</code>. This is the "novelty"
+    term (weight 0.15 mentioned in the module's own docstring) — it actively penalises picking near-duplicate
+    sentences, so the summary doesn't repeat the same point twice even if it scored highly on relevance alone.
+    Selection continues until the length preset's target point-count is reached.</li>
+  <li><b>Section categorisation</b> — each selected sentence is matched against six ordered regex families
+    (<code>_CATEGORY_PATTERNS</code>, checked most-specific first: conclusion &rarr; limitations &rarr;
+    results &rarr; methodology &rarr; objective &rarr; background), falling back to a position heuristic
+    (first 15% &rarr; background, last 15% &rarr; conclusion, else "general") when no keyword pattern
+    matches.</li>
+  <li>Selected sentences are re-sorted back into document order for the flat <code>summary</code> string, and
+    grouped by category (in a fixed display order) for the frontend's sectioned bullet view.</li>
+</ol>
+
+<div class="section-break"></div>
+
+<h2>6&nbsp;&middot;&nbsp;Feature D — Plagiarism Trend Analysis</h2>
+<p><span class="badge">SBERT topic buckets + n-gram overlap</span></p>
+<h4>What it does</h4>
+<p>Two related capabilities: (1) <span class="endpoint">POST /plagiarism-trends/search</span> — given a topic,
+find the closest pre-computed "topic buckets" and their year-by-year similarity trend (rising/falling/stable),
+alongside actual related SLIIT papers; and (2) <span class="endpoint">POST /plagiarism-trends/compare</span> /
+<span class="endpoint">compare-pdf</span> — directly compare two arbitrary paper texts (or PDFs) for
+similarity, returning a risk level and the most similar sentence pairs between them.</p>
+<h4>Why two different techniques for one feature</h4>
+<p>Trend search answers <i>"how much has plagiarism/overlap been a problem in this topic area historically?"</i>
+— a corpus-level, pre-computable question well suited to a static SBERT index of topic buckets. Pairwise
+comparison answers <i>"are these two specific documents too similar?"</i> — a request-time question that needs
+both semantic similarity (to catch paraphrasing) <i>and</i> exact overlap (to catch verbatim copy-paste), so
+it combines two signals rather than relying on embeddings alone.</p>
+<h4>How trend search is implemented (<code>app/services/plagiarism_analyzer.py::search_trends</code>)</h4>
+<p>Loads <code>models/trained_plagiarism_analyzer/trend_index.pkl</code> — pre-computed topic-bucket
+embeddings plus metadata (<code>n_records</code>, per-year avg/max similarity, flagged high-similarity pairs).
+The query topic is embedded and cosine-scored against every bucket
+(<code>_INDEX["embeddings"] @ qvec</code>); buckets below <code>min_topic_similarity</code> (default 0.25) are
+dropped, and the surviving top-K are returned alongside real related SLIIT papers pulled from the shared
+paper index (Section&nbsp;8) so the user always sees concrete evidence even when no bucket is a close match.</p>
+<h4>How pairwise comparison is implemented (<code>compare_papers</code>)</h4>
+<ol>
+  <li><b>Document-level similarity</b> — both full texts are embedded (batch of 2) and their cosine similarity
+    taken directly.</li>
+  <li><b>4-gram Jaccard overlap</b> — both texts are tokenised and turned into overlapping 4-word n-gram sets;
+    <code>jaccard = |A ∩ B| / |A ∪ B|</code>, plus one-sided overlap ratios
+    <code>|A∩B|/|A|</code> and <code>|A∩B|/|B|</code> to show which document contains more of the shared
+    material.</li>
+  <li><b>Flagged sentence pairs</b> — both documents are sentence-split (capped at 60 sentences each), all
+    sentences from both are embedded in a single batched call, and a full similarity matrix
+    <code>M = sentences_A · sentences_Bᵀ</code> is computed. The top-K highest-similarity cells
+    (via <code>np.argpartition</code>, avoiding a full sort) are surfaced as flagged pairs, stopping early once
+    similarity drops below 0.5.</li>
+</ol>
+<div class="formula">
+risk_score = 0.75 · document_similarity  +  0.25 · ngram_jaccard
+             (SBERT weighted higher — paraphrasing is the more common real-world plagiarism form;
+              n-grams remain a copy-paste "tripwire")
+
+risk_level =  "high"     if risk_score ≥ 0.80
+              "medium"   if risk_score ≥ 0.60
+              "low"      if risk_score ≥ 0.30
+              "minimal"  otherwise
+</div>
+
+<div class="section-break"></div>
+
+<h2>7&nbsp;&middot;&nbsp;Feature E — Data Quality Metrics</h2>
+<p><span class="badge gray">Deterministic aggregation, no ML</span></p>
+<h4>What it does</h4>
+<p><span class="endpoint">GET /data/quality</span> reports, over the whole <code>research_papers</code> table:
+a completeness score, a consistency score, an estimated duplicate rate, and a per-source paper count.</p>
+<h4>How it is implemented (<code>app/routers/quality.py</code>)</h4>
+<div class="formula">
+completeness = (papers_with_abstract≥50chars + papers_with_doi + papers_with_year + papers_with_title≥5chars)
+               / (4 × total_papers)
+
+consistency  = (# papers where 1950 ≤ year ≤ 2030  AND  50 ≤ len(abstract) ≤ 10000) / total_papers
+
+duplicate_rate = 1 − (# unique lower-cased titles / total_papers)
+</div>
+<p>This is a straightforward completeness/consistency/duplication audit — deliberately simple and fully
+transparent, since its purpose is to give the team (not the ML pipeline) visibility into corpus health
+before it's used to train or index anything downstream.</p>
+
+<div class="section-break"></div>
+
+<h2>8&nbsp;&middot;&nbsp;Shared Infrastructure — SLIIT Paper Index</h2>
+<p><code>app/services/paper_index.py</code> is the one piece of infrastructure reused by three separate
+features in this module (categorization's "related papers", plagiarism trend search's "related SLIIT
+papers", and available for the summarizer). It lazily loads <code>data/papers_raw_sliit.json</code>
+(4,219 records) and either reads a pre-computed <code>data/paper_embeddings.npy</code> matrix, or — only if
+that file is missing — encodes every paper's <code>"{title}. {abstract[:800]}"</code> on the fly (logged as
+taking ~90 seconds), then caches the resulting 4219×384 float32 matrix in-memory for the life of the process.
+Every subsequent <code>find_related()</code> call is then a single normalised matrix multiply
+(~30&nbsp;ms), with optional year-range and subject-substring filtering applied by zeroing out
+non-matching rows before ranking (<code>np.where(mask, sims, -1.0)</code>) rather than re-slicing the
+embeddings matrix.</p>
+
+<div class="section-break"></div>
+
+<h2>9&nbsp;&middot;&nbsp;Planned vs. Production Models</h2>
+<table>
+<tr><th>Spec model</th><th>File</th><th>Status</th><th>What runs in production instead</th></tr>
+<tr><td>SciBERT multi-label classifier (encoder + dense head, BCE loss, target Macro F1 &ge;0.80)</td>
+    <td><code>app/models/topic_classifier.py</code></td>
+    <td>Present but not imported by the router</td>
+    <td>TF-IDF + One-vs-Rest LogReg (Feature&nbsp;B, <code>app/services/topic_classifier.py</code>)</td></tr>
+<tr><td>BERTopic (SBERT + UMAP n_neighbors=15 + HDBSCAN min_cluster_size=10 + c-TF-IDF) for topic discovery</td>
+    <td><code>app/models/bertopic_model.py</code></td>
+    <td>Present but not imported by any router</td>
+    <td>Pre-computed SBERT topic buckets consumed directly by plagiarism-trend search (Feature&nbsp;D)</td></tr>
+<tr><td>Research summarizer — <code>facebook/bart-large-cnn</code> / <code>flan-t5-base</code> + LoRA
+    (r=16, &alpha;=32), target ROUGE-1&ge;0.45</td>
+    <td><code>app/models/summarizer.py</code></td>
+    <td>Present but not imported by the router</td>
+    <td>Extractive SBERT centroid+MMR summarizer (Feature&nbsp;C, <code>app/services/extractive_summarizer.py</code>)</td></tr>
+</table>
+<div class="note"><b>Why this matters for the report:</b> in every case the classical/retrieval-based
+production implementation was chosen for the same combination of reasons — no GPU inference budget on the
+deployment target (Railway), zero-hallucination requirements for academic content, and CPU-only latency
+suitable for a request/response API rather than a batch job. The deep-learning wrapper classes and their
+training scripts (<code>services/module3-data/training/</code>) remain in the repository as the documented,
+trainable path envisioned by the original spec.</div>
+
+<div class="section-break"></div>
+
+<h2>10&nbsp;&middot;&nbsp;Endpoint Reference</h2>
+<table>
+<tr><th>Method &amp; Path (via gateway <code>/api/v1/module3/…</code>)</th><th>Feature</th><th>Backing service</th></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/data/scrape</span></td><td>Start scrape job</td><td>scrapers/*.py</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/data/scrape/{job_id}</span></td><td>Job status</td><td>pipeline.py (in-memory jobs)</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/data/categorize</span></td><td>Topic categorization</td><td>topic_classifier.py (+ Gemini fallback)</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/data/categorize/status</span></td><td>Model health</td><td>topic_classifier.get_model_info</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/data/summarize</span></td><td>Summarize text</td><td>extractive_summarizer.py (+ Gemini fallback)</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/data/summarize/upload</span></td><td>Summarize PDF</td><td>pdf_extractor.py + extractive_summarizer.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/data/summarize/report</span></td><td>HTML report download</td><td>summarizer.py (render only)</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/data/summarize/status</span></td><td>Model health</td><td>extractive_summarizer.get_model_info</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/data/plagiarism-trends</span></td><td>Legacy Supabase trend rows</td><td>Supabase (plagiarism_trends)</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/data/plagiarism-trends/search</span></td><td>Topic-aware trend search</td><td>plagiarism_analyzer.py + paper_index.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/data/plagiarism-trends/search/report</span></td><td>HTML report download</td><td>plagiarism_analyzer.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/data/plagiarism-trends/compare</span></td><td>Compare two texts</td><td>plagiarism_analyzer.compare_papers</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/data/plagiarism-trends/compare-pdf</span></td><td>Compare two PDFs</td><td>pdf_extractor.py + plagiarism_analyzer.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/data/plagiarism-trends/compare/report</span></td><td>HTML report download</td><td>plagiarism_analyzer.py</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/data/plagiarism-trends/status</span></td><td>Model health</td><td>plagiarism_analyzer.get_model_info</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/data/quality</span></td><td>Corpus quality metrics</td><td>quality.py + Supabase</td></tr>
+</table>
+
+<footer class="page-footer">Researchly AI &middot; Module 3 — Research Data Collection &amp; Management &middot; R26-IT-116 &middot; SLIIT</footer>
+
+</body>
+</html>

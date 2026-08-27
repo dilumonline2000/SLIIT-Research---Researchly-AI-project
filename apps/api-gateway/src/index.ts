@@ -23,9 +23,10 @@ app.use(
       if (!origin) return cb(null, true);
       // Exact match
       if (allowedOrigins.includes(origin)) return cb(null, true);
-      // Allow any Vercel deployment of this project
-      if (/^https:\/\/researchly-ai(-[a-z0-9-]+)?\.vercel\.app$/.test(origin)) return cb(null, true);
-      cb(new Error(`CORS: ${origin} not allowed`));
+      // Allow any Vercel deployment of this project (production domain, preview
+      // aliases like researchly-<hash>-dilum-s-projects.vercel.app, etc.)
+      if (/^https:\/\/researchly[a-z0-9-]*\.vercel\.app$/.test(origin)) return cb(null, true);
+      cb(null, false);
     },
     credentials: true,
   }),

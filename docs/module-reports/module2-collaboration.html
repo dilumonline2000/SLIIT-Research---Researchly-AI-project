@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Module 2 — Collaboration &amp; Recommendation</title>
+<style>
+  :root {
+    --indigo: #4338ca; --indigo-dark:#312e81; --indigo-light:#eef2ff;
+    --gray-900:#1f2937; --gray-700:#374151; --gray-600:#4b5563; --gray-200:#e5e7eb; --gray-50:#f9fafb;
+  }
+  @page { size: A4; margin: 20mm 18mm 18mm; }
+  * { box-sizing: border-box; }
+  body { font-family: Georgia, 'Times New Roman', serif; color: var(--gray-900); line-height:1.55; font-size: 10.5pt; margin:0; }
+  h1 { font-size: 20pt; color: var(--indigo); border-bottom: 3px solid var(--indigo); padding-bottom: 6px; margin-top:0;}
+  h2 { font-size: 14.5pt; color: var(--indigo); margin-top: 26px; border-bottom:1px solid var(--gray-200); padding-bottom:4px; page-break-after: avoid;}
+  h3 { font-size: 12pt; color:var(--indigo-dark); margin-top:16px; page-break-after: avoid;}
+  h4 { font-size: 10.5pt; color:var(--gray-700); margin-top: 12px; margin-bottom:4px;}
+  p, li { font-size: 10.2pt; }
+  ul, ol { margin: 6px 0; padding-left: 20px; }
+  li { margin: 3px 0; }
+  code, pre { font-family: Consolas, 'Courier New', monospace; }
+  pre { background: var(--gray-50); border:1px solid var(--gray-200); border-radius:6px; padding:9px 11px; font-size:8.6pt; overflow-x:auto; white-space:pre-wrap; page-break-inside: avoid; line-height:1.4;}
+  code.inline, code { background:var(--gray-50); padding:1px 5px; border-radius:4px; font-size: 9.2pt;}
+  table {border-collapse:collapse; width:100%; margin: 8px 0 14px; font-size:9.1pt;}
+  th,td {border:1px solid var(--gray-200); padding:5px 7px; text-align:left; vertical-align:top;}
+  th {background: var(--indigo-light); color:var(--indigo-dark);}
+  .cover {text-align:center; padding-top: 24vh; page-break-after: always;}
+  .cover .kicker {letter-spacing:3px; text-transform:uppercase; color:var(--indigo); font-size:10.5pt; font-weight:bold;}
+  .cover h1 {border:none; font-size:27pt; margin:14px 0 6px; color:var(--indigo-dark);}
+  .cover .subtitle {font-size:12.5pt; color:var(--gray-600); max-width:480px; margin:0 auto;}
+  .cover .meta {margin-top: 46px; font-size:9.5pt; color:var(--gray-600); line-height:1.9;}
+  .cover .meta b { color: var(--gray-900); }
+  .section-break {page-break-before: always;}
+  .callout {background: var(--indigo-light); border-left:4px solid var(--indigo); padding:9px 13px; margin:10px 0; font-size:9.4pt; border-radius:0 6px 6px 0;}
+  .note {background:#fef9c3; border-left:4px solid #ca8a04; padding:9px 13px; margin:10px 0; font-size:9.4pt; border-radius:0 6px 6px 0;}
+  .formula {background:#f8fafc; border:1px dashed #94a3b8; padding:9px 13px; margin:8px 0; font-family: Consolas, monospace; font-size:9.3pt; border-radius:6px;}
+  .badge {display:inline-block; background:var(--indigo); color:#fff; border-radius:999px; padding:1px 9px; font-size:7.8pt; font-weight:bold; margin-right:4px; letter-spacing:.3px;}
+  .badge.gray {background:#6b7280;}
+  .badge.amber {background:#b45309;}
+  .toc div {display:flex; justify-content:space-between; border-bottom:1px dotted var(--gray-200); padding:4px 0; font-size:10pt;}
+  .endpoint {font-family:Consolas,monospace; font-size:9pt; background:#eef2ff; color:var(--indigo-dark); padding:1px 6px; border-radius:4px;}
+  .method-post {color:#047857; font-weight:bold;}
+  .method-get {color:#1d4ed8; font-weight:bold;}
+  footer.page-footer {font-size:8pt; color:#9ca3af; margin-top:28px; border-top:1px solid var(--gray-200); padding-top:8px;}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="kicker">Researchly AI &middot; R26-IT-116</div>
+  <h1>Module 2<br/>Collaboration &amp; Recommendation</h1>
+  <div class="subtitle">Supervisor matching, peer group formation, aspect-based feedback sentiment, and supervisor effectiveness scoring &mdash; architecture, ML methodology, and calculation logic</div>
+  <div class="meta">
+    <b>Module owner:</b> S. P. U. Gunathilaka<br/>
+    <b>Service:</b> <code>services/module2-collaboration</code> (FastAPI, port 8002)<br/>
+    <b>Frontend:</b> <code>apps/web/src/app/(dashboard)/collaboration/*</code><br/>
+    <b>Document generated:</b> 27 August 2026
+  </div>
+</div>
+
+<h2 style="margin-top:0;border:none;">Contents</h2>
+<div class="toc">
+  <div><span>1. Overview</span><span>How the module works</span></div>
+  <div><span>2. System Architecture &amp; Data Flow</span><span>Frontend &rarr; Gateway &rarr; ML service &rarr; DB</span></div>
+  <div><span>3. Feature A — Supervisor Matching</span><span>Fine-tuned SBERT + multi-factor scoring</span></div>
+  <div><span>4. Feature B — Supervisor Profile Enrichment</span><span>Semantic Scholar + Gemini research-focus summary</span></div>
+  <div><span>5. Feature C — Peer Connect (Group Formation)</span><span>Supabase-backed groups + legacy SBERT matcher</span></div>
+  <div><span>6. Feature D — Feedback &amp; Aspect-Based Sentiment</span><span>Gemini sentiment + OTP-verified ratings</span></div>
+  <div><span>7. Feature E — Supervisor Effectiveness Scoring</span><span>Blended multi-signal score</span></div>
+  <div><span>8. Planned vs. Production Models</span><span>Spec sentiment model vs. shipped code</span></div>
+  <div><span>9. Endpoint Reference</span><span>Full API surface</span></div>
+</div>
+
+<div class="section-break"></div>
+
+<h2>1&nbsp;&middot;&nbsp;Overview</h2>
+<p>Module&nbsp;2 is the <b>collaboration layer</b> of the platform: it connects students to the right supervisor,
+to each other, and closes the feedback loop that lets the system learn how effective each supervisor
+actually is. It covers four user-facing flows:</p>
+<ol>
+  <li><b>Supervisor matching</b> — rank SLIIT supervisors against a student's free-text research proposal.</li>
+  <li><b>Supervisor profile view</b> — real publication history, charts, and an AI-written "recent focus" summary
+    for a supervisor, pulled live from Semantic Scholar.</li>
+  <li><b>Peer Connect</b> — students post open research-group slots and receive join requests from peers.</li>
+  <li><b>Feedback &amp; effectiveness</b> — students rate/comment on supervisors (with email OTP verification);
+    aspect-based sentiment is extracted and rolled up into a per-supervisor effectiveness score.</li>
+</ol>
+<p>All four live in one FastAPI microservice (<code>services/module2-collaboration</code>, port <code>8002</code>),
+consumed by four pages under <code>apps/web/src/app/(dashboard)/collaboration/</code>
+(<code>supervisor-match</code>, <code>peer-connect</code>, <code>feedback</code>, <code>effectiveness</code>).</p>
+
+<div class="callout">
+<b>Two different ML approaches coexist deliberately in this module:</b> supervisor matching uses a
+locally fine-tuned <b>SBERT bi-encoder</b> (fast, deterministic, explainable — the score a student sees is a
+real cosine similarity), while feedback sentiment and the "recent research focus" summary use
+<b>Gemini 2.5&nbsp;Flash</b> (better suited to open-ended natural-language judgement calls that don't have a
+fixed answer). This mirrors Module&nbsp;1's pattern of "retrieval where explainability matters, generative
+LLM where interpretation is genuinely needed."
+</div>
+
+<h2>2&nbsp;&middot;&nbsp;System Architecture &amp; Data Flow</h2>
+<div class="formula">
+Next.js page (collaboration/*)
+      │  fetch() with Supabase JWT
+      ▼
+Express API Gateway  (apps/api-gateway, port 3001)
+      │  requireAuth → mlRateLimiter → callMlService(2, path, method, body)
+      ▼
+FastAPI Module 2 service  (services/module2-collaboration, port 8002)
+      │  router → service layer (supervisor_matcher / supervisor_directory)
+      ▼
+ ┌─── models/trained_supervisor_matcher/  (fine-tuned SBERT, local)
+ ├─── data/supervisors_with_embeddings.json  (pre-computed supervisor vectors)
+ ├─── Supabase Postgres  (peer_groups, supervisor_ratings, profiles, supervisor_matches)
+ ├─── Semantic Scholar API  (live publication data, rate-limited to 1 req/s)
+ └─── Gemini 2.5 Flash  (sentiment analysis, research-focus summaries)
+</div>
+<p>The gateway route file is <code>apps/api-gateway/src/routes/module2.routes.ts</code> (17 routes). All
+requests pass through <code>requireAuth</code> + <code>mlRateLimiter</code> and are proxied verbatim via
+<code>callMlService(2, path, method, body)</code>, with a 60-second timeout.</p>
+
+<div class="section-break"></div>
+
+<h2>3&nbsp;&middot;&nbsp;Feature A — Supervisor Matching</h2>
+<p><span class="badge">Fine-tuned SBERT bi-encoder</span></p>
+<h4>What it does</h4>
+<p>A student writes a free-text research proposal (or, in the legacy path, a list of interest keywords + an
+abstract); <span class="endpoint">POST /matching/supervisors</span> returns the top-K SLIIT supervisors ranked
+by relevance, each with a similarity score, a blended "multi-factor" score, a human-readable explanation of
+why they matched, and their current availability/capacity.</p>
+<h4>Why a fine-tuned SBERT bi-encoder</h4>
+<p>Matching a proposal to a supervisor is fundamentally a semantic-similarity problem — "IoT-based crop
+monitoring using edge computing" should match a supervisor whose stated interests are "wireless sensor
+networks" even with zero keyword overlap. A bi-encoder (as opposed to a cross-encoder or an LLM call) lets
+every supervisor's embedding be pre-computed once and reused for every subsequent query — matching is then
+just a cosine similarity over pre-computed vectors, so it stays fast (no per-request model forward pass over
+supervisor text) and cheap enough to run on CPU for every student query. The base model is fine-tuned
+specifically on SLIIT supervisor↔proposal pairs (<code>training/train_supervisor_matcher.py</code>,
+<code>data/training_pairs.json</code>) so that domain-specific phrasing scores correctly, rather than relying
+on a generic sentence-similarity model.</p>
+<h4>How it is implemented</h4>
+<p><code>app/services/supervisor_matcher.py</code>:</p>
+<ol>
+  <li><b>Model loading</b> (<code>load_model</code>) — checks for
+    <code>models/trained_supervisor_matcher/model.safetensors</code>; if present, loads the fine-tuned SBERT
+    (384-dim, <code>all-MiniLM-L6-v2</code> architecture); otherwise falls back to the base pretrained
+    checkpoint. The router (<code>app/routers/supervisor.py</code>) accepts either a free-text
+    <code>proposal</code> string (preferred) or the legacy <code>research_interests[] + abstract</code> shape,
+    which is joined into an equivalent proposal string before encoding.</li>
+  <li><b>Encoding &amp; scoring</b> (<code>match_supervisors</code>) — the query is encoded once; supervisor
+    embeddings are read from the pre-computed <code>data/supervisors_with_embeddings.json</code> (no query-time
+    re-encoding of every supervisor's profile). Cosine similarity is computed manually:
+    <code>dot(a,b) / (‖a‖·‖b‖ + 1e-8)</code>.</li>
+  <li>Candidates below <code>min_similarity</code> (default 0.2) are dropped.</li>
+  <li><b>Multi-factor score</b> blends similarity with real-world availability so an excellent semantic match
+    who is already at capacity doesn't crowd out a slightly-lower-similarity supervisor with open slots:</li>
+</ol>
+<div class="formula">
+availability_factor =  0.0  if supervisor.availability == False
+                        0.3  if current_students ≥ max_students   (at capacity)
+                        1.0  otherwise
+
+multi_factor_score = 0.70 · similarity  +  0.30 · availability_factor
+</div>
+<ol start="5">
+  <li><b>Explanation generation</b> (<code>_build_explanation</code>) — a template sentence is chosen based on
+    (a) whether any of the supervisor's stated interest keywords literally appear as a substring match in the
+    query, and (b) similarity thresholds (&gt;0.70 "excellent match", &gt;0.55 "could supervise", else
+    "some relevant expertise") — giving the student a reason, not just a number.</li>
+  <li>Results are sorted by <code>multi_factor_score</code> and truncated to <code>top_k</code> (default 5).</li>
+</ol>
+
+<div class="section-break"></div>
+
+<h2>4&nbsp;&middot;&nbsp;Feature B — Supervisor Profile Enrichment</h2>
+<p><span class="badge">Semantic Scholar API</span><span class="badge amber">Gemini summary</span></p>
+<h4>What it does</h4>
+<p>Clicking a supervisor card opens a full profile: <span class="endpoint">GET /matching/supervisors/{id}/papers</span>
+returns their real publication list (title, year, venue, DOI/PDF link), a year-distribution bar chart, a
+research-topic pie chart (from their declared interests), and an AI-generated 2&ndash;3&nbsp;sentence
+"recent research focus" summary with an activity-level tag.</p>
+<h4>Why an external API instead of a static dataset</h4>
+<p>Publication history changes continuously and a supervisor's actual output is the single strongest signal
+of what they can supervise <i>right now</i> — a static, hand-maintained list would go stale immediately. The
+Semantic Scholar Graph API is queried live by author name, giving up-to-date results without maintaining a
+separate database of publications.</p>
+<h4>How it is implemented (<code>app/routers/supervisor.py</code>)</h4>
+<ul>
+  <li><b>Rate-limit-aware fetching</b> — Semantic Scholar's free/keyed tier allows only 1&nbsp;request/second,
+    shared across every concurrent caller of the process. A module-level <code>asyncio.Lock</code> plus a
+    last-call timestamp (<code>_S2_LOCK</code>, <code>_S2_MIN_INTERVAL = 1.05s</code>) serialises every outbound
+    call; <code>_s2_get</code> retries up to 3 times with increasing backoff on HTTP&nbsp;429 before giving up.
+    A single lookup needs two sequential calls — author search, then that author's papers.</li>
+  <li><b>Two-tier caching</b> (<code>_ss_cache</code>) — successful lookups (including genuinely-empty results)
+    are cached for <code>_SS_TTL = 3600s</code> (1&nbsp;hour); failed/rate-limited lookups are cached for only
+    <code>_SS_FAILURE_TTL = 90s</code> so a transient 429 doesn't lock out a supervisor's data for an hour.</li>
+  <li><b>Year distribution &amp; topic chart</b> — papers are bucketed by year (&ge;2010 only, to avoid a long
+    tail skewing the chart) for the Recharts <code>BarChart</code>; the supervisor's declared
+    <code>research_interests</code> (top 10) feed the <code>PieChart</code> directly.</li>
+  <li><b>AI research-focus summary</b> (<code>_generate_research_focus</code>) — the 15 most recent paper titles
+    + years are sent to Gemini with a prompt asking it to infer what the supervisor has recently worked on and
+    how active they are, returned as JSON
+    <code>{"summary", "recent_focus_areas": […], "activity_level": "Actively publishing" | "Occasional
+    publications" | "Limited recent activity"}</code>. This is strictly best-effort — any Gemini failure just
+    omits the field, it never breaks the papers/charts response — and is cached separately for 24&nbsp;hours
+    (<code>_FOCUS_TTL</code>) since a supervisor's overall research direction doesn't shift hour to hour.</li>
+</ul>
+
+<div class="section-break"></div>
+
+<h2>5&nbsp;&middot;&nbsp;Feature C — Peer Connect (Group Formation)</h2>
+<p><span class="badge gray">Supabase CRUD</span><span class="badge amber">legacy SBERT matcher retained</span></p>
+<h4>What it does</h4>
+<p>A student can create a research group with a project title/description and a number of open slots
+(<span class="endpoint">POST /peers/groups</span>), browse open groups (<span class="endpoint">GET /peers/groups</span>),
+and request to join one (<span class="endpoint">POST /peers/groups/{id}/join-request</span>).</p>
+<h4>Why this shifted away from pure ML matching</h4>
+<p>The module still exposes a legacy content-based SBERT peer matcher (<code>POST /peers</code>,
+<code>app/routers/peer.py</code>) that embeds a student's interests/department and queries the
+<code>match_peers</code> pgvector RPC for similar student profiles. In production the primary flow is a more
+direct, human-in-the-loop <b>group marketplace</b> instead: students self-describe what they're building and
+who they need, rather than the system guessing compatibility purely from profile similarity — group formation
+depends on availability, timing and personal chemistry as much as topical overlap, which a similarity score
+alone can't capture well.</p>
+<h4>How the mailto join-request flow works</h4>
+<p>When a student requests to join a group, the backend persists the request to
+<code>peer_group_join_requests</code> and builds a <code>mailto:</code> URL with a pre-filled subject and body
+addressed to the group leader's contact email — the frontend opens this in a new tab so the email is actually
+sent from the <i>requester's own mailbox</i>, avoiding the need for a server-side SMTP relay for this flow.</p>
+<h4>Legacy SBERT peer matcher — how it works</h4>
+<div class="formula">
+query_text = ". ".join(student.research_interests)  or  student.department  (fallback)
+query_vec  = embed(query_text)                          (services/shared/embedding_utils.py)
+candidates = supabase.rpc("match_peers", {query_embedding, match_count: top_k×2, match_threshold: 0.3})
+shared_interests      = student_interests ∩ candidate_interests
+complementary_skills  = candidate_interests − student_interests
+</div>
+<p>Results are sorted by similarity and truncated to <code>top_k</code> (default 10); each match reports both
+overlapping interests and complementary ones, since a good collaborator is often someone with adjacent, not
+identical, skills.</p>
+
+<div class="section-break"></div>
+
+<h2>6&nbsp;&middot;&nbsp;Feature D — Feedback &amp; Aspect-Based Sentiment</h2>
+<p><span class="badge">Gemini structured sentiment</span><span class="badge gray">OTP email verification</span></p>
+<h4>What it does</h4>
+<p>A student picks a supervisor (SLIIT-directory or system-registered), optionally verifies their email via a
+one-time code, then submits a 1&ndash;5 star rating with optional free-text feedback. If text is given, it is
+analysed for sentiment across four aspects — <i>methodology, writing, originality, data_analysis</i> — each
+labelled positive/neutral/negative with probability scores, plus an overall sentiment and a &minus;1..+1 score.</p>
+<h4>Why Gemini for aspect-based sentiment</h4>
+<p>Aspect-based sentiment classification (deciding sentiment <i>per named dimension</i> within one free-text
+comment) needs genuine language understanding of which sentence relates to which aspect — a capability a
+general-purpose LLM already has well-calibrated, without needing a dedicated fine-tuned classifier trained on
+a small labelled dataset. The prompt (in <code>_gemini_sentiment</code>) explicitly asks for four aspect
+objects each with <code>{sentiment, positive, neutral, negative}</code> probabilities plus an overall verdict,
+returned as strict JSON via <code>shared/gemini_client.generate_json</code>.</p>
+<h4>How it is implemented (<code>app/routers/feedback.py</code>)</h4>
+<ul>
+  <li><b>Fallback when Gemini/text unavailable</b> — <code>_stars_to_sentiment</code> derives a sentiment purely
+    from the star rating: <code>score = (stars − 3) / 2</code>, giving &minus;1 for 1★, 0 for 3★, +1 for 5★ —
+    so every submitted rating always has a usable sentiment score even with empty feedback text.</li>
+  <li><b>Overall score/label reconciliation</b> — if Gemini's own <code>overall_sentiment</code> field is
+    missing or invalid, it's derived from the mean of the four aspect scores: &gt;0.3 → positive,
+    &lt;&minus;0.3 → negative, else neutral.</li>
+  <li><b>OTP email verification</b> (<code>request-otp</code> / <code>verify-otp</code>) — a random 6-digit code
+    is generated and kept in an in-memory dict (<code>_otp_store</code>, 10-minute TTL) keyed by lower-cased
+    email. If SMTP env vars (<code>SMTP_HOST/USER/PASS</code>) are configured, the code is emailed via
+    <code>smtplib</code> (SSL on port&nbsp;465 or STARTTLS on 587, with a re-<code>ehlo()</code> after the TLS
+    handshake as Gmail requires); otherwise the OTP is returned directly in the API response
+    (<code>dev_otp</code>) so the demo still works without a configured mail relay. Verification is single-use
+    — a successful check deletes the stored code.</li>
+  <li><b>Persistence</b> — <span class="endpoint">POST /feedback/submit</span> writes to
+    <code>supervisor_ratings</code>, storing both the raw star rating and the computed sentiment
+    (label + score + per-aspect probabilities) plus the verified rater name/email, so effectiveness scoring
+    (Feature&nbsp;E) never has to re-run sentiment analysis.</li>
+</ul>
+
+<div class="section-break"></div>
+
+<h2>7&nbsp;&middot;&nbsp;Feature E — Supervisor Effectiveness Scoring</h2>
+<p><span class="badge gray">Weighted aggregation, no ML at query time</span></p>
+<h4>What it does</h4>
+<p>The Effectiveness page lists every supervisor with a single blended 0&ndash;1 <code>overall_score</code>,
+sortable, plus a detail view (<span class="endpoint">GET /effectiveness/by-key</span>) showing the score
+breakdown, completion rate, average sentiment, student satisfaction rate, and the 10 most recent (verified)
+feedback entries.</p>
+<h4>Why a hand-weighted blend instead of a trained model</h4>
+<p>"Effectiveness" here is deliberately built as a transparent, auditable aggregation of signals already
+computed elsewhere (star ratings, Gemini sentiment scores from Feature&nbsp;D, and completion rate from
+Supabase) rather than a learned model — the weights are visible to the user in the API response itself
+(<code>breakdown.weights</code>), which matters for something that could affect a supervisor's reputation.</p>
+<h4>How it is implemented (<code>app/routers/effectiveness.py</code>)</h4>
+<div class="formula">
+star_norm    = avg_stars / 5                      (None if no ratings)
+sent_norm    = (avg_sentiment + 1) / 2             (maps −1..+1 → 0..1)
+satisfaction = (# ratings with sentiment_score &gt; 0.3) / (# ratings with a sentiment score)
+completion   = completed_matches / total_matches   (system supervisors only; 0 for SLIIT-directory entries)
+
+overall_score = Σ(weight × value) / Σ(weight)      over whichever signals are available
+  weights: stars 0.40 · sentiment 0.25 · satisfaction 0.15 · completion 0.20
+</div>
+<p>Missing signals are simply dropped from both the numerator and denominator (re-normalised), so a
+supervisor with zero ratings still gets a defined score from completion rate alone rather than a hard zero.
+<code>_completion_rate_for_system</code> counts <code>supervisor_matches</code> rows with
+<code>status = "completed"</code> against the total for that supervisor — this only applies to
+system-registered supervisors, since SLIIT-directory entries have no match-tracking rows.</p>
+
+<div class="section-break"></div>
+
+<h2>8&nbsp;&middot;&nbsp;Planned vs. Production Models</h2>
+<table>
+<tr><th>Spec model</th><th>File</th><th>Status</th><th>What runs in production instead</th></tr>
+<tr><td>Aspect-based sentiment — fine-tuned <code>bert-base-uncased</code>, 4 aspects (methodology/writing/
+    originality/data_analysis), target accuracy &ge;93%</td>
+    <td><code>app/models/sentiment.py</code></td>
+    <td>Wrapper class present; no trained weights bundled; not imported by any router</td>
+    <td>Gemini 2.5&nbsp;Flash structured-JSON prompt (Feature&nbsp;D)</td></tr>
+</table>
+<div class="note"><b>Why this matters for the report:</b> the fine-tuned BERT classifier would need a
+labelled SLIIT-specific dataset large enough to hit the 93% accuracy target across four aspects
+simultaneously; Gemini's zero-shot aspect classification reaches comparable practical quality without that
+labelling effort, and — as with Module&nbsp;1 — it lets the same underlying LLM client be reused across the
+mind-map, proposal-fallback, and sentiment features rather than maintaining a separate model artifact.</div>
+
+<div class="section-break"></div>
+
+<h2>9&nbsp;&middot;&nbsp;Endpoint Reference</h2>
+<table>
+<tr><th>Method &amp; Path (via gateway <code>/api/v1/module2/…</code>)</th><th>Feature</th><th>Backing service</th></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/matching/supervisors</span></td><td>Supervisor matching</td><td>supervisor_matcher.py</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/matching/supervisors/{id}/papers</span></td><td>Profile + publications + charts</td><td>Semantic Scholar + Gemini</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/peers/groups</span></td><td>Create group</td><td>Supabase (peer_groups)</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/peers/groups</span></td><td>List groups</td><td>Supabase (peer_groups)</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/peers/groups/{id}</span></td><td>Group detail</td><td>Supabase (peer_groups)</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/peers/groups/{id}/join-request</span></td><td>Join request + mailto</td><td>Supabase (peer_group_join_requests)</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/peers</span> <i>(legacy)</i></td><td>Content-based peer matching</td><td>embedding_utils.py + pgvector RPC</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/feedback/request-otp</span></td><td>Email OTP request</td><td>smtplib / in-memory store</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/feedback/verify-otp</span></td><td>Email OTP verify</td><td>in-memory store</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/feedback/analyze</span></td><td>Standalone sentiment analysis</td><td>Gemini 2.5 Flash</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/feedback/supervisors</span></td><td>Rateable supervisor directory</td><td>supervisor_directory.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/feedback/submit</span></td><td>Submit rating + feedback</td><td>Gemini + Supabase (supervisor_ratings)</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/feedback/by-supervisor</span></td><td>Ratings for one supervisor</td><td>Supabase (supervisor_ratings)</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/effectiveness</span></td><td>Effectiveness list (all supervisors)</td><td>effectiveness.py</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/effectiveness/by-key</span></td><td>Effectiveness detail</td><td>effectiveness.py</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/effectiveness/{id}</span> <i>(legacy)</i></td><td>Effectiveness by system UUID</td><td>effectiveness.py</td></tr>
+</table>
+
+<footer class="page-footer">Researchly AI &middot; Module 2 — Collaboration &amp; Recommendation &middot; R26-IT-116 &middot; SLIIT</footer>
+
+</body>
+</html>
