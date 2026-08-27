@@ -1,0 +1,2478 @@
+[
+  {
+    "id": "M3-01",
+    "feature": "Topic Categorization (CS/ML abstract)",
+    "method": "POST",
+    "path": "/data/categorize",
+    "request": {
+      "text": "This paper presents a deep convolutional neural network architecture for classifying medical images, achieving state-of-the-art accuracy on a benchmark dataset using transfer learning and data augmentation techniques.",
+      "threshold": 0.2,
+      "top_k": 5
+    },
+    "status": 200,
+    "response": {
+      "categories": [
+        "deep learning"
+      ],
+      "confidence_scores": {
+        "deep learning": 0.2813
+      },
+      "top_categories": [
+        {
+          "label": "deep learning",
+          "confidence": 0.2813
+        },
+        {
+          "label": "machine learning",
+          "confidence": 0.1411
+        },
+        {
+          "label": "image processing",
+          "confidence": 0.0639
+        },
+        {
+          "label": "artificial intelligence",
+          "confidence": 0.0425
+        },
+        {
+          "label": "classification",
+          "confidence": 0.0335
+        }
+      ],
+      "related_papers": [
+        {
+          "paper_id": "9bee9a08-35d9-4057-b314-dce45e3d4ed5",
+          "title": "Pneumonia Detection and Lung Disease Assessment from Chest X-rays: Developing A Diagnostic Support System",
+          "authors": [
+            "Jayawardena, C.A",
+            "Wedasingha, N",
+            "Kolambage, N",
+            "Perera, S"
+          ],
+          "year": 2025,
+          "url": "https://rda.sliit.lk/handle/123456789/3948",
+          "subject": [
+            "Pneumonia",
+            "Chest X-rays",
+            "Diagnostic Support System",
+            "Machine Learning",
+            "CheXNet",
+            "DICOM"
+          ],
+          "similarity": 0.652,
+          "abstract_excerpt": "This research, dedicated to developing an accurate and efficient pneumonia detection system\r\nfrom Chest X-Ray images, highlights the significance of automated tools in enhancing healthcare\r\ndiagnostics. Its significance lies in the fact that pneumonia is a prevalent respiratory c…"
+        },
+        {
+          "paper_id": "40cbd81f-0385-4f8a-b546-743c06b2a1e1",
+          "title": "An Integrated Deep Learning Framework for Early Detection of Vision Disorders",
+          "authors": [
+            "Jayathilaka, S",
+            "Balaruban, D",
+            "Kumanayake, I",
+            "Elladeniya, A",
+            "Wijendra, D",
+            "Krishara, J",
+            "De Silva, M"
+          ],
+          "year": 2025,
+          "url": "https://rda.sliit.lk/handle/123456789/4886",
+          "subject": [
+            "Age Related Macular Degeneration",
+            "Diabetic Retinopathy",
+            "Glaucoma",
+            "Retinal Vein Occlusion"
+          ],
+          "similarity": 0.5153,
+          "abstract_excerpt": "Vision impairment due to retinal diseases like Diabetic Retinopathy (DR), Age-Related Macular Degeneration (AMD), Glaucoma, and Retinal Vein Occlusion (RVO) poses a significant health challenge in Sri Lanka, where these conditions are leading causes of blindness. This research pr…"
+        },
+        {
+          "paper_id": "6ae4f1b4-61e7-4031-ad4f-4affaa8b5e64",
+          "title": "LISA : Enhance the explainability of medical images unifying current XAI techniques",
+          "authors": [
+            "Abeyagunasekera, S. H. P",
+            "Perera, Y",
+            "Chamara, K",
+            "Kaushalya, U",
+            "Sumathipala, P"
+          ],
+          "year": 2022,
+          "url": "https://rda.sliit.lk/handle/123456789/2978",
+          "subject": [
+            "LISA",
+            "Enhance",
+            "explainability",
+            "medical images",
+            "unifying current",
+            "XAI techniques"
+          ],
+          "similarity": 0.5134,
+          "abstract_excerpt": "This work proposed a unified approach to increase the explainability of the predictions made by Convolution Neural Networks (CNNs) on medical images using currently available Explainable Artificial Intelligent (XAI) techniques. This method in-cooperates multiple techniques such a…"
+        },
+        {
+          "paper_id": "18a6fb1b-a8e8-4552-9091-8b1e931bf8e5",
+          "title": "DenGue CarB: Mosquito Identification and Classification using Machine Learning",
+          "authors": [
+            "Mohommed, M.",
+            "Rajakaruna, P.",
+            "Kehelpannala, N.",
+            "Perera, A.",
+            "Abeysiri, L."
+          ],
+          "year": 2020,
+          "url": "https://rda.sliit.lk/handle/123456789/1374",
+          "subject": [
+            "Classification",
+            "SVM",
+            "KNN",
+            "CNN",
+            "Prediction",
+            "Mosquito classification",
+            "Image processing",
+            "Web Application"
+          ],
+          "similarity": 0.5128,
+          "abstract_excerpt": "This research paper discusses a web-based\r\napplication that assists Public Health Officers in the dengue\r\nidentification process. The mosquito classification is done\r\nusing image processing and machine learning techniques.\r\nThe training models are developed using Convolutional\r\nN…"
+        },
+        {
+          "paper_id": "b5ca2bfa-a4e9-4f95-b5c0-065188e79a8b",
+          "title": "Deep Transfer Learning Approach for Facial and Verbal Disease Detection",
+          "authors": [
+            "Manage, D.M.",
+            "Alahakoon, A.M.I.S.",
+            "Weerathunga, K.",
+            "Weeratunga, T.",
+            "Lunugalage, D.",
+            "De Silva, H."
+          ],
+          "year": 2021,
+          "url": "https://rda.sliit.lk/handle/123456789/1007",
+          "subject": [
+            "Deep Learning (DL)",
+            "Machine Learning (ML)",
+            "Convolutional Neural Networks (CNN)",
+            "Transfer Learning (TL)"
+          ],
+          "similarity": 0.5126,
+          "abstract_excerpt": "Millions of people have been subjected to different kind of acute diseases, some of them are eye diseases, facial skin diseases, tongue diseases and voice abnormalities. Most of eye diseases cause fully or partial blindness. Skin and tongue complications can be signs of cancers. …"
+        },
+        {
+          "paper_id": "864dea87-95ef-4d6f-b197-2d21147b3d65",
+          "title": "Automated Diabetic Retinopathy Screening With Montage Fundus Images",
+          "authors": [
+            "Kumari, S.",
+            "Padmakumara, N.",
+            "Palangoda, W.",
+            "Balagalla, C.",
+            "Samarasingha, P.",
+            "Fernando, A.",
+            "Pemadasa, N."
+          ],
+          "year": 2020,
+          "url": "https://rda.sliit.lk/handle/123456789/1365",
+          "subject": [
+            "Diabetic retinopathy",
+            "convolutional neural network",
+            "classification accuracy"
+          ],
+          "similarity": 0.4915,
+          "abstract_excerpt": "Diabetic retinopathy (DR), also known as diabetic eye disease is one of the major causes of blindness in the active population. The longer a person has diabetes, higher the chances of developing DR. This research paper is an attempt towards finding an automatic way to staging DR …"
+        }
+      ],
+      "model_version": "local-tfidf-logreg-1.0.0",
+      "source": "local"
+    }
+  },
+  {
+    "id": "M3-02",
+    "feature": "Topic Categorization (business abstract)",
+    "method": "POST",
+    "path": "/data/categorize",
+    "request": {
+      "text": "This study examines the impact of digital marketing strategies on small and medium enterprise growth, analyzing consumer behavior and brand loyalty through a survey of 300 business owners.",
+      "threshold": 0.2,
+      "top_k": 5
+    },
+    "status": 200,
+    "response": {
+      "categories": [],
+      "confidence_scores": {},
+      "top_categories": [
+        {
+          "label": "sri lanka",
+          "confidence": 0.1109
+        },
+        {
+          "label": "social media",
+          "confidence": 0.0482
+        },
+        {
+          "label": "machine learning",
+          "confidence": 0.0369
+        },
+        {
+          "label": "artificial intelligence",
+          "confidence": 0.0252
+        },
+        {
+          "label": "economic growth",
+          "confidence": 0.022
+        }
+      ],
+      "related_papers": [
+        {
+          "paper_id": "b84edb3a-7ebe-4f60-a532-af758b2b5f72",
+          "title": "IT management sophistication in small business: its definition, measurement and relationship with IT impact",
+          "authors": [
+            "Suraweera, T"
+          ],
+          "year": 2004,
+          "url": "https://rda.sliit.lk/handle/123456789/1321",
+          "subject": [
+            "IT management",
+            "sophistication",
+            "small business",
+            "definition",
+            "measurement",
+            "relationship",
+            "IT impact"
+          ],
+          "similarity": 0.5674,
+          "abstract_excerpt": "This research deals with information technology (IT) management in small businesses. Although IT management in large businesses has been extensively researched, only a handful of studies have focused on the small business sector. There are three specific objectives of this resear…"
+        },
+        {
+          "paper_id": "1e3d58fc-3e1d-4eb4-90bc-435c51b14e59",
+          "title": "Mini Market: Information Technology Based Support Tool for Small and Medium Scale Enterprises in Sri Lanka",
+          "authors": [
+            "Thilakarathne, S",
+            "Herath, S",
+            "Rajapaksha, A",
+            "Karunasena, A"
+          ],
+          "year": 2019,
+          "url": "https://rda.sliit.lk/handle/123456789/2144",
+          "subject": [
+            "Sentiment Analysis",
+            "ROC-AUS Matrix",
+            "Small and Medium Scale Entrepreneurs."
+          ],
+          "similarity": 0.5631,
+          "abstract_excerpt": "Small and medium enterprises (SMEs) play a crucial role in developing countries such as Sri\r\nLanka in growth of an economy. Recently online platforms are being extensively used by SMEs for both\r\nmarketing and selling items. In a context of keen competition among the online sellin…"
+        },
+        {
+          "paper_id": "56393e1e-db9d-4eca-8891-e4c41159c02c",
+          "title": "What Impact Does Digital Marketing Tools have on the Financial Performance of Sri Lankan Listed Hotels?",
+          "authors": [
+            "Premasinghe, A. A",
+            "Ashintha, P. K. S. D",
+            "Perera, B. W. T",
+            "Fernando, M. A. D. C. H",
+            "Kuruppu, D. L. P. T",
+            "Lokeshwara, C. L"
+          ],
+          "year": 2021,
+          "url": "https://rda.sliit.lk/handle/123456789/2536",
+          "subject": [
+            "Digital marketing",
+            "financial performance",
+            "listed hotels",
+            "mobile marketing",
+            "social media marketing",
+            "tourism industry"
+          ],
+          "similarity": 0.5576,
+          "abstract_excerpt": "Digital marketing platforms have recently played a crucial role in hotel marketing and customer\r\ninteraction strategies. Hotel managers have understood that hotel customers today and future rely\r\nincreasingly on digital media use. However, the adoption of digital marketing tools …"
+        },
+        {
+          "paper_id": "2d04f4c8-3b4f-44d6-9f58-52f1de44ebba",
+          "title": "Planning Marketing Strategies in Small-Scale Business Using Data Analysis",
+          "authors": [
+            "Fernando, A.M.P.",
+            "Adhikari, A.M.T.T.",
+            "Wijesekara, W.H.A.T.K.",
+            "Vithanage, T.V.T.I.",
+            "Gamage, A",
+            "Jayalath, T"
+          ],
+          "year": 2022,
+          "url": "https://rda.sliit.lk/handle/123456789/3268",
+          "subject": [
+            "Planning",
+            "Marketing Strategies",
+            "Small-Scale Business",
+            "Data Analysis"
+          ],
+          "similarity": 0.5523,
+          "abstract_excerpt": "The proposed research work develops a system focused on business opportunities to enhance market returns and improve marketing strategies and new strategies by identifying how customers interact with products and their behavior. Existing research efforts attempt to identify and m…"
+        },
+        {
+          "paper_id": "f82cfcd1-40e1-49df-8eff-e944e40e01ce",
+          "title": "The Inﬂuence of IT Management Sophistication and IT Support on IT Success in Small and Medium-Sized Enterprises",
+          "authors": [
+            "Cragg, P",
+            "Mills, A. A",
+            "Suraweera, T"
+          ],
+          "year": 2013,
+          "url": "https://rda.sliit.lk/handle/123456789/1309",
+          "subject": [
+            "Influence",
+            "IT Management",
+            "Sophistication",
+            "IT Support",
+            "IT Success",
+            "Medium‐Sized Enterprises"
+          ],
+          "similarity": 0.541,
+          "abstract_excerpt": "This study examined three factors that influence information technology (IT) success in small\r\nand medium-sized enterprises (SMEs): internal IT support, external IT support, and IT management. Using survey data gathered from 289 small and medium-sized Chartered Accounting firms\r\n…"
+        },
+        {
+          "paper_id": "0497eb63-8c34-443b-aa4d-6d44f3a8b126",
+          "title": "Threading the digital needle: the influence of process and technical digitalisation on competitive performance in the apparel supply chain",
+          "authors": [
+            "Susitha, E",
+            "Jayarathne, P.G.S. A",
+            "Herath, R"
+          ],
+          "year": 2025,
+          "url": "https://rda.sliit.lk/handle/123456789/4721",
+          "subject": [
+            "Apparel industry",
+            "Competitive performance",
+            "Digitalisation",
+            "Supply chain management"
+          ],
+          "similarity": 0.5402,
+          "abstract_excerpt": "Purpose – This study aims to examine the role of process and technical digitalisation in enhancing the apparel supply chain’s competitive performance. This study further explores how firm size moderates these relationships, offering operational-level insights into the strategic d…"
+        }
+      ],
+      "model_version": "local-tfidf-logreg-1.0.0",
+      "source": "local"
+    }
+  },
+  {
+    "id": "M3-03",
+    "feature": "Topic Categorization (health abstract)",
+    "method": "POST",
+    "path": "/data/categorize",
+    "request": {
+      "text": "This clinical study investigates the effectiveness of a new physiotherapy intervention for post-surgical knee rehabilitation in elderly patients, measuring recovery outcomes over a six month period.",
+      "threshold": 0.2,
+      "top_k": 5
+    },
+    "status": 200,
+    "response": {
+      "categories": [],
+      "confidence_scores": {},
+      "top_categories": [
+        {
+          "label": "sri lanka",
+          "confidence": 0.1005
+        },
+        {
+          "label": "machine learning",
+          "confidence": 0.074
+        },
+        {
+          "label": "artificial intelligence",
+          "confidence": 0.0325
+        },
+        {
+          "label": "effectiveness",
+          "confidence": 0.0323
+        },
+        {
+          "label": "image processing",
+          "confidence": 0.0237
+        }
+      ],
+      "related_papers": [
+        {
+          "paper_id": "1270f32e-e87c-4aaa-97d2-9f68ddd67984",
+          "title": "VirtualPT: Virtual Reality based Home Care Physiotherapy Rehabilitation for Elderly",
+          "authors": [
+            "Heiyanthuduwa, T. A",
+            "Amarapala, K. W. N. U",
+            "Gunathilaka, K. D. V. B",
+            "Ravindu, K. S",
+            "Wickramarathne, J",
+            "Kasthurirathna, D"
+          ],
+          "year": 2020,
+          "url": "https://rda.sliit.lk/handle/123456789/1049",
+          "subject": [
+            "VirtualPT",
+            "Virtual Reality based",
+            "Home Care Physiotherapy",
+            "Rehabilitation",
+            "Elderly"
+          ],
+          "similarity": 0.4619,
+          "abstract_excerpt": "This paper describes the development of Personal computer based Virtual Reality home-care Physiotherapy system aimed for rehabilitating full body function in elders. VirtualPT is a true virtual reality platform where the environment is completely replaced by a virtual reality pla…"
+        },
+        {
+          "paper_id": "eeb339d3-ea13-44fb-97d8-9b2f98851453",
+          "title": "VirtualPT: Virtual Reality based Home Care Physiotherapy Rehabilitation for Elderly",
+          "authors": [
+            "Heiyanthuduwa, T.A.",
+            "Amarapala, K.W.N.U.",
+            "Gunathilaka, K.D.V.B.",
+            "Ravindu, K.S.",
+            "Wickramarathne, J.",
+            "Kasthurirathna, D."
+          ],
+          "year": 2020,
+          "url": "https://rda.sliit.lk/handle/123456789/1597",
+          "subject": [
+            "virtual reality",
+            "physiotherapy",
+            "elderly care",
+            "machine learning",
+            "rehabilitation",
+            "home based"
+          ],
+          "similarity": 0.4619,
+          "abstract_excerpt": "This paper describes the development of Personal computer based Virtual Reality home-care Physiotherapy system aimed for rehabilitating full body function in elders. VirtualPT is a true virtual reality platform where the environment is completely replaced by a virtual reality pla…"
+        },
+        {
+          "paper_id": "fb7de660-7349-4303-b5e5-57119d02e28f",
+          "title": "Design and Dynamic Modelling of Knee Exoskeleton for Disabled People through ADAMS-Simulink Co-simulation",
+          "authors": [
+            "Ranaweera, J. P",
+            "Perera, M"
+          ],
+          "year": 2022,
+          "url": "https://rda.sliit.lk/handle/123456789/3124",
+          "subject": [
+            "Exoskeleton",
+            "Walking-Aid",
+            "Rehabilitation",
+            "Multibody dynamics"
+          ],
+          "similarity": 0.4572,
+          "abstract_excerpt": "This paper is written to outline the progress and findings of an undergraduate research project aimed at\r\nthe designing and modelling of an exoskeleton design of the knee joint for rehabilitation and gait support. It\r\nfocuses on the rehabilitation potential of the proposed exoske…"
+        },
+        {
+          "paper_id": "7a2ef46c-99bc-44b7-8100-4cee487fa830",
+          "title": "Hand Rehabilitation Using Robot-Assisted Physiotherapy",
+          "authors": [
+            "Madhushan, I. H. D",
+            "Charnara, E. B. K",
+            "De Zoysa, A. T. J",
+            "Upeka, G. S",
+            "Abhayasinghe, N",
+            "Abeygunawardhana, P. K. W"
+          ],
+          "year": 2020,
+          "url": "https://rda.sliit.lk/handle/123456789/1162",
+          "subject": [
+            "Hand Rehabilitation",
+            "Robot-Assisted",
+            "Physiotherapy"
+          ],
+          "similarity": 0.433,
+          "abstract_excerpt": "Robotics technology in the modern world is currently being implemented in medical fields to improve the quality of care and patient outcomes. In the proposed system, the robotics technology is used for physiotherapy. In the existing physiotherapy robot devices, there is no featur…"
+        },
+        {
+          "paper_id": "3a8b50aa-49a0-478f-ad53-7390caeee7b5",
+          "title": "Hand Rehabilitation Using Robot-Assisted Physiotherapy",
+          "authors": [
+            "Madhushan, I.H.D.",
+            "Charnara, E.B.K.",
+            "De Zoysa, A.T.J.",
+            "Upeka, G.S.",
+            "Abhayasinghe, N.",
+            "Abeygunawardhana, P."
+          ],
+          "year": 2020,
+          "url": "https://rda.sliit.lk/handle/123456789/1524",
+          "subject": [
+            "Physiotherapy",
+            "Robotic Technology",
+            "Prediction",
+            "Rehabilitation"
+          ],
+          "similarity": 0.433,
+          "abstract_excerpt": "Robotics technology in the modern world is currently being implemented in medical fields to improve the quality of care and patient outcomes. In the proposed system, the robotics technology is used for physiotherapy. In the existing physiotherapy robot devices, there is no featur…"
+        },
+        {
+          "paper_id": "d7d966d2-e648-4315-a70e-908ba1a57d9a",
+          "title": "Development of A Passively Powered Knee Exoskeleton for Squat Lifting",
+          "authors": [
+            "Ranaweera, R. K. P. S",
+            "Gopura, R. A. R. C",
+            "Jayawardena, T. S. S",
+            "Mann, G. K"
+          ],
+          "year": 2018,
+          "url": "https://rda.sliit.lk/handle/123456789/1504",
+          "subject": [
+            "knee exoskeleton",
+            "biomechanical energy harvesting",
+            "passive mechanisms",
+            "squatting"
+          ],
+          "similarity": 0.3702,
+          "abstract_excerpt": "This paper proposes a knee exoskeleton with passive-powering mechanism to provide power assistance to the knee\r\njoint during squat lifting of objects from the ground. It is designed to capture and store 20% of the biomechanical\r\nenergy dissipated at the biological knee joint duri…"
+        }
+      ],
+      "model_version": "local-tfidf-logreg-1.0.0",
+      "source": "local"
+    }
+  },
+  {
+    "id": "M3-04",
+    "feature": "Topic Categorization status",
+    "method": "GET",
+    "path": "/data/categorize/status",
+    "request": null,
+    "status": 200,
+    "response": {
+      "loaded": true,
+      "version": "1.0.0",
+      "n_labels": 80,
+      "labels": [
+        "sri lanka",
+        "machine learning",
+        "deep learning",
+        "image processing",
+        "artificial intelligence",
+        "covid-19",
+        "natural language processing",
+        "economic growth",
+        "development",
+        "iot",
+        "optimization",
+        "computer vision",
+        "social media",
+        "e-learning",
+        "performance",
+        "mobile application",
+        "construction industry",
+        "design",
+        "analysis",
+        "effectiveness",
+        "education",
+        "sustainability",
+        "e-commerce",
+        "framework",
+        "classification",
+        "security",
+        "cnn",
+        "service quality",
+        "blockchain",
+        "ontology",
+        "challenges",
+        "case study",
+        "forecasting",
+        "application",
+        "prediction",
+        "climate change",
+        "neural network",
+        "purchase intention",
+        "identification",
+        "internet of things",
+        "neural networks",
+        "higher education",
+        "water quality",
+        "developing countries",
+        "implementation",
+        "sentiment analysis",
+        "undergraduates",
+        "arima",
+        "algorithm",
+        "alcohol consumption",
+        "job satisfaction",
+        "granger causality",
+        "mental health",
+        "quality of life",
+        "recognition",
+        "multi-objective optimization",
+        "object detection",
+        "reinforcement learning",
+        "apparel industry",
+        "academic performance",
+        "navigation",
+        "smes",
+        "algorithms",
+        "influence",
+        "simulation",
+        "impact",
+        "nlp",
+        "gender",
+        "construction",
+        "management system",
+        "graphene",
+        "augmented reality",
+        "internet of things iot",
+        "waste management",
+        "detection",
+        "poverty",
+        "agriculture",
+        "efficiency",
+        "technology",
+        "management"
+      ]
+    }
+  },
+  {
+    "id": "M3-05",
+    "feature": "Summarizer (standard length)",
+    "method": "POST",
+    "path": "/data/summarize",
+    "request": {
+      "text": "This paper presents a novel deep learning approach for detecting plant diseases from leaf images using convolutional neural networks. In recent years, agricultural productivity in Sri Lanka has been severely affected by crop diseases, resulting in significant economic losses for farmers. Existing manual inspection methods are time-consuming and require expert knowledge that is often unavailable in rural areas. This study proposes a mobile-based system that uses a fine-tuned ResNet50 architecture trained on a dataset of 15,000 labeled leaf images spanning 12 disease categories across three crops: rice, tomato, and banana. The methodology involves collecting images from local farms, applying data augmentation techniques such as rotation and color jittering, and training the model using transfer learning with an initial learning rate of 0.001. We evaluate the model against three baseline approaches: a traditional SVM classifier, a shallow CNN, and a pretrained VGG16 model. Results show that our approach achieves 94.2% classification accuracy, outperforming the SVM baseline by 18 percentage points and the shallow CNN by 9 percentage points. The F1-score across all disease categories averaged 0.91, with the lowest performing category being early blight in tomato leaves at 0.83 F1. However, the model struggles with images taken under poor lighting conditions, and further work is needed to improve robustness to real-world capture conditions. In conclusion, this study demonstrates that deep learning based leaf disease detection can be feasibly deployed on mobile devices to assist smallholder farmers, though future work should explore on-device quantization to reduce inference latency and expand the dataset to cover additional crop varieties.",
+      "length": "standard"
+    },
+    "status": 200,
+    "response": {
+      "summary": "This paper presents a novel deep learning approach for detecting plant diseases from leaf images using convolutional neural networks. In recent years, agricultural productivity in Sri Lanka has been severely affected by crop diseases, resulting in significant economic losses for farmers. Existing manual inspection methods are time-consuming and require expert knowledge that is often unavailable in rural areas. This study proposes a mobile-based system that uses a fine-tuned ResNet50 architecture trained on a dataset of 15,000 labeled leaf images spanning 12 disease categories across three crops: rice, tomato, and banana. The methodology involves collecting images from local farms, applying data augmentation techniques such as rotation and color jittering, and training the model using transfer learning with an initial learning rate of 0.001. We evaluate the model against three baseline approaches: a traditional SVM classifier, a shallow CNN, and a pretrained VGG16 model. The F1-score across all disease categories averaged 0.91, with the lowest performing category being early blight in tomato leaves at 0.83 F1. However, the model struggles with images taken under poor lighting conditions, and further work is needed to improve robustness to real-world capture conditions. In conclusion, this study demonstrates that deep learning based leaf disease detection can be feasibly deployed on mobile devices to assist smallholder farmers, though future work should explore on-device quantization to reduce inference latency and expand the dataset to cover additional crop varieties.",
+      "sentences": [
+        "This paper presents a novel deep learning approach for detecting plant diseases from leaf images using convolutional neural networks.",
+        "In recent years, agricultural productivity in Sri Lanka has been severely affected by crop diseases, resulting in significant economic losses for farmers.",
+        "Existing manual inspection methods are time-consuming and require expert knowledge that is often unavailable in rural areas.",
+        "This study proposes a mobile-based system that uses a fine-tuned ResNet50 architecture trained on a dataset of 15,000 labeled leaf images spanning 12 disease categories across three crops: rice, tomato, and banana.",
+        "The methodology involves collecting images from local farms, applying data augmentation techniques such as rotation and color jittering, and training the model using transfer learning with an initial learning rate of 0.001.",
+        "We evaluate the model against three baseline approaches: a traditional SVM classifier, a shallow CNN, and a pretrained VGG16 model.",
+        "The F1-score across all disease categories averaged 0.91, with the lowest performing category being early blight in tomato leaves at 0.83 F1.",
+        "However, the model struggles with images taken under poor lighting conditions, and further work is needed to improve robustness to real-world capture conditions.",
+        "In conclusion, this study demonstrates that deep learning based leaf disease detection can be feasibly deployed on mobile devices to assist smallholder farmers, though future work should explore on-device quantization to reduce inference latency and expand the dataset to cover additional crop varieties."
+      ],
+      "key_points": [
+        {
+          "category": "background",
+          "category_label": "Background",
+          "text": "In recent years, agricultural productivity in Sri Lanka has been severely affected by crop diseases, resulting in significant economic losses for farmers."
+        },
+        {
+          "category": "methodology",
+          "category_label": "Methodology",
+          "text": "This study proposes a mobile-based system that uses a fine-tuned ResNet50 architecture trained on a dataset of 15,000 labeled leaf images spanning 12 disease categories across three crops: rice, tomato, and banana."
+        },
+        {
+          "category": "methodology",
+          "category_label": "Methodology",
+          "text": "The methodology involves collecting images from local farms, applying data augmentation techniques such as rotation and color jittering, and training the model using transfer learning with an initial learning rate of 0.001."
+        },
+        {
+          "category": "results",
+          "category_label": "Findings & Results",
+          "text": "We evaluate the model against three baseline approaches: a traditional SVM classifier, a shallow CNN, and a pretrained VGG16 model."
+        },
+        {
+          "category": "results",
+          "category_label": "Findings & Results",
+          "text": "The F1-score across all disease categories averaged 0.91, with the lowest performing category being early blight in tomato leaves at 0.83 F1."
+        },
+        {
+          "category": "limitations",
+          "category_label": "Limitations & Future Work",
+          "text": "However, the model struggles with images taken under poor lighting conditions, and further work is needed to improve robustness to real-world capture conditions."
+        },
+        {
+          "category": "conclusion",
+          "category_label": "Conclusion",
+          "text": "This paper presents a novel deep learning approach for detecting plant diseases from leaf images using convolutional neural networks."
+        },
+        {
+          "category": "conclusion",
+          "category_label": "Conclusion",
+          "text": "In conclusion, this study demonstrates that deep learning based leaf disease detection can be feasibly deployed on mobile devices to assist smallholder farmers, though future work should explore on-device quantization to reduce inference latency and expand the dataset to cover additional crop varieties."
+        },
+        {
+          "category": "general",
+          "category_label": "Other key points",
+          "text": "Existing manual inspection methods are time-consuming and require expert knowledge that is often unavailable in rural areas."
+        }
+      ],
+      "grouped_points": {
+        "background": [
+          {
+            "category": "background",
+            "category_label": "Background",
+            "text": "In recent years, agricultural productivity in Sri Lanka has been severely affected by crop diseases, resulting in significant economic losses for farmers."
+          }
+        ],
+        "methodology": [
+          {
+            "category": "methodology",
+            "category_label": "Methodology",
+            "text": "This study proposes a mobile-based system that uses a fine-tuned ResNet50 architecture trained on a dataset of 15,000 labeled leaf images spanning 12 disease categories across three crops: rice, tomato, and banana."
+          },
+          {
+            "category": "methodology",
+            "category_label": "Methodology",
+            "text": "The methodology involves collecting images from local farms, applying data augmentation techniques such as rotation and color jittering, and training the model using transfer learning with an initial learning rate of 0.001."
+          }
+        ],
+        "results": [
+          {
+            "category": "results",
+            "category_label": "Findings & Results",
+            "text": "We evaluate the model against three baseline approaches: a traditional SVM classifier, a shallow CNN, and a pretrained VGG16 model."
+          },
+          {
+            "category": "results",
+            "category_label": "Findings & Results",
+            "text": "The F1-score across all disease categories averaged 0.91, with the lowest performing category being early blight in tomato leaves at 0.83 F1."
+          }
+        ],
+        "limitations": [
+          {
+            "category": "limitations",
+            "category_label": "Limitations & Future Work",
+            "text": "However, the model struggles with images taken under poor lighting conditions, and further work is needed to improve robustness to real-world capture conditions."
+          }
+        ],
+        "conclusion": [
+          {
+            "category": "conclusion",
+            "category_label": "Conclusion",
+            "text": "This paper presents a novel deep learning approach for detecting plant diseases from leaf images using convolutional neural networks."
+          },
+          {
+            "category": "conclusion",
+            "category_label": "Conclusion",
+            "text": "In conclusion, this study demonstrates that deep learning based leaf disease detection can be feasibly deployed on mobile devices to assist smallholder farmers, though future work should explore on-device quantization to reduce inference latency and expand the dataset to cover additional crop varieties."
+          }
+        ],
+        "general": [
+          {
+            "category": "general",
+            "category_label": "Other key points",
+            "text": "Existing manual inspection methods are time-consuming and require expert knowledge that is often unavailable in rural areas."
+          }
+        ]
+      },
+      "n_sentences_input": 10,
+      "n_sentences_output": 9,
+      "compression_ratio": 0.904,
+      "model_version": "local-extractive-sentence-transformers/all-MiniLM-L6-v2",
+      "source": "local",
+      "rouge_scores": null,
+      "filename": null,
+      "pdf_text_length": null
+    }
+  },
+  {
+    "id": "M3-06",
+    "feature": "Summarizer (quick length)",
+    "method": "POST",
+    "path": "/data/summarize",
+    "request": {
+      "text": "This paper presents a novel deep learning approach for detecting plant diseases from leaf images using convolutional neural networks. In recent years, agricultural productivity in Sri Lanka has been severely affected by crop diseases, resulting in significant economic losses for farmers. Existing manual inspection methods are time-consuming and require expert knowledge that is often unavailable in rural areas. This study proposes a mobile-based system that uses a fine-tuned ResNet50 architecture trained on a dataset of 15,000 labeled leaf images spanning 12 disease categories across three crops: rice, tomato, and banana. The methodology involves collecting images from local farms, applying data augmentation techniques such as rotation and color jittering, and training the model using transfer learning with an initial learning rate of 0.001. We evaluate the model against three baseline approaches: a traditional SVM classifier, a shallow CNN, and a pretrained VGG16 model. Results show that our approach achieves 94.2% classification accuracy, outperforming the SVM baseline by 18 percentage points and the shallow CNN by 9 percentage points. The F1-score across all disease categories averaged 0.91, with the lowest performing category being early blight in tomato leaves at 0.83 F1. However, the model struggles with images taken under poor lighting conditions, and further work is needed to improve robustness to real-world capture conditions. In conclusion, this study demonstrates that deep learning based leaf disease detection can be feasibly deployed on mobile devices to assist smallholder farmers, though future work should explore on-device quantization to reduce inference latency and expand the dataset to cover additional crop varieties.",
+      "length": "quick"
+    },
+    "status": 200,
+    "response": {
+      "summary": "This paper presents a novel deep learning approach for detecting plant diseases from leaf images using convolutional neural networks. In recent years, agricultural productivity in Sri Lanka has been severely affected by crop diseases, resulting in significant economic losses for farmers. This study proposes a mobile-based system that uses a fine-tuned ResNet50 architecture trained on a dataset of 15,000 labeled leaf images spanning 12 disease categories across three crops: rice, tomato, and banana. The methodology involves collecting images from local farms, applying data augmentation techniques such as rotation and color jittering, and training the model using transfer learning with an initial learning rate of 0.001. In conclusion, this study demonstrates that deep learning based leaf disease detection can be feasibly deployed on mobile devices to assist smallholder farmers, though future work should explore on-device quantization to reduce inference latency and expand the dataset to cover additional crop varieties.",
+      "sentences": [
+        "This paper presents a novel deep learning approach for detecting plant diseases from leaf images using convolutional neural networks.",
+        "In recent years, agricultural productivity in Sri Lanka has been severely affected by crop diseases, resulting in significant economic losses for farmers.",
+        "This study proposes a mobile-based system that uses a fine-tuned ResNet50 architecture trained on a dataset of 15,000 labeled leaf images spanning 12 disease categories across three crops: rice, tomato, and banana.",
+        "The methodology involves collecting images from local farms, applying data augmentation techniques such as rotation and color jittering, and training the model using transfer learning with an initial learning rate of 0.001.",
+        "In conclusion, this study demonstrates that deep learning based leaf disease detection can be feasibly deployed on mobile devices to assist smallholder farmers, though future work should explore on-device quantization to reduce inference latency and expand the dataset to cover additional crop varieties."
+      ],
+      "key_points": [
+        {
+          "category": "background",
+          "category_label": "Background",
+          "text": "In recent years, agricultural productivity in Sri Lanka has been severely affected by crop diseases, resulting in significant economic losses for farmers."
+        },
+        {
+          "category": "methodology",
+          "category_label": "Methodology",
+          "text": "This study proposes a mobile-based system that uses a fine-tuned ResNet50 architecture trained on a dataset of 15,000 labeled leaf images spanning 12 disease categories across three crops: rice, tomato, and banana."
+        },
+        {
+          "category": "methodology",
+          "category_label": "Methodology",
+          "text": "The methodology involves collecting images from local farms, applying data augmentation techniques such as rotation and color jittering, and training the model using transfer learning with an initial learning rate of 0.001."
+        },
+        {
+          "category": "conclusion",
+          "category_label": "Conclusion",
+          "text": "This paper presents a novel deep learning approach for detecting plant diseases from leaf images using convolutional neural networks."
+        },
+        {
+          "category": "conclusion",
+          "category_label": "Conclusion",
+          "text": "In conclusion, this study demonstrates that deep learning based leaf disease detection can be feasibly deployed on mobile devices to assist smallholder farmers, though future work should explore on-device quantization to reduce inference latency and expand the dataset to cover additional crop varieties."
+        }
+      ],
+      "grouped_points": {
+        "background": [
+          {
+            "category": "background",
+            "category_label": "Background",
+            "text": "In recent years, agricultural productivity in Sri Lanka has been severely affected by crop diseases, resulting in significant economic losses for farmers."
+          }
+        ],
+        "methodology": [
+          {
+            "category": "methodology",
+            "category_label": "Methodology",
+            "text": "This study proposes a mobile-based system that uses a fine-tuned ResNet50 architecture trained on a dataset of 15,000 labeled leaf images spanning 12 disease categories across three crops: rice, tomato, and banana."
+          },
+          {
+            "category": "methodology",
+            "category_label": "Methodology",
+            "text": "The methodology involves collecting images from local farms, applying data augmentation techniques such as rotation and color jittering, and training the model using transfer learning with an initial learning rate of 0.001."
+          }
+        ],
+        "conclusion": [
+          {
+            "category": "conclusion",
+            "category_label": "Conclusion",
+            "text": "This paper presents a novel deep learning approach for detecting plant diseases from leaf images using convolutional neural networks."
+          },
+          {
+            "category": "conclusion",
+            "category_label": "Conclusion",
+            "text": "In conclusion, this study demonstrates that deep learning based leaf disease detection can be feasibly deployed on mobile devices to assist smallholder farmers, though future work should explore on-device quantization to reduce inference latency and expand the dataset to cover additional crop varieties."
+          }
+        ]
+      },
+      "n_sentences_input": 10,
+      "n_sentences_output": 5,
+      "compression_ratio": 0.585,
+      "model_version": "local-extractive-sentence-transformers/all-MiniLM-L6-v2",
+      "source": "local",
+      "rouge_scores": null,
+      "filename": null,
+      "pdf_text_length": null
+    }
+  },
+  {
+    "id": "M3-07",
+    "feature": "Summarizer (extensive length)",
+    "method": "POST",
+    "path": "/data/summarize",
+    "request": {
+      "text": "This paper presents a novel deep learning approach for detecting plant diseases from leaf images using convolutional neural networks. In recent years, agricultural productivity in Sri Lanka has been severely affected by crop diseases, resulting in significant economic losses for farmers. Existing manual inspection methods are time-consuming and require expert knowledge that is often unavailable in rural areas. This study proposes a mobile-based system that uses a fine-tuned ResNet50 architecture trained on a dataset of 15,000 labeled leaf images spanning 12 disease categories across three crops: rice, tomato, and banana. The methodology involves collecting images from local farms, applying data augmentation techniques such as rotation and color jittering, and training the model using transfer learning with an initial learning rate of 0.001. We evaluate the model against three baseline approaches: a traditional SVM classifier, a shallow CNN, and a pretrained VGG16 model. Results show that our approach achieves 94.2% classification accuracy, outperforming the SVM baseline by 18 percentage points and the shallow CNN by 9 percentage points. The F1-score across all disease categories averaged 0.91, with the lowest performing category being early blight in tomato leaves at 0.83 F1. However, the model struggles with images taken under poor lighting conditions, and further work is needed to improve robustness to real-world capture conditions. In conclusion, this study demonstrates that deep learning based leaf disease detection can be feasibly deployed on mobile devices to assist smallholder farmers, though future work should explore on-device quantization to reduce inference latency and expand the dataset to cover additional crop varieties.",
+      "length": "extensive"
+    },
+    "status": 200,
+    "response": {
+      "summary": "This paper presents a novel deep learning approach for detecting plant diseases from leaf images using convolutional neural networks. In recent years, agricultural productivity in Sri Lanka has been severely affected by crop diseases, resulting in significant economic losses for farmers. Existing manual inspection methods are time-consuming and require expert knowledge that is often unavailable in rural areas. This study proposes a mobile-based system that uses a fine-tuned ResNet50 architecture trained on a dataset of 15,000 labeled leaf images spanning 12 disease categories across three crops: rice, tomato, and banana. The methodology involves collecting images from local farms, applying data augmentation techniques such as rotation and color jittering, and training the model using transfer learning with an initial learning rate of 0.001. We evaluate the model against three baseline approaches: a traditional SVM classifier, a shallow CNN, and a pretrained VGG16 model. Results show that our approach achieves 94.2% classification accuracy, outperforming the SVM baseline by 18 percentage points and the shallow CNN by 9 percentage points. The F1-score across all disease categories averaged 0.91, with the lowest performing category being early blight in tomato leaves at 0.83 F1. However, the model struggles with images taken under poor lighting conditions, and further work is needed to improve robustness to real-world capture conditions. In conclusion, this study demonstrates that deep learning based leaf disease detection can be feasibly deployed on mobile devices to assist smallholder farmers, though future work should explore on-device quantization to reduce inference latency and expand the dataset to cover additional crop varieties.",
+      "sentences": [
+        "This paper presents a novel deep learning approach for detecting plant diseases from leaf images using convolutional neural networks.",
+        "In recent years, agricultural productivity in Sri Lanka has been severely affected by crop diseases, resulting in significant economic losses for farmers.",
+        "Existing manual inspection methods are time-consuming and require expert knowledge that is often unavailable in rural areas.",
+        "This study proposes a mobile-based system that uses a fine-tuned ResNet50 architecture trained on a dataset of 15,000 labeled leaf images spanning 12 disease categories across three crops: rice, tomato, and banana.",
+        "The methodology involves collecting images from local farms, applying data augmentation techniques such as rotation and color jittering, and training the model using transfer learning with an initial learning rate of 0.001.",
+        "We evaluate the model against three baseline approaches: a traditional SVM classifier, a shallow CNN, and a pretrained VGG16 model.",
+        "Results show that our approach achieves 94.2% classification accuracy, outperforming the SVM baseline by 18 percentage points and the shallow CNN by 9 percentage points.",
+        "The F1-score across all disease categories averaged 0.91, with the lowest performing category being early blight in tomato leaves at 0.83 F1.",
+        "However, the model struggles with images taken under poor lighting conditions, and further work is needed to improve robustness to real-world capture conditions.",
+        "In conclusion, this study demonstrates that deep learning based leaf disease detection can be feasibly deployed on mobile devices to assist smallholder farmers, though future work should explore on-device quantization to reduce inference latency and expand the dataset to cover additional crop varieties."
+      ],
+      "key_points": [
+        {
+          "category": "background",
+          "category_label": "Background",
+          "text": "In recent years, agricultural productivity in Sri Lanka has been severely affected by crop diseases, resulting in significant economic losses for farmers."
+        },
+        {
+          "category": "methodology",
+          "category_label": "Methodology",
+          "text": "This study proposes a mobile-based system that uses a fine-tuned ResNet50 architecture trained on a dataset of 15,000 labeled leaf images spanning 12 disease categories across three crops: rice, tomato, and banana."
+        },
+        {
+          "category": "methodology",
+          "category_label": "Methodology",
+          "text": "The methodology involves collecting images from local farms, applying data augmentation techniques such as rotation and color jittering, and training the model using transfer learning with an initial learning rate of 0.001."
+        },
+        {
+          "category": "results",
+          "category_label": "Findings & Results",
+          "text": "We evaluate the model against three baseline approaches: a traditional SVM classifier, a shallow CNN, and a pretrained VGG16 model."
+        },
+        {
+          "category": "results",
+          "category_label": "Findings & Results",
+          "text": "Results show that our approach achieves 94.2% classification accuracy, outperforming the SVM baseline by 18 percentage points and the shallow CNN by 9 percentage points."
+        },
+        {
+          "category": "results",
+          "category_label": "Findings & Results",
+          "text": "The F1-score across all disease categories averaged 0.91, with the lowest performing category being early blight in tomato leaves at 0.83 F1."
+        },
+        {
+          "category": "limitations",
+          "category_label": "Limitations & Future Work",
+          "text": "However, the model struggles with images taken under poor lighting conditions, and further work is needed to improve robustness to real-world capture conditions."
+        },
+        {
+          "category": "conclusion",
+          "category_label": "Conclusion",
+          "text": "This paper presents a novel deep learning approach for detecting plant diseases from leaf images using convolutional neural networks."
+        },
+        {
+          "category": "conclusion",
+          "category_label": "Conclusion",
+          "text": "In conclusion, this study demonstrates that deep learning based leaf disease detection can be feasibly deployed on mobile devices to assist smallholder farmers, though future work should explore on-device quantization to reduce inference latency and expand the dataset to cover additional crop varieties."
+        },
+        {
+          "category": "general",
+          "category_label": "Other key points",
+          "text": "Existing manual inspection methods are time-consuming and require expert knowledge that is often unavailable in rural areas."
+        }
+      ],
+      "grouped_points": {
+        "background": [
+          {
+            "category": "background",
+            "category_label": "Background",
+            "text": "In recent years, agricultural productivity in Sri Lanka has been severely affected by crop diseases, resulting in significant economic losses for farmers."
+          }
+        ],
+        "methodology": [
+          {
+            "category": "methodology",
+            "category_label": "Methodology",
+            "text": "This study proposes a mobile-based system that uses a fine-tuned ResNet50 architecture trained on a dataset of 15,000 labeled leaf images spanning 12 disease categories across three crops: rice, tomato, and banana."
+          },
+          {
+            "category": "methodology",
+            "category_label": "Methodology",
+            "text": "The methodology involves collecting images from local farms, applying data augmentation techniques such as rotation and color jittering, and training the model using transfer learning with an initial learning rate of 0.001."
+          }
+        ],
+        "results": [
+          {
+            "category": "results",
+            "category_label": "Findings & Results",
+            "text": "We evaluate the model against three baseline approaches: a traditional SVM classifier, a shallow CNN, and a pretrained VGG16 model."
+          },
+          {
+            "category": "results",
+            "category_label": "Findings & Results",
+            "text": "Results show that our approach achieves 94.2% classification accuracy, outperforming the SVM baseline by 18 percentage points and the shallow CNN by 9 percentage points."
+          },
+          {
+            "category": "results",
+            "category_label": "Findings & Results",
+            "text": "The F1-score across all disease categories averaged 0.91, with the lowest performing category being early blight in tomato leaves at 0.83 F1."
+          }
+        ],
+        "limitations": [
+          {
+            "category": "limitations",
+            "category_label": "Limitations & Future Work",
+            "text": "However, the model struggles with images taken under poor lighting conditions, and further work is needed to improve robustness to real-world capture conditions."
+          }
+        ],
+        "conclusion": [
+          {
+            "category": "conclusion",
+            "category_label": "Conclusion",
+            "text": "This paper presents a novel deep learning approach for detecting plant diseases from leaf images using convolutional neural networks."
+          },
+          {
+            "category": "conclusion",
+            "category_label": "Conclusion",
+            "text": "In conclusion, this study demonstrates that deep learning based leaf disease detection can be feasibly deployed on mobile devices to assist smallholder farmers, though future work should explore on-device quantization to reduce inference latency and expand the dataset to cover additional crop varieties."
+          }
+        ],
+        "general": [
+          {
+            "category": "general",
+            "category_label": "Other key points",
+            "text": "Existing manual inspection methods are time-consuming and require expert knowledge that is often unavailable in rural areas."
+          }
+        ]
+      },
+      "n_sentences_input": 10,
+      "n_sentences_output": 10,
+      "compression_ratio": 1.0,
+      "model_version": "local-extractive-sentence-transformers/all-MiniLM-L6-v2",
+      "source": "local",
+      "rouge_scores": null,
+      "filename": null,
+      "pdf_text_length": null
+    }
+  },
+  {
+    "id": "M3-08",
+    "feature": "Summarizer status",
+    "method": "GET",
+    "path": "/data/summarize/status",
+    "request": null,
+    "status": 200,
+    "response": {
+      "loaded": true,
+      "version": "sentence-transformers/all-MiniLM-L6-v2",
+      "algorithm": "extractive (centroid + lead-bias + MMR + categorisation)",
+      "supported_lengths": [
+        "quick",
+        "short",
+        "standard",
+        "medium",
+        "detailed",
+        "extensive"
+      ],
+      "categories": [
+        "background",
+        "objective",
+        "methodology",
+        "results",
+        "limitations",
+        "conclusion"
+      ]
+    }
+  },
+  {
+    "id": "M3-09",
+    "feature": "Plagiarism Trend Search (topic)",
+    "method": "POST",
+    "path": "/data/plagiarism-trends/search",
+    "request": {
+      "topic": "machine learning crop disease detection",
+      "top_k": 5,
+      "min_topic_similarity": 0.15
+    },
+    "status": 200,
+    "response": {
+      "matches": [
+        {
+          "topic": "machine learning",
+          "similarity": 0.4301,
+          "n_records": 4,
+          "n_papers_total": 17,
+          "avg_similarity_overall": 0.2679,
+          "max_avg_similarity": 0.3155,
+          "n_high_similarity_pairs_total": 0,
+          "latest_year": 2022,
+          "latest_trend_direction": "decreasing",
+          "yearly": [
+            {
+              "topic": "machine learning",
+              "year": 2019,
+              "n_papers": 4,
+              "avg_similarity": 0.2852,
+              "max_similarity": 0.4025,
+              "p95_similarity": 0.3962,
+              "n_high_similarity_pairs": 0,
+              "trend_direction": "baseline",
+              "top_pairs": [
+                {
+                  "similarity": 0.4025,
+                  "paper_a": {
+                    "paper_id": "d3b55726-b24e-4eef-9285-1675f9c64c38",
+                    "title": "Real-time credit card fraud detection using machine learning",
+                    "url": "https://rda.sliit.lk/handle/123456789/2096"
+                  },
+                  "paper_b": {
+                    "paper_id": "93f45011-f243-42d1-bd76-14034ff49d75",
+                    "title": "Code Vulnerability Identification and Code Improvement using Advanced Machine Learning",
+                    "url": "https://rda.sliit.lk/handle/123456789/1630"
+                  }
+                },
+                {
+                  "similarity": 0.3773,
+                  "paper_a": {
+                    "paper_id": "d3b55726-b24e-4eef-9285-1675f9c64c38",
+                    "title": "Real-time credit card fraud detection using machine learning",
+                    "url": "https://rda.sliit.lk/handle/123456789/2096"
+                  },
+                  "paper_b": {
+                    "paper_id": "f6858759-9fb3-4778-ad65-933f2095e320",
+                    "title": "Behavior & Bio metric based Masquerade Detection Mobile Application",
+                    "url": "https://rda.sliit.lk/handle/123456789/2092"
+                  }
+                },
+                {
+                  "similarity": 0.3381,
+                  "paper_a": {
+                    "paper_id": "f6858759-9fb3-4778-ad65-933f2095e320",
+                    "title": "Behavior & Bio metric based Masquerade Detection Mobile Application",
+                    "url": "https://rda.sliit.lk/handle/123456789/2092"
+                  },
+                  "paper_b": {
+                    "paper_id": "93f45011-f243-42d1-bd76-14034ff49d75",
+                    "title": "Code Vulnerability Identification and Code Improvement using Advanced Machine Learning",
+                    "url": "https://rda.sliit.lk/handle/123456789/1630"
+                  }
+                },
+                {
+                  "similarity": 0.2723,
+                  "paper_a": {
+                    "paper_id": "f6858759-9fb3-4778-ad65-933f2095e320",
+                    "title": "Behavior & Bio metric based Masquerade Detection Mobile Application",
+                    "url": "https://rda.sliit.lk/handle/123456789/2092"
+                  },
+                  "paper_b": {
+                    "paper_id": "739f5a61-af5a-430c-9f05-bdcbaf10a843",
+                    "title": "Smart Mirror with Virtual Twin",
+                    "url": "https://rda.sliit.lk/handle/123456789/490"
+                  }
+                },
+                {
+                  "similarity": 0.1726,
+                  "paper_a": {
+                    "paper_id": "d3b55726-b24e-4eef-9285-1675f9c64c38",
+                    "title": "Real-time credit card fraud detection using machine learning",
+                    "url": "https://rda.sliit.lk/handle/123456789/2096"
+                  },
+                  "paper_b": {
+                    "paper_id": "739f5a61-af5a-430c-9f05-bdcbaf10a843",
+                    "title": "Smart Mirror with Virtual Twin",
+                    "url": "https://rda.sliit.lk/handle/123456789/490"
+                  }
+                }
+              ]
+            },
+            {
+              "topic": "machine learning",
+              "year": 2020,
+              "n_papers": 4,
+              "avg_similarity": 0.2364,
+              "max_similarity": 0.4075,
+              "p95_similarity": 0.4004,
+              "n_high_similarity_pairs": 0,
+              "trend_direction": "decreasing",
+              "top_pairs": [
+                {
+                  "similarity": 0.4075,
+                  "paper_a": {
+                    "paper_id": "8c31de73-2abe-4349-9528-fefb3f23fae7",
+                    "title": "HemoSmart: A Non-invasive, Machine Learning Based Device and Mobile App for Anemia Detection",
+                    "url": "https://rda.sliit.lk/handle/123456789/1814"
+                  },
+                  "paper_b": {
+                    "paper_id": "2acbbe99-aa85-45ce-9a7a-b0d050d6851c",
+                    "title": "An Integrated Framework for Predicting Health Based on Sensor Data Using Machine Learning",
+                    "url": "https://rda.sliit.lk/handle/123456789/1359"
+                  }
+                },
+                {
+                  "similarity": 0.3791,
+                  "paper_a": {
+                    "paper_id": "eeb339d3-ea13-44fb-97d8-9b2f98851453",
+                    "title": "VirtualPT: Virtual Reality based Home Care Physiotherapy Rehabilitation for Elderly",
+                    "url": "https://rda.sliit.lk/handle/123456789/1597"
+                  },
+                  "paper_b": {
+                    "paper_id": "2acbbe99-aa85-45ce-9a7a-b0d050d6851c",
+                    "title": "An Integrated Framework for Predicting Health Based on Sensor Data Using Machine Learning",
+                    "url": "https://rda.sliit.lk/handle/123456789/1359"
+                  }
+                },
+                {
+                  "similarity": 0.2667,
+                  "paper_a": {
+                    "paper_id": "8c31de73-2abe-4349-9528-fefb3f23fae7",
+                    "title": "HemoSmart: A Non-invasive, Machine Learning Based Device and Mobile App for Anemia Detection",
+                    "url": "https://rda.sliit.lk/handle/123456789/1814"
+                  },
+                  "paper_b": {
+                    "paper_id": "eeb339d3-ea13-44fb-97d8-9b2f98851453",
+                    "title": "VirtualPT: Virtual Reality based Home Care Physiotherapy Rehabilitation for Elderly",
+                    "url": "https://rda.sliit.lk/handle/123456789/1597"
+                  }
+                },
+                {
+                  "similarity": 0.1852,
+                  "paper_a": {
+                    "paper_id": "6099c39d-96de-4107-bdee-098cd1a55904",
+                    "title": "WANHEDA: A Machine Learning Based DDoS Detection System",
+                    "url": "https://rda.sliit.lk/handle/123456789/2080"
+                  },
+                  "paper_b": {
+                    "paper_id": "8c31de73-2abe-4349-9528-fefb3f23fae7",
+                    "title": "HemoSmart: A Non-invasive, Machine Learning Based Device and Mobile App for Anemia Detection",
+                    "url": "https://rda.sliit.lk/handle/123456789/1814"
+                  }
+                },
+                {
+                  "similarity": 0.1806,
+                  "paper_a": {
+                    "paper_id": "6099c39d-96de-4107-bdee-098cd1a55904",
+                    "title": "WANHEDA: A Machine Learning Based DDoS Detection System",
+                    "url": "https://rda.sliit.lk/handle/123456789/2080"
+                  },
+                  "paper_b": {
+                    "paper_id": "2acbbe99-aa85-45ce-9a7a-b0d050d6851c",
+                    "title": "An Integrated Framework for Predicting Health Based on Sensor Data Using Machine Learning",
+                    "url": "https://rda.sliit.lk/handle/123456789/1359"
+                  }
+                }
+              ]
+            },
+            {
+              "topic": "machine learning",
+              "year": 2021,
+              "n_papers": 5,
+              "avg_similarity": 0.3155,
+              "max_similarity": 0.4618,
+              "p95_similarity": 0.4543,
+              "n_high_similarity_pairs": 0,
+              "trend_direction": "increasing",
+              "top_pairs": [
+                {
+                  "similarity": 0.4618,
+                  "paper_a": {
+                    "paper_id": "d5e3c792-7808-4b07-8911-ddced036df17",
+                    "title": "Smart Office Automation System for Covid Prevention",
+                    "url": "https://rda.sliit.lk/handle/123456789/1216"
+                  },
+                  "paper_b": {
+                    "paper_id": "fdd41e20-b2db-43d6-aad5-2b340588d45e",
+                    "title": "E-Agrigo",
+                    "url": "https://rda.sliit.lk/handle/123456789/1071"
+                  }
+                },
+                {
+                  "similarity": 0.445,
+                  "paper_a": {
+                    "paper_id": "5b0f19d6-01fb-4432-9c80-a82def0efd33",
+                    "title": "Machine Learning-Based Skin And Heart Disease Diagnose Mobile App",
+                    "url": "https://rda.sliit.lk/handle/123456789/2521"
+                  },
+                  "paper_b": {
+                    "paper_id": "d5e3c792-7808-4b07-8911-ddced036df17",
+                    "title": "Smart Office Automation System for Covid Prevention",
+                    "url": "https://rda.sliit.lk/handle/123456789/1216"
+                  }
+                },
+                {
+                  "similarity": 0.3991,
+                  "paper_a": {
+                    "paper_id": "f1137585-ed45-4b04-84bf-79b3943722fa",
+                    "title": "Machine Learning Modelling of the Relationship between Weather and Paddy Yield in Sri Lanka",
+                    "url": "https://rda.sliit.lk/handle/123456789/2656"
+                  },
+                  "paper_b": {
+                    "paper_id": "fdd41e20-b2db-43d6-aad5-2b340588d45e",
+                    "title": "E-Agrigo",
+                    "url": "https://rda.sliit.lk/handle/123456789/1071"
+                  }
+                },
+                {
+                  "similarity": 0.3761,
+                  "paper_a": {
+                    "paper_id": "5b0f19d6-01fb-4432-9c80-a82def0efd33",
+                    "title": "Machine Learning-Based Skin And Heart Disease Diagnose Mobile App",
+                    "url": "https://rda.sliit.lk/handle/123456789/2521"
+                  },
+                  "paper_b": {
+                    "paper_id": "61d884c2-e8d9-4428-b926-de1be683107f",
+                    "title": "Machine Learning Based Emotion Level Assessment",
+                    "url": "https://rda.sliit.lk/handle/123456789/2143"
+                  }
+                },
+                {
+                  "similarity": 0.3448,
+                  "paper_a": {
+                    "paper_id": "5b0f19d6-01fb-4432-9c80-a82def0efd33",
+                    "title": "Machine Learning-Based Skin And Heart Disease Diagnose Mobile App",
+                    "url": "https://rda.sliit.lk/handle/123456789/2521"
+                  },
+                  "paper_b": {
+                    "paper_id": "fdd41e20-b2db-43d6-aad5-2b340588d45e",
+                    "title": "E-Agrigo",
+                    "url": "https://rda.sliit.lk/handle/123456789/1071"
+                  }
+                }
+              ]
+            },
+            {
+              "topic": "machine learning",
+              "year": 2022,
+              "n_papers": 4,
+              "avg_similarity": 0.2346,
+              "max_similarity": 0.447,
+              "p95_similarity": 0.3976,
+              "n_high_similarity_pairs": 0,
+              "trend_direction": "decreasing",
+              "top_pairs": [
+                {
+                  "similarity": 0.447,
+                  "paper_a": {
+                    "paper_id": "247185f5-5ce6-456d-a279-eb0509657a8b",
+                    "title": "AgroPro: Optimizer for Traditional Agricultural System in Sri Lanka",
+                    "url": "https://rda.sliit.lk/handle/123456789/3386"
+                  },
+                  "paper_b": {
+                    "paper_id": "e7b52cd4-5b72-402a-b6c9-9c96a70e917f",
+                    "title": "Machine learning based classification of ripening and decay stages of Mango (Mangifera indica L.) cv. Tom EJC",
+                    "url": "https://rda.sliit.lk/handle/123456789/2817"
+                  }
+                },
+                {
+                  "similarity": 0.2496,
+                  "paper_a": {
+                    "paper_id": "23da6583-0434-41c7-afec-9de309bad51b",
+                    "title": "Deep Vision-Data Mining To Find Insights and Visualization in Code Repositories",
+                    "url": "https://rda.sliit.lk/handle/123456789/3167"
+                  },
+                  "paper_b": {
+                    "paper_id": "e7b52cd4-5b72-402a-b6c9-9c96a70e917f",
+                    "title": "Machine learning based classification of ripening and decay stages of Mango (Mangifera indica L.) cv. Tom EJC",
+                    "url": "https://rda.sliit.lk/handle/123456789/2817"
+                  }
+                },
+                {
+                  "similarity": 0.2362,
+                  "paper_a": {
+                    "paper_id": "247185f5-5ce6-456d-a279-eb0509657a8b",
+                    "title": "AgroPro: Optimizer for Traditional Agricultural System in Sri Lanka",
+                    "url": "https://rda.sliit.lk/handle/123456789/3386"
+                  },
+                  "paper_b": {
+                    "paper_id": "0371ead5-cbe3-485a-82dd-c84941bdf9c7",
+                    "title": "Secure Smart Parking Solution Using Image Processing and Machine Learning",
+                    "url": "https://rda.sliit.lk/handle/123456789/2955"
+                  }
+                },
+                {
+                  "similarity": 0.181,
+                  "paper_a": {
+                    "paper_id": "23da6583-0434-41c7-afec-9de309bad51b",
+                    "title": "Deep Vision-Data Mining To Find Insights and Visualization in Code Repositories",
+                    "url": "https://rda.sliit.lk/handle/123456789/3167"
+                  },
+                  "paper_b": {
+                    "paper_id": "0371ead5-cbe3-485a-82dd-c84941bdf9c7",
+                    "title": "Secure Smart Parking Solution Using Image Processing and Machine Learning",
+                    "url": "https://rda.sliit.lk/handle/123456789/2955"
+                  }
+                },
+                {
+                  "similarity": 0.1697,
+                  "paper_a": {
+                    "paper_id": "0371ead5-cbe3-485a-82dd-c84941bdf9c7",
+                    "title": "Secure Smart Parking Solution Using Image Processing and Machine Learning",
+                    "url": "https://rda.sliit.lk/handle/123456789/2955"
+                  },
+                  "paper_b": {
+                    "paper_id": "e7b52cd4-5b72-402a-b6c9-9c96a70e917f",
+                    "title": "Machine learning based classification of ripening and decay stages of Mango (Mangifera indica L.) cv. Tom EJC",
+                    "url": "https://rda.sliit.lk/handle/123456789/2817"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "convolutional neural networks",
+          "similarity": 0.296,
+          "n_records": 1,
+          "n_papers_total": 3,
+          "avg_similarity_overall": 0.3541,
+          "max_avg_similarity": 0.3541,
+          "n_high_similarity_pairs_total": 0,
+          "latest_year": 2021,
+          "latest_trend_direction": "baseline",
+          "yearly": [
+            {
+              "topic": "convolutional neural networks",
+              "year": 2021,
+              "n_papers": 3,
+              "avg_similarity": 0.3541,
+              "max_similarity": 0.4392,
+              "p95_similarity": 0.4305,
+              "n_high_similarity_pairs": 0,
+              "trend_direction": "baseline",
+              "top_pairs": [
+                {
+                  "similarity": 0.4392,
+                  "paper_a": {
+                    "paper_id": "0a591f14-23c4-4e78-91df-133f133ef1be",
+                    "title": "iParking—Smart Way to Automate the Management of the Parking System for a Smart City",
+                    "url": "https://rda.sliit.lk/handle/123456789/1811"
+                  },
+                  "paper_b": {
+                    "paper_id": "932e1020-a64e-49a9-a1cc-874571af0854",
+                    "title": "Computer-Vision Enabled Waste Management System for Green Environment",
+                    "url": "https://rda.sliit.lk/handle/123456789/988"
+                  }
+                },
+                {
+                  "similarity": 0.3524,
+                  "paper_a": {
+                    "paper_id": "94d2e60a-f439-443e-b6bd-d91db943130c",
+                    "title": "Smart Attendance and Progress Management System",
+                    "url": "https://rda.sliit.lk/handle/123456789/2193"
+                  },
+                  "paper_b": {
+                    "paper_id": "0a591f14-23c4-4e78-91df-133f133ef1be",
+                    "title": "iParking—Smart Way to Automate the Management of the Parking System for a Smart City",
+                    "url": "https://rda.sliit.lk/handle/123456789/1811"
+                  }
+                },
+                {
+                  "similarity": 0.2706,
+                  "paper_a": {
+                    "paper_id": "94d2e60a-f439-443e-b6bd-d91db943130c",
+                    "title": "Smart Attendance and Progress Management System",
+                    "url": "https://rda.sliit.lk/handle/123456789/2193"
+                  },
+                  "paper_b": {
+                    "paper_id": "932e1020-a64e-49a9-a1cc-874571af0854",
+                    "title": "Computer-Vision Enabled Waste Management System for Green Environment",
+                    "url": "https://rda.sliit.lk/handle/123456789/988"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "artificial neural network",
+          "similarity": 0.2808,
+          "n_records": 1,
+          "n_papers_total": 3,
+          "avg_similarity_overall": 0.6088,
+          "max_avg_similarity": 0.6088,
+          "n_high_similarity_pairs_total": 0,
+          "latest_year": 2020,
+          "latest_trend_direction": "baseline",
+          "yearly": [
+            {
+              "topic": "artificial neural network",
+              "year": 2020,
+              "n_papers": 3,
+              "avg_similarity": 0.6088,
+              "max_similarity": 0.683,
+              "p95_similarity": 0.6746,
+              "n_high_similarity_pairs": 0,
+              "trend_direction": "baseline",
+              "top_pairs": [
+                {
+                  "similarity": 0.683,
+                  "paper_a": {
+                    "paper_id": "b7aadc08-6156-4181-8f5d-c27cf17af6a2",
+                    "title": "Comparison of different Artificial Neural Network (ANN) training algorithms to predict atmospheric temperature in Tabuk, Saudi Arabia",
+                    "url": "https://rda.sliit.lk/handle/123456789/2571"
+                  },
+                  "paper_b": {
+                    "paper_id": "c3c11c2e-0e85-4c6e-bc9c-9728b033676d",
+                    "title": "Artificial neural network to estimate the paddy yield prediction using climatic data",
+                    "url": "https://rda.sliit.lk/handle/123456789/823"
+                  }
+                },
+                {
+                  "similarity": 0.5988,
+                  "paper_a": {
+                    "paper_id": "c3c11c2e-0e85-4c6e-bc9c-9728b033676d",
+                    "title": "Artificial neural network to estimate the paddy yield prediction using climatic data",
+                    "url": "https://rda.sliit.lk/handle/123456789/823"
+                  },
+                  "paper_b": {
+                    "paper_id": "c2735011-3541-4291-800d-cc51e85f68c4",
+                    "title": "Development of an artificial neural network model to simulate the growth of microalga Chlorella vulgaris incorporating the effect of micronutrients",
+                    "url": "https://rda.sliit.lk/handle/123456789/461"
+                  }
+                },
+                {
+                  "similarity": 0.5445,
+                  "paper_a": {
+                    "paper_id": "b7aadc08-6156-4181-8f5d-c27cf17af6a2",
+                    "title": "Comparison of different Artificial Neural Network (ANN) training algorithms to predict atmospheric temperature in Tabuk, Saudi Arabia",
+                    "url": "https://rda.sliit.lk/handle/123456789/2571"
+                  },
+                  "paper_b": {
+                    "paper_id": "c2735011-3541-4291-800d-cc51e85f68c4",
+                    "title": "Development of an artificial neural network model to simulate the growth of microalga Chlorella vulgaris incorporating the effect of micronutrients",
+                    "url": "https://rda.sliit.lk/handle/123456789/461"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "natural language processing",
+          "similarity": 0.2353,
+          "n_records": 3,
+          "n_papers_total": 22,
+          "avg_similarity_overall": 0.2939,
+          "max_avg_similarity": 0.3194,
+          "n_high_similarity_pairs_total": 1,
+          "latest_year": 2022,
+          "latest_trend_direction": "decreasing",
+          "yearly": [
+            {
+              "topic": "natural language processing",
+              "year": 2020,
+              "n_papers": 6,
+              "avg_similarity": 0.3146,
+              "max_similarity": 0.9136,
+              "p95_similarity": 0.5822,
+              "n_high_similarity_pairs": 1,
+              "trend_direction": "baseline",
+              "top_pairs": [
+                {
+                  "similarity": 0.9136,
+                  "paper_a": {
+                    "paper_id": "fa811984-90fa-429b-8f00-4c04ad7fef17",
+                    "title": "NoFish; Total Anti-Phishing Protection System",
+                    "url": "https://rda.sliit.lk/handle/123456789/2090"
+                  },
+                  "paper_b": {
+                    "paper_id": "c82aaf63-fc7d-4874-809f-b5b90dfcfbf0",
+                    "title": "NoFish; Total Anti-Phishing Protection System",
+                    "url": "https://rda.sliit.lk/handle/123456789/1562"
+                  }
+                },
+                {
+                  "similarity": 0.4402,
+                  "paper_a": {
+                    "paper_id": "a970ea6d-10fe-473c-a5fe-45d51f955f45",
+                    "title": "User Awareness System to Diagnose Dermatological Diseases",
+                    "url": "https://rda.sliit.lk/handle/123456789/2511"
+                  },
+                  "paper_b": {
+                    "paper_id": "c82aaf63-fc7d-4874-809f-b5b90dfcfbf0",
+                    "title": "NoFish; Total Anti-Phishing Protection System",
+                    "url": "https://rda.sliit.lk/handle/123456789/1562"
+                  }
+                },
+                {
+                  "similarity": 0.3975,
+                  "paper_a": {
+                    "paper_id": "a6112830-b50c-4451-adf4-4615aab20373",
+                    "title": "Arunalu: Learning Ecosystem to Overcome Sinhala Reading Weakness due to Dyslexia",
+                    "url": "https://rda.sliit.lk/handle/123456789/1362"
+                  },
+                  "paper_b": {
+                    "paper_id": "9d6b6ee4-26e0-4ee1-a612-ab9f9b450af7",
+                    "title": "An AI based Chatbot to Self-Learn and Self-Assess Performance in Ordinary Level Chemistry",
+                    "url": "https://rda.sliit.lk/handle/123456789/1357"
+                  }
+                },
+                {
+                  "similarity": 0.378,
+                  "paper_a": {
+                    "paper_id": "a970ea6d-10fe-473c-a5fe-45d51f955f45",
+                    "title": "User Awareness System to Diagnose Dermatological Diseases",
+                    "url": "https://rda.sliit.lk/handle/123456789/2511"
+                  },
+                  "paper_b": {
+                    "paper_id": "a6112830-b50c-4451-adf4-4615aab20373",
+                    "title": "Arunalu: Learning Ecosystem to Overcome Sinhala Reading Weakness due to Dyslexia",
+                    "url": "https://rda.sliit.lk/handle/123456789/1362"
+                  }
+                },
+                {
+                  "similarity": 0.3679,
+                  "paper_a": {
+                    "paper_id": "a970ea6d-10fe-473c-a5fe-45d51f955f45",
+                    "title": "User Awareness System to Diagnose Dermatological Diseases",
+                    "url": "https://rda.sliit.lk/handle/123456789/2511"
+                  },
+                  "paper_b": {
+                    "paper_id": "fa811984-90fa-429b-8f00-4c04ad7fef17",
+                    "title": "NoFish; Total Anti-Phishing Protection System",
+                    "url": "https://rda.sliit.lk/handle/123456789/2090"
+                  }
+                }
+              ]
+            },
+            {
+              "topic": "natural language processing",
+              "year": 2021,
+              "n_papers": 10,
+              "avg_similarity": 0.3194,
+              "max_similarity": 0.5939,
+              "p95_similarity": 0.4425,
+              "n_high_similarity_pairs": 0,
+              "trend_direction": "stable",
+              "top_pairs": [
+                {
+                  "similarity": 0.5939,
+                  "paper_a": {
+                    "paper_id": "80113b25-43de-4920-8806-b7812dbfb02d",
+                    "title": "Use of Natural Language Processing and Deep Learning towards Guiding Healthy Cholesterol Free Life",
+                    "url": "https://rda.sliit.lk/handle/123456789/1222"
+                  },
+                  "paper_b": {
+                    "paper_id": "956e352b-fa41-463b-8d65-1bd5f05c6f43",
+                    "title": "SriHealth: A Single Platform for Meal Plans, Workouts, Yoga Schedules Based on SriLankan Lifestyle",
+                    "url": "https://rda.sliit.lk/handle/123456789/1217"
+                  }
+                },
+                {
+                  "similarity": 0.511,
+                  "paper_a": {
+                    "paper_id": "956e352b-fa41-463b-8d65-1bd5f05c6f43",
+                    "title": "SriHealth: A Single Platform for Meal Plans, Workouts, Yoga Schedules Based on SriLankan Lifestyle",
+                    "url": "https://rda.sliit.lk/handle/123456789/1217"
+                  },
+                  "paper_b": {
+                    "paper_id": "5fa7fdf5-f626-41c9-ba09-169ad146e0a5",
+                    "title": "Mobile Medical Assistant and Analytical System for Dengue Patients",
+                    "url": "https://rda.sliit.lk/handle/123456789/1147"
+                  }
+                },
+                {
+                  "similarity": 0.4441,
+                  "paper_a": {
+                    "paper_id": "80113b25-43de-4920-8806-b7812dbfb02d",
+                    "title": "Use of Natural Language Processing and Deep Learning towards Guiding Healthy Cholesterol Free Life",
+                    "url": "https://rda.sliit.lk/handle/123456789/1222"
+                  },
+                  "paper_b": {
+                    "paper_id": "5fa7fdf5-f626-41c9-ba09-169ad146e0a5",
+                    "title": "Mobile Medical Assistant and Analytical System for Dengue Patients",
+                    "url": "https://rda.sliit.lk/handle/123456789/1147"
+                  }
+                },
+                {
+                  "similarity": 0.4359,
+                  "paper_a": {
+                    "paper_id": "eb3c3d6e-6e4a-45aa-bca5-b6a729ecd3a6",
+                    "title": "Automate Traditional Interviewing Process Using Natural Language Processing and Machine Learning",
+                    "url": "https://rda.sliit.lk/handle/123456789/1433"
+                  },
+                  "paper_b": {
+                    "paper_id": "5fa7fdf5-f626-41c9-ba09-169ad146e0a5",
+                    "title": "Mobile Medical Assistant and Analytical System for Dengue Patients",
+                    "url": "https://rda.sliit.lk/handle/123456789/1147"
+                  }
+                },
+                {
+                  "similarity": 0.4354,
+                  "paper_a": {
+                    "paper_id": "eb3c3d6e-6e4a-45aa-bca5-b6a729ecd3a6",
+                    "title": "Automate Traditional Interviewing Process Using Natural Language Processing and Machine Learning",
+                    "url": "https://rda.sliit.lk/handle/123456789/1433"
+                  },
+                  "paper_b": {
+                    "paper_id": "d727495b-87d2-4b58-b103-d02504860f6a",
+                    "title": "SmartCoach: Comprehensive Tutor Recommender and Student Attentiveness Measuring Platform",
+                    "url": "https://rda.sliit.lk/handle/123456789/1235"
+                  }
+                }
+              ]
+            },
+            {
+              "topic": "natural language processing",
+              "year": 2022,
+              "n_papers": 6,
+              "avg_similarity": 0.2476,
+              "max_similarity": 0.4046,
+              "p95_similarity": 0.3591,
+              "n_high_similarity_pairs": 0,
+              "trend_direction": "decreasing",
+              "top_pairs": [
+                {
+                  "similarity": 0.4046,
+                  "paper_a": {
+                    "paper_id": "d5fa40d8-54ff-49c3-b51e-d976e81ff310",
+                    "title": "BlossomSnap: A Single Platform for all Anthurium Planters Based on The Sri Lankan Market",
+                    "url": "https://rda.sliit.lk/handle/123456789/3159"
+                  },
+                  "paper_b": {
+                    "paper_id": "0bf9bca1-0377-45d3-8515-edc78b030c31",
+                    "title": "Intelligent System for Skin Disease Detection of Dogs with Ontology Based Clinical Information Extraction",
+                    "url": "https://rda.sliit.lk/handle/123456789/3148"
+                  }
+                },
+                {
+                  "similarity": 0.3396,
+                  "paper_a": {
+                    "paper_id": "7a718521-4a32-4ab4-8a1e-2cbc77e7e224",
+                    "title": "Information extraction for business process  enhancement using Natural Language  Processing and Machine Learning",
+                    "url": "https://rda.sliit.lk/handle/123456789/3448"
+                  },
+                  "paper_b": {
+                    "paper_id": "edcc4d80-8724-4cc5-9c77-789d4fc8b2b1",
+                    "title": "Anonymo: Automatic Response and Analysis of Anonymous Caller Complaints",
+                    "url": "https://rda.sliit.lk/handle/123456789/3164"
+                  }
+                },
+                {
+                  "similarity": 0.3183,
+                  "paper_a": {
+                    "paper_id": "d5fa40d8-54ff-49c3-b51e-d976e81ff310",
+                    "title": "BlossomSnap: A Single Platform for all Anthurium Planters Based on The Sri Lankan Market",
+                    "url": "https://rda.sliit.lk/handle/123456789/3159"
+                  },
+                  "paper_b": {
+                    "paper_id": "ca4a4eda-dfc9-4c0e-910c-83f6490a76c3",
+                    "title": "Deep Learning for Code-Mixed Text Mining in Social Media: A Brief Review",
+                    "url": "https://rda.sliit.lk/handle/123456789/3083"
+                  }
+                },
+                {
+                  "similarity": 0.312,
+                  "paper_a": {
+                    "paper_id": "6192f4f5-c6d7-49ec-bf26-be0568af5534",
+                    "title": "Assistant Zone – Homeschooling Assistance System based on Natural Language Processing",
+                    "url": "https://rda.sliit.lk/handle/123456789/3304"
+                  },
+                  "paper_b": {
+                    "paper_id": "0bf9bca1-0377-45d3-8515-edc78b030c31",
+                    "title": "Intelligent System for Skin Disease Detection of Dogs with Ontology Based Clinical Information Extraction",
+                    "url": "https://rda.sliit.lk/handle/123456789/3148"
+                  }
+                },
+                {
+                  "similarity": 0.2921,
+                  "paper_a": {
+                    "paper_id": "7a718521-4a32-4ab4-8a1e-2cbc77e7e224",
+                    "title": "Information extraction for business process  enhancement using Natural Language  Processing and Machine Learning",
+                    "url": "https://rda.sliit.lk/handle/123456789/3448"
+                  },
+                  "paper_b": {
+                    "paper_id": "d5fa40d8-54ff-49c3-b51e-d976e81ff310",
+                    "title": "BlossomSnap: A Single Platform for all Anthurium Planters Based on The Sri Lankan Market",
+                    "url": "https://rda.sliit.lk/handle/123456789/3159"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "artificial intelligence",
+          "similarity": 0.231,
+          "n_records": 5,
+          "n_papers_total": 32,
+          "avg_similarity_overall": 0.2021,
+          "max_avg_similarity": 0.2575,
+          "n_high_similarity_pairs_total": 1,
+          "latest_year": 2025,
+          "latest_trend_direction": "stable",
+          "yearly": [
+            {
+              "topic": "artificial intelligence",
+              "year": 2020,
+              "n_papers": 4,
+              "avg_similarity": 0.2571,
+              "max_similarity": 0.3928,
+              "p95_similarity": 0.3594,
+              "n_high_similarity_pairs": 0,
+              "trend_direction": "baseline",
+              "top_pairs": [
+                {
+                  "similarity": 0.3928,
+                  "paper_a": {
+                    "paper_id": "e559fc3a-38b0-4ec1-aae5-8cef5761dc2c",
+                    "title": "EasyTalk: A Translator for Sri Lankan Sign Language using Machine Learning and Artificial Intelligence",
+                    "url": "https://rda.sliit.lk/handle/123456789/2495"
+                  },
+                  "paper_b": {
+                    "paper_id": "4e076351-af7b-471c-ae07-50511c3f5ad9",
+                    "title": "Student and Lecturer Performance Enhancement System using Artificial Intelligence",
+                    "url": "https://rda.sliit.lk/handle/123456789/1968"
+                  }
+                },
+                {
+                  "similarity": 0.259,
+                  "paper_a": {
+                    "paper_id": "e559fc3a-38b0-4ec1-aae5-8cef5761dc2c",
+                    "title": "EasyTalk: A Translator for Sri Lankan Sign Language using Machine Learning and Artificial Intelligence",
+                    "url": "https://rda.sliit.lk/handle/123456789/2495"
+                  },
+                  "paper_b": {
+                    "paper_id": "399cfced-079a-4807-92ee-ee1316474138",
+                    "title": "Effectiveness of artificial intelligence, decentralized and distributed systems for prediction and secure channelling for Medical Tourism",
+                    "url": "https://rda.sliit.lk/handle/123456789/1289"
+                  }
+                },
+                {
+                  "similarity": 0.2432,
+                  "paper_a": {
+                    "paper_id": "4e076351-af7b-471c-ae07-50511c3f5ad9",
+                    "title": "Student and Lecturer Performance Enhancement System using Artificial Intelligence",
+                    "url": "https://rda.sliit.lk/handle/123456789/1968"
+                  },
+                  "paper_b": {
+                    "paper_id": "ef86fd68-199d-4cc0-93a8-1a4b75ffcffa",
+                    "title": "AI - Driven Smart Bin for Waste Management",
+                    "url": "https://rda.sliit.lk/handle/123456789/1326"
+                  }
+                },
+                {
+                  "similarity": 0.2326,
+                  "paper_a": {
+                    "paper_id": "4e076351-af7b-471c-ae07-50511c3f5ad9",
+                    "title": "Student and Lecturer Performance Enhancement System using Artificial Intelligence",
+                    "url": "https://rda.sliit.lk/handle/123456789/1968"
+                  },
+                  "paper_b": {
+                    "paper_id": "399cfced-079a-4807-92ee-ee1316474138",
+                    "title": "Effectiveness of artificial intelligence, decentralized and distributed systems for prediction and secure channelling for Medical Tourism",
+                    "url": "https://rda.sliit.lk/handle/123456789/1289"
+                  }
+                },
+                {
+                  "similarity": 0.2114,
+                  "paper_a": {
+                    "paper_id": "ef86fd68-199d-4cc0-93a8-1a4b75ffcffa",
+                    "title": "AI - Driven Smart Bin for Waste Management",
+                    "url": "https://rda.sliit.lk/handle/123456789/1326"
+                  },
+                  "paper_b": {
+                    "paper_id": "399cfced-079a-4807-92ee-ee1316474138",
+                    "title": "Effectiveness of artificial intelligence, decentralized and distributed systems for prediction and secure channelling for Medical Tourism",
+                    "url": "https://rda.sliit.lk/handle/123456789/1289"
+                  }
+                }
+              ]
+            },
+            {
+              "topic": "artificial intelligence",
+              "year": 2021,
+              "n_papers": 5,
+              "avg_similarity": 0.2575,
+              "max_similarity": 0.3996,
+              "p95_similarity": 0.3956,
+              "n_high_similarity_pairs": 0,
+              "trend_direction": "stable",
+              "top_pairs": [
+                {
+                  "similarity": 0.3996,
+                  "paper_a": {
+                    "paper_id": "6d0b1f84-a1a4-40b5-bea9-adeccb1d3a0a",
+                    "title": "Virtual Dressing Room: Smart Approach to Select and Buy Clothes",
+                    "url": "https://rda.sliit.lk/handle/123456789/1224"
+                  },
+                  "paper_b": {
+                    "paper_id": "770bc7ac-1891-4aed-b2fe-eb1a4fa272df",
+                    "title": "JESSY: An Intelligence Travel Assistant",
+                    "url": "https://rda.sliit.lk/handle/123456789/1129"
+                  }
+                },
+                {
+                  "similarity": 0.3907,
+                  "paper_a": {
+                    "paper_id": "6d0b1f84-a1a4-40b5-bea9-adeccb1d3a0a",
+                    "title": "Virtual Dressing Room: Smart Approach to Select and Buy Clothes",
+                    "url": "https://rda.sliit.lk/handle/123456789/1224"
+                  },
+                  "paper_b": {
+                    "paper_id": "0a6ade1c-73e6-42d9-95a2-94d54dce46a3",
+                    "title": "SalFix: Solutions for Small Businesses Using Artificial Intelligence and Machine Learning",
+                    "url": "https://rda.sliit.lk/handle/123456789/1161"
+                  }
+                },
+                {
+                  "similarity": 0.3849,
+                  "paper_a": {
+                    "paper_id": "bb24ebd5-3160-4a46-9dc1-4a7f077b7e5b",
+                    "title": "APlus: An Intelligent Lecture Delivery System using Artificial Intelligence Learning Analytics",
+                    "url": "https://rda.sliit.lk/handle/123456789/2123"
+                  },
+                  "paper_b": {
+                    "paper_id": "770bc7ac-1891-4aed-b2fe-eb1a4fa272df",
+                    "title": "JESSY: An Intelligence Travel Assistant",
+                    "url": "https://rda.sliit.lk/handle/123456789/1129"
+                  }
+                },
+                {
+                  "similarity": 0.2842,
+                  "paper_a": {
+                    "paper_id": "bb24ebd5-3160-4a46-9dc1-4a7f077b7e5b",
+                    "title": "APlus: An Intelligent Lecture Delivery System using Artificial Intelligence Learning Analytics",
+                    "url": "https://rda.sliit.lk/handle/123456789/2123"
+                  },
+                  "paper_b": {
+                    "paper_id": "0a6ade1c-73e6-42d9-95a2-94d54dce46a3",
+                    "title": "SalFix: Solutions for Small Businesses Using Artificial Intelligence and Machine Learning",
+                    "url": "https://rda.sliit.lk/handle/123456789/1161"
+                  }
+                },
+                {
+                  "similarity": 0.264,
+                  "paper_a": {
+                    "paper_id": "bb24ebd5-3160-4a46-9dc1-4a7f077b7e5b",
+                    "title": "APlus: An Intelligent Lecture Delivery System using Artificial Intelligence Learning Analytics",
+                    "url": "https://rda.sliit.lk/handle/123456789/2123"
+                  },
+                  "paper_b": {
+                    "paper_id": "6d0b1f84-a1a4-40b5-bea9-adeccb1d3a0a",
+                    "title": "Virtual Dressing Room: Smart Approach to Select and Buy Clothes",
+                    "url": "https://rda.sliit.lk/handle/123456789/1224"
+                  }
+                }
+              ]
+            },
+            {
+              "topic": "artificial intelligence",
+              "year": 2022,
+              "n_papers": 3,
+              "avg_similarity": 0.0573,
+              "max_similarity": 0.118,
+              "p95_similarity": 0.1092,
+              "n_high_similarity_pairs": 0,
+              "trend_direction": "decreasing",
+              "top_pairs": [
+                {
+                  "similarity": 0.118,
+                  "paper_a": {
+                    "paper_id": "3572a04f-03f4-4f0c-9ea6-32c3ccbbb6b7",
+                    "title": "Cryptocurrency Price Prediction: A Comparative Study using LSTM, GRU and Stacking Ensemble Algorithm for Time Series Forecasting",
+                    "url": "https://rda.sliit.lk/handle/123456789/3034"
+                  },
+                  "paper_b": {
+                    "paper_id": "e57f01c5-9124-4513-9853-f6a3e2cfa948",
+                    "title": "Converting high resolution multi-lingual printed document images in to editable text using image processing and artificial intelligence",
+                    "url": "https://rda.sliit.lk/handle/123456789/2818"
+                  }
+                },
+                {
+                  "similarity": 0.03,
+                  "paper_a": {
+                    "paper_id": "ab8b9e23-d7d8-4d99-973a-dbf8be0cf3c5",
+                    "title": "Artificial Intelligence-Based Centralized Resource Management Application for Distributed Systems",
+                    "url": "https://rda.sliit.lk/handle/123456789/3238"
+                  },
+                  "paper_b": {
+                    "paper_id": "e57f01c5-9124-4513-9853-f6a3e2cfa948",
+                    "title": "Converting high resolution multi-lingual printed document images in to editable text using image processing and artificial intelligence",
+                    "url": "https://rda.sliit.lk/handle/123456789/2818"
+                  }
+                },
+                {
+                  "similarity": 0.0239,
+                  "paper_a": {
+                    "paper_id": "ab8b9e23-d7d8-4d99-973a-dbf8be0cf3c5",
+                    "title": "Artificial Intelligence-Based Centralized Resource Management Application for Distributed Systems",
+                    "url": "https://rda.sliit.lk/handle/123456789/3238"
+                  },
+                  "paper_b": {
+                    "paper_id": "3572a04f-03f4-4f0c-9ea6-32c3ccbbb6b7",
+                    "title": "Cryptocurrency Price Prediction: A Comparative Study using LSTM, GRU and Stacking Ensemble Algorithm for Time Series Forecasting",
+                    "url": "https://rda.sliit.lk/handle/123456789/3034"
+                  }
+                }
+              ]
+            },
+            {
+              "topic": "artificial intelligence",
+              "year": 2024,
+              "n_papers": 8,
+              "avg_similarity": 0.2221,
+              "max_similarity": 1.0,
+              "p95_similarity": 0.4753,
+              "n_high_similarity_pairs": 1,
+              "trend_direction": "increasing",
+              "top_pairs": [
+                {
+                  "similarity": 1.0,
+                  "paper_a": {
+                    "paper_id": "0b24ee76-53d4-46dd-915c-16bc0219c7d6",
+                    "title": "Eco-friendly mix design of slag-ash-based geopolymer concrete using explainable deep learning",
+                    "url": "https://rda.sliit.lk/handle/123456789/3750"
+                  },
+                  "paper_b": {
+                    "paper_id": "4ca4e538-6989-42ff-82e3-c316fb9713a8",
+                    "title": "Eco-friendly mix design of slag-ash-based geopolymer concrete using explainable deep learning",
+                    "url": "https://rda.sliit.lk/handle/123456789/3739"
+                  }
+                },
+                {
+                  "similarity": 0.4927,
+                  "paper_a": {
+                    "paper_id": "08416a2e-a717-45cb-935f-01ec3bbefd6c",
+                    "title": "‘Rhetoric’ and ‘Reality’ of Artificial Intelligence in Apparel Sector in Sri Lanka: Comparative Case Study",
+                    "url": "https://rda.sliit.lk/handle/123456789/3925"
+                  },
+                  "paper_b": {
+                    "paper_id": "f9c2cf9e-472a-4198-86e3-0ef63025662f",
+                    "title": "Challenges and Frontiers in Intellectual Property Rights Amidst the Rise of Artificial Intelligence",
+                    "url": "https://rda.sliit.lk/handle/123456789/3819"
+                  }
+                },
+                {
+                  "similarity": 0.4431,
+                  "paper_a": {
+                    "paper_id": "eee29063-ed43-4c8e-b7e5-3cb86722efb8",
+                    "title": "IoT and AI Application for Implementation of Smart Gardening and Irrigation System",
+                    "url": "https://rda.sliit.lk/handle/123456789/4075"
+                  },
+                  "paper_b": {
+                    "paper_id": "e4304eaa-f59a-40be-b911-c9dc855e9df2",
+                    "title": "A comprehensive review to evaluate the synergy of intelligent food packaging with modern food technology and artificial intelligence field",
+                    "url": "https://rda.sliit.lk/handle/123456789/3741"
+                  }
+                },
+                {
+                  "similarity": 0.3072,
+                  "paper_a": {
+                    "paper_id": "08416a2e-a717-45cb-935f-01ec3bbefd6c",
+                    "title": "‘Rhetoric’ and ‘Reality’ of Artificial Intelligence in Apparel Sector in Sri Lanka: Comparative Case Study",
+                    "url": "https://rda.sliit.lk/handle/123456789/3925"
+                  },
+                  "paper_b": {
+                    "paper_id": "e45a7629-8b3d-4f03-b419-e7976796e3d6",
+                    "title": "Enriching Resilience in Smart Manufacturing: Critical Analysis of Industry 4.0 Technologies on Sustainable Production Process",
+                    "url": "https://rda.sliit.lk/handle/123456789/3786"
+                  }
+                },
+                {
+                  "similarity": 0.2852,
+                  "paper_a": {
+                    "paper_id": "e45a7629-8b3d-4f03-b419-e7976796e3d6",
+                    "title": "Enriching Resilience in Smart Manufacturing: Critical Analysis of Industry 4.0 Technologies on Sustainable Production Process",
+                    "url": "https://rda.sliit.lk/handle/123456789/3786"
+                  },
+                  "paper_b": {
+                    "paper_id": "e4304eaa-f59a-40be-b911-c9dc855e9df2",
+                    "title": "A comprehensive review to evaluate the synergy of intelligent food packaging with modern food technology and artificial intelligence field",
+                    "url": "https://rda.sliit.lk/handle/123456789/3741"
+                  }
+                }
+              ]
+            },
+            {
+              "topic": "artificial intelligence",
+              "year": 2025,
+              "n_papers": 12,
+              "avg_similarity": 0.2167,
+              "max_similarity": 0.764,
+              "p95_similarity": 0.4462,
+              "n_high_similarity_pairs": 0,
+              "trend_direction": "stable",
+              "top_pairs": [
+                {
+                  "similarity": 0.764,
+                  "paper_a": {
+                    "paper_id": "1fae3a98-6f07-4f42-978a-15c1af912010",
+                    "title": "Anthropocentricity and Copyright Protection; A Theoretical Emphasis on the Human Authorship Requirement in Copyright after Thaler v. Perlmutter",
+                    "url": "https://rda.sliit.lk/handle/123456789/4380"
+                  },
+                  "paper_b": {
+                    "paper_id": "0fea2976-7639-48c3-acb1-1c88bc27724c",
+                    "title": "Reshaping Sri Lankan Intellectual Property Law: The Influence of Artificial Intelligence",
+                    "url": "https://rda.sliit.lk/handle/123456789/4379"
+                  }
+                },
+                {
+                  "similarity": 0.5066,
+                  "paper_a": {
+                    "paper_id": "78988bba-4def-4f6c-9e7a-53bf3e769581",
+                    "title": "Behaviour-based AI Algorithm for Crime Against a Person and Inchoate Crime in Sri Lanka",
+                    "url": "https://rda.sliit.lk/handle/123456789/4571"
+                  },
+                  "paper_b": {
+                    "paper_id": "78feec34-ce0a-4986-bb15-55025886db5e",
+                    "title": "How Frequency and Harmonic Profiling of a ‘Voice’ Can Inform Authentication of Deepfake Audio: An Efficiency Investigation",
+                    "url": "https://rda.sliit.lk/handle/123456789/3951"
+                  }
+                },
+                {
+                  "similarity": 0.4696,
+                  "paper_a": {
+                    "paper_id": "6bdcb183-3463-46a9-968c-d20f8c7bcdaa",
+                    "title": "Impact of Artificial Intelligence on Academic Integrity in Higher Education, Sri Lanka",
+                    "url": "https://rda.sliit.lk/handle/123456789/4446"
+                  },
+                  "paper_b": {
+                    "paper_id": "0fea2976-7639-48c3-acb1-1c88bc27724c",
+                    "title": "Reshaping Sri Lankan Intellectual Property Law: The Influence of Artificial Intelligence",
+                    "url": "https://rda.sliit.lk/handle/123456789/4379"
+                  }
+                },
+                {
+                  "similarity": 0.4463,
+                  "paper_a": {
+                    "paper_id": "1fae3a98-6f07-4f42-978a-15c1af912010",
+                    "title": "Anthropocentricity and Copyright Protection; A Theoretical Emphasis on the Human Authorship Requirement in Copyright after Thaler v. Perlmutter",
+                    "url": "https://rda.sliit.lk/handle/123456789/4380"
+                  },
+                  "paper_b": {
+                    "paper_id": "e81addfc-c19e-4ded-86b2-b27be4138c18",
+                    "title": "Rewriting Delictual Liability in the Age of AI: Assessing Negligence for Physical Harm Caused by AI Driven Robots in Sri Lanka",
+                    "url": "https://rda.sliit.lk/handle/123456789/4378"
+                  }
+                },
+                {
+                  "similarity": 0.4459,
+                  "paper_a": {
+                    "paper_id": "895c9a34-6cf0-478b-964e-7720d3316ebe",
+                    "title": "Nutria: An AI-Driven Personalized Meal and Exercise Recommender System for Diabetes Management",
+                    "url": "https://rda.sliit.lk/handle/123456789/4180"
+                  },
+                  "paper_b": {
+                    "paper_id": "4303c33b-3fef-4dd4-bff5-2fe01e156654",
+                    "title": "Developing AI-Powered Android Application about Self-financial Management for Individuals “FinGuard”",
+                    "url": "https://rda.sliit.lk/handle/123456789/4173"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "related_papers": [
+        {
+          "paper_id": "99c35a0d-5e3c-47c3-b0d4-9b526210f08b",
+          "title": "Plant Diseases Detection Using Image Processing and Suggest Pesticides and Managements",
+          "authors": [
+            "Gamage, A",
+            "Sritharan, L",
+            "Anjanan, M"
+          ],
+          "year": 2022,
+          "url": "https://rda.sliit.lk/handle/123456789/2964",
+          "subject": [
+            "Plant Diseases",
+            "Detection Using",
+            "Image Processing",
+            "Suggest Pesticides",
+            "Managements"
+          ],
+          "similarity": 0.6815,
+          "abstract_excerpt": "Various plant diseases affect farmers all over the world and there is a very small amount of solutions available online for free in order to assist. In Sri Lanka, in order to address this issue, we have done a study which outputs a mobile application which utilizes image processi…"
+        },
+        {
+          "paper_id": "155c0565-1ed3-4757-83de-e1880d0a1c95",
+          "title": "Machine Learning to Aid in the Process of Disease Detection and Management in Soilless Farming",
+          "authors": [
+            "Fernando, S. D",
+            "Gamage, A",
+            "De Silva, D. H"
+          ],
+          "year": 2022,
+          "url": "https://rda.sliit.lk/handle/123456789/2971",
+          "subject": [
+            "Machine Learning",
+            "Process",
+            "Disease Detection",
+            "Management",
+            "Soilless Farming"
+          ],
+          "similarity": 0.6479,
+          "abstract_excerpt": "This research aims at enhancing the methods and techniques that are being used in disease detection when it comes to soilless farming. Soilless farming is quite famous among the Sri Lankan farmers farming in urban areas. A mobile application is launched by us and this application…"
+        },
+        {
+          "paper_id": "491dc35c-84be-43c6-b2f0-e73f6553f518",
+          "title": "Efficient Agricultural Sensor Network with Disease Detection",
+          "authors": [
+            "Gunathilaka, M. D. N",
+            "Lokuliyana, S",
+            "Udurawana, A. W. G. C",
+            "Dissanayaka, D. M. A. S",
+            "Jayakody, A"
+          ],
+          "year": 2019,
+          "url": "https://rda.sliit.lk/handle/123456789/1787",
+          "subject": [
+            "Efficient",
+            "Agricultural Sensor",
+            "Sensor Network",
+            "Disease Detection"
+          ],
+          "similarity": 0.6437,
+          "abstract_excerpt": "The smart Agriculture concept is a new trending topic in making traditional agriculture task automation to make them more effective and efficient to suit current human requirements. With machine learning and image processing technologies those tasks are made more robust and accur…"
+        },
+        {
+          "paper_id": "82571fcc-2058-4d78-956f-2e89feb52828",
+          "title": "Banana Disease Identification Using Machine Learning Based Technologies and Weather-Based Dispersion Analysis",
+          "authors": [
+            "Kothalawala, M.U.",
+            "Gaveshith, M.G. K",
+            "Tharaka, A.H.D.H.",
+            "Punchihewa, I.A",
+            "Sriyaratna, D"
+          ],
+          "year": 2022,
+          "url": "https://rda.sliit.lk/handle/123456789/3327",
+          "subject": [
+            "Banana Disease",
+            "Identification",
+            "Machine Learning",
+            "Technologies",
+            "Weather-Based",
+            "Dispersion Analysis"
+          ],
+          "similarity": 0.6321,
+          "abstract_excerpt": "Banana is the fourth most important food crop in the world as well as the most important and popular fruit crop in Sri Lanka. Banana leaf diseases are becoming one of the most important factors affecting agricultural products. As a result of these diseases, the quantity and quali…"
+        },
+        {
+          "paper_id": "f39e0035-223c-428e-8f50-d990023d5946",
+          "title": "Auto Training an AI for Detecting Plant Disease Using Twitter Data Annexed With a Plant Anthology",
+          "authors": [
+            "Vasanthan, N.",
+            "Shimran, Mohamed",
+            "Ahkam, A.",
+            "Ishak, I.",
+            "Silva, C.",
+            "Kuruppu, T.A."
+          ],
+          "year": 2021,
+          "url": "https://rda.sliit.lk/handle/123456789/973",
+          "subject": [
+            "Continuous Learning",
+            "Twitter",
+            "CNN",
+            "Auto-Keras",
+            "AutoML",
+            "Image Classification",
+            "Web Data Extraction",
+            "Business Intelligence"
+          ],
+          "similarity": 0.6294,
+          "abstract_excerpt": "Agricultural productivity plays a vital role in\r\ncontributing to a nation’s economy. Farmers nowadays are\r\nconcerned due to disease persistence in crops and plants, and it\r\nalso affects the economy indirectly, so it is important to come up\r\nwith a solution to detect plant disease…"
+        },
+        {
+          "paper_id": "79a7c29e-8822-4fee-8a85-2f22d64434bb",
+          "title": "Disease Identification and Mapping using CNN in Paddy Fields",
+          "authors": [
+            "Sandeepanie, W.D.N",
+            "Rathnayake, S",
+            "Gunasinghe, A"
+          ],
+          "year": 2023,
+          "url": "https://rda.sliit.lk/handle/123456789/3634",
+          "subject": [
+            "Machine learning",
+            "Object detection",
+            "Paddy cultivation",
+            "Web development",
+            "YOLO v8"
+          ],
+          "similarity": 0.6272,
+          "abstract_excerpt": "Rice, a globally vital staple crop, sustains over half\r\nof the world’s caloric needs while supporting the\r\nlivelihoods of small-scale farmers and landless\r\nlaborers. The escalating global population has\r\nled to an increased demand for rice production.\r\nSri Lanka, renowned for its…"
+        }
+      ],
+      "query": "machine learning crop disease detection",
+      "total_topics": 17,
+      "model_version": "1.0.0",
+      "base_model": "sbert_plagiarism (SLIIT fine-tuned)",
+      "source": "local"
+    }
+  },
+  {
+    "id": "M3-10",
+    "feature": "Plagiarism Trends legacy (Supabase/fallback)",
+    "method": "GET",
+    "path": "/data/plagiarism-trends",
+    "request": {
+      "year_from": 2018,
+      "year_to": 2026
+    },
+    "status": 200,
+    "response": {
+      "trends": [
+        {
+          "cohort_year": 2020,
+          "topic_area": "artificial intelligence",
+          "avg_similarity": 0.2571,
+          "max_similarity": 0.3928,
+          "trend_direction": "baseline"
+        },
+        {
+          "cohort_year": 2021,
+          "topic_area": "artificial intelligence",
+          "avg_similarity": 0.2575,
+          "max_similarity": 0.3996,
+          "trend_direction": "stable"
+        },
+        {
+          "cohort_year": 2022,
+          "topic_area": "artificial intelligence",
+          "avg_similarity": 0.0573,
+          "max_similarity": 0.118,
+          "trend_direction": "decreasing"
+        },
+        {
+          "cohort_year": 2024,
+          "topic_area": "artificial intelligence",
+          "avg_similarity": 0.2221,
+          "max_similarity": 1.0,
+          "trend_direction": "increasing"
+        },
+        {
+          "cohort_year": 2025,
+          "topic_area": "artificial intelligence",
+          "avg_similarity": 0.2167,
+          "max_similarity": 0.764,
+          "trend_direction": "stable"
+        },
+        {
+          "cohort_year": 2019,
+          "topic_area": "innovation performance",
+          "avg_similarity": 0.9198,
+          "max_similarity": 1.0,
+          "trend_direction": "baseline"
+        },
+        {
+          "cohort_year": 2019,
+          "topic_area": "machine learning",
+          "avg_similarity": 0.2852,
+          "max_similarity": 0.4025,
+          "trend_direction": "baseline"
+        },
+        {
+          "cohort_year": 2020,
+          "topic_area": "machine learning",
+          "avg_similarity": 0.2364,
+          "max_similarity": 0.4075,
+          "trend_direction": "decreasing"
+        },
+        {
+          "cohort_year": 2021,
+          "topic_area": "machine learning",
+          "avg_similarity": 0.3155,
+          "max_similarity": 0.4618,
+          "trend_direction": "increasing"
+        },
+        {
+          "cohort_year": 2022,
+          "topic_area": "machine learning",
+          "avg_similarity": 0.2346,
+          "max_similarity": 0.447,
+          "trend_direction": "decreasing"
+        },
+        {
+          "cohort_year": 2021,
+          "topic_area": "business intelligence",
+          "avg_similarity": 0.5314,
+          "max_similarity": 1.0,
+          "trend_direction": "baseline"
+        },
+        {
+          "cohort_year": 2022,
+          "topic_area": "monitoring system",
+          "avg_similarity": 0.2671,
+          "max_similarity": 0.3167,
+          "trend_direction": "baseline"
+        },
+        {
+          "cohort_year": 2022,
+          "topic_area": "construction industry",
+          "avg_similarity": 0.5577,
+          "max_similarity": 0.6056,
+          "trend_direction": "baseline"
+        },
+        {
+          "cohort_year": 2023,
+          "topic_area": "construction industry",
+          "avg_similarity": 0.54,
+          "max_similarity": 0.678,
+          "trend_direction": "stable"
+        }
+      ],
+      "source": "local-corpus"
+    }
+  },
+  {
+    "id": "M3-11",
+    "feature": "Plagiarism Compare (near-identical text)",
+    "method": "POST",
+    "path": "/data/plagiarism-trends/compare",
+    "request": {
+      "text_a": "This paper presents a novel deep learning approach for detecting plant diseases from leaf images using convolutional neural networks. In recent years, agricultural productivity in Sri Lanka has been severely affected by crop diseases, resulting in significant economic losses for farmers. Existing manual inspection methods are time-consuming and require expert knowledge that is often unavailable in rural areas. This study proposes a mobile-based system that uses a fine-tuned ResNet50 architecture trained on a dataset of 15,000 labeled leaf images spanning 12 disease categories across three crops: rice, tomato, and banana. The methodology involves collecting images from local farms, applying data augmentation techniques such as rotation and color jittering, and training the model using transfer learning with an initial learning rate of 0.001. We evaluate the model against three baseline approaches: a traditional SVM classifier, a shallow CNN, and a pretrained VGG16 model. Results show that our approach achieves 94.2% classification accuracy, outperforming the SVM baseline by 18 percentage points and the shallow CNN by 9 percentage points. The F1-score across all disease categories averaged 0.91, with the lowest performing category being early blight in tomato leaves at 0.83 F1. However, the model struggles with images taken under poor lighting conditions, and further work is needed to improve robustness to real-world capture conditions. In conclusion, this study demonstrates that deep learning based leaf disease detection can be feasibly deployed on mobile devices to assist smallholder farmers, though future work should explore on-device quantization to reduce inference latency and expand the dataset to cover additional crop varieties.",
+      "text_b": "This paper presents a novel deep learning approach for detecting plant diseases from leaf images using convolutional neural networks. In recent years, agricultural productivity in Bangladesh has been severely affected by crop diseases, resulting in significant economic losses for farmers. Existing manual inspection methods are time-consuming and require expert knowledge that is often unavailable in rural areas. This study proposes a mobile-based system that uses a fine-tuned EfficientNet architecture trained on a dataset of 15,000 labeled leaf images spanning 12 disease categories across three crops: rice, tomato, and banana. The methodology involves collecting images from local farms, applying data augmentation techniques such as rotation and color jittering, and training the model using transfer learning with an initial learning rate of 0.001. We evaluate the model against three baseline approaches: a traditional SVM classifier, a shallow CNN, and a pretrained VGG16 model. Results show that our approach achieves 94.2% classification accuracy, outperforming the SVM baseline by 18 percentage points and the shallow CNN by 9 percentage points. The F1-score across all disease categories averaged 0.91, with the lowest performing category being early blight in tomato leaves at 0.83 F1. However, the model struggles with images taken under poor lighting conditions, and further work is needed to improve robustness to real-world capture conditions. In conclusion, this study demonstrates that deep learning based leaf disease detection can be feasibly deployed on mobile devices to assist smallholder farmers, though future work should explore on-device quantization to reduce inference latency and expand the dataset to cover additional crop varieties.",
+      "title_a": "Original",
+      "title_b": "Slightly modified copy"
+    },
+    "status": 200,
+    "response": {
+      "document_similarity": 0.9872,
+      "ngram_jaccard": 0.9373,
+      "ngram_overlap_in_a": 0.9658,
+      "ngram_overlap_in_b": 0.9695,
+      "risk_score": 0.9748,
+      "risk_level": "high",
+      "flagged_pairs": [
+        {
+          "similarity": 1.0,
+          "sentence_a": "The F1-score across all disease categories averaged 0.91, with the lowest performing category being early blight in tomato leaves at 0.83 F1.",
+          "sentence_b": "The F1-score across all disease categories averaged 0.91, with the lowest performing category being early blight in tomato leaves at 0.83 F1.",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "similarity": 1.0,
+          "sentence_a": "This paper presents a novel deep learning approach for detecting plant diseases from leaf images using convolutional neural networks.",
+          "sentence_b": "This paper presents a novel deep learning approach for detecting plant diseases from leaf images using convolutional neural networks.",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "similarity": 1.0,
+          "sentence_a": "However, the model struggles with images taken under poor lighting conditions, and further work is needed to improve robustness to real-world capture conditions.",
+          "sentence_b": "However, the model struggles with images taken under poor lighting conditions, and further work is needed to improve robustness to real-world capture conditions.",
+          "index_a": 8,
+          "index_b": 8
+        },
+        {
+          "similarity": 1.0,
+          "sentence_a": "The methodology involves collecting images from local farms, applying data augmentation techniques such as rotation and color jittering, and training the model using transfer learning with an initial learning rate of 0.001.",
+          "sentence_b": "The methodology involves collecting images from local farms, applying data augmentation techniques such as rotation and color jittering, and training the model using transfer learning with an initial learning rate of 0.001.",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "similarity": 1.0,
+          "sentence_a": "Results show that our approach achieves 94.2% classification accuracy, outperforming the SVM baseline by 18 percentage points and the shallow CNN by 9 percentage points.",
+          "sentence_b": "Results show that our approach achieves 94.2% classification accuracy, outperforming the SVM baseline by 18 percentage points and the shallow CNN by 9 percentage points.",
+          "index_a": 6,
+          "index_b": 6
+        }
+      ],
+      "n_sentences_a": 10,
+      "n_sentences_b": 10,
+      "title_a": "Original",
+      "title_b": "Slightly modified copy",
+      "model_version": "sentence-transformers/all-MiniLM-L6-v2",
+      "source": "local"
+    }
+  },
+  {
+    "id": "M3-12",
+    "feature": "Plagiarism Compare (unrelated texts)",
+    "method": "POST",
+    "path": "/data/plagiarism-trends/compare",
+    "request": {
+      "text_a": "This paper presents a novel deep learning approach for detecting plant diseases from leaf images using convolutional neural networks. In recent years, agricultural productivity in Sri Lanka has been severely affected by crop diseases, resulting in significant economic losses for farmers. Existing manual inspection methods are time-consuming and require expert knowledge that is often unavailable in rural areas. This study proposes a mobile-based system that uses a fine-tuned ResNet50 architecture trained on a dataset of 15,000 labeled leaf images spanning 12 disease categories across three crops: rice, tomato, and banana. The methodology involves collecting images from local farms, applying data augmentation techniques such as rotation and color jittering, and training the model using transfer learning with an initial learning rate of 0.001. We evaluate the model against three baseline approaches: a traditional SVM classifier, a shallow CNN, and a pretrained VGG16 model. Results show that our approach achieves 94.2% classification accuracy, outperforming the SVM baseline by 18 percentage points and the shallow CNN by 9 percentage points. The F1-score across all disease categories averaged 0.91, with the lowest performing category being early blight in tomato leaves at 0.83 F1. However, the model struggles with images taken under poor lighting conditions, and further work is needed to improve robustness to real-world capture conditions. In conclusion, this study demonstrates that deep learning based leaf disease detection can be feasibly deployed on mobile devices to assist smallholder farmers, though future work should explore on-device quantization to reduce inference latency and expand the dataset to cover additional crop varieties.",
+      "text_b": "The stock market experienced significant volatility this quarter due to rising interest rates and geopolitical tensions affecting global supply chains. Investors are increasingly turning to diversified portfolios including bonds, real estate, and commodities to hedge against inflation risk in an uncertain macroeconomic environment.",
+      "title_a": "Plant disease paper",
+      "title_b": "Unrelated finance text"
+    },
+    "status": 200,
+    "response": {
+      "document_similarity": -0.0086,
+      "ngram_jaccard": 0.0,
+      "ngram_overlap_in_a": 0.0,
+      "ngram_overlap_in_b": 0.0,
+      "risk_score": -0.0064,
+      "risk_level": "minimal",
+      "flagged_pairs": [],
+      "n_sentences_a": 10,
+      "n_sentences_b": 2,
+      "title_a": "Plant disease paper",
+      "title_b": "Unrelated finance text",
+      "model_version": "sentence-transformers/all-MiniLM-L6-v2",
+      "source": "local"
+    }
+  },
+  {
+    "id": "M3-13",
+    "feature": "Plagiarism Trends status",
+    "method": "GET",
+    "path": "/data/plagiarism-trends/status",
+    "request": null,
+    "status": 200,
+    "response": {
+      "sbert_loaded": true,
+      "sbert_version": "sentence-transformers/all-MiniLM-L6-v2",
+      "trend_index_loaded": true,
+      "n_topics": 17,
+      "index_version": "1.0.0"
+    }
+  },
+  {
+    "id": "M3-14",
+    "feature": "Data Quality Metrics",
+    "method": "GET",
+    "path": "/data/quality",
+    "request": null,
+    "status": 200,
+    "response": {
+      "total_papers": 0,
+      "completeness_score": 0.0,
+      "consistency_score": 0.0,
+      "duplicate_rate": 0.0,
+      "sources": {}
+    }
+  }
+]

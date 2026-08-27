@@ -212,10 +212,10 @@ separate database of publications.</p>
 <p><span class="badge gray">Supabase CRUD</span><span class="badge amber">legacy SBERT matcher retained</span></p>
 <h4>What it does</h4>
 <p>A student can create a research group with a project title/description and a number of open slots
-(<span class="endpoint">POST /peers/groups</span>), browse open groups (<span class="endpoint">GET /peers/groups</span>),
-and request to join one (<span class="endpoint">POST /peers/groups/{id}/join-request</span>).</p>
+(<span class="endpoint">POST /matching/groups</span>), browse open groups (<span class="endpoint">GET /matching/groups</span>),
+and request to join one (<span class="endpoint">POST /matching/groups/{id}/join-request</span>).</p>
 <h4>Why this shifted away from pure ML matching</h4>
-<p>The module still exposes a legacy content-based SBERT peer matcher (<code>POST /peers</code>,
+<p>The module still exposes a legacy content-based SBERT peer matcher (<code>POST /matching/peers</code>,
 <code>app/routers/peer.py</code>) that embeds a student's interests/department and queries the
 <code>match_peers</code> pgvector RPC for similar student profiles. In production the primary flow is a more
 direct, human-in-the-loop <b>group marketplace</b> instead: students self-describe what they're building and
@@ -330,11 +330,11 @@ mind-map, proposal-fallback, and sentiment features rather than maintaining a se
 <tr><th>Method &amp; Path (via gateway <code>/api/v1/module2/…</code>)</th><th>Feature</th><th>Backing service</th></tr>
 <tr><td><span class="method-post">POST</span> <span class="endpoint">/matching/supervisors</span></td><td>Supervisor matching</td><td>supervisor_matcher.py</td></tr>
 <tr><td><span class="method-get">GET</span> <span class="endpoint">/matching/supervisors/{id}/papers</span></td><td>Profile + publications + charts</td><td>Semantic Scholar + Gemini</td></tr>
-<tr><td><span class="method-post">POST</span> <span class="endpoint">/peers/groups</span></td><td>Create group</td><td>Supabase (peer_groups)</td></tr>
-<tr><td><span class="method-get">GET</span> <span class="endpoint">/peers/groups</span></td><td>List groups</td><td>Supabase (peer_groups)</td></tr>
-<tr><td><span class="method-get">GET</span> <span class="endpoint">/peers/groups/{id}</span></td><td>Group detail</td><td>Supabase (peer_groups)</td></tr>
-<tr><td><span class="method-post">POST</span> <span class="endpoint">/peers/groups/{id}/join-request</span></td><td>Join request + mailto</td><td>Supabase (peer_group_join_requests)</td></tr>
-<tr><td><span class="method-post">POST</span> <span class="endpoint">/peers</span> <i>(legacy)</i></td><td>Content-based peer matching</td><td>embedding_utils.py + pgvector RPC</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/matching/groups</span></td><td>Create group</td><td>Supabase (peer_groups)</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/matching/groups</span></td><td>List groups</td><td>Supabase (peer_groups)</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/matching/groups/{id}</span></td><td>Group detail</td><td>Supabase (peer_groups)</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/matching/groups/{id}/join-request</span></td><td>Join request + mailto</td><td>Supabase (peer_group_join_requests)</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/matching/peers</span> <i>(legacy)</i></td><td>Content-based peer matching</td><td>embedding_utils.py + pgvector RPC</td></tr>
 <tr><td><span class="method-post">POST</span> <span class="endpoint">/feedback/request-otp</span></td><td>Email OTP request</td><td>smtplib / in-memory store</td></tr>
 <tr><td><span class="method-post">POST</span> <span class="endpoint">/feedback/verify-otp</span></td><td>Email OTP verify</td><td>in-memory store</td></tr>
 <tr><td><span class="method-post">POST</span> <span class="endpoint">/feedback/analyze</span></td><td>Standalone sentiment analysis</td><td>Gemini 2.5 Flash</td></tr>
@@ -345,6 +345,11 @@ mind-map, proposal-fallback, and sentiment features rather than maintaining a se
 <tr><td><span class="method-get">GET</span> <span class="endpoint">/effectiveness/by-key</span></td><td>Effectiveness detail</td><td>effectiveness.py</td></tr>
 <tr><td><span class="method-get">GET</span> <span class="endpoint">/effectiveness/{id}</span> <i>(legacy)</i></td><td>Effectiveness by system UUID</td><td>effectiveness.py</td></tr>
 </table>
+<div class="note"><b>Note:</b> <code>app/routers/peer.py</code>'s own module docstring documents these routes as
+mounted at <code>/peers/groups</code>; <code>main.py</code> actually mounts this router with
+<code>prefix="/matching"</code>, so the real path is <code>/matching/groups</code> as shown above (confirmed by
+live testing). The gateway already calls the correct real path, so end users are unaffected — only the
+router's own source comment is stale.</div>
 
 <footer class="page-footer">Researchly AI &middot; Module 2 — Collaboration &amp; Recommendation &middot; R26-IT-116 &middot; SLIIT</footer>
 

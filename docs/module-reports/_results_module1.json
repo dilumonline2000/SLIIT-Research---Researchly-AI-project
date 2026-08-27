@@ -1,0 +1,1271 @@
+[
+  {
+    "id": "M1-01",
+    "feature": "Citation Parser",
+    "method": "POST",
+    "path": "/citations/parse",
+    "request": {
+      "raw_text": "Perera, K. and Silva, M. (2021). Deep learning for crop disease detection in Sri Lanka. Journal of Agricultural Informatics, 12(3), 45-58."
+    },
+    "status": 200,
+    "response": {
+      "parsed": {
+        "raw": "Perera, K. and Silva, M. (2021). Deep learning for crop disease detection in Sri Lanka. Journal of Agricultural Informatics, 12(3), 45-58.",
+        "source_type": "journal",
+        "authors": [
+          "Perera, K.",
+          "Silva, M."
+        ],
+        "title": "Deep learning for crop disease detection in Sri Lanka",
+        "year": 2021,
+        "journal": "ournal of Agricultural Informatics, 12(3), 45-58",
+        "conference": null,
+        "publisher": null,
+        "url": null,
+        "volume": null,
+        "issue": null,
+        "pages": null,
+        "doi": null,
+        "edition": null
+      },
+      "formatted_apa": "Perera, K., & Silva, M. (2021). Deep learning for crop disease detection in sri lanka. *ournal of Agricultural Informatics, 12(3), 45-58*.",
+      "formatted_ieee": "K. Perera and M. Silva, \"Deep learning for crop disease detection in Sri Lanka,\" *ournal of Agricultural Informatics, 12(3), 45-58*, 2021.",
+      "in_text_apa": "(Perera & Silva, 2021)",
+      "in_text_ieee": "[1]",
+      "warnings": [],
+      "confidence": 0.75,
+      "source": "regex"
+    }
+  },
+  {
+    "id": "M1-02",
+    "feature": "Citation Parser",
+    "method": "POST",
+    "path": "/citations/parse",
+    "request": {
+      "raw_text": "J. Fernando, S. Bandara and A. Kumar, \"IoT-based smart irrigation system,\" in Proc. IEEE Int'l Conf. on Smart Computing, 2020, pp. 112-119."
+    },
+    "status": 200,
+    "response": {
+      "parsed": {
+        "raw": "J. Fernando, S. Bandara and A. Kumar, \"IoT-based smart irrigation system,\" in Proc. IEEE Int'l Conf. on Smart Computing, 2020, pp. 112-119.",
+        "source_type": "conference",
+        "authors": [],
+        "title": "Fernando, S",
+        "year": null,
+        "journal": null,
+        "conference": "Bandara and A. Kumar, \"IoT-based smart irrigation system,\" in Proc. IEEE Int'l Conf. on Smart Computing, 2020",
+        "publisher": null,
+        "url": null,
+        "volume": null,
+        "issue": null,
+        "pages": "112-119",
+        "doi": null,
+        "edition": null
+      },
+      "formatted_apa": "Fernando, s. In *Bandara and A. Kumar, \"IoT-based smart irrigation system,\" in Proc. IEEE Int'l Conf. on Smart Computing, 2020* (pp. 112-119).",
+      "formatted_ieee": "\"Fernando, S,\" in *Bandara and A. Kumar, \"IoT-based smart irrigation system,\" in Proc. IEEE Int'l Conf. on Smart Computing, 2020*, pp. 112-119.",
+      "in_text_apa": "(Unknown, n.d.)",
+      "in_text_ieee": "[1]",
+      "warnings": [
+        "Author(s) not found — please add at least one author.",
+        "Year not found — please add the publication year."
+      ],
+      "confidence": 0.35,
+      "source": "regex"
+    }
+  },
+  {
+    "id": "M1-03",
+    "feature": "Citation Parser (incomplete input)",
+    "method": "POST",
+    "path": "/citations/parse",
+    "request": {
+      "raw_text": "Some paper about machine learning without proper structure"
+    },
+    "status": 200,
+    "response": {
+      "parsed": {
+        "raw": "Some paper about machine learning without proper structure",
+        "source_type": "journal",
+        "authors": [],
+        "title": "Some paper about machine learning without proper structure",
+        "year": null,
+        "journal": null,
+        "conference": null,
+        "publisher": null,
+        "url": null,
+        "volume": null,
+        "issue": null,
+        "pages": null,
+        "doi": null,
+        "edition": null
+      },
+      "formatted_apa": "Some paper about machine learning without proper structure.",
+      "formatted_ieee": "\"Some paper about machine learning without proper structure,\".",
+      "in_text_apa": "(Unknown, n.d.)",
+      "in_text_ieee": "[1]",
+      "warnings": [
+        "Author(s) not found — please add at least one author.",
+        "Year not found — please add the publication year.",
+        "Journal name missing — please add the journal."
+      ],
+      "confidence": 0.25,
+      "source": "regex"
+    }
+  },
+  {
+    "id": "M1-04",
+    "feature": "Citation Formatter",
+    "method": "POST",
+    "path": "/citations/format",
+    "request": {
+      "parsed": {
+        "raw": "",
+        "source_type": "journal",
+        "authors": [
+          "Perera, K.",
+          "Silva, M."
+        ],
+        "title": "Deep learning for crop disease detection in Sri Lanka",
+        "year": 2021,
+        "journal": "Journal of Agricultural Informatics",
+        "volume": "12",
+        "issue": "3",
+        "pages": "45-58",
+        "doi": "10.1234/jai.2021.0012"
+      },
+      "style": "ieee"
+    },
+    "status": 200,
+    "response": {
+      "formatted": "K. Perera and M. Silva, \"Deep learning for crop disease detection in Sri Lanka,\" *Journal of Agricultural Informatics*, vol. 12, no. 3, pp. 45-58, 2021. doi: 10.1234/jai.2021.0012.",
+      "style": "ieee",
+      "in_text": "[1]"
+    }
+  },
+  {
+    "id": "M1-05",
+    "feature": "DOI Lookup (CrossRef, real DOI)",
+    "method": "POST",
+    "path": "/citations/lookup-doi",
+    "request": {
+      "doi": "10.1038/nphys1170"
+    },
+    "status": 200,
+    "response": {
+      "parsed": {
+        "raw": "",
+        "source_type": "journal",
+        "authors": [
+          "Aspelmeyer, M."
+        ],
+        "title": "Measured measurement",
+        "year": 2009,
+        "journal": "Nature Physics",
+        "conference": null,
+        "publisher": "Springer Science and Business Media LLC",
+        "url": "https://doi.org/10.1038/nphys1170",
+        "volume": "5",
+        "issue": "1",
+        "pages": "11-12",
+        "doi": "10.1038/nphys1170",
+        "edition": null
+      },
+      "formatted_apa": "Aspelmeyer, M. (2009). Measured measurement. *Nature Physics*, *5*(1), 11-12. https://doi.org/10.1038/nphys1170",
+      "formatted_ieee": "M. Aspelmeyer, \"Measured measurement,\" *Nature Physics*, vol. 5, no. 1, pp. 11-12, 2009. doi: 10.1038/nphys1170.",
+      "in_text_apa": "(Aspelmeyer, 2009)",
+      "in_text_ieee": "[1]",
+      "warnings": [],
+      "confidence": 0.85,
+      "source": "crossref"
+    }
+  },
+  {
+    "id": "M1-06",
+    "feature": "Similar Papers (SBERT retrieval)",
+    "method": "POST",
+    "path": "/citations/similar-papers",
+    "request": {
+      "query": "machine learning for early detection of plant diseases",
+      "top_k": 5
+    },
+    "status": 200,
+    "response": {
+      "papers": [
+        {
+          "paper_id": "f39e0035-223c-428e-8f50-d990023d5946",
+          "title": "Auto Training an AI for Detecting Plant Disease Using Twitter Data Annexed With a Plant Anthology",
+          "authors": [
+            "Vasanthan, N.",
+            "Shimran, Mohamed",
+            "Ahkam, A.",
+            "Ishak, I.",
+            "Silva, C.",
+            "Kuruppu, T.A."
+          ],
+          "year": 2021,
+          "url": "https://rda.sliit.lk/handle/123456789/973",
+          "similarity": 0.655,
+          "abstract_excerpt": "Agricultural productivity plays a vital role in\r\ncontributing to a nation’s economy. Farmers nowadays are\r\nconcerned due to disease persistence in crops and plants, and it\r\nalso affects the economy indirectly, so it is important to come up\r\nwith a solution to detect plant disease…"
+        },
+        {
+          "paper_id": "155c0565-1ed3-4757-83de-e1880d0a1c95",
+          "title": "Machine Learning to Aid in the Process of Disease Detection and Management in Soilless Farming",
+          "authors": [
+            "Fernando, S. D",
+            "Gamage, A",
+            "De Silva, D. H"
+          ],
+          "year": 2022,
+          "url": "https://rda.sliit.lk/handle/123456789/2971",
+          "similarity": 0.634,
+          "abstract_excerpt": "This research aims at enhancing the methods and techniques that are being used in disease detection when it comes to soilless farming. Soilless farming is quite famous among the Sri Lankan farmers farming in urban areas. A mobile application is launched by us and this application…"
+        },
+        {
+          "paper_id": "82571fcc-2058-4d78-956f-2e89feb52828",
+          "title": "Banana Disease Identification Using Machine Learning Based Technologies and Weather-Based Dispersion Analysis",
+          "authors": [
+            "Kothalawala, M.U.",
+            "Gaveshith, M.G. K",
+            "Tharaka, A.H.D.H.",
+            "Punchihewa, I.A",
+            "Sriyaratna, D"
+          ],
+          "year": 2022,
+          "url": "https://rda.sliit.lk/handle/123456789/3327",
+          "similarity": 0.624,
+          "abstract_excerpt": "Banana is the fourth most important food crop in the world as well as the most important and popular fruit crop in Sri Lanka. Banana leaf diseases are becoming one of the most important factors affecting agricultural products. As a result of these diseases, the quantity and quali…"
+        },
+        {
+          "paper_id": "99c35a0d-5e3c-47c3-b0d4-9b526210f08b",
+          "title": "Plant Diseases Detection Using Image Processing and Suggest Pesticides and Managements",
+          "authors": [
+            "Gamage, A",
+            "Sritharan, L",
+            "Anjanan, M"
+          ],
+          "year": 2022,
+          "url": "https://rda.sliit.lk/handle/123456789/2964",
+          "similarity": 0.597,
+          "abstract_excerpt": "Various plant diseases affect farmers all over the world and there is a very small amount of solutions available online for free in order to assist. In Sri Lanka, in order to address this issue, we have done a study which outputs a mobile application which utilizes image processi…"
+        },
+        {
+          "paper_id": "9c089950-a721-410c-9e88-9cc0d4915a7b",
+          "title": "Intelligent Disease Detection System for Greenhouse with a Robotic Monitoring System",
+          "authors": [
+            "Fernando, S.",
+            "Nethmi, R.",
+            "Silva, A.",
+            "Perera, A.",
+            "De Silva, R.",
+            "Abeygunawardhana, P.K.W."
+          ],
+          "year": 2020,
+          "url": "https://rda.sliit.lk/handle/123456789/1472",
+          "similarity": 0.589,
+          "abstract_excerpt": "Greenhouse farming plays a significant role in the\r\nagricultural industry because of its controlled climatic features.\r\nRecent examinations have stated that the mean creation of the\r\nyields under greenhouses is lessening due to disease events in\r\nthe plants. These foods have beco…"
+        }
+      ],
+      "count": 5
+    }
+  },
+  {
+    "id": "M1-07",
+    "feature": "Reference List (APA, sorting)",
+    "method": "POST",
+    "path": "/citations/reference-list",
+    "request": {
+      "entries": [
+        {
+          "raw": "",
+          "source_type": "journal",
+          "authors": [
+            "Zhang, Y."
+          ],
+          "title": "Zebra paper",
+          "year": 2019,
+          "journal": "J. X"
+        },
+        {
+          "raw": "",
+          "source_type": "journal",
+          "authors": [
+            "Amir, A."
+          ],
+          "title": "Alpha paper",
+          "year": 2020,
+          "journal": "J. Y"
+        }
+      ],
+      "style": "apa"
+    },
+    "status": 200,
+    "response": {
+      "style": "apa",
+      "entries": [
+        "Amir, A. (2020). Alpha paper. *J. Y*.",
+        "Zhang, Y. (2019). Zebra paper. *J. X*."
+      ]
+    }
+  },
+  {
+    "id": "M1-08",
+    "feature": "Gap Analysis",
+    "method": "POST",
+    "path": "/gaps/analyze",
+    "request": {
+      "topic": "machine learning for crop disease detection in Sri Lanka",
+      "top_k": 6,
+      "min_similarity": 0.15
+    },
+    "status": 200,
+    "response": {
+      "loaded": true,
+      "query": "machine learning for crop disease detection in Sri Lanka",
+      "filters": {
+        "year_from": null,
+        "year_to": null
+      },
+      "gaps": [
+        {
+          "topic": "Socially prescribed perfectionism, perfectionism, unrealistic expectations, adolescents",
+          "description": "However, there is a notable lack of research focusing specifically on SPP, both globally and in Sri Lanka.",
+          "gap_score": 0.385,
+          "recency_score": 0.283,
+          "novelty_score": 0.653,
+          "similarity": 0.406,
+          "gap_type": "limitation",
+          "classification": "domain",
+          "category_label": "Domain / contextual gap",
+          "multi_dim_score": 0.508,
+          "explanation": "Domain / contextual gap. Topical similarity to your query is 41% (novelty 65%, staleness 28%). The gap was extracted from \"Exploring the Psychological Impact of Socially Prescribed Perfectionism among Sri Lankan Adolescents: An Interpretative Phenomenological Study\" (2025) — the source paper itself flagged this as an unresolved or future-work item, which is why we surface it here.",
+          "supporting_paper": {
+            "paper_id": "151a8ca4-99b6-469b-93b4-65006334f977",
+            "title": "Exploring the Psychological Impact of Socially Prescribed Perfectionism among Sri Lankan Adolescents: An Interpretative Phenomenological Study",
+            "authors": [
+              "Ekanayake, R",
+              "Ponnamperuma, L"
+            ],
+            "year": 2025,
+            "url": "https://rda.sliit.lk/handle/123456789/4408"
+          },
+          "supporting_paper_ids": [
+            "151a8ca4-99b6-469b-93b4-65006334f977"
+          ]
+        },
+        {
+          "topic": "adapted algorithms, ensemble classifiers, feature selection, machine failure, machine learning, multilabel classificatio",
+          "description": "However, machine learning (ML) models are increasingly being utilized to forecast system failures in industrial maintenance, and among them, multilabel classification techniques act as efficient methods.",
+          "gap_score": 0.325,
+          "recency_score": 0.367,
+          "novelty_score": 0.571,
+          "similarity": 0.342,
+          "gap_type": "limitation",
+          "classification": "general",
+          "category_label": "General gap",
+          "multi_dim_score": 0.438,
+          "explanation": "General gap. Topical similarity to your query is 34% (novelty 57%, staleness 37%). The gap was extracted from \"Machine Failure Prediction Using Multilabel Classification Methods\" (2024) — the source paper itself flagged this as an unresolved or future-work item, which is why we surface it here.",
+          "supporting_paper": {
+            "paper_id": "31f5ec76-593f-4165-817d-e75effc2cc87",
+            "title": "Machine Failure Prediction Using Multilabel Classification Methods",
+            "authors": [
+              "Kumari, H.M.N.S.",
+              "Nawarathne, U.M.M.P.K."
+            ],
+            "year": 2024,
+            "url": "https://rda.sliit.lk/handle/123456789/3697"
+          },
+          "supporting_paper_ids": [
+            "31f5ec76-593f-4165-817d-e75effc2cc87"
+          ]
+        },
+        {
+          "topic": "Long-term trends, Non-parametric tests, Relative humidity, Temperature, Variability",
+          "description": "Therefore, identifying this existing research gap, this present paper presents a trends and variability analysis of atmospheric temperature and relative humidity of Sri Lanka.",
+          "gap_score": 0.4,
+          "recency_score": 0.533,
+          "novelty_score": 0.482,
+          "similarity": 0.364,
+          "gap_type": "research_gap",
+          "classification": "general",
+          "category_label": "General gap",
+          "multi_dim_score": 0.425,
+          "explanation": "General gap. Topical similarity to your query is 36% (novelty 48%, staleness 53%). The gap was extracted from \"Analysis of recent trends and variability of temperature and relative humidity over Sri Lanka\" (2022) — the source paper itself flagged this as an unresolved or future-work item, which is why we surface it here.",
+          "supporting_paper": {
+            "paper_id": "2711951b-97b2-4fc2-a8db-5aa740fe3b14",
+            "title": "Analysis of recent trends and variability of temperature and relative humidity over Sri Lanka",
+            "authors": [
+              "Rathnayake, U",
+              "Gunathilake, M. B",
+              "Senatilleke, U",
+              "Alyousifi, Y"
+            ],
+            "year": 2022,
+            "url": "https://rda.sliit.lk/handle/123456789/2947"
+          },
+          "supporting_paper_ids": [
+            "2711951b-97b2-4fc2-a8db-5aa740fe3b14"
+          ]
+        },
+        {
+          "topic": "Acrylonitrile Styrene Acrylate, Calicut tiles, Cradle-to-Gate, End-pint impacts, Mid-point impacts",
+          "description": "However, only a few studies have been conducted in Sri Lanka in this regard.",
+          "gap_score": 0.317,
+          "recency_score": 0.45,
+          "novelty_score": 0.508,
+          "similarity": 0.317,
+          "gap_type": "scarcity",
+          "classification": "domain",
+          "category_label": "Domain / contextual gap",
+          "multi_dim_score": 0.402,
+          "explanation": "Domain / contextual gap. Topical similarity to your query is 32% (novelty 51%, staleness 45%). The gap was extracted from \"Comparative Lifecycle Analysis of Sri Lankan Non-Conventional Roofing Materials\" (2023) — the source paper itself flagged this as an unresolved or future-work item, which is why we surface it here.",
+          "supporting_paper": {
+            "paper_id": "5944b269-168e-4ae7-83ad-0696d4e0348d",
+            "title": "Comparative Lifecycle Analysis of Sri Lankan Non-Conventional Roofing Materials",
+            "authors": [
+              "Fernando, W.A.N",
+              "Karunaratne, S"
+            ],
+            "year": 2023,
+            "url": "https://rda.sliit.lk/handle/123456789/3539"
+          },
+          "supporting_paper_ids": [
+            "5944b269-168e-4ae7-83ad-0696d4e0348d"
+          ]
+        },
+        {
+          "topic": "Child mortality, Socio-economic and demographic characteristics, Logit",
+          "description": "The importance of this area of research is high where worldwide a number of studies have been led on infant and child mortality, despite limited research discoveries with regards to Sri Lanka.",
+          "gap_score": 0.368,
+          "recency_score": 0.617,
+          "novelty_score": 0.434,
+          "similarity": 0.368,
+          "gap_type": "scarcity",
+          "classification": "domain",
+          "category_label": "Domain / contextual gap",
+          "multi_dim_score": 0.384,
+          "explanation": "Domain / contextual gap. Topical similarity to your query is 37% (novelty 43%, staleness 62%). The gap was extracted from \"Cherish your children: socio-economic and demographic characteristics associated with child mortality\" (2021) — the source paper itself flagged this as an unresolved or future-work item, which is why we surface it here.",
+          "supporting_paper": {
+            "paper_id": "f69f1272-4f60-4387-8669-ee72a601b959",
+            "title": "Cherish your children: socio-economic and demographic characteristics associated with child mortality",
+            "authors": [
+              "Jayathilaka, R",
+              "Adikari, H",
+              "Liyanage, R",
+              "Udalagama, R",
+              "Wanigarathna, N"
+            ],
+            "year": 2021,
+            "url": "https://rda.sliit.lk/handle/123456789/156"
+          },
+          "supporting_paper_ids": [
+            "f69f1272-4f60-4387-8669-ee72a601b959"
+          ]
+        },
+        {
+          "topic": "Artificial Neural Network, Estimate, Paddy Yield Prediction, Climatic Data",
+          "description": "However, these relationships are not yet obtained in the context of Sri Lanka; a country where its staple food is rice.",
+          "gap_score": 0.38,
+          "recency_score": 0.7,
+          "novelty_score": 0.4,
+          "similarity": 0.4,
+          "gap_type": "limitation",
+          "classification": "general",
+          "category_label": "General gap",
+          "multi_dim_score": 0.371,
+          "explanation": "General gap. Topical similarity to your query is 40% (novelty 40%, staleness 70%). The gap was extracted from \"Artificial neural network to estimate the paddy yield prediction using climatic data\" (2020) — the source paper itself flagged this as an unresolved or future-work item, which is why we surface it here.",
+          "supporting_paper": {
+            "paper_id": "c3c11c2e-0e85-4c6e-bc9c-9728b033676d",
+            "title": "Artificial neural network to estimate the paddy yield prediction using climatic data",
+            "authors": [
+              "Amaratunga, V",
+              "Wickramasinghe, L",
+              "Perera, A",
+              "Jayasinghe, J",
+              "Rathnayake, U. S"
+            ],
+            "year": 2020,
+            "url": "https://rda.sliit.lk/handle/123456789/823"
+          },
+          "supporting_paper_ids": [
+            "c3c11c2e-0e85-4c6e-bc9c-9728b033676d"
+          ]
+        }
+      ],
+      "classification_distribution": [
+        {
+          "category": "domain",
+          "label": "Domain / contextual gap",
+          "count": 3
+        },
+        {
+          "category": "general",
+          "label": "General gap",
+          "count": 3
+        }
+      ],
+      "trends": {
+        "by_year": [
+          {
+            "year": 2019,
+            "count": 2
+          },
+          {
+            "year": 2020,
+            "count": 5
+          },
+          {
+            "year": 2021,
+            "count": 1
+          },
+          {
+            "year": 2022,
+            "count": 1
+          },
+          {
+            "year": 2023,
+            "count": 1
+          },
+          {
+            "year": 2024,
+            "count": 1
+          },
+          {
+            "year": 2025,
+            "count": 1
+          }
+        ],
+        "peak_year": 2020,
+        "peak_count": 5,
+        "total_papers": 12,
+        "interpretation": "Activity is **stable** across 2021–2025. A steady stream of work suggests room for incremental contributions."
+      },
+      "saturation": [],
+      "cross_domain": [
+        {
+          "domain_a": "AI / Machine Learning",
+          "domain_b": "Healthcare",
+          "papers_in_intersection": 0,
+          "papers_in_primary": 1,
+          "opportunity_score": 1.0,
+          "suggestion": "Limited research combining **AI / Machine Learning** and **Healthcare** in the SLIIT corpus (0 of 1 papers cover both). A study connecting these areas would address a clear gap."
+        },
+        {
+          "domain_a": "AI / Machine Learning",
+          "domain_b": "Agriculture",
+          "papers_in_intersection": 0,
+          "papers_in_primary": 1,
+          "opportunity_score": 1.0,
+          "suggestion": "Limited research combining **AI / Machine Learning** and **Agriculture** in the SLIIT corpus (0 of 1 papers cover both). A study connecting these areas would address a clear gap."
+        },
+        {
+          "domain_a": "AI / Machine Learning",
+          "domain_b": "Finance / Banking",
+          "papers_in_intersection": 0,
+          "papers_in_primary": 1,
+          "opportunity_score": 1.0,
+          "suggestion": "Limited research combining **AI / Machine Learning** and **Finance / Banking** in the SLIIT corpus (0 of 1 papers cover both). A study connecting these areas would address a clear gap."
+        },
+        {
+          "domain_a": "AI / Machine Learning",
+          "domain_b": "Tourism",
+          "papers_in_intersection": 0,
+          "papers_in_primary": 1,
+          "opportunity_score": 1.0,
+          "suggestion": "Limited research combining **AI / Machine Learning** and **Tourism** in the SLIIT corpus (0 of 1 papers cover both). A study connecting these areas would address a clear gap."
+        },
+        {
+          "domain_a": "AI / Machine Learning",
+          "domain_b": "IoT / Smart cities",
+          "papers_in_intersection": 0,
+          "papers_in_primary": 1,
+          "opportunity_score": 1.0,
+          "suggestion": "Limited research combining **AI / Machine Learning** and **IoT / Smart cities** in the SLIIT corpus (0 of 1 papers cover both). A study connecting these areas would address a clear gap."
+        }
+      ],
+      "recommendations": [
+        {
+          "title": "Socially Prescribed Perfectionism, Perfectionism, Unrealisti in the Sri Lankan context",
+          "rationale": "The cited gap is specific to the Sri Lankan / regional context — global solutions may not transfer cleanly.",
+          "problem_statement": "This research investigates machine learning for crop disease detection in Sri Lanka.  Ekanayake et al. (2025) noted that However, there is a notable lack of research focusing specifically on SPP, both globally and in Sri Lanka. Building on this observation, the study proposes to address the Domain / contextual gap highlighted in prior work.",
+          "based_on": "gap_class:domain",
+          "supporting_paper": {
+            "paper_id": "151a8ca4-99b6-469b-93b4-65006334f977",
+            "title": "Exploring the Psychological Impact of Socially Prescribed Perfectionism among Sri Lankan Adolescents: An Interpretative Phenomenological Study",
+            "authors": [
+              "Ekanayake, R",
+              "Ponnamperuma, L"
+            ],
+            "year": 2025,
+            "url": "https://rda.sliit.lk/handle/123456789/4408"
+          }
+        },
+        {
+          "title": "Bridging AI / Machine Learning and Healthcare for Machine Learning For Crop Disease Detection In Sri Lanka",
+          "rationale": "Limited research combining **AI / Machine Learning** and **Healthcare** in the SLIIT corpus (0 of 1 papers cover both). A study connecting these areas would address a clear gap.",
+          "problem_statement": "Although AI / Machine Learning has been studied in the SLIIT corpus, only 0 papers also engage with Healthcare. This study investigates how AI / Machine Learning techniques can be applied to Healthcare challenges — specifically in the context of machine learning for crop disease detection in Sri Lanka.",
+          "based_on": "cross_domain",
+          "supporting_paper": null
+        },
+        {
+          "title": "Bridging AI / Machine Learning and Agriculture for Machine Learning For Crop Disease Detection In Sri Lanka",
+          "rationale": "Limited research combining **AI / Machine Learning** and **Agriculture** in the SLIIT corpus (0 of 1 papers cover both). A study connecting these areas would address a clear gap.",
+          "problem_statement": "Although AI / Machine Learning has been studied in the SLIIT corpus, only 0 papers also engage with Agriculture. This study investigates how AI / Machine Learning techniques can be applied to Agriculture challenges — specifically in the context of machine learning for crop disease detection in Sri Lanka.",
+          "based_on": "cross_domain",
+          "supporting_paper": null
+        }
+      ],
+      "total_papers_analyzed": 424,
+      "total_corpus_size": 553,
+      "model_version": "1.0.0",
+      "base_model": "sbert_plagiarism (SLIIT fine-tuned)",
+      "source": "local"
+    }
+  },
+  {
+    "id": "M1-09",
+    "feature": "Gap Analysis (obscure topic)",
+    "method": "POST",
+    "path": "/gaps/analyze",
+    "request": {
+      "topic": "quantum cryptography for underwater acoustic sensor networks",
+      "top_k": 6,
+      "min_similarity": 0.15
+    },
+    "status": 200,
+    "response": {
+      "loaded": true,
+      "query": "quantum cryptography for underwater acoustic sensor networks",
+      "filters": {
+        "year_from": null,
+        "year_to": null
+      },
+      "gaps": [
+        {
+          "topic": "short-range spatiotemporal dataset, Sinhala Sign Language (SSL), Computational efficiency, Convolutional neural networks",
+          "description": "However, effective communication between the Deaf and hearing populations remains challenging due to the limited knowledge of SSL among hearing individuals.",
+          "gap_score": 0.307,
+          "recency_score": 0.283,
+          "novelty_score": 0.611,
+          "similarity": 0.323,
+          "gap_type": "limitation",
+          "classification": "general",
+          "category_label": "General gap",
+          "multi_dim_score": 0.452,
+          "explanation": "General gap. Topical similarity to your query is 32% (novelty 61%, staleness 28%). The gap was extracted from \"Deep Learning Based Sinhala Sign Language Recognition\" (2025) — the source paper itself flagged this as an unresolved or future-work item, which is why we surface it here.",
+          "supporting_paper": {
+            "paper_id": "3e115fb5-83d1-48c1-88a5-3bfdef672bec",
+            "title": "Deep Learning Based Sinhala Sign Language Recognition",
+            "authors": [
+              "Samarakoon, S.C",
+              "Weerasinghe, M"
+            ],
+            "year": 2025,
+            "url": "https://rda.sliit.lk/handle/123456789/4877"
+          },
+          "supporting_paper_ids": [
+            "3e115fb5-83d1-48c1-88a5-3bfdef672bec"
+          ]
+        },
+        {
+          "topic": "Edge-Aware Optimization, AI-Driven, Anomaly Detection, Smart City, Wireless Networks",
+          "description": "The paper proposes a conceptual framework to address these gaps and lays a foundation for future research in secure, scalable smart city networks.",
+          "gap_score": 0.263,
+          "recency_score": 0.283,
+          "novelty_score": 0.579,
+          "similarity": 0.257,
+          "gap_type": "future_work",
+          "classification": "future_work",
+          "category_label": "Future-work gap",
+          "multi_dim_score": 0.416,
+          "explanation": "Future-work gap. Topical similarity to your query is 26% (novelty 58%, staleness 28%). The gap was extracted from \"Edge-Aware Optimization for AI-Driven Anomaly Detection in Smart City Wireless Networks\" (2025) — the source paper itself flagged this as an unresolved or future-work item, which is why we surface it here.",
+          "supporting_paper": {
+            "paper_id": "0dd8454a-6683-4597-8656-5ce41038c142",
+            "title": "Edge-Aware Optimization for AI-Driven Anomaly Detection in Smart City Wireless Networks",
+            "authors": [
+              "Kumarasiri, D.G.S.M."
+            ],
+            "year": 2025,
+            "url": "https://rda.sliit.lk/handle/123456789/4574"
+          },
+          "supporting_paper_ids": [
+            "0dd8454a-6683-4597-8656-5ce41038c142"
+          ]
+        },
+        {
+          "topic": "Institutional repository, DSpace, OAI-PMH, University libraries",
+          "description": "However, the majority had not yet obtained an SSL certificate, which is crucial for ensuring secure websites and protecting data.",
+          "gap_score": 0.23,
+          "recency_score": 0.283,
+          "novelty_score": 0.571,
+          "similarity": 0.243,
+          "gap_type": "limitation",
+          "classification": "general",
+          "category_label": "General gap",
+          "multi_dim_score": 0.398,
+          "explanation": "General gap. Topical similarity to your query is 24% (novelty 57%, staleness 28%). The gap was extracted from \"Institutional repositories in Sri Lankan academia: a study of platform adoption, OAI-PMH support, and content coverage\" (2025) — the source paper itself flagged this as an unresolved or future-work item, which is why we surface it here.",
+          "supporting_paper": {
+            "paper_id": "947ce1a2-3764-426a-be2e-6deb6aa352ac",
+            "title": "Institutional repositories in Sri Lankan academia: a study of platform adoption, OAI-PMH support, and content coverage",
+            "authors": [
+              "Weerasinghe, S",
+              "Gamage, R.C.G"
+            ],
+            "year": 2025,
+            "url": "https://rda.sliit.lk/handle/123456789/4647"
+          },
+          "supporting_paper_ids": [
+            "947ce1a2-3764-426a-be2e-6deb6aa352ac"
+          ]
+        },
+        {
+          "topic": "Development, underwater, robotic arm, multibody dynamics, approach",
+          "description": "However, the control of these devices underwater is quite complicated due to the numerous factors that make these systems unstable and non-linear.",
+          "gap_score": 0.308,
+          "recency_score": 0.533,
+          "novelty_score": 0.462,
+          "similarity": 0.325,
+          "gap_type": "limitation",
+          "classification": "general",
+          "category_label": "General gap",
+          "multi_dim_score": 0.373,
+          "explanation": "General gap. Topical similarity to your query is 32% (novelty 46%, staleness 53%). The gap was extracted from \"Development of an underwater robotic arm using multibody dynamics approach\" (2022) — the source paper itself flagged this as an unresolved or future-work item, which is why we surface it here.",
+          "supporting_paper": {
+            "paper_id": "fc3c03fa-a10f-4c8f-825f-46dbc853bd98",
+            "title": "Development of an underwater robotic arm using multibody dynamics approach",
+            "authors": [
+              "Fernando, S",
+              "Perera, M"
+            ],
+            "year": 2022,
+            "url": "https://rda.sliit.lk/handle/123456789/2805"
+          },
+          "supporting_paper_ids": [
+            "fc3c03fa-a10f-4c8f-825f-46dbc853bd98"
+          ]
+        },
+        {
+          "topic": "Developing, Optimal Strategy, Vulnerability, Image Tampering",
+          "description": "The future work will involve enhancing scalability and deepfake detection that can handle complex techniques of tampering.",
+          "gap_score": 0.225,
+          "recency_score": 0.367,
+          "novelty_score": 0.51,
+          "similarity": 0.22,
+          "gap_type": "future_work",
+          "classification": "future_work",
+          "category_label": "Future-work gap",
+          "multi_dim_score": 0.363,
+          "explanation": "Future-work gap. Topical similarity to your query is 22% (novelty 51%, staleness 37%). The gap was extracted from \"Developing an Optimal Strategy to Address the Vulnerability of Image Tampering\" (2024) — the source paper itself flagged this as an unresolved or future-work item, which is why we surface it here.",
+          "supporting_paper": {
+            "paper_id": "54ff5bc0-7bdb-439f-b2a1-409c2f320513",
+            "title": "Developing an Optimal Strategy to Address the Vulnerability of Image Tampering",
+            "authors": [
+              "Kumara, P. M. I. N"
+            ],
+            "year": 2024,
+            "url": "https://rda.sliit.lk/handle/123456789/4081"
+          },
+          "supporting_paper_ids": [
+            "54ff5bc0-7bdb-439f-b2a1-409c2f320513"
+          ]
+        },
+        {
+          "topic": "Edge-Aware Optimization, AI-Driven, Anomaly Detection, Smart City, Wireless Networks",
+          "description": "Despite significant progress, existing models struggle with scalability, high false positive rates, and limited deployment readiness for edge devices.",
+          "gap_score": 0.146,
+          "recency_score": 0.283,
+          "novelty_score": 0.527,
+          "similarity": 0.154,
+          "gap_type": "limitation",
+          "classification": "general",
+          "category_label": "General gap",
+          "multi_dim_score": 0.338,
+          "explanation": "General gap. Topical similarity to your query is 15% (novelty 53%, staleness 28%). The gap was extracted from \"Edge-Aware Optimization for AI-Driven Anomaly Detection in Smart City Wireless Networks\" (2025) — the source paper itself flagged this as an unresolved or future-work item, which is why we surface it here.",
+          "supporting_paper": {
+            "paper_id": "0dd8454a-6683-4597-8656-5ce41038c142",
+            "title": "Edge-Aware Optimization for AI-Driven Anomaly Detection in Smart City Wireless Networks",
+            "authors": [
+              "Kumarasiri, D.G.S.M."
+            ],
+            "year": 2025,
+            "url": "https://rda.sliit.lk/handle/123456789/4574"
+          },
+          "supporting_paper_ids": [
+            "0dd8454a-6683-4597-8656-5ce41038c142"
+          ]
+        }
+      ],
+      "classification_distribution": [
+        {
+          "category": "general",
+          "label": "General gap",
+          "count": 4
+        },
+        {
+          "category": "future_work",
+          "label": "Future-work gap",
+          "count": 2
+        }
+      ],
+      "trends": {
+        "by_year": [
+          {
+            "year": 2007,
+            "count": 1
+          },
+          {
+            "year": 2019,
+            "count": 1
+          },
+          {
+            "year": 2021,
+            "count": 1
+          },
+          {
+            "year": 2022,
+            "count": 3
+          },
+          {
+            "year": 2024,
+            "count": 2
+          },
+          {
+            "year": 2025,
+            "count": 4
+          }
+        ],
+        "peak_year": 2025,
+        "peak_count": 4,
+        "total_papers": 12,
+        "interpretation": "Research on this topic has been **rising** in recent years (+32% per year through 2025). The area is actively growing — consider building on the latest contributions."
+      },
+      "saturation": [],
+      "cross_domain": [
+        {
+          "domain_a": "IoT / Smart cities",
+          "domain_b": "AI / Machine Learning",
+          "papers_in_intersection": 0,
+          "papers_in_primary": 2,
+          "opportunity_score": 1.0,
+          "suggestion": "Limited research combining **IoT / Smart cities** and **AI / Machine Learning** in the SLIIT corpus (0 of 2 papers cover both). A study connecting these areas would address a clear gap."
+        },
+        {
+          "domain_a": "IoT / Smart cities",
+          "domain_b": "Healthcare",
+          "papers_in_intersection": 0,
+          "papers_in_primary": 2,
+          "opportunity_score": 1.0,
+          "suggestion": "Limited research combining **IoT / Smart cities** and **Healthcare** in the SLIIT corpus (0 of 2 papers cover both). A study connecting these areas would address a clear gap."
+        },
+        {
+          "domain_a": "IoT / Smart cities",
+          "domain_b": "Agriculture",
+          "papers_in_intersection": 0,
+          "papers_in_primary": 2,
+          "opportunity_score": 1.0,
+          "suggestion": "Limited research combining **IoT / Smart cities** and **Agriculture** in the SLIIT corpus (0 of 2 papers cover both). A study connecting these areas would address a clear gap."
+        },
+        {
+          "domain_a": "IoT / Smart cities",
+          "domain_b": "Education",
+          "papers_in_intersection": 0,
+          "papers_in_primary": 2,
+          "opportunity_score": 1.0,
+          "suggestion": "Limited research combining **IoT / Smart cities** and **Education** in the SLIIT corpus (0 of 2 papers cover both). A study connecting these areas would address a clear gap."
+        },
+        {
+          "domain_a": "IoT / Smart cities",
+          "domain_b": "Finance / Banking",
+          "papers_in_intersection": 0,
+          "papers_in_primary": 2,
+          "opportunity_score": 1.0,
+          "suggestion": "Limited research combining **IoT / Smart cities** and **Finance / Banking** in the SLIIT corpus (0 of 2 papers cover both). A study connecting these areas would address a clear gap."
+        }
+      ],
+      "recommendations": [
+        {
+          "title": "Extending Edge-Aware Optimization, AI-Driven, Anomaly Detection, Smart: Addressing the future-work agenda from prior SLIIT studies",
+          "rationale": "Earlier SLIIT papers explicitly call out this direction as future work — picking it up gives an immediate, defensible motivation.",
+          "problem_statement": "This research investigates quantum cryptography for underwater acoustic sensor networks.  Kumarasiri et al. (2025) noted that The paper proposes a conceptual framework to address these gaps and lays a foundation for future research in secure, scalable smart city networks. Building on this observation, the study proposes to address the Future-work gap highlighted in prior work.",
+          "based_on": "gap_class:future_work",
+          "supporting_paper": {
+            "paper_id": "0dd8454a-6683-4597-8656-5ce41038c142",
+            "title": "Edge-Aware Optimization for AI-Driven Anomaly Detection in Smart City Wireless Networks",
+            "authors": [
+              "Kumarasiri, D.G.S.M."
+            ],
+            "year": 2025,
+            "url": "https://rda.sliit.lk/handle/123456789/4574"
+          }
+        },
+        {
+          "title": "Bridging IoT / Smart cities and AI / Machine Learning for Quantum Cryptography For Underwater Acoustic Sensor Networks",
+          "rationale": "Limited research combining **IoT / Smart cities** and **AI / Machine Learning** in the SLIIT corpus (0 of 2 papers cover both). A study connecting these areas would address a clear gap.",
+          "problem_statement": "Although IoT / Smart cities has been studied in the SLIIT corpus, only 0 papers also engage with AI / Machine Learning. This study investigates how IoT / Smart cities techniques can be applied to AI / Machine Learning challenges — specifically in the context of quantum cryptography for underwater acoustic sensor networks.",
+          "based_on": "cross_domain",
+          "supporting_paper": null
+        },
+        {
+          "title": "Bridging IoT / Smart cities and Healthcare for Quantum Cryptography For Underwater Acoustic Sensor Networks",
+          "rationale": "Limited research combining **IoT / Smart cities** and **Healthcare** in the SLIIT corpus (0 of 2 papers cover both). A study connecting these areas would address a clear gap.",
+          "problem_statement": "Although IoT / Smart cities has been studied in the SLIIT corpus, only 0 papers also engage with Healthcare. This study investigates how IoT / Smart cities techniques can be applied to Healthcare challenges — specifically in the context of quantum cryptography for underwater acoustic sensor networks.",
+          "based_on": "cross_domain",
+          "supporting_paper": null
+        }
+      ],
+      "total_papers_analyzed": 219,
+      "total_corpus_size": 553,
+      "model_version": "1.0.0",
+      "base_model": "sbert_plagiarism (SLIIT fine-tuned)",
+      "source": "local"
+    }
+  },
+  {
+    "id": "M1-10",
+    "feature": "Gap Analysis status",
+    "method": "GET",
+    "path": "/gaps/status",
+    "request": null,
+    "status": 200,
+    "response": {
+      "loaded": true,
+      "version": "1.0.0",
+      "base_model": "sbert_plagiarism (SLIIT fine-tuned)",
+      "embedding_dim": 384,
+      "n_gaps": 553,
+      "n_unique_papers": 494
+    }
+  },
+  {
+    "id": "M1-11",
+    "feature": "Proposal Generation",
+    "method": "POST",
+    "path": "/proposals/generate",
+    "request": {
+      "topic": "IoT-based smart irrigation for paddy fields",
+      "domain": "Agriculture Technology",
+      "top_k": 5
+    },
+    "status": 200,
+    "response": {
+      "problem_statement": "This research investigates IoT-based smart irrigation for paddy fields within the domain of Agriculture Technology. Prior SLIIT research by Sanjula, W.A.K.L., Kavinda, K.T.W., et al. (2020) observed that: \"In this paper proposed system is discussed on canal automation for a smart irrigation system using IoT concepts.\" Building on these findings, this study aims to address the remaining limitations and extend the contribution to IoT-based smart irrigation for paddy fields.",
+      "objectives": [
+        "Conduct a systematic literature review on IoT-based smart irrigation for paddy fields, mapping existing approaches and gaps.",
+        "Identify methodological and empirical gaps in current research on IoT-based smart irrigation for paddy fields.",
+        "Validate the proposed approach for IoT-based smart irrigation for paddy fields via empirical evaluation."
+      ],
+      "methodology": "This study adopts a mixed-methods design tailored to IoT-based smart irrigation for paddy fields. Building on prior SLIIT work, the methodology incorporates:  This research introduces a novel approach to precision agriculture by integrating IoT technology and machine learning algorithms to enhance crop health prediction, suitability forecasting, and crop yield prediction for… A trained data set and a machine learning algorithm would be used create a model to predict a suitable crop to cultivate for the given input data. Data collection will follow established practices (literature review, expert interviews, and quantitative evaluation), with statistical and thematic analyses applied to validate findings.",
+      "expected_outcomes": "Empirical evidence advancing the understanding of IoT-based smart irrigation for paddy fields. A reproducible methodology grounded in SLIIT precedent. Practical recommendations for future researchers and practitioners. Direct extension of 5 prior SLIIT studies, with explicit comparison to their reported limitations.",
+      "retrieved_papers": [
+        {
+          "paper_id": "ceb10228-27ab-4303-9a0c-45409770e67e",
+          "title": "Automated Water-Gate Controlling System for Paddy Fields",
+          "authors": [
+            "Sanjula, W.A.K.L.",
+            "Kavinda, K.T.W.",
+            "Malintha, M.A.K.",
+            "Wijesuriya, W.M.D.L.",
+            "Lokuliyana, S.",
+            "de Silva, R."
+          ],
+          "year": 2020,
+          "url": "https://rda.sliit.lk/handle/123456789/1367",
+          "similarity": 0.721
+        },
+        {
+          "paper_id": "67d69bd9-6572-42bd-9c34-a9fbe41047cf",
+          "title": "Predicting Crop Yields: Harnessing IoT Sensor Data for Accurate Forecasting and Sustainable Agricultural Planning",
+          "authors": [
+            "Abhayasundara, A.Kulesh.B.M."
+          ],
+          "year": 2024,
+          "url": "https://rda.sliit.lk/handle/123456789/4118",
+          "similarity": 0.645
+        },
+        {
+          "paper_id": "4ecb2c01-7d36-42ba-8dae-d1dff1747384",
+          "title": "IoT Based Smart Tool to Recommend Crops",
+          "authors": [
+            "Kaushalya, A.U.K."
+          ],
+          "year": 2021,
+          "url": "https://rda.sliit.lk/handle/123456789/1537",
+          "similarity": 0.643
+        },
+        {
+          "paper_id": "eee29063-ed43-4c8e-b7e5-3cb86722efb8",
+          "title": "IoT and AI Application for Implementation of Smart Gardening and Irrigation System",
+          "authors": [
+            "Sanjeetha, M.B.F."
+          ],
+          "year": 2024,
+          "url": "https://rda.sliit.lk/handle/123456789/4075",
+          "similarity": 0.635
+        },
+        {
+          "paper_id": "8339f52a-d3f4-4462-ae5e-2d814f23ea14",
+          "title": "Smart Irrigation System for Domestic Homes",
+          "authors": [
+            "Rajapaksha, I",
+            "Gamage, T",
+            "Eranga, I",
+            "Dharmasena, A",
+            "Gamage, K"
+          ],
+          "year": 2022,
+          "url": "https://rda.sliit.lk/handle/123456789/3085",
+          "similarity": 0.632
+        }
+      ],
+      "retrieved_paper_ids": [
+        "ceb10228-27ab-4303-9a0c-45409770e67e",
+        "67d69bd9-6572-42bd-9c34-a9fbe41047cf",
+        "4ecb2c01-7d36-42ba-8dae-d1dff1747384",
+        "eee29063-ed43-4c8e-b7e5-3cb86722efb8",
+        "8339f52a-d3f4-4462-ae5e-2d814f23ea14"
+      ],
+      "model_version": "1.0.0",
+      "base_model": "sbert_plagiarism (SLIIT fine-tuned)",
+      "source": "local"
+    }
+  },
+  {
+    "id": "M1-12",
+    "feature": "Proposal Generator status",
+    "method": "GET",
+    "path": "/proposals/status",
+    "request": null,
+    "status": 200,
+    "response": {
+      "loaded": true,
+      "version": "1.0.0",
+      "base_model": "sbert_plagiarism (SLIIT fine-tuned)",
+      "embedding_dim": 384,
+      "n_exemplars": 3858
+    }
+  },
+  {
+    "id": "M1-13",
+    "feature": "Plagiarism Check (likely novel text)",
+    "method": "POST",
+    "path": "/plagiarism/check",
+    "request": {
+      "text": "This unique passage about the migratory habits of purple sea urchins in Antarctic waters was written specifically for this test and does not exist anywhere else.",
+      "threshold": 0.8
+    },
+    "status": 200,
+    "response": {
+      "risk_level": "low",
+      "overall_score": 0.0,
+      "flagged_passages": []
+    }
+  },
+  {
+    "id": "M1-14",
+    "feature": "Plagiarism Check (generic ML sentence)",
+    "method": "POST",
+    "path": "/plagiarism/check",
+    "request": {
+      "text": "Machine learning models such as convolutional neural networks have been widely used for image classification tasks in recent research, achieving high accuracy on benchmark datasets.",
+      "threshold": 0.75
+    },
+    "status": 200,
+    "response": {
+      "risk_level": "low",
+      "overall_score": 0.0,
+      "flagged_passages": []
+    }
+  },
+  {
+    "id": "M1-15",
+    "feature": "Mind Map Generation",
+    "method": "POST",
+    "path": "/mindmaps/generate",
+    "request": {
+      "text": "This study investigates the use of deep learning, specifically convolutional neural networks, for detecting plant diseases from leaf images. The methodology involves collecting a dataset of diseased and healthy leaves, training a CNN model, and evaluating its accuracy against baseline methods. Results show significant improvement over traditional image processing techniques. Future work should explore mobile deployment for farmers in rural areas.",
+      "max_nodes": 15
+    },
+    "status": 200,
+    "response": {
+      "nodes": [
+        {
+          "id": "node_0",
+          "label": "investigates",
+          "type": "central",
+          "weight": 1.0
+        },
+        {
+          "id": "node_1",
+          "label": "deep",
+          "type": "primary",
+          "weight": 1.0
+        },
+        {
+          "id": "node_2",
+          "label": "learning",
+          "type": "primary",
+          "weight": 1.0
+        },
+        {
+          "id": "node_3",
+          "label": "specifically",
+          "type": "primary",
+          "weight": 1.0
+        },
+        {
+          "id": "node_4",
+          "label": "convolutional",
+          "type": "secondary",
+          "weight": 1.0
+        },
+        {
+          "id": "node_5",
+          "label": "neural",
+          "type": "secondary",
+          "weight": 1.0
+        },
+        {
+          "id": "node_6",
+          "label": "networks",
+          "type": "secondary",
+          "weight": 1.0
+        },
+        {
+          "id": "node_7",
+          "label": "detecting",
+          "type": "secondary",
+          "weight": 1.0
+        },
+        {
+          "id": "node_8",
+          "label": "plant",
+          "type": "detail",
+          "weight": 1.0
+        },
+        {
+          "id": "node_9",
+          "label": "diseases",
+          "type": "detail",
+          "weight": 1.0
+        },
+        {
+          "id": "node_10",
+          "label": "leaf",
+          "type": "detail",
+          "weight": 1.0
+        },
+        {
+          "id": "node_11",
+          "label": "images",
+          "type": "detail",
+          "weight": 1.0
+        },
+        {
+          "id": "node_12",
+          "label": "methodology",
+          "type": "detail",
+          "weight": 1.0
+        },
+        {
+          "id": "node_13",
+          "label": "involves",
+          "type": "detail",
+          "weight": 1.0
+        },
+        {
+          "id": "node_14",
+          "label": "collecting",
+          "type": "detail",
+          "weight": 1.0
+        }
+      ],
+      "edges": [
+        {
+          "source": "node_0",
+          "target": "node_1",
+          "weight": 1.0,
+          "label": ""
+        },
+        {
+          "source": "node_0",
+          "target": "node_2",
+          "weight": 1.0,
+          "label": ""
+        },
+        {
+          "source": "node_0",
+          "target": "node_3",
+          "weight": 1.0,
+          "label": ""
+        },
+        {
+          "source": "node_0",
+          "target": "node_4",
+          "weight": 1.0,
+          "label": ""
+        },
+        {
+          "source": "node_0",
+          "target": "node_5",
+          "weight": 1.0,
+          "label": ""
+        },
+        {
+          "source": "node_0",
+          "target": "node_6",
+          "weight": 1.0,
+          "label": ""
+        },
+        {
+          "source": "node_0",
+          "target": "node_7",
+          "weight": 1.0,
+          "label": ""
+        },
+        {
+          "source": "node_0",
+          "target": "node_8",
+          "weight": 1.0,
+          "label": ""
+        },
+        {
+          "source": "node_0",
+          "target": "node_9",
+          "weight": 1.0,
+          "label": ""
+        },
+        {
+          "source": "node_0",
+          "target": "node_10",
+          "weight": 1.0,
+          "label": ""
+        },
+        {
+          "source": "node_0",
+          "target": "node_11",
+          "weight": 1.0,
+          "label": ""
+        },
+        {
+          "source": "node_0",
+          "target": "node_12",
+          "weight": 1.0,
+          "label": ""
+        },
+        {
+          "source": "node_0",
+          "target": "node_13",
+          "weight": 1.0,
+          "label": ""
+        },
+        {
+          "source": "node_0",
+          "target": "node_14",
+          "weight": 1.0,
+          "label": ""
+        }
+      ]
+    }
+  }
+]

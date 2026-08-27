@@ -128,11 +128,11 @@ three modules (60-second proxy timeout).</p>
 <h2>3&nbsp;&middot;&nbsp;Feature A — Trend Forecasting</h2>
 <p><span class="badge">Per-topic ARIMA with 95% confidence intervals</span></p>
 <h4>What it does</h4>
-<p><span class="endpoint">GET /trends</span> returns, per research topic, a historical year-by-year publication
+<p><span class="endpoint">GET /analytics/trends</span> returns, per research topic, a historical year-by-year publication
 count and a forecast for the next N years (with lower/upper confidence bounds), a trend-direction label
 (rising/declining/stable), a projected growth percentage, a plain-English interpretation, and the model's
-in-sample accuracy (RMSE/MAE). <span class="endpoint">/trends/compare</span> ranks multiple topics by growth;
-<span class="endpoint">/trends/insights</span> surfaces "emerging" topics and auto-generated research-area
+in-sample accuracy (RMSE/MAE). <span class="endpoint">/analytics/trends/compare</span> ranks multiple topics by growth;
+<span class="endpoint">/analytics/trends/insights</span> surfaces "emerging" topics and auto-generated research-area
 recommendations.</p>
 <h4>Why ARIMA per topic</h4>
 <p>Publication-count-over-time is a classic univariate time series, and ARIMA (AutoRegressive Integrated
@@ -185,7 +185,7 @@ score       = growth_norm − 0.4 · saturation
 <h2>4&nbsp;&middot;&nbsp;Feature B — Quality Scoring</h2>
 <p><span class="badge">XGBoost regressors + calibrated heuristic blend</span></p>
 <h4>What it does</h4>
-<p><span class="endpoint">POST /quality/quality-score</span> takes a title + abstract (or a stored
+<p><span class="endpoint">POST /analytics/quality-score</span> takes a title + abstract (or a stored
 <code>proposal_id</code>) and returns four 0&ndash;1 dimension scores — <i>originality, citation_impact,
 methodology, clarity</i> — plus an overall weighted score, the paper's predicted topic, and targeted
 recommendations for improvement.</p>
@@ -240,7 +240,7 @@ document (e.g. an accidentally-uploaded form) can be flagged rather than silentl
 <h2>5&nbsp;&middot;&nbsp;Feature C — Success Prediction</h2>
 <p><span class="badge">XGBoost classifier + heuristic safety net</span></p>
 <h4>What it does</h4>
-<p><span class="endpoint">POST /predict/predict</span> (and <span class="endpoint">/predict/upload</span> for
+<p><span class="endpoint">POST /analytics/predict</span> (and <span class="endpoint">/analytics/predict/upload</span> for
 PDF/TXT files) returns a 0&ndash;1 <code>success_probability</code>, a binary
 <i>successful / needs_improvement</i> label, a confidence score, a <i>low/medium/high</i> risk level, and
 targeted improvement recommendations.</p>
@@ -275,7 +275,7 @@ first 500, likely header/author block) if no abstract section is found or it's t
 <h2>6&nbsp;&middot;&nbsp;Feature D — Concept Mind Maps</h2>
 <p><span class="badge">KeyBERT keyword extraction + 2-layer GCN expansion</span></p>
 <h4>What it does</h4>
-<p><span class="endpoint">POST /mindmap/mindmap</span> builds a department- or topic-scoped concept graph —
+<p><span class="endpoint">POST /analytics/mindmap</span> builds a department- or topic-scoped concept graph —
 nodes are concepts with an importance weight and a domain cluster, edges carry a relationship-strength — for
 the frontend's D3 force-directed visualisation.</p>
 <h4>Why KeyBERT + a graph neural network</h4>
@@ -305,6 +305,12 @@ classification" are related even without shared vocabulary).</p>
     the model's vocabulary, the router falls back to a trivial star graph (all seed keywords connected
     directly to the first seed) rather than returning an empty response.</li>
 </ol>
+<div class="note"><b>Verified by live testing:</b> in the current environment, both <code>keybert</code> and
+<code>torch_geometric</code> are not installed (server log: "torch-geometric not installed"; confirmed via
+<code>pip show</code>). Every mind-map request therefore takes the fallback path described above — the GCN
+expansion never runs, and KeyBERT's own fallback (splitting the raw topic string into its first 5 words) can
+surface stopwords as "concepts". This is a real, currently-active limitation, not a hypothetical edge case —
+see the Module 4 validation report for full evidence.</div>
 
 <div class="section-break"></div>
 
@@ -353,17 +359,20 @@ two independent signal sources rather than trusting one score blindly).</div>
 <h2>9&nbsp;&middot;&nbsp;Endpoint Reference</h2>
 <table>
 <tr><th>Method &amp; Path (via gateway <code>/api/v1/module4/…</code>)</th><th>Feature</th><th>Backing service</th></tr>
-<tr><td><span class="method-get">GET</span> <span class="endpoint">/trends</span></td><td>Per-topic forecast</td><td>trend_forecaster.py</td></tr>
-<tr><td><span class="method-post">POST</span> <span class="endpoint">/trends/compare</span></td><td>Multi-topic comparison</td><td>trend_forecaster.py</td></tr>
-<tr><td><span class="method-get">GET</span> <span class="endpoint">/trends/insights</span></td><td>Emerging topics + recommendations</td><td>trend_forecaster.py</td></tr>
-<tr><td><span class="method-get">GET</span> <span class="endpoint">/trends/topics</span></td><td>Available topics list</td><td>trend_forecaster.py</td></tr>
-<tr><td><span class="method-post">POST</span> <span class="endpoint">/trends/report</span></td><td>HTML report download</td><td>trend_forecaster.generate_report_html</td></tr>
-<tr><td><span class="method-post">POST</span> <span class="endpoint">/quality/quality-score</span></td><td>Quality scoring</td><td>quality_predictor.py + topic_classifier.py</td></tr>
-<tr><td><span class="method-post">POST</span> <span class="endpoint">/predict/predict</span></td><td>Success prediction (text)</td><td>success_predictor.py</td></tr>
-<tr><td><span class="method-post">POST</span> <span class="endpoint">/predict/predict/upload</span></td><td>Success prediction (PDF/TXT)</td><td>PyMuPDF + success_predictor.py</td></tr>
-<tr><td><span class="method-post">POST</span> <span class="endpoint">/mindmap/mindmap</span></td><td>Concept mind map</td><td>KeyBERT + mindmap_gnn.py</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/analytics/trends</span></td><td>Per-topic forecast</td><td>trend_forecaster.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/analytics/trends/compare</span></td><td>Multi-topic comparison</td><td>trend_forecaster.py</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/analytics/trends/insights</span></td><td>Emerging topics + recommendations</td><td>trend_forecaster.py</td></tr>
+<tr><td><span class="method-get">GET</span> <span class="endpoint">/analytics/trends/topics</span></td><td>Available topics list</td><td>trend_forecaster.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/analytics/trends/report</span></td><td>HTML report download</td><td>trend_forecaster.generate_report_html</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/analytics/quality-score</span></td><td>Quality scoring</td><td>quality_predictor.py + topic_classifier.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/analytics/predict</span></td><td>Success prediction (text)</td><td>success_predictor.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/analytics/predict/upload</span></td><td>Success prediction (PDF/TXT)</td><td>PyMuPDF + success_predictor.py</td></tr>
+<tr><td><span class="method-post">POST</span> <span class="endpoint">/analytics/mindmap</span></td><td>Concept mind map</td><td>KeyBERT + mindmap_gnn.py</td></tr>
 <tr><td><span class="method-get">GET</span> <span class="endpoint">/analytics/dashboard</span></td><td>Cross-module KPI snapshot</td><td>dashboard.py + Supabase</td></tr>
 </table>
+<div class="note"><b>Note:</b> every router in this service is mounted under a shared <code>prefix="/analytics"</code>
+in <code>main.py</code> (not per-feature prefixes like <code>/trends</code> or <code>/predict</code> alone) —
+confirmed by live testing. All paths above are the real, verified paths.</div>
 
 <footer class="page-footer">Researchly AI &middot; Module 4 — Research Performance Analytics &middot; R26-IT-116 &middot; SLIIT</footer>
 

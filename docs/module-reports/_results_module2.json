@@ -1,0 +1,3539 @@
+[
+  {
+    "id": "M2-01",
+    "feature": "Supervisor Matching (AI/ML proposal)",
+    "method": "POST",
+    "path": "/matching/supervisors",
+    "request": {
+      "proposal": "A deep learning based system using convolutional neural networks for detecting plant diseases from leaf images, deployed as a mobile application for farmers.",
+      "top_k": 5,
+      "min_similarity": 0.1
+    },
+    "status": 200,
+    "response": {
+      "matches": [
+        {
+          "supervisor_id": 20,
+          "name": "Lakmini Abeywardhana",
+          "email": "lakmini.d@sliit.lk",
+          "department": "DS",
+          "research_cluster": "CEAI",
+          "research_interests": [
+            "Deep Learning",
+            "Computer Vision",
+            "Computational Biology",
+            "Analysis and Modeling"
+          ],
+          "similarity_score": 0.7662,
+          "multi_factor_score": 0.8364,
+          "explanation": "Lakmini Abeywardhana is a strong match (77% similarity) because their research in Deep Learning aligns directly with your proposed topic.",
+          "availability": true,
+          "current_students": 2,
+          "max_students": 4
+        },
+        {
+          "supervisor_id": 44,
+          "name": "Bhagyani Chathurika",
+          "email": "bhagyani.c@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI",
+          "research_interests": [
+            "Machine Learning",
+            "Deep Learning",
+            "Image Processing"
+          ],
+          "similarity_score": 0.7529,
+          "multi_factor_score": 0.8271,
+          "explanation": "Bhagyani Chathurika is a strong match (75% similarity) because their research in Machine Learning, Deep Learning aligns directly with your proposed topic.",
+          "availability": true,
+          "current_students": 0,
+          "max_students": 2
+        },
+        {
+          "supervisor_id": 41,
+          "name": "Lokesha Weerasinghe",
+          "email": "lokesha.w@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI",
+          "research_interests": [
+            "Computer Vision",
+            "Image Processing",
+            "Machine Learning"
+          ],
+          "similarity_score": 0.7515,
+          "multi_factor_score": 0.826,
+          "explanation": "Lokesha Weerasinghe is a strong match (75% similarity) because their research in Image Processing, Machine Learning aligns directly with your proposed topic.",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 2
+        },
+        {
+          "supervisor_id": 68,
+          "name": "Dilani Lunugalage",
+          "email": "dilani.l@sliit.lk",
+          "department": "SE",
+          "research_cluster": "CEAI,SST",
+          "research_interests": [
+            "Machine Learning",
+            "Computer Vision",
+            "Computer Networks"
+          ],
+          "similarity_score": 0.7515,
+          "multi_factor_score": 0.826,
+          "explanation": "Dilani Lunugalage is a strong match (75% similarity) because their research in Machine Learning, Computer Networks aligns directly with your proposed topic.",
+          "availability": true,
+          "current_students": 2,
+          "max_students": 5
+        },
+        {
+          "supervisor_id": 62,
+          "name": "Thisara Shyamalee",
+          "email": "thisara.s@sliit.lk",
+          "department": "DS",
+          "research_cluster": "CEAI",
+          "research_interests": [
+            "Machine Learning",
+            "HCI",
+            "Computer Vision"
+          ],
+          "similarity_score": 0.7403,
+          "multi_factor_score": 0.8182,
+          "explanation": "Thisara Shyamalee is a strong match (74% similarity) because their research in Machine Learning aligns directly with your proposed topic.",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "M2-02",
+    "feature": "Supervisor Matching (cybersecurity proposal)",
+    "method": "POST",
+    "path": "/matching/supervisors",
+    "request": {
+      "proposal": "A network intrusion detection system using machine learning to identify cyberattacks in real time on enterprise networks.",
+      "top_k": 5,
+      "min_similarity": 0.1
+    },
+    "status": 200,
+    "response": {
+      "matches": [
+        {
+          "supervisor_id": 71,
+          "name": "Uditha Dharmakeerthi",
+          "email": "uditha.d@sliit.lk",
+          "department": "CSNE",
+          "research_cluster": "CI",
+          "research_interests": [
+            "Computer Networks",
+            "Cyber Security"
+          ],
+          "similarity_score": 0.8597,
+          "multi_factor_score": 0.9018,
+          "explanation": "Uditha Dharmakeerthi is a strong match (86% similarity) because their research in Computer Networks, Cyber Security aligns directly with your proposed topic.",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 3
+        },
+        {
+          "supervisor_id": 69,
+          "name": "Deemantha Siriwardana",
+          "email": "deemantha.s@sliit.lk",
+          "department": "CS",
+          "research_cluster": "IAS",
+          "research_interests": [
+            "Cyber Security"
+          ],
+          "similarity_score": 0.8502,
+          "multi_factor_score": 0.8951,
+          "explanation": "Deemantha Siriwardana is a strong match (85% similarity) because their research in Cyber Security aligns directly with your proposed topic.",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 2
+        },
+        {
+          "supervisor_id": 53,
+          "name": "Kanishka Yapa",
+          "email": "kanishka.y@sliit.lk",
+          "department": "CS",
+          "research_cluster": "IAS",
+          "research_interests": [
+            "Cyber Security",
+            "Critical Infrastructure Security",
+            "Healthcare Security",
+            "Threat Modeling",
+            "SDN"
+          ],
+          "similarity_score": 0.8435,
+          "multi_factor_score": 0.8905,
+          "explanation": "Kanishka Yapa is a strong match (84% similarity) because their research in Cyber Security aligns directly with your proposed topic.",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 2
+        },
+        {
+          "supervisor_id": 15,
+          "name": "Harinda Fernando",
+          "email": "harinda.f@sliit.lk",
+          "department": "CS",
+          "research_cluster": "IAS,CEAI",
+          "research_interests": [
+            "Cyber Security",
+            "Networking",
+            "Network Security",
+            "Machine Learning",
+            "Cloud Computing",
+            "IoT"
+          ],
+          "similarity_score": 0.8402,
+          "multi_factor_score": 0.8881,
+          "explanation": "Harinda Fernando is a strong match (84% similarity) because their research in Cyber Security, Network Security aligns directly with your proposed topic.",
+          "availability": true,
+          "current_students": 2,
+          "max_students": 4
+        },
+        {
+          "supervisor_id": 34,
+          "name": "Hansika Mahaadikara",
+          "email": "hansika.m@sliit.lk",
+          "department": "CSNE",
+          "research_cluster": "CI",
+          "research_interests": [
+            "Social Networks",
+            "Telecommunication",
+            "Cyber Forensics",
+            "IoT Security"
+          ],
+          "similarity_score": 0.8324,
+          "multi_factor_score": 0.8827,
+          "explanation": "Hansika Mahaadikara is a strong match (83% similarity) because their research in Social Networks, Cyber Forensics aligns directly with your proposed topic.",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "M2-03",
+    "feature": "Supervisor Matching (legacy interests+abstract format)",
+    "method": "POST",
+    "path": "/matching/supervisors",
+    "request": {
+      "research_interests": [
+        "natural language processing",
+        "sentiment analysis"
+      ],
+      "abstract": "Analyzing customer reviews using NLP techniques to extract sentiment and actionable insights for businesses.",
+      "top_k": 5
+    },
+    "status": 200,
+    "response": {
+      "matches": [
+        {
+          "supervisor_id": 50,
+          "name": "Hansi De Silva",
+          "email": "hansi.d@sliit.lk",
+          "department": "SE",
+          "research_cluster": "SST",
+          "research_interests": [
+            "Machine Learning",
+            "NLP",
+            "Cloud Computing"
+          ],
+          "similarity_score": 0.8812,
+          "multi_factor_score": 0.9168,
+          "explanation": "Hansi De Silva is a strong match (88% similarity) because their research in NLP aligns directly with your proposed topic.",
+          "availability": true,
+          "current_students": 2,
+          "max_students": 4
+        },
+        {
+          "supervisor_id": 26,
+          "name": "Anjalie Gamage",
+          "email": "anjalie.g@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI,SST",
+          "research_interests": [
+            "Computational Linguistics",
+            "NLP",
+            "AI",
+            "E-Learning"
+          ],
+          "similarity_score": 0.8798,
+          "multi_factor_score": 0.9158,
+          "explanation": "Anjalie Gamage is a strong match (88% similarity) because their research in NLP aligns directly with your proposed topic.",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 3
+        },
+        {
+          "supervisor_id": 56,
+          "name": "Samadhi Rathnayake",
+          "email": "samadhi.r@sliit.lk",
+          "department": "DS",
+          "research_cluster": "CEAI",
+          "research_interests": [
+            "Machine Learning",
+            "Deep Learning",
+            "Data Science",
+            "AI",
+            "NLP"
+          ],
+          "similarity_score": 0.8701,
+          "multi_factor_score": 0.9091,
+          "explanation": "Samadhi Rathnayake is a strong match (87% similarity) because their research in NLP aligns directly with your proposed topic.",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 3
+        },
+        {
+          "supervisor_id": 4,
+          "name": "Nuwan Kodagoda",
+          "email": "nuwan.k@sliit.lk",
+          "department": "SE",
+          "research_cluster": "CEAI,SST",
+          "research_interests": [
+            "GenAI Applications to Education",
+            "GenAI in Finance",
+            "Generative AI",
+            "Large Language Models"
+          ],
+          "similarity_score": 0.8568,
+          "multi_factor_score": 0.8998,
+          "explanation": "Nuwan Kodagoda is a strong match (86% similarity) because their research in GenAI Applications to Education, GenAI in Finance aligns directly with your proposed topic.",
+          "availability": true,
+          "current_students": 3,
+          "max_students": 5
+        },
+        {
+          "supervisor_id": 39,
+          "name": "Jenny Krishara",
+          "email": "jenny.k@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI,SST",
+          "research_interests": [
+            "Computational Linguistics",
+            "NLP",
+            "Machine Learning",
+            "AI",
+            "Image Processing"
+          ],
+          "similarity_score": 0.8472,
+          "multi_factor_score": 0.8931,
+          "explanation": "Jenny Krishara is a strong match (85% similarity) because their research in NLP, Image Processing aligns directly with your proposed topic.",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "M2-04",
+    "feature": "Supervisor Matching (empty proposal)",
+    "method": "POST",
+    "path": "/matching/supervisors",
+    "request": {
+      "proposal": "",
+      "top_k": 5
+    },
+    "status": 200,
+    "response": {
+      "matches": [
+        {
+          "supervisor_id": 74,
+          "name": "Shanta Yapa",
+          "email": "Shanta.y@sliit.lk",
+          "department": "SBS",
+          "research_cluster": "—",
+          "research_interests": [
+            "Technology Management",
+            "Innovation"
+          ],
+          "similarity_score": 0.841,
+          "multi_factor_score": 0.8887,
+          "explanation": "Shanta Yapa is an excellent match (84% similarity) with closely related expertise in Technology Management, Innovation.",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 2
+        },
+        {
+          "supervisor_id": 43,
+          "name": "Kaushalya Dissanayake",
+          "email": "kaushalya.di@sliit.lk",
+          "department": "—",
+          "research_cluster": "—",
+          "research_interests": [],
+          "similarity_score": 0.8372,
+          "multi_factor_score": 0.8861,
+          "explanation": "Kaushalya Dissanayake is an excellent match (84% similarity) with closely related expertise in .",
+          "availability": true,
+          "current_students": 0,
+          "max_students": 2
+        },
+        {
+          "supervisor_id": 66,
+          "name": "Lakshi Nanayakkara",
+          "email": "lakshi.n@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI",
+          "research_interests": [],
+          "similarity_score": 0.8277,
+          "multi_factor_score": 0.8794,
+          "explanation": "Lakshi Nanayakkara is an excellent match (83% similarity) with closely related expertise in .",
+          "availability": true,
+          "current_students": 0,
+          "max_students": 2
+        },
+        {
+          "supervisor_id": 51,
+          "name": "Narmada Gamage",
+          "email": "narmada.g@sliit.lk",
+          "department": "ISE",
+          "research_cluster": "TIM,SST",
+          "research_interests": [
+            "Assistive Technology",
+            "Machine Learning",
+            "Business Analytics"
+          ],
+          "similarity_score": 0.8261,
+          "multi_factor_score": 0.8783,
+          "explanation": "Narmada Gamage is an excellent match (83% similarity) with closely related expertise in Assistive Technology, Machine Learning.",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 3
+        },
+        {
+          "supervisor_id": 17,
+          "name": "Sanvitha Kasthuriarachchi",
+          "email": "sanvitha.k@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI",
+          "research_interests": [
+            "Big Data Analytics",
+            "Data Mining",
+            "Machine Learning",
+            "Education Technology"
+          ],
+          "similarity_score": 0.8241,
+          "multi_factor_score": 0.8769,
+          "explanation": "Sanvitha Kasthuriarachchi is an excellent match (82% similarity) with closely related expertise in Big Data Analytics, Data Mining.",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "M2-05",
+    "feature": "Supervisor Papers/Profile (id=1)",
+    "method": "GET",
+    "path": "/matching/supervisors/1/papers",
+    "request": null,
+    "status": 200,
+    "response": {
+      "supervisor_id": 1,
+      "name": "Koliya Pulasinghe",
+      "department": "IT",
+      "research_interests": [
+        "Speech Recognition",
+        "Natural Language Understanding",
+        "Text-to-Speech",
+        "Dialogue Management",
+        "Speech Impairment Recognition",
+        "Conversational Interfaces"
+      ],
+      "papers": [
+        {
+          "paper_id": "7a97593f3c79de1ea361497660c1bcc470ac2d8e",
+          "title": "Sinhala Speech Recognition System for Speech-Based Autism Intervention in Children Using the NAO Robot",
+          "year": 2026,
+          "venue": "International Conference on Soft Computing and Software Engineering",
+          "url": "https://doi.org/10.1109/SCSE70081.2026.11499808",
+          "doi": "10.1109/SCSE70081.2026.11499808"
+        },
+        {
+          "paper_id": "0bacda881872a4afa1ac6ce9a391142b75c09bd0",
+          "title": "Child’s Age Range Prediction Using Sinhala Speech Recognition System",
+          "year": 2025,
+          "venue": "2025 5th International Conference on Advanced Research in Computing (ICARC)",
+          "url": "https://doi.org/10.1109/ICARC64760.2025.10963188",
+          "doi": "10.1109/ICARC64760.2025.10963188"
+        },
+        {
+          "paper_id": "4b69ff962ab13cba5c027b251dd742e9a77f2432",
+          "title": "Adaptive Robotic Voice Modulation for ASD Kids: Tailored Voice Pitch, Tone, and Speed",
+          "year": 2025,
+          "venue": "International Conference on Soft Computing and Software Engineering",
+          "url": "https://doi.org/10.1109/SCSE65633.2025.11030997",
+          "doi": "10.1109/SCSE65633.2025.11030997"
+        },
+        {
+          "paper_id": "61a7b00179fe40d08c5d1243b8a9c3f1abb08308",
+          "title": "Advancing Speech Therapy for Sinhala-Speaking Children with Autism Spectrum Disorder Through an Intelligent Dialog System",
+          "year": 2025,
+          "venue": "International Conference on Soft Computing and Software Engineering",
+          "url": "https://doi.org/10.1109/SCSE65633.2025.11030959",
+          "doi": "10.1109/SCSE65633.2025.11030959"
+        },
+        {
+          "paper_id": "e4d65cf1ed3055db9afaaf68b97189dd5f7af0f1",
+          "title": "Designing Culturally Adaptive Emotional Gestures to Enhance Child-Robot Interaction with NAO Robots in ASD Therapy",
+          "year": 2025,
+          "venue": "International Conference on Soft Computing and Software Engineering",
+          "url": "https://doi.org/10.1109/SCSE65633.2025.11031067",
+          "doi": "10.1109/SCSE65633.2025.11031067"
+        },
+        {
+          "paper_id": "0ec3d80fde1772820138bd3c866fbe96d186451a",
+          "title": "AI-Driven Personalized Fitness Coaching with Body Type-Based Workout and Nutrition Plans and Real-Time Exercise Feedback",
+          "year": 2024,
+          "venue": "International Conferences on Computing Advancements",
+          "url": "https://doi.org/10.1109/ICCA62237.2024.10928121",
+          "doi": "10.1109/ICCA62237.2024.10928121"
+        },
+        {
+          "paper_id": "df152baf383cfca34a27a79d4d2e01325074d52c",
+          "title": "A Multimodal Interaction System for Speech-Based Autism Intervention in Sinhala-Speaking Sri Lankan Children using the NAO Robot",
+          "year": 2024,
+          "venue": "International Conference on Automation and Computing",
+          "url": "https://doi.org/10.1109/ICAC64487.2024.10851032",
+          "doi": "10.1109/ICAC64487.2024.10851032"
+        },
+        {
+          "paper_id": "4fb1b9d89acfd91f606b70b8ee992345b9227229",
+          "title": "Reinforcement Learning Approach for Dialogue Management to Aid Child-Robot Interaction in ASD Screening",
+          "year": 2023,
+          "venue": "2023 6th International Conference on Artificial Intelligence and Big Data (ICAIBD)",
+          "url": "https://doi.org/10.1109/ICAIBD57115.2023.10206343",
+          "doi": "10.1109/ICAIBD57115.2023.10206343"
+        },
+        {
+          "paper_id": "75051ffbd8c60363608017ffbfcf9e30384ee5b1",
+          "title": "ARTIFICIAL NEURAL NETWORK BASED INTELLIGENT TEA TASTER-REVIEW",
+          "year": 2023,
+          "venue": "Automation Technological and Business-Processes",
+          "url": "https://doi.org/10.15673/atbp.v15i1.2491",
+          "doi": "10.15673/atbp.v15i1.2491"
+        },
+        {
+          "paper_id": "b2749042c04724df880ff4470574d6e0563173ea",
+          "title": "Katha App: Sinhala Phonological Disorder Detection and Treatment in Early Childhood",
+          "year": 2023,
+          "venue": "International Conference on Automation and Computing",
+          "url": "https://doi.org/10.1109/ICAC60630.2023.10417279",
+          "doi": "10.1109/ICAC60630.2023.10417279"
+        },
+        {
+          "paper_id": "2961abd3af22202e8ee129f89752858afd8a5d1e",
+          "title": "Step-by-Step Process of Building Voices for Under Resourced Languages using MARY TTS Platform",
+          "year": 2022,
+          "venue": "International Conference on Automation and Computing",
+          "url": "https://doi.org/10.1109/ICAC57685.2022.10025200",
+          "doi": "10.1109/ICAC57685.2022.10025200"
+        },
+        {
+          "paper_id": "2ec9be33b1c2e9eca09ce087e026c062714f154e",
+          "title": "ASD Screening for Toddlers via Physical Interpretation through Advanced AI",
+          "year": 2021,
+          "venue": "International Conference on Automation and Computing",
+          "url": "https://doi.org/10.1109/ICAC54203.2021.9671177",
+          "doi": "10.1109/ICAC54203.2021.9671177"
+        },
+        {
+          "paper_id": "4bcc9217f9702adef08f56545bf19e1c8144b94e",
+          "title": "Vehicle Insurance Policy Document Summarizer, AI Insurance Agent and On-The-Spot Claimer",
+          "year": 2021,
+          "venue": "2021 6th International Conference for Convergence in Technology (I2CT)",
+          "url": "https://doi.org/10.1109/I2CT51068.2021.9418137",
+          "doi": "10.1109/I2CT51068.2021.9418137"
+        },
+        {
+          "paper_id": "4e279f831cde56f6ffee53c87311389752773fc9",
+          "title": "Adapting MaryTTS for Synthesizing Sinhalese Speech to Communicate with Children",
+          "year": 2021,
+          "venue": "2021 6th International Conference on Information Technology Research (ICITR)",
+          "url": "https://doi.org/10.1109/ICITR54349.2021.9657394",
+          "doi": "10.1109/ICITR54349.2021.9657394"
+        },
+        {
+          "paper_id": "b01cf9a4a7944e31041d1f48595dcb338f424d88",
+          "title": "Automated Sinhala Speech Emotions Analysis Tool for Autism Children",
+          "year": 2021,
+          "venue": "2021 10th International Conference on Information and Automation for Sustainability (ICIAfS)",
+          "url": "https://doi.org/10.1109/ICIAfS52090.2021.9605841",
+          "doi": "10.1109/ICIAfS52090.2021.9605841"
+        },
+        {
+          "paper_id": "287faa66d197c4dba4c079a8e2e2bfd7b45a7be0",
+          "title": "Sinhala Conversational Interface for Appointment Management and Medical Advice",
+          "year": 2020,
+          "venue": "International Conference on Automation and Computing",
+          "url": "https://doi.org/10.1109/icac51239.2020.9357155",
+          "doi": "10.1109/icac51239.2020.9357155"
+        },
+        {
+          "paper_id": "5c9a24775372524f62fbadcebd77e9f2154337df",
+          "title": "Secured, Intelligent Blood and Organ Donation Management System - “LifeShare”",
+          "year": 2020,
+          "venue": "International Conference on Automation and Computing",
+          "url": "https://doi.org/10.1109/ICAC51239.2020.9357211",
+          "doi": "10.1109/ICAC51239.2020.9357211"
+        },
+        {
+          "paper_id": "09f8c0035fa720966d594f20bee07f2285c7db6a",
+          "title": "Machine Learning Based Automated Speech Dialog Analysis Of Autistic Children",
+          "year": 2019,
+          "venue": "International Conference on Knowledge and Systems Engineering",
+          "url": "https://pure.ulster.ac.uk/en/publications/a9a74ac8-ac1b-4290-85d6-d2e3c2232c98",
+          "doi": "10.1109/KSE.2019.8919266"
+        },
+        {
+          "paper_id": "681dfbca3075569c8cbfa1c4b62a90ba48bedf81",
+          "title": "iPillow: Sleep Quality Improvement System",
+          "year": 2019,
+          "venue": "International Conference on Automation and Computing",
+          "url": "https://doi.org/10.1109/ICAC49085.2019.9103396",
+          "doi": "10.1109/ICAC49085.2019.9103396"
+        },
+        {
+          "paper_id": "cef936c6d75f52271cdf67ec6152b161a011e683",
+          "title": "SeizeIT: SEIZURE victims are no longer leashed",
+          "year": 2019,
+          "venue": "Proceeding of the Electrical Engineering Computer Science  and Informatics",
+          "url": "https://doi.org/10.11591/eecsi.v6.2015",
+          "doi": "10.11591/eecsi.v6.2015"
+        },
+        {
+          "paper_id": "18a5c2374c0cfcecf13fa17acdfc7846e8c09e98",
+          "title": "Remote Doctor : Tele Medicine Unit",
+          "year": 2017,
+          "venue": null,
+          "url": "https://www.semanticscholar.org/paper/18a5c2374c0cfcecf13fa17acdfc7846e8c09e98",
+          "doi": null
+        },
+        {
+          "paper_id": "49cd8e7dc67c0ae33eba1c6dfccf0d1f1da68ec8",
+          "title": "Picture Archiving and Communications System Developed for Health Information System M.",
+          "year": 2017,
+          "venue": null,
+          "url": "https://www.semanticscholar.org/paper/49cd8e7dc67c0ae33eba1c6dfccf0d1f1da68ec8",
+          "doi": null
+        },
+        {
+          "paper_id": "ff69a36c9be92acf43f173bdfd19bd523306dd57",
+          "title": "A parallel version of the in-close algorithm",
+          "year": 2017,
+          "venue": "2017 6th National Conference on Technology and Management (NCTM)",
+          "url": "https://doi.org/10.1109/NCTM.2017.7872818",
+          "doi": "10.1109/NCTM.2017.7872818"
+        },
+        {
+          "paper_id": "0ab094a09df2f93bb030bb424e76a99587600943",
+          "title": "Comparision Between Features of CbO based Algorithms for Generating Formal Concepts",
+          "year": 2016,
+          "venue": "International Journal of Conceptual Structures and Smart Applications",
+          "url": "https://doi.org/10.4018/IJCSSA.2016010101",
+          "doi": "10.4018/IJCSSA.2016010101"
+        },
+        {
+          "paper_id": "3bd46aa06ec09b18a7b3922f0410e21832e186fb",
+          "title": "Cloud Based Secure PAC System to Analyze DICOM Images",
+          "year": 2016,
+          "venue": null,
+          "url": "https://www.semanticscholar.org/paper/3bd46aa06ec09b18a7b3922f0410e21832e186fb",
+          "doi": null
+        },
+        {
+          "paper_id": "b141061d39d8b8d140ea0c068f4d1f24a2c665ce",
+          "title": "Mobile office and its implications for ERP systems : a review of literature",
+          "year": 2015,
+          "venue": null,
+          "url": "https://www.semanticscholar.org/paper/b141061d39d8b8d140ea0c068f4d1f24a2c665ce",
+          "doi": null
+        },
+        {
+          "paper_id": "444fb26283f0094fdaeeee1fd689bef259fd5bcc",
+          "title": "Towards Knowledge Management for Healthcare: Effects of Latest Medical Information for the Quality of Healthcare in the Developing Countries: A Case Study",
+          "year": 2014,
+          "venue": null,
+          "url": "https://doi.org/10.14738/jbemi.12.98",
+          "doi": "10.14738/jbemi.12.98"
+        },
+        {
+          "paper_id": "a442047a794b458c570a7771943b5dcf975497d6",
+          "title": "Welcome to ICCSE",
+          "year": 2013,
+          "venue": "International Conference on Crowd Science and Engineering",
+          "url": "https://ieeexplore.ieee.org/ielx7/6547259/6553871/06554168.pdf",
+          "doi": "10.1109/ICCSE.2013.6554168"
+        },
+        {
+          "paper_id": "1e3f20e79ed1664f6dcb4de4a6d543967edf57f4",
+          "title": "A Translator from Sinhala to English and English to Sinhala (SEES)",
+          "year": 2012,
+          "venue": "International Conference on Advances in ICT for Emerging Regions",
+          "url": "https://doi.org/10.1109/ICTER.2012.6421408",
+          "doi": "10.1109/ICTER.2012.6421408"
+        },
+        {
+          "paper_id": "646adf0e01d1f51840798324e69feb0781b15098",
+          "title": "More-than-voice services at the BOP : awareness, usage and elevation of socio-economic status",
+          "year": 2012,
+          "venue": null,
+          "url": "https://www.semanticscholar.org/paper/646adf0e01d1f51840798324e69feb0781b15098",
+          "doi": null
+        },
+        {
+          "paper_id": "bd78f5ccbeaec11166a1f9d1d8825d5e8c8f4159",
+          "title": "*Title: Possibilities for the Use of Mobile Phones and More-than-voice Services to Improve the Economic Status of Women-Headed Households at the BOP",
+          "year": 2012,
+          "venue": null,
+          "url": "https://www.semanticscholar.org/paper/bd78f5ccbeaec11166a1f9d1d8825d5e8c8f4159",
+          "doi": null
+        },
+        {
+          "paper_id": "d4c216dd25e27a9275e4f69cec66ac9aa95636e4",
+          "title": "Achieving Quality Healthcare through Knowledge Management Initiatives in Health Institutions in Rural and Remote Areas in Sri Lanka",
+          "year": 2012,
+          "venue": null,
+          "url": "https://www.semanticscholar.org/paper/d4c216dd25e27a9275e4f69cec66ac9aa95636e4",
+          "doi": null
+        },
+        {
+          "paper_id": "dc75965a03f2ea69c9dc347f9555b08c17d62a3f",
+          "title": "Possibilities for the Use of Mobile Phones and More-than-Voice Services to Improve the Economic Status of Female-Headed Households at the BOP",
+          "year": 2012,
+          "venue": null,
+          "url": "https://doi.org/10.2139/SSRN.2309349",
+          "doi": "10.2139/SSRN.2309349"
+        },
+        {
+          "paper_id": "44acb8832a840ccd010b3867a1cbd5c6c311758f",
+          "title": "Automated question answering for customer helpdesk applications",
+          "year": 2011,
+          "venue": "International Conference on Industrial and Information Systems",
+          "url": "https://doi.org/10.1109/ICIINFS.2011.6038089",
+          "doi": "10.1109/ICIINFS.2011.6038089"
+        },
+        {
+          "paper_id": "362f57b00d69a331ecb4acf2d46623d47080478f",
+          "title": "Application of English – Sinhala – English Speech Machine Translation",
+          "year": 2009,
+          "venue": null,
+          "url": "https://www.semanticscholar.org/paper/362f57b00d69a331ecb4acf2d46623d47080478f",
+          "doi": null
+        },
+        {
+          "paper_id": "2b74d5176cdaf21ac3170544e86c57cac3d5ce2a",
+          "title": "A particle-swarm-optimized fuzzy-neural network for voice-controlled robot systems",
+          "year": 2005,
+          "venue": "IEEE transactions on industrial electronics (1982. Print)",
+          "url": "https://doi.org/10.1109/TIE.2005.858737",
+          "doi": "10.1109/TIE.2005.858737"
+        },
+        {
+          "paper_id": "47cbb887aa723bd716001aaa211b2d95d8632cb0",
+          "title": "Syntactic Approach to Predict Membrane Spanning Regions of Transmembrane Proteins",
+          "year": 2005,
+          "venue": "EvoWorkshops",
+          "url": "https://doi.org/10.1007/978-3-540-32003-6_10",
+          "doi": "10.1007/978-3-540-32003-6_10"
+        },
+        {
+          "paper_id": "0c70ced6f0cfbf0412bc34ae8fb0135f600bb3f5",
+          "title": "Modular fuzzy-neuro controller driven by spoken language commands",
+          "year": 2004,
+          "venue": "IEEE Transactions on Systems Man and Cybernetics Part B (Cybernetics)",
+          "url": "https://doi.org/10.1109/TSMCB.2003.811511",
+          "doi": "10.1109/TSMCB.2003.811511"
+        },
+        {
+          "paper_id": "2e898a259222cf1f5586319732a2ccfcc19b9f8d",
+          "title": "Control of redundant manipulators by fuzzy linguistic commands",
+          "year": 2003,
+          "venue": "SICE 2003 Annual Conference (IEEE Cat. No.03TH8734)",
+          "url": "https://www.semanticscholar.org/paper/2e898a259222cf1f5586319732a2ccfcc19b9f8d",
+          "doi": null
+        },
+        {
+          "paper_id": "6524e0c9ce6c47584a53fa2878a386d221eda652",
+          "title": "Training of Fuzzy-Neural Network for Voice-Controlled Robot Systems by a Particle Swarm Optimization",
+          "year": 2003,
+          "venue": null,
+          "url": "https://www.semanticscholar.org/paper/6524e0c9ce6c47584a53fa2878a386d221eda652",
+          "doi": null
+        },
+        {
+          "paper_id": "a5cdfd132be945d763a120e631e0efe57c51873d",
+          "title": "A Fuzzy-Neural Network Based Human-Machine Interface for Voice Controlled Robots Trained by a Particle Swarm Optimization",
+          "year": 2003,
+          "venue": null,
+          "url": "https://www.semanticscholar.org/paper/a5cdfd132be945d763a120e631e0efe57c51873d",
+          "doi": null
+        },
+        {
+          "paper_id": "b38c94023539a77137490de8a3318900ee2182b5",
+          "title": "Interpreting fuzzy linguistic information in natural language commands for robots",
+          "year": 2003,
+          "venue": null,
+          "url": "https://www.semanticscholar.org/paper/b38c94023539a77137490de8a3318900ee2182b5",
+          "doi": null
+        },
+        {
+          "paper_id": "cf32ac93e1702ab4e99d86461bb2d058ea5bbf46",
+          "title": "Voice-controlled modular fuzzy neural controller with enhanced user autonomy",
+          "year": 2003,
+          "venue": "Artificial Life and Robotics",
+          "url": "https://doi.org/10.1007/BF02480884",
+          "doi": "10.1007/BF02480884"
+        },
+        {
+          "paper_id": "756f3bca86a5da6811c1d15bb65f79a40fe34955",
+          "title": "Voice Communication in Performing a Cooperative Task with a Robot",
+          "year": 2002,
+          "venue": "International Symposium on Distributed Autonomous Robotic Systems",
+          "url": "https://doi.org/10.1007/978-4-431-65941-9_13",
+          "doi": "10.1007/978-4-431-65941-9_13"
+        },
+        {
+          "paper_id": "a2774a3c28594d59396691f5b18dc4cce6f04f52",
+          "title": "Interactive Adaptation of Fuzzy Neural Networks in Voice-Controlled Systems",
+          "year": 2002,
+          "venue": null,
+          "url": "https://www.semanticscholar.org/paper/a2774a3c28594d59396691f5b18dc4cce6f04f52",
+          "doi": null
+        },
+        {
+          "paper_id": "c28888f706b3a05a14407f00f094dcaa2b95f24f",
+          "title": "1-303 Acquisition of New Knowledge for Fuzzy Neural Networks Thorough an Interacting with Human",
+          "year": 2002,
+          "venue": null,
+          "url": "https://www.semanticscholar.org/paper/c28888f706b3a05a14407f00f094dcaa2b95f24f",
+          "doi": null
+        },
+        {
+          "paper_id": "a8ce9cb916bad4d1abdaf45fc90d4e65cfba03e5",
+          "title": "A novel modular neuro-fuzzy controller driven by natural language commands",
+          "year": 2001,
+          "venue": "SICE 2001. Proceedings of the 40th SICE Annual Conference. International Session Papers (IEEE Cat. No.01TH8603)",
+          "url": "https://doi.org/10.1109/SICE.2001.977857",
+          "doi": "10.1109/SICE.2001.977857"
+        },
+        {
+          "paper_id": "e4db9027b25ca01f0d7b5b9aa46d3dee669d57c1",
+          "title": "Modular Fuzzy Neural Controller Driven by Voice Commands",
+          "year": 2001,
+          "venue": null,
+          "url": "https://www.semanticscholar.org/paper/e4db9027b25ca01f0d7b5b9aa46d3dee669d57c1",
+          "doi": null
+        },
+        {
+          "paper_id": "2848df30457d9cc0602b70af7fc0943f51ca7bcc",
+          "title": "Image Processing and Machine Learning Based Nutrition and Fitness Journaling System",
+          "year": null,
+          "venue": null,
+          "url": "https://www.semanticscholar.org/paper/2848df30457d9cc0602b70af7fc0943f51ca7bcc",
+          "doi": null
+        }
+      ],
+      "total": 49,
+      "year_distribution": {
+        "2011": 1,
+        "2012": 5,
+        "2013": 1,
+        "2014": 1,
+        "2015": 1,
+        "2016": 2,
+        "2017": 3,
+        "2019": 3,
+        "2020": 2,
+        "2021": 4,
+        "2022": 1,
+        "2023": 3,
+        "2024": 2,
+        "2025": 4,
+        "2026": 1
+      },
+      "topic_distribution": [
+        {
+          "name": "Speech Recognition",
+          "value": 1
+        },
+        {
+          "name": "Natural Language Understanding",
+          "value": 1
+        },
+        {
+          "name": "Text-to-Speech",
+          "value": 1
+        },
+        {
+          "name": "Dialogue Management",
+          "value": 1
+        },
+        {
+          "name": "Speech Impairment Recognition",
+          "value": 1
+        },
+        {
+          "name": "Conversational Interfaces",
+          "value": 1
+        }
+      ],
+      "research_focus": {
+        "summary": "Koliya Pulasinghe primarily researches AI-driven systems for autism intervention and therapy in Sinhala-speaking children, often utilizing speech recognition, synthesis, and child-robot interaction with NAO robots. They are highly active, consistently publishing multiple papers each year, including future work, making it an excellent time to approach them.",
+        "recent_focus_areas": [
+          "AI for Autism Intervention in Children",
+          "Sinhala Speech Recognition & Synthesis",
+          "Child-Robot Interaction (NAO Robots)"
+        ],
+        "activity_level": "Actively publishing"
+      }
+    }
+  },
+  {
+    "id": "M2-06",
+    "feature": "Supervisor Papers/Profile (id=2)",
+    "method": "GET",
+    "path": "/matching/supervisors/2/papers",
+    "request": null,
+    "status": 200,
+    "response": {
+      "supervisor_id": 2,
+      "name": "Samantha Thelijjagoda",
+      "department": "ISE",
+      "research_interests": [
+        "Computational Models of Human Language",
+        "NLP",
+        "Human Language Technology",
+        "Machine Translation",
+        "Information Extraction",
+        "Speech Recognition",
+        "Spoken Language Systems",
+        "Digital Linguistics",
+        "Corpus Linguistics"
+      ],
+      "papers": [
+        {
+          "paper_id": "0577be6a9b23316cdba2b41719a6542dae929b63",
+          "title": "The Multi-Tenant Customization Paradox: Formalising the Intrinsic Conflict Between Scalable Shared Codebases and Tenant-Specific Operational Customization in SaaS Architecture",
+          "year": 2026,
+          "venue": "Annual International Computer Software and Applications Conference",
+          "url": "https://doi.org/10.1109/COMPSAC69091.2026.00456",
+          "doi": "10.1109/COMPSAC69091.2026.00456"
+        },
+        {
+          "paper_id": "2092e46c1fd02d21949e0726d645c29eeeb5ba2a",
+          "title": "Workforce Adaptability Among Gen Z Employees in Industry 5.0: A Freight and Logistics Perspective",
+          "year": 2026,
+          "venue": "International Conference on Soft Computing and Software Engineering",
+          "url": "https://doi.org/10.1109/SCSE70081.2026.11499882",
+          "doi": "10.1109/SCSE70081.2026.11499882"
+        },
+        {
+          "paper_id": "2e15f10e85e03af64e775346f60c928104c4f9ce",
+          "title": "Intelligent Dementia Risk Monitoring and Cognitive Support System for the Elderly Well-being",
+          "year": 2026,
+          "venue": "2026 IEEE International Conference on Automatic Control and Intelligent Systems (I2CACIS)",
+          "url": "https://doi.org/10.1109/I2CACIS69435.2026.11600160",
+          "doi": "10.1109/I2CACIS69435.2026.11600160"
+        },
+        {
+          "paper_id": "38a3565aeef490890792c4fe34216c297b41cc14",
+          "title": "NeuroLens: A Multimodal Mobile Platform for Early Parkinson's Disease Screening Using TinyML and Cross-Modal Feature Fusion",
+          "year": 2026,
+          "venue": "2026 IEEE International Conference on Automatic Control and Intelligent Systems (I2CACIS)",
+          "url": "https://doi.org/10.1109/I2CACIS69435.2026.11600138",
+          "doi": "10.1109/I2CACIS69435.2026.11600138"
+        },
+        {
+          "paper_id": "3e86131119fe0fc8cd43fe5af1b804a0cbefc69e",
+          "title": "AI-Driven Integrated Caregiving and Health Monitoring Framework for Elderly Well-Being",
+          "year": 2026,
+          "venue": "2026 4th International Conference on Sustainable Computing and Smart Systems (ICSCSS)",
+          "url": "https://doi.org/10.1109/ICSCSS69635.2026.11646137",
+          "doi": "10.1109/ICSCSS69635.2026.11646137"
+        },
+        {
+          "paper_id": "763322ad6df66b7043d6cf516e2ef1bd2194918c",
+          "title": "Unified AI Framework for Predictive Pediatric Healthcare in Multilingual, Resource-Limited Settings",
+          "year": 2026,
+          "venue": "2026 IEEE International Conference on Automatic Control and Intelligent Systems (I2CACIS)",
+          "url": "https://doi.org/10.1109/I2CACIS69435.2026.11600063",
+          "doi": "10.1109/I2CACIS69435.2026.11600063"
+        },
+        {
+          "paper_id": "7796c4c54497bf6e9aa69011564f7b0c69b8830c",
+          "title": "Intelligent Multimodal AI Platform for Personalized Speech and Language Therapy in Children with Communication Disorders",
+          "year": 2026,
+          "venue": "2026 IEEE International Conference on Automatic Control and Intelligent Systems (I2CACIS)",
+          "url": "https://doi.org/10.1109/I2CACIS69435.2026.11600096",
+          "doi": "10.1109/I2CACIS69435.2026.11600096"
+        },
+        {
+          "paper_id": "820c9456d5e9d37d7eb5935578bdf9302b2df34f",
+          "title": "Huruwa: an AI-IoT Robotic System for Adaptive Speech Therapy and Parental Support for Sinhala-Speaking Children with Speech Sound Disorders",
+          "year": 2026,
+          "venue": "2026 8th International Congress on Human-Computer Interaction, Optimization and Robotic Applications (ICHORA)",
+          "url": "https://doi.org/10.1109/ICHORA69329.2026.11537096",
+          "doi": "10.1109/ICHORA69329.2026.11537096"
+        },
+        {
+          "paper_id": "9e56faa3bb17e81dd696d6efa78e7a164d2f5574",
+          "title": "Machine Learning-Based Early Detection Of Autism Using Multimodal Conversational Features",
+          "year": 2026,
+          "venue": "2026 IEEE International Conference on Automatic Control and Intelligent Systems (I2CACIS)",
+          "url": "https://doi.org/10.1109/I2CACIS69435.2026.11600351",
+          "doi": "10.1109/I2CACIS69435.2026.11600351"
+        },
+        {
+          "paper_id": "f1604f0206fc5e6936c28b9c3e9a9c762b42c1e2",
+          "title": "Unveiling the Determinants of Cloud Computing Adoption in Sri Lankan SMEs: A Deductive Thematic Analysis",
+          "year": 2026,
+          "venue": "International Journal of Technology Intelligence and Planning (IJTIP)",
+          "url": "https://doi.org/10.1504/ijtip.2026.10078636",
+          "doi": "10.1504/ijtip.2026.10078636"
+        },
+        {
+          "paper_id": "2302a1b7b4e08327adeb1cd186e31e52f42d75d9",
+          "title": "LexAyudha : Personalized AI-Driven Rehabilitation for Adolescents with Dyslexia and Dyscalculia",
+          "year": 2025,
+          "venue": "2025 5th International Conference on Electrical, Computer and Energy Technologies (ICECET)",
+          "url": "https://doi.org/10.1109/ICECET63943.2025.11472549",
+          "doi": "10.1109/ICECET63943.2025.11472549"
+        },
+        {
+          "paper_id": "3694fb065e53db704920b060c0d5627e8af004a8",
+          "title": "Context-Aware Incremental Learning Pipeline Triggers",
+          "year": 2025,
+          "venue": "International Conference on Automation and Computing",
+          "url": "https://doi.org/10.1109/ICAC69156.2025.11361538",
+          "doi": "10.1109/ICAC69156.2025.11361538"
+        },
+        {
+          "paper_id": "549200d21c9bb1c3b47490107306b72ff889daf5",
+          "title": "Gamified Deep Learning-Based Strategies for Supporting Speech and Motor Skill Development in Children with Autism",
+          "year": 2025,
+          "venue": "International Conference on Automation and Computing",
+          "url": "https://doi.org/10.1109/ICAC69156.2025.11361487",
+          "doi": "10.1109/ICAC69156.2025.11361487"
+        },
+        {
+          "paper_id": "7f7cdcb039383a9dc72d8f09a652c38f76fea88c",
+          "title": "Advanced Technologies for Skill Enhancement and Talent Recognition",
+          "year": 2025,
+          "venue": "2025 5th International Conference on Electrical, Computer and Energy Technologies (ICECET)",
+          "url": "https://doi.org/10.1109/ICECET63943.2025.11472168",
+          "doi": "10.1109/ICECET63943.2025.11472168"
+        },
+        {
+          "paper_id": "8bb099d90c81b659b68db743db8301494e9945a9",
+          "title": "DiverseMind: An Integrated Framework for Children with Multi-Dimensional Challenges as Slow Learners",
+          "year": 2025,
+          "venue": "2025 5th International Conference on Electrical, Computer and Energy Technologies (ICECET)",
+          "url": "https://doi.org/10.1109/ICECET63943.2025.11472044",
+          "doi": "10.1109/ICECET63943.2025.11472044"
+        },
+        {
+          "paper_id": "8bea598b91b09c06e8f06826cf5040e1803f1e42",
+          "title": "AI-Driven Fault-Tolerant ETL Pipelines for Enhanced Data Integration and Quality",
+          "year": 2025,
+          "venue": "International Conference on Soft Computing and Software Engineering",
+          "url": "https://doi.org/10.1109/SCSE65633.2025.11031076",
+          "doi": "10.1109/SCSE65633.2025.11031076"
+        },
+        {
+          "paper_id": "8e64225b3c02cf36e1ac3b14930032672f02f596",
+          "title": "Context-Aware Behavior-Driven Pipeline Generation",
+          "year": 2025,
+          "venue": "International Symposium on Digital Forensics and Security",
+          "url": "https://doi.org/10.1109/ISDFS65363.2025.11011952",
+          "doi": "10.1109/ISDFS65363.2025.11011952"
+        },
+        {
+          "paper_id": "ac875de180b2335cc98690fca3f8b929f319259f",
+          "title": "MindBridge: Early Identification of Learning Difficulties in Children as a Supporting Tool for Teachers",
+          "year": 2025,
+          "venue": "IEEE International Conference on Electronics Information and Emergency Communication",
+          "url": "https://doi.org/10.1109/ICEIEC65904.2025.11273125",
+          "doi": "10.1109/ICEIEC65904.2025.11273125"
+        },
+        {
+          "paper_id": "aea29b5de5b6b9a02e01314a34fcbde7c9b7c303",
+          "title": "Personality and Soft Skills Analysis System for Job Recruitment Using VR Technology",
+          "year": 2025,
+          "venue": "2025 5th International Conference on Electrical, Computer and Energy Technologies (ICECET)",
+          "url": "https://doi.org/10.1109/ICECET63943.2025.11472331",
+          "doi": "10.1109/ICECET63943.2025.11472331"
+        },
+        {
+          "paper_id": "b2096929ac72cf89467cee6e1f5461a7de1d486f",
+          "title": "Transforming Education And Therapy For Children On The Autism Spectrum with Machine Learning Solutions",
+          "year": 2025,
+          "venue": "2025 5th International Conference on Electrical, Computer and Energy Technologies (ICECET)",
+          "url": "https://doi.org/10.1109/ICECET63943.2025.11472157",
+          "doi": "10.1109/ICECET63943.2025.11472157"
+        },
+        {
+          "paper_id": "be6df47a6a26b2502bd3a995854dd9e1379cc5fb",
+          "title": "The digital bridge: how digital transformation mediates the innovative culture-resilience nexus in IT firms",
+          "year": 2025,
+          "venue": "Bottom Line",
+          "url": "https://doi.org/10.1108/bl-04-2025-0070",
+          "doi": "10.1108/bl-04-2025-0070"
+        },
+        {
+          "paper_id": "d5f081ef4bd29c2e46d19fd5856bced2c5d0ddf7",
+          "title": "Sustainability Insights: Unveiling the Impact of Business Analytics in Shaping Sustainability Practices in the Apparel Industry",
+          "year": 2025,
+          "venue": "International Conference on Soft Computing and Software Engineering",
+          "url": "https://doi.org/10.1109/SCSE65633.2025.11031032",
+          "doi": "10.1109/SCSE65633.2025.11031032"
+        },
+        {
+          "paper_id": "da82fe134249244e61a540fe265cdd35d502cec8",
+          "title": "WORDEX: Early Dyslexia Detection and Support",
+          "year": 2025,
+          "venue": "International Conference on Artificial Intelligence in Engineering and Technology",
+          "url": "https://doi.org/10.1109/IICAIET67254.2025.11265590",
+          "doi": "10.1109/IICAIET67254.2025.11265590"
+        },
+        {
+          "paper_id": "e2f4070a4cfec95c4c54b143857755d1752fae8f",
+          "title": "Sri Lankan SMEs’ Performance Through Cloud Computing Adoption: An SEM-ANN Analysis",
+          "year": 2025,
+          "venue": "IEEE Access",
+          "url": "https://doi.org/10.1109/access.2025.3564339",
+          "doi": "10.1109/ACCESS.2025.3564339"
+        },
+        {
+          "paper_id": "ef50d0612479105250c94d80de6efe78f64f9ed6",
+          "title": "\"Articulearn\": An Integrative, AI-Driven Speech Therapy System for Children With Speech Disorders",
+          "year": 2025,
+          "venue": "IEEE International Conference on Electronics Information and Emergency Communication",
+          "url": "https://doi.org/10.1109/ICEIEC65904.2025.11273115",
+          "doi": "10.1109/ICEIEC65904.2025.11273115"
+        },
+        {
+          "paper_id": "f71708b2351d67ad0645b770ec8f45e6a675338d",
+          "title": "Giggle : The Mobile Application to Enhance Cognitive Skills and Practical Thinking in Primary Students with Dyscalculia",
+          "year": 2025,
+          "venue": "2025 5th International Conference on Electrical, Computer and Energy Technologies (ICECET)",
+          "url": "https://doi.org/10.1109/ICECET63943.2025.11472281",
+          "doi": "10.1109/ICECET63943.2025.11472281"
+        },
+        {
+          "paper_id": "1e068c7727008995770a355209c31a59a70f2188",
+          "title": "AI Bot to Increase the Accuracy and Efficiency of Hiring Process of Business Organizations",
+          "year": 2024,
+          "venue": "International Conference on Signals and Electronic Systems",
+          "url": "https://doi.org/10.1109/ICSES63760.2024.10910737",
+          "doi": "10.1109/ICSES63760.2024.10910737"
+        },
+        {
+          "paper_id": "4258da3fdb95644d1e60802d8458ec82868b109b",
+          "title": "Framework to create opportunities to maximize the contribution of differently abled employees in the Sri Lankan garment industry",
+          "year": 2024,
+          "venue": "Quality & Quantity: International Journal of Methodology",
+          "url": "https://doi.org/10.1007/s11135-024-01985-9",
+          "doi": "10.1007/s11135-024-01985-9"
+        },
+        {
+          "paper_id": "4b960370cc7a631a24917921a03befe703e954cc",
+          "title": "Multi-Model Machine Learning Approach for Supporting Sri Lankan Veteran Mental Health",
+          "year": 2024,
+          "venue": "2024 IEEE International Conference on Automatic Control and Intelligent Systems (I2CACIS)",
+          "url": "https://doi.org/10.1109/I2CACIS61270.2024.10649827",
+          "doi": "10.1109/I2CACIS61270.2024.10649827"
+        },
+        {
+          "paper_id": "698ddc5174436b18b41a40ba28eb1d31649406e7",
+          "title": "Resume Ranker: AI-Based Skill Analysis and Skill Matching System",
+          "year": 2024,
+          "venue": "International Conference on the Digital Society",
+          "url": "https://doi.org/10.1109/ICDS62089.2024.10756304",
+          "doi": "10.1109/ICDS62089.2024.10756304"
+        },
+        {
+          "paper_id": "93fa7f3e917af6c0aa833c1c1ab4e1713ebf0ea1",
+          "title": "Cutting-Edge AI-Driven Higher Educational and Career Advisory Platform",
+          "year": 2024,
+          "venue": "International Conference on Signals and Electronic Systems",
+          "url": "https://doi.org/10.1109/ICSES63760.2024.10910770",
+          "doi": "10.1109/ICSES63760.2024.10910770"
+        },
+        {
+          "paper_id": "9dee275853e47f2b60b55db317232b45600aebea",
+          "title": "Investigating the Role of Organizational Culture in Facilitating the Technology Adaptation: A Study of Global Information Technology Industry",
+          "year": 2024,
+          "venue": "International Conference on Sustainable &amp; Digital Business",
+          "url": "https://rda.sliit.lk/bitstreams/5cbdad95-35b6-480c-b141-93315b83b099/download",
+          "doi": "10.54389/nfjg6810"
+        },
+        {
+          "paper_id": "bb9302692ceb505b4009ba4b2e12bbde6a00222d",
+          "title": "Intelligent Daycare: Enhancing Child Safety with IoT and Machine Learning Innovations",
+          "year": 2024,
+          "venue": "International Conference on Communication and Electronics Systems",
+          "url": "https://doi.org/10.1109/ICCES63552.2024.10859472",
+          "doi": "10.1109/ICCES63552.2024.10859472"
+        },
+        {
+          "paper_id": "e20996706ebf1cfbf00d7f159e9194706fb844e9",
+          "title": "CalcPal: Mobile Application to Comprehensively Screen and Provide Remedial Activities for Dyscalculia",
+          "year": 2024,
+          "venue": "CENiM",
+          "url": "https://doi.org/10.1109/CENIM64038.2024.10882642",
+          "doi": "10.1109/CENIM64038.2024.10882642"
+        },
+        {
+          "paper_id": "1ffa5d1ad857f49e15c121625ff6d9eb70e83834",
+          "title": "Personal well-being index as a measure of quality of life of diverse groups of people with visual impairment and blindness",
+          "year": 2023,
+          "venue": "Quality & Quantity: International Journal of Methodology",
+          "url": "https://doi.org/10.1007/s11135-023-01716-6",
+          "doi": "10.1007/s11135-023-01716-6"
+        },
+        {
+          "paper_id": "21e6dd9fb3fc4b22fef1bb9f77f32dafcb45d868",
+          "title": "Grammar Error Correction for Less Resourceful Languages: A Case Study of Sinhala",
+          "year": 2023,
+          "venue": "International Conference on Industrial and Information Systems",
+          "url": "https://doi.org/10.1109/ICIIS58898.2023.10253578",
+          "doi": "10.1109/ICIIS58898.2023.10253578"
+        },
+        {
+          "paper_id": "643070f99cf7f22128a1d9c9a39fe141d9a5e44c",
+          "title": "VisionPal: Visual Assistant System for the Visually Impaired People",
+          "year": 2023,
+          "venue": "International Conference on Signals and Electronic Systems",
+          "url": "https://doi.org/10.1109/ICSES60034.2023.10465537",
+          "doi": "10.1109/ICSES60034.2023.10465537"
+        },
+        {
+          "paper_id": "66bf68ca146c0bc59a6d20f835c1754ae9cb1894",
+          "title": "Can visual impairment impact your income potential?",
+          "year": 2023,
+          "venue": "PLoS ONE",
+          "url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0284553&type=printable",
+          "doi": "10.1371/journal.pone.0284553"
+        },
+        {
+          "paper_id": "7b79a343650883c12510d655af9054f46727bf33",
+          "title": "The Socioeconomic Consequences of Brain Drain and Migration in Sri Lanka: A Comprehensive Literature Analysis",
+          "year": 2023,
+          "venue": "International Conference on Sustainable &amp; Digital Business",
+          "url": "https://rda.sliit.lk/bitstreams/0bebcc8f-2a6b-4f66-854a-5fe39c4cf4da/download",
+          "doi": "10.54389/lxpa3476"
+        },
+        {
+          "paper_id": "7f16f7044fd65ba47fe09269d27aec3bbd3b0d65",
+          "title": "Impact of Industry 4.0 on Organizational Performance in Sri Lankan Apparel Industry",
+          "year": 2023,
+          "venue": "International Conference on Automation and Computing",
+          "url": "https://doi.org/10.1109/ICAC60630.2023.10417415",
+          "doi": "10.1109/ICAC60630.2023.10417415"
+        },
+        {
+          "paper_id": "8761841813821eb53b74f5fa71eb00f07d5bea5c",
+          "title": "Comprehensive Browser Extension for Analysing YouTube User Engagement, Controversy, User Requirements, and Trending Keywords",
+          "year": 2023,
+          "venue": "International Telecommunication Networks and Applications Conference",
+          "url": "https://doi.org/10.1109/ITNAC59571.2023.10368503",
+          "doi": "10.1109/ITNAC59571.2023.10368503"
+        },
+        {
+          "paper_id": "8b05f684c5450e68f3b495701b38c08239825fa3",
+          "title": "Machine Learning Based Assistive Technology for Object Detection and Recognition for Visually Impaired Individuals",
+          "year": 2023,
+          "venue": "International Conference on Signals and Electronic Systems",
+          "url": "https://doi.org/10.1109/ICSES60034.2023.10465424",
+          "doi": "10.1109/ICSES60034.2023.10465424"
+        },
+        {
+          "paper_id": "8e019b70f28cabfe3ad7a5a3e3227c554e134465",
+          "title": "Walipilla: Mobile Based Screening and Refinement System to Identify the Risk of Reading Weaknesses Due to Dyslexia",
+          "year": 2023,
+          "venue": "2023 International Conference on Advanced Computing Technologies and Applications (ICACTA)",
+          "url": "https://doi.org/10.1109/ICACTA58201.2023.10393657",
+          "doi": "10.1109/ICACTA58201.2023.10393657"
+        },
+        {
+          "paper_id": "8f58501ea5971ed46ae8ddb3b24552a92797a7a1",
+          "title": "Neuroassist ADHD Analyzer: A Smart Application for Recognizing Attention Deficit Hyperactivity Disorder (ADHD) Levels in Children",
+          "year": 2023,
+          "venue": "International Conference on Signals and Electronic Systems",
+          "url": "https://doi.org/10.1109/ICSES60034.2023.10465399",
+          "doi": "10.1109/ICSES60034.2023.10465399"
+        },
+        {
+          "paper_id": "a82bcd7d8f1b6b73e557c59452dd03a35676cb54",
+          "title": "Influence of IoT on Warehouse Management Performance in the Global Context: A Critical Literature Review",
+          "year": 2023,
+          "venue": "International Conference on Sustainable &amp; Digital Business",
+          "url": "https://rda.sliit.lk/bitstreams/bbf2aab2-83fd-4d78-9814-1a3dcc3e1d9c/download",
+          "doi": "10.54389/mlep9597"
+        },
+        {
+          "paper_id": "ad95c1f660968820d5ccb4db523e61691c50ee47",
+          "title": "Artificial Intelligence Agent to Identify the Correct Human Resources",
+          "year": 2023,
+          "venue": "International Conference on Automation and Computing",
+          "url": "https://doi.org/10.1109/ICAC60630.2023.10417197",
+          "doi": "10.1109/ICAC60630.2023.10417197"
+        },
+        {
+          "paper_id": "b6780b04370f6d52c6e4edda67004ceb3787df68",
+          "title": "Clicks to cravings: how social media serves as the culinary compass for Sri Lankan youth's food choices",
+          "year": 2023,
+          "venue": "6th  International Conference on Business Research (ICBR 2023)",
+          "url": "http://dl.lib.uom.lk/bitstream/123/21832/4/ICBR2023-37.pdf",
+          "doi": "10.31705/icbr.2023.16"
+        },
+        {
+          "paper_id": "d2ea136bbf3c831cbb9df6781dfc5bf330254709",
+          "title": "AI-Powered Smart and Personalized Education Platform",
+          "year": 2023,
+          "venue": "International Conference on Signals and Electronic Systems",
+          "url": "https://doi.org/10.1109/ICSES60034.2023.10465439",
+          "doi": "10.1109/ICSES60034.2023.10465439"
+        },
+        {
+          "paper_id": "f74b73755e639dab22a82996f75fda7ea3812de3",
+          "title": "HANDTALK: Adaptive and Interactive Self-Learning System for Deaf and Dumb School Students in Sri Lanka",
+          "year": 2023,
+          "venue": "International Conference on Automation and Computing",
+          "url": "https://doi.org/10.1109/ICAC60630.2023.10417698",
+          "doi": "10.1109/ICAC60630.2023.10417698"
+        },
+        {
+          "paper_id": "0becd8e1e84b4dccd6b4c488285b63b6587abcb4",
+          "title": "DevFlair: A Framework to Automate the Pre-screening Process of Software Engineering Job Candidates",
+          "year": 2022,
+          "venue": "International Conference on Automation and Computing",
+          "url": "https://doi.org/10.1109/ICAC57685.2022.10025337",
+          "doi": "10.1109/ICAC57685.2022.10025337"
+        }
+      ],
+      "total": 50,
+      "year_distribution": {
+        "2022": 1,
+        "2023": 15,
+        "2024": 8,
+        "2025": 16,
+        "2026": 10
+      },
+      "topic_distribution": [
+        {
+          "name": "Computational Models of Human Language",
+          "value": 1
+        },
+        {
+          "name": "NLP",
+          "value": 1
+        },
+        {
+          "name": "Human Language Technology",
+          "value": 1
+        },
+        {
+          "name": "Machine Translation",
+          "value": 1
+        },
+        {
+          "name": "Information Extraction",
+          "value": 1
+        },
+        {
+          "name": "Speech Recognition",
+          "value": 1
+        },
+        {
+          "name": "Spoken Language Systems",
+          "value": 1
+        },
+        {
+          "name": "Digital Linguistics",
+          "value": 1
+        },
+        {
+          "name": "Corpus Linguistics",
+          "value": 1
+        }
+      ],
+      "research_focus": null
+    }
+  },
+  {
+    "id": "M2-07",
+    "feature": "Supervisor Papers/Profile (invalid id)",
+    "method": "GET",
+    "path": "/matching/supervisors/999999/papers",
+    "request": null,
+    "status": 404,
+    "response": {
+      "detail": "Supervisor 999999 not found"
+    }
+  },
+  {
+    "id": "M2-08",
+    "feature": "Peer Groups List (open)",
+    "method": "GET",
+    "path": "/matching/groups",
+    "request": {
+      "status": "open"
+    },
+    "status": 200,
+    "response": {
+      "groups": [
+        {
+          "id": "7ef8bdf6-d72c-4d23-ae8b-b99ac9cec153",
+          "leader_id": "68651db3-eb12-4caa-a687-78bbac54e1ab",
+          "project_title": "test1111",
+          "project_description": "test1111",
+          "research_area": "test",
+          "current_members": [
+            "Dilum"
+          ],
+          "current_member_count": 1,
+          "slots_needed": 2,
+          "contact_email": "dttestmail2000@gmail.com",
+          "status": "open",
+          "created_at": "2026-05-12T18:53:48.017804+00:00"
+        },
+        {
+          "id": "1e0d7441-6fae-4adf-a838-0c237e62b22c",
+          "leader_id": "94933ae9-da91-4b63-b2e3-f192095da295",
+          "project_title": "test 2",
+          "project_description": "test 2",
+          "research_area": "test 2",
+          "current_members": [
+            "Navod"
+          ],
+          "current_member_count": 1,
+          "slots_needed": 2,
+          "contact_email": "navod0055@gmail.com",
+          "status": "open",
+          "created_at": "2026-05-07T17:53:08.373753+00:00"
+        },
+        {
+          "id": "4211f036-eda4-4175-9475-4d8aeab2e3b7",
+          "leader_id": "94933ae9-da91-4b63-b2e3-f192095da295",
+          "project_title": "test",
+          "project_description": "test",
+          "research_area": "test",
+          "current_members": [
+            "Navod"
+          ],
+          "current_member_count": 1,
+          "slots_needed": 2,
+          "contact_email": "navod0055@gmail.com",
+          "status": "open",
+          "created_at": "2026-05-06T09:52:05.508834+00:00"
+        }
+      ],
+      "total": 3
+    }
+  },
+  {
+    "id": "M2-09",
+    "feature": "Peer Groups List (all)",
+    "method": "GET",
+    "path": "/matching/groups",
+    "request": {
+      "status": "all"
+    },
+    "status": 200,
+    "response": {
+      "groups": [
+        {
+          "id": "7ef8bdf6-d72c-4d23-ae8b-b99ac9cec153",
+          "leader_id": "68651db3-eb12-4caa-a687-78bbac54e1ab",
+          "project_title": "test1111",
+          "project_description": "test1111",
+          "research_area": "test",
+          "current_members": [
+            "Dilum"
+          ],
+          "current_member_count": 1,
+          "slots_needed": 2,
+          "contact_email": "dttestmail2000@gmail.com",
+          "status": "open",
+          "created_at": "2026-05-12T18:53:48.017804+00:00"
+        },
+        {
+          "id": "1e0d7441-6fae-4adf-a838-0c237e62b22c",
+          "leader_id": "94933ae9-da91-4b63-b2e3-f192095da295",
+          "project_title": "test 2",
+          "project_description": "test 2",
+          "research_area": "test 2",
+          "current_members": [
+            "Navod"
+          ],
+          "current_member_count": 1,
+          "slots_needed": 2,
+          "contact_email": "navod0055@gmail.com",
+          "status": "open",
+          "created_at": "2026-05-07T17:53:08.373753+00:00"
+        },
+        {
+          "id": "4211f036-eda4-4175-9475-4d8aeab2e3b7",
+          "leader_id": "94933ae9-da91-4b63-b2e3-f192095da295",
+          "project_title": "test",
+          "project_description": "test",
+          "research_area": "test",
+          "current_members": [
+            "Navod"
+          ],
+          "current_member_count": 1,
+          "slots_needed": 2,
+          "contact_email": "navod0055@gmail.com",
+          "status": "open",
+          "created_at": "2026-05-06T09:52:05.508834+00:00"
+        }
+      ],
+      "total": 3
+    }
+  },
+  {
+    "id": "M2-10",
+    "feature": "Sentiment Analysis (positive feedback)",
+    "method": "POST",
+    "path": "/feedback/analyze",
+    "request": {
+      "feedback_text": "My supervisor was excellent throughout the project. The methodology guidance was clear and detailed, the writing feedback helped me improve a lot, and the originality of my idea was strongly encouraged. Data analysis support was outstanding."
+    },
+    "status": 200,
+    "response": {
+      "overall_sentiment": "positive",
+      "overall_score": 0.95,
+      "aspects": {
+        "methodology": "positive",
+        "writing": "positive",
+        "originality": "positive",
+        "data_analysis": "positive"
+      },
+      "aspect_probabilities": {
+        "methodology": {
+          "positive": 0.95,
+          "neutral": 0.03,
+          "negative": 0.02
+        },
+        "writing": {
+          "positive": 0.9,
+          "neutral": 0.07,
+          "negative": 0.03
+        },
+        "originality": {
+          "positive": 0.95,
+          "neutral": 0.03,
+          "negative": 0.02
+        },
+        "data_analysis": {
+          "positive": 0.98,
+          "neutral": 0.01,
+          "negative": 0.01
+        }
+      }
+    }
+  },
+  {
+    "id": "M2-11",
+    "feature": "Sentiment Analysis (negative feedback)",
+    "method": "POST",
+    "path": "/feedback/analyze",
+    "request": {
+      "feedback_text": "The supervisor rarely responded to emails. Methodology guidance was vague and unhelpful, the writing feedback was minimal, and originality was never discussed. Data analysis support was completely absent."
+    },
+    "status": 200,
+    "response": {
+      "overall_sentiment": "negative",
+      "overall_score": -0.95,
+      "aspects": {
+        "methodology": "negative",
+        "writing": "negative",
+        "originality": "negative",
+        "data_analysis": "negative"
+      },
+      "aspect_probabilities": {
+        "methodology": {
+          "positive": 0.01,
+          "neutral": 0.04,
+          "negative": 0.95
+        },
+        "writing": {
+          "positive": 0.02,
+          "neutral": 0.08,
+          "negative": 0.9
+        },
+        "originality": {
+          "positive": 0.01,
+          "neutral": 0.04,
+          "negative": 0.95
+        },
+        "data_analysis": {
+          "positive": 0.0,
+          "neutral": 0.01,
+          "negative": 0.99
+        }
+      }
+    }
+  },
+  {
+    "id": "M2-12",
+    "feature": "Sentiment Analysis (mixed feedback)",
+    "method": "POST",
+    "path": "/feedback/analyze",
+    "request": {
+      "feedback_text": "The methodology feedback was very thorough and helped shape the research design well. However, the writing feedback was quite sparse and originality was rarely discussed. Data analysis support was okay, nothing special."
+    },
+    "status": 200,
+    "response": {
+      "overall_sentiment": "neutral",
+      "overall_score": 0.0,
+      "aspects": {
+        "methodology": "neutral",
+        "writing": "neutral",
+        "originality": "neutral",
+        "data_analysis": "neutral"
+      },
+      "aspect_probabilities": null
+    }
+  },
+  {
+    "id": "M2-13",
+    "feature": "Rateable Supervisors Directory",
+    "method": "GET",
+    "path": "/feedback/supervisors",
+    "request": null,
+    "status": 200,
+    "response": {
+      "supervisors": [
+        {
+          "key": "sliit:30",
+          "source": "sliit",
+          "name": "Amila Senarathne",
+          "email": "amila.n@sliit.lk",
+          "department": "CS",
+          "research_cluster": "IAS",
+          "research_areas": [
+            "Information Security",
+            "Computer Networks",
+            "Digital Forensics",
+            "IoT"
+          ],
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:26",
+          "source": "sliit",
+          "name": "Anjalie Gamage",
+          "email": "anjalie.g@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI,SST",
+          "research_areas": [
+            "Computational Linguistics",
+            "NLP",
+            "AI",
+            "E-Learning"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:7",
+          "source": "sliit",
+          "name": "Anuradha Jayakody",
+          "email": "anuradha.j@sliit.lk",
+          "department": "CSE",
+          "research_cluster": "CI,IAS,AIMS",
+          "research_areas": [
+            "Indoor Navigation",
+            "Assistive Technology",
+            "Hydroponics",
+            "MANET",
+            "Information Security",
+            "IoT",
+            "Machine Learning",
+            "AI"
+          ],
+          "rank": "Prof.",
+          "level": "Professor",
+          "availability": true
+        },
+        {
+          "key": "sliit:6",
+          "source": "sliit",
+          "name": "Anuradha Karunasena",
+          "email": "anuradha.k@sliit.lk",
+          "department": "IT",
+          "research_cluster": "TIM,CEAI",
+          "research_areas": [
+            "Machine Learning",
+            "Data Analytics",
+            "Business Intelligence",
+            "Innovative Teaching Methods",
+            "Education Technology"
+          ],
+          "rank": "Prof.",
+          "level": "Professor",
+          "availability": true
+        },
+        {
+          "key": "sliit:37",
+          "source": "sliit",
+          "name": "Aruna Ishara Gamage",
+          "email": "ishara.g@sliit.lk",
+          "department": "IM",
+          "research_cluster": "MR",
+          "research_areas": [
+            "Interactive Multimedia",
+            "Entertainment Content",
+            "Computer Animation",
+            "VFX",
+            "Image Processing",
+            "Mixed Reality",
+            "HCI",
+            "Geo-Informatics",
+            "Digital Photography",
+            "Machine Learning"
+          ],
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:44",
+          "source": "sliit",
+          "name": "Bhagyani Chathurika",
+          "email": "bhagyani.c@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI",
+          "research_areas": [
+            "Machine Learning",
+            "Deep Learning",
+            "Image Processing"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:73",
+          "source": "sliit",
+          "name": "Bimal Gunapala",
+          "email": "bimal.g@sliit.lk",
+          "department": "SE",
+          "research_cluster": "TIM,CEAI",
+          "research_areas": [],
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:52",
+          "source": "sliit",
+          "name": "Buddhima Attanayaka",
+          "email": "buddhima.a@sliit.lk",
+          "department": "ISE",
+          "research_cluster": "TIM,SST",
+          "research_areas": [
+            "Requirements Engineering",
+            "Business Intelligence",
+            "AR"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:48",
+          "source": "sliit",
+          "name": "Chathurangika Kahandawaarachchi",
+          "email": "chathurangika.k@sliit.lk",
+          "department": "ISE",
+          "research_cluster": "TIM,CEAI",
+          "research_areas": [
+            "Health Informatics",
+            "Big Data Management",
+            "Business Intelligence"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:13",
+          "source": "sliit",
+          "name": "Darshana Kasthurirathna",
+          "email": "dharshana.k@sliit.lk",
+          "department": "CSc",
+          "research_cluster": "CEAI,TIM",
+          "research_areas": [
+            "Machine Learning",
+            "Optimization",
+            "Evolutionary Game Theory",
+            "Network Science",
+            "Distributed Systems",
+            "Software Security"
+          ],
+          "rank": "Dr.",
+          "level": "Doctor",
+          "availability": true
+        },
+        {
+          "key": "sliit:5",
+          "source": "sliit",
+          "name": "Dasuni Nawinna",
+          "email": "dasuni.n@sliit.lk",
+          "department": "ISE",
+          "research_cluster": "TIM,SST,CEAI",
+          "research_areas": [
+            "Technology Enhanced Learning",
+            "BPM",
+            "Social Network Analysis",
+            "Requirements Engineering",
+            "Social Capital"
+          ],
+          "rank": "Prof.",
+          "level": "Professor",
+          "availability": true
+        },
+        {
+          "key": "sliit:69",
+          "source": "sliit",
+          "name": "Deemantha Siriwardana",
+          "email": "deemantha.s@sliit.lk",
+          "department": "CS",
+          "research_cluster": "IAS",
+          "research_areas": [
+            "Cyber Security"
+          ],
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:27",
+          "source": "sliit",
+          "name": "Dhammika De Silva",
+          "email": "dhammika.d@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CI",
+          "research_areas": [
+            "Computer Networks",
+            "Network Protocol Development",
+            "Assistive Technology"
+          ],
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:55",
+          "source": "sliit",
+          "name": "Didula Thanaweera Arachchi",
+          "email": "didula.c@sliit.lk",
+          "department": "IM",
+          "research_cluster": "MR",
+          "research_areas": [
+            "Interactive Media",
+            "Digital Marketing",
+            "Social Media Consumer Behavior",
+            "Machine Learning",
+            "3D Modeling and Animation",
+            "2D Animation",
+            "HCI"
+          ],
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:68",
+          "source": "sliit",
+          "name": "Dilani Lunugalage",
+          "email": "dilani.l@sliit.lk",
+          "department": "SE",
+          "research_cluster": "CEAI,SST",
+          "research_areas": [
+            "Machine Learning",
+            "Computer Vision",
+            "Computer Networks"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:9",
+          "source": "sliit",
+          "name": "Dilshan De Silva",
+          "email": "dilshan.i@sliit.lk",
+          "department": "SE",
+          "research_cluster": "SST",
+          "research_areas": [
+            "Software Metrics",
+            "Software Complexity",
+            "Machine Translation",
+            "AR",
+            "VR",
+            "Mobile Development",
+            "Computer Linguistics"
+          ],
+          "rank": "Prof.",
+          "level": "Professor",
+          "availability": true
+        },
+        {
+          "key": "sliit:57",
+          "source": "sliit",
+          "name": "Dinithi Pandithage",
+          "email": "dinithi.p@sliit.lk",
+          "department": "CSNE",
+          "research_cluster": "IAS",
+          "research_areas": [
+            "Systems Engineering",
+            "Computer Engineering",
+            "Networking",
+            "Data Centre Networking"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:19",
+          "source": "sliit",
+          "name": "Dinuka Wijendra",
+          "email": "dinuka.w@sliit.lk",
+          "department": "IT",
+          "research_cluster": "SST",
+          "research_areas": [
+            "Software Engineering",
+            "e-Society",
+            "Cognitive Computing",
+            "e-Learning",
+            "Machine Learning",
+            "AI"
+          ],
+          "rank": "Dr.",
+          "level": "Doctor",
+          "availability": true
+        },
+        {
+          "key": "sliit:65",
+          "source": "sliit",
+          "name": "Dushanthi Kuruppu",
+          "email": "dushanthi.k@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI",
+          "research_areas": [
+            "Machine Learning",
+            "Deep Learning",
+            "Image Processing",
+            "NLP",
+            "Data Science",
+            "Vision Language Models"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:28",
+          "source": "sliit",
+          "name": "Geethanjali Wimalaratne",
+          "email": "geethanjali.w@sliit.lk",
+          "department": "IT",
+          "research_cluster": "SST",
+          "research_areas": [
+            "Data Visualization",
+            "HCI"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:67",
+          "source": "sliit",
+          "name": "Hanojhan Rajahrajasingh",
+          "email": "hanojhan.r@sliit.lk",
+          "department": "CSNE",
+          "research_cluster": "CI,AIMS",
+          "research_areas": [
+            "Wireless Communication",
+            "6G Technology",
+            "Visible Light Communication"
+          ],
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:50",
+          "source": "sliit",
+          "name": "Hansi De Silva",
+          "email": "hansi.d@sliit.lk",
+          "department": "SE",
+          "research_cluster": "SST",
+          "research_areas": [
+            "Machine Learning",
+            "NLP",
+            "Cloud Computing"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:34",
+          "source": "sliit",
+          "name": "Hansika Mahaadikara",
+          "email": "hansika.m@sliit.lk",
+          "department": "CSNE",
+          "research_cluster": "CI",
+          "research_areas": [
+            "Social Networks",
+            "Telecommunication",
+            "Cyber Forensics",
+            "IoT Security"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:15",
+          "source": "sliit",
+          "name": "Harinda Fernando",
+          "email": "harinda.f@sliit.lk",
+          "department": "CS",
+          "research_cluster": "IAS,CEAI",
+          "research_areas": [
+            "Cyber Security",
+            "Networking",
+            "Network Security",
+            "Machine Learning",
+            "Cloud Computing",
+            "IoT"
+          ],
+          "rank": "Dr.",
+          "level": "Doctor",
+          "availability": true
+        },
+        {
+          "key": "sliit:63",
+          "source": "sliit",
+          "name": "Indunil Daluwatte",
+          "email": "indunil.d@sliit.lk",
+          "department": "CSNE",
+          "research_cluster": "CI,IAS",
+          "research_areas": [],
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:59",
+          "source": "sliit",
+          "name": "Ishara Weerathunga",
+          "email": "ishara.w@sliit.lk",
+          "department": "SE",
+          "research_cluster": "SST",
+          "research_areas": [
+            "Data Science",
+            "Machine Learning",
+            "ICT for Development"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:25",
+          "source": "sliit",
+          "name": "Jagath Wickramarathne",
+          "email": "jagath.w@sliit.lk",
+          "department": "SE",
+          "research_cluster": "SST",
+          "research_areas": [
+            "Human Computer Interaction"
+          ],
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:11",
+          "source": "sliit",
+          "name": "Jayantha Amararachchi",
+          "email": "jayantha.a@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI",
+          "research_areas": [
+            "Intelligent Knowledge Management Systems",
+            "Parallel and Distributed Computing",
+            "AI",
+            "Expert Systems"
+          ],
+          "rank": "Dr.",
+          "level": "Doctor",
+          "availability": true
+        },
+        {
+          "key": "sliit:42",
+          "source": "sliit",
+          "name": "Jeewaka Perera",
+          "email": "jeewaka.p@sliit.lk",
+          "department": "CSc",
+          "research_cluster": "CEAI",
+          "research_areas": [
+            "Deep Reinforcement Learning",
+            "Machine Learning",
+            "Neural Network Architectures",
+            "Multi-Objective Optimization"
+          ],
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:12",
+          "source": "sliit",
+          "name": "Jeewanee Bamunusinghe",
+          "email": "jeewanee.b@sliit.lk",
+          "department": "CSc",
+          "research_cluster": "CEAI",
+          "research_areas": [
+            "Machine Learning",
+            "AI",
+            "Data Analytics"
+          ],
+          "rank": "Dr.",
+          "level": "Doctor",
+          "availability": true
+        },
+        {
+          "key": "sliit:39",
+          "source": "sliit",
+          "name": "Jenny Krishara",
+          "email": "jenny.k@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI,SST",
+          "research_areas": [
+            "Computational Linguistics",
+            "NLP",
+            "Machine Learning",
+            "AI",
+            "Image Processing"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:23",
+          "source": "sliit",
+          "name": "Junius Anjana",
+          "email": "junius.a@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI,TIM",
+          "research_areas": [
+            "Deep Learning",
+            "Education Technology",
+            "Emotion Recognition",
+            "Affective Computing",
+            "Experimental Psychology",
+            "NLP",
+            "Neurocomputing"
+          ],
+          "rank": "Dr.",
+          "level": "Doctor",
+          "availability": true
+        },
+        {
+          "key": "sliit:14",
+          "source": "sliit",
+          "name": "Kalpani Manathunga",
+          "email": "kalpani.m@sliit.lk",
+          "department": "SE",
+          "research_cluster": "SST,TIM",
+          "research_areas": [
+            "Technology Enhanced Learning",
+            "Assistive Technologies",
+            "Personalized Learning Platforms",
+            "Recommender Systems",
+            "Learning Analytics",
+            "Educational Data Mining",
+            "Educational Psychology",
+            "HCI"
+          ],
+          "rank": "Dr.",
+          "level": "Doctor",
+          "availability": true
+        },
+        {
+          "key": "sliit:53",
+          "source": "sliit",
+          "name": "Kanishka Yapa",
+          "email": "kanishka.y@sliit.lk",
+          "department": "CS",
+          "research_cluster": "IAS",
+          "research_areas": [
+            "Cyber Security",
+            "Critical Infrastructure Security",
+            "Healthcare Security",
+            "Threat Modeling",
+            "SDN"
+          ],
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:21",
+          "source": "sliit",
+          "name": "Kapila Dissanayake",
+          "email": "kapila.d@sliit.lk",
+          "department": "CSc",
+          "research_cluster": "AIMS,CEAI",
+          "research_areas": [
+            "Speech Recognition",
+            "Speech Synthesis",
+            "Audio Restoration",
+            "Networking",
+            "IoT"
+          ],
+          "rank": "Dr.",
+          "level": "Doctor",
+          "availability": true
+        },
+        {
+          "key": "sliit:61",
+          "source": "sliit",
+          "name": "Karthiga Rajendran",
+          "email": "karthiga.r@sliit.lk",
+          "department": "SE",
+          "research_cluster": "SST",
+          "research_areas": [
+            "Software Engineering",
+            "Machine Learning",
+            "ICT for Development"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:43",
+          "source": "sliit",
+          "name": "Kaushalya Dissanayake",
+          "email": "kaushalya.di@sliit.lk",
+          "department": "—",
+          "research_cluster": "—",
+          "research_areas": [],
+          "rank": "Dr.",
+          "level": "Doctor",
+          "availability": true
+        },
+        {
+          "key": "sliit:38",
+          "source": "sliit",
+          "name": "Kavinga Abeywardena",
+          "email": "kavinga.y@sliit.lk",
+          "department": "CS",
+          "research_cluster": "IAS",
+          "research_areas": [
+            "Computer Security",
+            "Enterprise Risk Management",
+            "Privacy Management in Big Data",
+            "Social Engineering",
+            "Cryptography"
+          ],
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:1",
+          "source": "sliit",
+          "name": "Koliya Pulasinghe",
+          "email": "koliya.p@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI",
+          "research_areas": [
+            "Speech Recognition",
+            "Natural Language Understanding",
+            "Text-to-Speech",
+            "Dialogue Management",
+            "Speech Impairment Recognition",
+            "Conversational Interfaces"
+          ],
+          "rank": "Prof.",
+          "level": "Professor",
+          "availability": true
+        },
+        {
+          "key": "sliit:20",
+          "source": "sliit",
+          "name": "Lakmini Abeywardhana",
+          "email": "lakmini.d@sliit.lk",
+          "department": "DS",
+          "research_cluster": "CEAI",
+          "research_areas": [
+            "Deep Learning",
+            "Computer Vision",
+            "Computational Biology",
+            "Analysis and Modeling"
+          ],
+          "rank": "Dr.",
+          "level": "Doctor",
+          "availability": true
+        },
+        {
+          "key": "sliit:66",
+          "source": "sliit",
+          "name": "Lakshi Nanayakkara",
+          "email": "lakshi.n@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI",
+          "research_areas": [],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:41",
+          "source": "sliit",
+          "name": "Lokesha Weerasinghe",
+          "email": "lokesha.w@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI",
+          "research_areas": [
+            "Computer Vision",
+            "Image Processing",
+            "Machine Learning"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:24",
+          "source": "sliit",
+          "name": "Mahima Weerasinghe",
+          "email": "mahima.w@sliit.lk",
+          "department": "CSc",
+          "research_cluster": "CEAI",
+          "research_areas": [
+            "AI",
+            "Spiking Neural Networks",
+            "Computational Neuroscience"
+          ],
+          "rank": "Dr.",
+          "level": "Doctor",
+          "availability": true
+        },
+        {
+          "key": "sliit:10",
+          "source": "sliit",
+          "name": "Malitha Wijesundara",
+          "email": "malitha.w@sliit.lk",
+          "department": "CSNE",
+          "research_cluster": "CI,CEAI",
+          "research_areas": [
+            "Education Technology"
+          ],
+          "rank": "Dr.",
+          "level": "Doctor",
+          "availability": true
+        },
+        {
+          "key": "sliit:32",
+          "source": "sliit",
+          "name": "Manori Gamage",
+          "email": "manori.g@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI,TIM",
+          "research_areas": [
+            "E-Learning",
+            "Education Technology",
+            "ICT for Development",
+            "Database Technologies"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:51",
+          "source": "sliit",
+          "name": "Narmada Gamage",
+          "email": "narmada.g@sliit.lk",
+          "department": "ISE",
+          "research_cluster": "TIM,SST",
+          "research_areas": [
+            "Assistive Technology",
+            "Machine Learning",
+            "Business Analytics"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:16",
+          "source": "sliit",
+          "name": "Nathali Silva",
+          "email": "nathali.s@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI",
+          "research_areas": [
+            "IoT",
+            "Smart Homes",
+            "Data Analytics",
+            "Deep Learning"
+          ],
+          "rank": "Dr.",
+          "level": "Doctor",
+          "availability": true
+        },
+        {
+          "key": "sliit:31",
+          "source": "sliit",
+          "name": "Nelum Amarasena",
+          "email": "nelum.a@sliit.lk",
+          "department": "IT",
+          "research_cluster": "AIMS,CEAI",
+          "research_areas": [
+            "Keystroke Dynamics",
+            "Software Engineering"
+          ],
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:22",
+          "source": "sliit",
+          "name": "Nimal Ratnayake",
+          "email": "nimal.r@sliit.lk",
+          "department": "CSNE",
+          "research_cluster": "CI",
+          "research_areas": [
+            "AI",
+            "Blockchain Technology"
+          ],
+          "rank": "Dr.",
+          "level": "Doctor",
+          "availability": true
+        },
+        {
+          "key": "sliit:4",
+          "source": "sliit",
+          "name": "Nuwan Kodagoda",
+          "email": "nuwan.k@sliit.lk",
+          "department": "SE",
+          "research_cluster": "CEAI,SST",
+          "research_areas": [
+            "GenAI Applications to Education",
+            "GenAI in Finance",
+            "Generative AI",
+            "Large Language Models"
+          ],
+          "rank": "Prof.",
+          "level": "Professor",
+          "availability": true
+        },
+        {
+          "key": "sliit:3",
+          "source": "sliit",
+          "name": "Pradeep Abeygunawardhana",
+          "email": "pradeep.a@sliit.lk",
+          "department": "CSNE",
+          "research_cluster": "AMIS,CI",
+          "research_areas": [
+            "Smart Agriculture",
+            "Smart Tourism",
+            "Robotics for Entertainment",
+            "IoT Smart Systems",
+            "Emergency Response IoT",
+            "Algorithm Development"
+          ],
+          "rank": "Prof.",
+          "level": "Professor",
+          "availability": true
+        },
+        {
+          "key": "sliit:18",
+          "source": "sliit",
+          "name": "Prasanna Sumathipala",
+          "email": "prasanna.s@sliit.lk",
+          "department": "DS",
+          "research_cluster": "CEAI",
+          "research_areas": [
+            "Explainable AI",
+            "Text Analytics",
+            "Evolutionary Computing",
+            "Neuro Computing"
+          ],
+          "rank": "Dr.",
+          "level": "Doctor",
+          "availability": true
+        },
+        {
+          "key": "sliit:64",
+          "source": "sliit",
+          "name": "Rangi Liyanage",
+          "email": "rangi.l@sliit.lk",
+          "department": "ISE",
+          "research_cluster": "TIM,CEAI",
+          "research_areas": [
+            "Information Systems"
+          ],
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:46",
+          "source": "sliit",
+          "name": "Ravi Supunya",
+          "email": "ravi.s@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI",
+          "research_areas": [
+            "Cloud Computing",
+            "Image Processing",
+            "IoT",
+            "Machine Learning"
+          ],
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:47",
+          "source": "sliit",
+          "name": "S.M.B. Harshanath",
+          "email": "harshanath.s@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI",
+          "research_areas": [
+            "Security and Privacy",
+            "Machine Learning",
+            "AI",
+            "Computer Vision"
+          ],
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:56",
+          "source": "sliit",
+          "name": "Samadhi Rathnayake",
+          "email": "samadhi.r@sliit.lk",
+          "department": "DS",
+          "research_cluster": "CEAI",
+          "research_areas": [
+            "Machine Learning",
+            "Deep Learning",
+            "Data Science",
+            "AI",
+            "NLP"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:8",
+          "source": "sliit",
+          "name": "Samantha Rajapaksha",
+          "email": "samantha.r@sliit.lk",
+          "department": "CSc",
+          "research_cluster": "CEAI",
+          "research_areas": [
+            "Semantic Web",
+            "Robotic Middleware",
+            "IoT",
+            "Algorithms related to OS"
+          ],
+          "rank": "Prof.",
+          "level": "Professor",
+          "availability": true
+        },
+        {
+          "key": "sliit:2",
+          "source": "sliit",
+          "name": "Samantha Thelijjagoda",
+          "email": "samantha.t@sliit.lk",
+          "department": "ISE",
+          "research_cluster": "CEAI,TIM",
+          "research_areas": [
+            "Computational Models of Human Language",
+            "NLP",
+            "Human Language Technology",
+            "Machine Translation",
+            "Information Extraction",
+            "Speech Recognition",
+            "Spoken Language Systems",
+            "Digital Linguistics",
+            "Corpus Linguistics"
+          ],
+          "rank": "Prof.",
+          "level": "Professor",
+          "availability": false
+        },
+        {
+          "key": "sliit:70",
+          "source": "sliit",
+          "name": "Sanjeeva Perera",
+          "email": "sanjeeva.p@sliit.lk",
+          "department": "ISE",
+          "research_cluster": "TIM",
+          "research_areas": [
+            "IS Strategies",
+            "Digital Entrepreneurship"
+          ],
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:33",
+          "source": "sliit",
+          "name": "Sanjeevi Chandrasiri",
+          "email": "sanji.c@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI",
+          "research_areas": [
+            "Medical Image Processing",
+            "AI",
+            "Neural Networks",
+            "NLP",
+            "E-Learning"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:17",
+          "source": "sliit",
+          "name": "Sanvitha Kasthuriarachchi",
+          "email": "sanvitha.k@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI",
+          "research_areas": [
+            "Big Data Analytics",
+            "Data Mining",
+            "Machine Learning",
+            "Education Technology"
+          ],
+          "rank": "Dr.",
+          "level": "Doctor",
+          "availability": true
+        },
+        {
+          "key": "sliit:74",
+          "source": "sliit",
+          "name": "Shanta Yapa",
+          "email": "Shanta.y@sliit.lk",
+          "department": "SBS",
+          "research_cluster": "—",
+          "research_areas": [
+            "Technology Management",
+            "Innovation"
+          ],
+          "rank": "Dr.",
+          "level": "Doctor",
+          "availability": true
+        },
+        {
+          "key": "sliit:35",
+          "source": "sliit",
+          "name": "Shashika Lokuliyana",
+          "email": "shashika.l@sliit.lk",
+          "department": "CSNE",
+          "research_cluster": "CI",
+          "research_areas": [
+            "IoT Smart Technologies",
+            "Cloud Communication",
+            "OpenFlow Router on FPGA",
+            "Network Function Virtualization",
+            "DNS for Future Networks"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:36",
+          "source": "sliit",
+          "name": "Suranjini Silva",
+          "email": "suranjini.s@sliit.lk",
+          "department": "ISE",
+          "research_cluster": "CI",
+          "research_areas": [
+            "Computer Networks",
+            "IoT",
+            "Intelligent Systems"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:72",
+          "source": "sliit",
+          "name": "Suresh Fernando",
+          "email": "suresh.n@sliit.lk",
+          "department": "SE",
+          "research_cluster": "TIM,CEAI",
+          "research_areas": [],
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:45",
+          "source": "sliit",
+          "name": "Suriya Kumari",
+          "email": "suriya.k@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI",
+          "research_areas": [
+            "Machine Learning",
+            "E-Learning",
+            "ICT for Development"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:49",
+          "source": "sliit",
+          "name": "Thamali Dassanayake",
+          "email": "thamali.d@sliit.lk",
+          "department": "DS",
+          "research_cluster": "CEAI",
+          "research_areas": [
+            "Big Data Management",
+            "Business Intelligence",
+            "Data Mining",
+            "Data Warehousing",
+            "Data Analytics"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:60",
+          "source": "sliit",
+          "name": "Thamali Kelegama",
+          "email": "thamali.k@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI",
+          "research_areas": [
+            "Machine Learning",
+            "Software Development",
+            "Business Information Systems"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:40",
+          "source": "sliit",
+          "name": "Thilini Jayalath",
+          "email": "thilini.j@sliit.lk",
+          "department": "IT",
+          "research_cluster": "CEAI,SST",
+          "research_areas": [
+            "Software Engineering Complexity Metrics",
+            "ICT for Development",
+            "Machine Learning",
+            "E-Learning",
+            "HCI"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:62",
+          "source": "sliit",
+          "name": "Thisara Shyamalee",
+          "email": "thisara.s@sliit.lk",
+          "department": "DS",
+          "research_cluster": "CEAI",
+          "research_areas": [
+            "Machine Learning",
+            "HCI",
+            "Computer Vision"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:71",
+          "source": "sliit",
+          "name": "Uditha Dharmakeerthi",
+          "email": "uditha.d@sliit.lk",
+          "department": "CSNE",
+          "research_cluster": "CI",
+          "research_areas": [
+            "Computer Networks",
+            "Cyber Security"
+          ],
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:29",
+          "source": "sliit",
+          "name": "Uthpala Samarakoon",
+          "email": "uthpala.s@sliit.lk",
+          "department": "IT",
+          "research_cluster": "SST",
+          "research_areas": [
+            "E-Learning",
+            "HCI",
+            "Social Science",
+            "IT Education",
+            "Knowledge Management"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:58",
+          "source": "sliit",
+          "name": "Vindhya Kalapuge",
+          "email": "vindhya.k@sliit.lk",
+          "department": "DS",
+          "research_cluster": "CEAI",
+          "research_areas": [
+            "Computational Physics",
+            "Lightning Physics",
+            "Machine Learning"
+          ],
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true
+        },
+        {
+          "key": "sliit:54",
+          "source": "sliit",
+          "name": "Vishan Jayasinghearachchi",
+          "email": "vishan.j@sliit.lk",
+          "department": "SE",
+          "research_cluster": "SST,CEAI",
+          "research_areas": [
+            "IoT",
+            "Edge Computing",
+            "Wireless Sensor Networks",
+            "Predictive Analytics",
+            "Wildlife Conservation",
+            "Environmental Monitoring"
+          ],
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true
+        }
+      ],
+      "total": 74
+    }
+  },
+  {
+    "id": "M2-14",
+    "feature": "Effectiveness List (all supervisors)",
+    "method": "GET",
+    "path": "/effectiveness",
+    "request": {
+      "limit": 30
+    },
+    "status": 200,
+    "response": {
+      "supervisors": [
+        {
+          "key": "sliit:13",
+          "source": "sliit",
+          "name": "Darshana Kasthurirathna",
+          "email": "dharshana.k@sliit.lk",
+          "department": "CSc",
+          "research_areas": [
+            "Machine Learning",
+            "Optimization",
+            "Evolutionary Game Theory",
+            "Network Science",
+            "Distributed Systems",
+            "Software Security"
+          ],
+          "research_cluster": "CEAI,TIM",
+          "rank": "Dr.",
+          "level": "Doctor",
+          "availability": true,
+          "current_students": 2,
+          "max_students": 4,
+          "avg_stars": 5.0,
+          "n_ratings": 1,
+          "overall_score": 0.8
+        },
+        {
+          "key": "sliit:7",
+          "source": "sliit",
+          "name": "Anuradha Jayakody",
+          "email": "anuradha.j@sliit.lk",
+          "department": "CSE",
+          "research_areas": [
+            "Indoor Navigation",
+            "Assistive Technology",
+            "Hydroponics",
+            "MANET",
+            "Information Security",
+            "IoT",
+            "Machine Learning",
+            "AI"
+          ],
+          "research_cluster": "CI,IAS,AIMS",
+          "rank": "Prof.",
+          "level": "Professor",
+          "availability": true,
+          "current_students": 2,
+          "max_students": 5,
+          "avg_stars": 5.0,
+          "n_ratings": 1,
+          "overall_score": 0.781
+        },
+        {
+          "key": "sliit:26",
+          "source": "sliit",
+          "name": "Anjalie Gamage",
+          "email": "anjalie.g@sliit.lk",
+          "department": "IT",
+          "research_areas": [
+            "Computational Linguistics",
+            "NLP",
+            "AI",
+            "E-Learning"
+          ],
+          "research_cluster": "CEAI,SST",
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 3,
+          "avg_stars": 5.0,
+          "n_ratings": 1,
+          "overall_score": 0.769
+        },
+        {
+          "key": "sliit:30",
+          "source": "sliit",
+          "name": "Amila Senarathne",
+          "email": "amila.n@sliit.lk",
+          "department": "CS",
+          "research_areas": [
+            "Information Security",
+            "Computer Networks",
+            "Digital Forensics",
+            "IoT"
+          ],
+          "research_cluster": "IAS",
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 3,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:6",
+          "source": "sliit",
+          "name": "Anuradha Karunasena",
+          "email": "anuradha.k@sliit.lk",
+          "department": "IT",
+          "research_areas": [
+            "Machine Learning",
+            "Data Analytics",
+            "Business Intelligence",
+            "Innovative Teaching Methods",
+            "Education Technology"
+          ],
+          "research_cluster": "TIM,CEAI",
+          "rank": "Prof.",
+          "level": "Professor",
+          "availability": true,
+          "current_students": 2,
+          "max_students": 4,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:37",
+          "source": "sliit",
+          "name": "Aruna Ishara Gamage",
+          "email": "ishara.g@sliit.lk",
+          "department": "IM",
+          "research_areas": [
+            "Interactive Multimedia",
+            "Entertainment Content",
+            "Computer Animation",
+            "VFX",
+            "Image Processing",
+            "Mixed Reality",
+            "HCI",
+            "Geo-Informatics",
+            "Digital Photography",
+            "Machine Learning"
+          ],
+          "research_cluster": "MR",
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 2,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:44",
+          "source": "sliit",
+          "name": "Bhagyani Chathurika",
+          "email": "bhagyani.c@sliit.lk",
+          "department": "IT",
+          "research_areas": [
+            "Machine Learning",
+            "Deep Learning",
+            "Image Processing"
+          ],
+          "research_cluster": "CEAI",
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true,
+          "current_students": 0,
+          "max_students": 2,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:73",
+          "source": "sliit",
+          "name": "Bimal Gunapala",
+          "email": "bimal.g@sliit.lk",
+          "department": "SE",
+          "research_areas": [],
+          "research_cluster": "TIM,CEAI",
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 2,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:52",
+          "source": "sliit",
+          "name": "Buddhima Attanayaka",
+          "email": "buddhima.a@sliit.lk",
+          "department": "ISE",
+          "research_areas": [
+            "Requirements Engineering",
+            "Business Intelligence",
+            "AR"
+          ],
+          "research_cluster": "TIM,SST",
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 3,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:48",
+          "source": "sliit",
+          "name": "Chathurangika Kahandawaarachchi",
+          "email": "chathurangika.k@sliit.lk",
+          "department": "ISE",
+          "research_areas": [
+            "Health Informatics",
+            "Big Data Management",
+            "Business Intelligence"
+          ],
+          "research_cluster": "TIM,CEAI",
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 3,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:5",
+          "source": "sliit",
+          "name": "Dasuni Nawinna",
+          "email": "dasuni.n@sliit.lk",
+          "department": "ISE",
+          "research_areas": [
+            "Technology Enhanced Learning",
+            "BPM",
+            "Social Network Analysis",
+            "Requirements Engineering",
+            "Social Capital"
+          ],
+          "research_cluster": "TIM,SST,CEAI",
+          "rank": "Prof.",
+          "level": "Professor",
+          "availability": true,
+          "current_students": 2,
+          "max_students": 4,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:69",
+          "source": "sliit",
+          "name": "Deemantha Siriwardana",
+          "email": "deemantha.s@sliit.lk",
+          "department": "CS",
+          "research_areas": [
+            "Cyber Security"
+          ],
+          "research_cluster": "IAS",
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 2,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:27",
+          "source": "sliit",
+          "name": "Dhammika De Silva",
+          "email": "dhammika.d@sliit.lk",
+          "department": "IT",
+          "research_areas": [
+            "Computer Networks",
+            "Network Protocol Development",
+            "Assistive Technology"
+          ],
+          "research_cluster": "CI",
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 2,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:55",
+          "source": "sliit",
+          "name": "Didula Thanaweera Arachchi",
+          "email": "didula.c@sliit.lk",
+          "department": "IM",
+          "research_areas": [
+            "Interactive Media",
+            "Digital Marketing",
+            "Social Media Consumer Behavior",
+            "Machine Learning",
+            "3D Modeling and Animation",
+            "2D Animation",
+            "HCI"
+          ],
+          "research_cluster": "MR",
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 2,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:68",
+          "source": "sliit",
+          "name": "Dilani Lunugalage",
+          "email": "dilani.l@sliit.lk",
+          "department": "SE",
+          "research_areas": [
+            "Machine Learning",
+            "Computer Vision",
+            "Computer Networks"
+          ],
+          "research_cluster": "CEAI,SST",
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true,
+          "current_students": 2,
+          "max_students": 5,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:9",
+          "source": "sliit",
+          "name": "Dilshan De Silva",
+          "email": "dilshan.i@sliit.lk",
+          "department": "SE",
+          "research_areas": [
+            "Software Metrics",
+            "Software Complexity",
+            "Machine Translation",
+            "AR",
+            "VR",
+            "Mobile Development",
+            "Computer Linguistics"
+          ],
+          "research_cluster": "SST",
+          "rank": "Prof.",
+          "level": "Professor",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 3,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:57",
+          "source": "sliit",
+          "name": "Dinithi Pandithage",
+          "email": "dinithi.p@sliit.lk",
+          "department": "CSNE",
+          "research_areas": [
+            "Systems Engineering",
+            "Computer Engineering",
+            "Networking",
+            "Data Centre Networking"
+          ],
+          "research_cluster": "IAS",
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true,
+          "current_students": 2,
+          "max_students": 5,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:19",
+          "source": "sliit",
+          "name": "Dinuka Wijendra",
+          "email": "dinuka.w@sliit.lk",
+          "department": "IT",
+          "research_areas": [
+            "Software Engineering",
+            "e-Society",
+            "Cognitive Computing",
+            "e-Learning",
+            "Machine Learning",
+            "AI"
+          ],
+          "research_cluster": "SST",
+          "rank": "Dr.",
+          "level": "Doctor",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 3,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:65",
+          "source": "sliit",
+          "name": "Dushanthi Kuruppu",
+          "email": "dushanthi.k@sliit.lk",
+          "department": "IT",
+          "research_areas": [
+            "Machine Learning",
+            "Deep Learning",
+            "Image Processing",
+            "NLP",
+            "Data Science",
+            "Vision Language Models"
+          ],
+          "research_cluster": "CEAI",
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true,
+          "current_students": 0,
+          "max_students": 2,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:28",
+          "source": "sliit",
+          "name": "Geethanjali Wimalaratne",
+          "email": "geethanjali.w@sliit.lk",
+          "department": "IT",
+          "research_areas": [
+            "Data Visualization",
+            "HCI"
+          ],
+          "research_cluster": "SST",
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 3,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:67",
+          "source": "sliit",
+          "name": "Hanojhan Rajahrajasingh",
+          "email": "hanojhan.r@sliit.lk",
+          "department": "CSNE",
+          "research_areas": [
+            "Wireless Communication",
+            "6G Technology",
+            "Visible Light Communication"
+          ],
+          "research_cluster": "CI,AIMS",
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true,
+          "current_students": 0,
+          "max_students": 2,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:50",
+          "source": "sliit",
+          "name": "Hansi De Silva",
+          "email": "hansi.d@sliit.lk",
+          "department": "SE",
+          "research_areas": [
+            "Machine Learning",
+            "NLP",
+            "Cloud Computing"
+          ],
+          "research_cluster": "SST",
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true,
+          "current_students": 2,
+          "max_students": 4,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:34",
+          "source": "sliit",
+          "name": "Hansika Mahaadikara",
+          "email": "hansika.m@sliit.lk",
+          "department": "CSNE",
+          "research_areas": [
+            "Social Networks",
+            "Telecommunication",
+            "Cyber Forensics",
+            "IoT Security"
+          ],
+          "research_cluster": "CI",
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 3,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:15",
+          "source": "sliit",
+          "name": "Harinda Fernando",
+          "email": "harinda.f@sliit.lk",
+          "department": "CS",
+          "research_areas": [
+            "Cyber Security",
+            "Networking",
+            "Network Security",
+            "Machine Learning",
+            "Cloud Computing",
+            "IoT"
+          ],
+          "research_cluster": "IAS,CEAI",
+          "rank": "Dr.",
+          "level": "Doctor",
+          "availability": true,
+          "current_students": 2,
+          "max_students": 4,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:63",
+          "source": "sliit",
+          "name": "Indunil Daluwatte",
+          "email": "indunil.d@sliit.lk",
+          "department": "CSNE",
+          "research_areas": [],
+          "research_cluster": "CI,IAS",
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 2,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:59",
+          "source": "sliit",
+          "name": "Ishara Weerathunga",
+          "email": "ishara.w@sliit.lk",
+          "department": "SE",
+          "research_areas": [
+            "Data Science",
+            "Machine Learning",
+            "ICT for Development"
+          ],
+          "research_cluster": "SST",
+          "rank": "Ms.",
+          "level": "Mr/Ms",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 3,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:25",
+          "source": "sliit",
+          "name": "Jagath Wickramarathne",
+          "email": "jagath.w@sliit.lk",
+          "department": "SE",
+          "research_areas": [
+            "Human Computer Interaction"
+          ],
+          "research_cluster": "SST",
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true,
+          "current_students": 2,
+          "max_students": 4,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:11",
+          "source": "sliit",
+          "name": "Jayantha Amararachchi",
+          "email": "jayantha.a@sliit.lk",
+          "department": "IT",
+          "research_areas": [
+            "Intelligent Knowledge Management Systems",
+            "Parallel and Distributed Computing",
+            "AI",
+            "Expert Systems"
+          ],
+          "research_cluster": "CEAI",
+          "rank": "Dr.",
+          "level": "Doctor",
+          "availability": true,
+          "current_students": 1,
+          "max_students": 3,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:42",
+          "source": "sliit",
+          "name": "Jeewaka Perera",
+          "email": "jeewaka.p@sliit.lk",
+          "department": "CSc",
+          "research_areas": [
+            "Deep Reinforcement Learning",
+            "Machine Learning",
+            "Neural Network Architectures",
+            "Multi-Objective Optimization"
+          ],
+          "research_cluster": "CEAI",
+          "rank": "Mr.",
+          "level": "Mr/Ms",
+          "availability": true,
+          "current_students": 2,
+          "max_students": 4,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        },
+        {
+          "key": "sliit:12",
+          "source": "sliit",
+          "name": "Jeewanee Bamunusinghe",
+          "email": "jeewanee.b@sliit.lk",
+          "department": "CSc",
+          "research_areas": [
+            "Machine Learning",
+            "AI",
+            "Data Analytics"
+          ],
+          "research_cluster": "CEAI",
+          "rank": "Dr.",
+          "level": "Doctor",
+          "availability": true,
+          "current_students": 2,
+          "max_students": 4,
+          "avg_stars": null,
+          "n_ratings": 0,
+          "overall_score": 0.0
+        }
+      ],
+      "total": 30
+    }
+  }
+]

@@ -1,0 +1,2269 @@
+[
+  {
+    "id": "M4-01",
+    "feature": "Trend Forecast (all topics, horizon=3)",
+    "method": "GET",
+    "path": "/analytics/trends",
+    "request": {
+      "horizon": 3
+    },
+    "status": 200,
+    "response": {
+      "forecasts": [
+        {
+          "topic": "general",
+          "horizon_years": 3,
+          "historical": [
+            {
+              "year": 2000,
+              "count": 10.0,
+              "type": "historical"
+            },
+            {
+              "year": 2001,
+              "count": 3.0,
+              "type": "historical"
+            },
+            {
+              "year": 2002,
+              "count": 6.0,
+              "type": "historical"
+            },
+            {
+              "year": 2003,
+              "count": 12.0,
+              "type": "historical"
+            },
+            {
+              "year": 2004,
+              "count": 7.0,
+              "type": "historical"
+            },
+            {
+              "year": 2005,
+              "count": 12.0,
+              "type": "historical"
+            },
+            {
+              "year": 2006,
+              "count": 16.0,
+              "type": "historical"
+            },
+            {
+              "year": 2007,
+              "count": 21.0,
+              "type": "historical"
+            },
+            {
+              "year": 2008,
+              "count": 19.0,
+              "type": "historical"
+            },
+            {
+              "year": 2009,
+              "count": 17.0,
+              "type": "historical"
+            },
+            {
+              "year": 2010,
+              "count": 12.0,
+              "type": "historical"
+            },
+            {
+              "year": 2011,
+              "count": 18.0,
+              "type": "historical"
+            },
+            {
+              "year": 2012,
+              "count": 24.0,
+              "type": "historical"
+            },
+            {
+              "year": 2013,
+              "count": 39.0,
+              "type": "historical"
+            },
+            {
+              "year": 2014,
+              "count": 56.0,
+              "type": "historical"
+            },
+            {
+              "year": 2015,
+              "count": 53.0,
+              "type": "historical"
+            },
+            {
+              "year": 2016,
+              "count": 59.0,
+              "type": "historical"
+            },
+            {
+              "year": 2017,
+              "count": 92.0,
+              "type": "historical"
+            },
+            {
+              "year": 2018,
+              "count": 86.0,
+              "type": "historical"
+            },
+            {
+              "year": 2019,
+              "count": 161.0,
+              "type": "historical"
+            },
+            {
+              "year": 2020,
+              "count": 165.0,
+              "type": "historical"
+            },
+            {
+              "year": 2021,
+              "count": 414.0,
+              "type": "historical"
+            },
+            {
+              "year": 2022,
+              "count": 352.0,
+              "type": "historical"
+            },
+            {
+              "year": 2023,
+              "count": 183.0,
+              "type": "historical"
+            },
+            {
+              "year": 2024,
+              "count": 184.0,
+              "type": "historical"
+            },
+            {
+              "year": 2025,
+              "count": 267.0,
+              "type": "historical"
+            },
+            {
+              "year": 2026,
+              "count": 19.0,
+              "type": "historical"
+            }
+          ],
+          "forecast": [
+            {
+              "year": 2027,
+              "count": 30.5,
+              "lower": 0.0,
+              "upper": 181.4,
+              "type": "forecast"
+            },
+            {
+              "year": 2028,
+              "count": 39.4,
+              "lower": 0.0,
+              "upper": 233.3,
+              "type": "forecast"
+            },
+            {
+              "year": 2029,
+              "count": 46.4,
+              "lower": 0.0,
+              "upper": 263.9,
+              "type": "forecast"
+            }
+          ],
+          "trend_direction": "rising",
+          "growth_pct": 144.2,
+          "interpretation": "Research on **general** is on a rising trajectory. The forecast projects a **+144%** change by **2029**. This is an actively growing area — building on the most recent contributions is a strong move.",
+          "accuracy": {
+            "available": true,
+            "rmse": 75.751,
+            "mae": 37.592,
+            "nrmse": 0.887,
+            "n_observations": 27
+          },
+          "model_type": "ARIMA(1,1,1)",
+          "data_range": "2000-2026",
+          "model_version": "sliit-v1-trend",
+          "stats": {
+            "historical_total": 2307,
+            "historical_peak": {
+              "year": 2021,
+              "count": 414
+            },
+            "current_count": 19,
+            "forecast_end": 46.4
+          }
+        },
+        {
+          "topic": "business",
+          "horizon_years": 3,
+          "historical": [
+            {
+              "year": 2003,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2004,
+              "count": 4.0,
+              "type": "historical"
+            },
+            {
+              "year": 2008,
+              "count": 2.0,
+              "type": "historical"
+            },
+            {
+              "year": 2010,
+              "count": 3.0,
+              "type": "historical"
+            },
+            {
+              "year": 2011,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2012,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2013,
+              "count": 9.0,
+              "type": "historical"
+            },
+            {
+              "year": 2014,
+              "count": 3.0,
+              "type": "historical"
+            },
+            {
+              "year": 2015,
+              "count": 7.0,
+              "type": "historical"
+            },
+            {
+              "year": 2016,
+              "count": 10.0,
+              "type": "historical"
+            },
+            {
+              "year": 2017,
+              "count": 11.0,
+              "type": "historical"
+            },
+            {
+              "year": 2018,
+              "count": 14.0,
+              "type": "historical"
+            },
+            {
+              "year": 2019,
+              "count": 21.0,
+              "type": "historical"
+            },
+            {
+              "year": 2020,
+              "count": 32.0,
+              "type": "historical"
+            },
+            {
+              "year": 2021,
+              "count": 31.0,
+              "type": "historical"
+            },
+            {
+              "year": 2022,
+              "count": 42.0,
+              "type": "historical"
+            },
+            {
+              "year": 2023,
+              "count": 19.0,
+              "type": "historical"
+            },
+            {
+              "year": 2024,
+              "count": 25.0,
+              "type": "historical"
+            },
+            {
+              "year": 2025,
+              "count": 39.0,
+              "type": "historical"
+            },
+            {
+              "year": 2026,
+              "count": 4.0,
+              "type": "historical"
+            }
+          ],
+          "forecast": [
+            {
+              "year": 2027,
+              "count": 25.0,
+              "lower": 5.7,
+              "upper": 44.3,
+              "type": "forecast"
+            },
+            {
+              "year": 2028,
+              "count": 16.2,
+              "lower": 0.0,
+              "upper": 36.5,
+              "type": "forecast"
+            },
+            {
+              "year": 2029,
+              "count": 19.9,
+              "lower": 0.0,
+              "upper": 43.4,
+              "type": "forecast"
+            }
+          ],
+          "trend_direction": "rising",
+          "growth_pct": 396.8,
+          "interpretation": "Research on **business** is on a rising trajectory. The forecast projects a **+397%** change by **2029**. This is an actively growing area — building on the most recent contributions is a strong move.",
+          "accuracy": {
+            "available": true,
+            "rmse": 9.618,
+            "mae": 6.911,
+            "nrmse": 0.689,
+            "n_observations": 20
+          },
+          "model_type": "ARIMA(1,1,1)",
+          "data_range": "2003-2026",
+          "model_version": "sliit-v1-trend",
+          "stats": {
+            "historical_total": 279,
+            "historical_peak": {
+              "year": 2022,
+              "count": 42
+            },
+            "current_count": 4,
+            "forecast_end": 19.9
+          }
+        },
+        {
+          "topic": "social_sciences",
+          "horizon_years": 3,
+          "historical": [
+            {
+              "year": 2000,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2007,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2008,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2009,
+              "count": 4.0,
+              "type": "historical"
+            },
+            {
+              "year": 2013,
+              "count": 2.0,
+              "type": "historical"
+            },
+            {
+              "year": 2014,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2015,
+              "count": 5.0,
+              "type": "historical"
+            },
+            {
+              "year": 2016,
+              "count": 5.0,
+              "type": "historical"
+            },
+            {
+              "year": 2017,
+              "count": 10.0,
+              "type": "historical"
+            },
+            {
+              "year": 2018,
+              "count": 7.0,
+              "type": "historical"
+            },
+            {
+              "year": 2019,
+              "count": 8.0,
+              "type": "historical"
+            },
+            {
+              "year": 2020,
+              "count": 14.0,
+              "type": "historical"
+            },
+            {
+              "year": 2021,
+              "count": 32.0,
+              "type": "historical"
+            },
+            {
+              "year": 2022,
+              "count": 30.0,
+              "type": "historical"
+            },
+            {
+              "year": 2023,
+              "count": 19.0,
+              "type": "historical"
+            },
+            {
+              "year": 2024,
+              "count": 20.0,
+              "type": "historical"
+            },
+            {
+              "year": 2025,
+              "count": 45.0,
+              "type": "historical"
+            },
+            {
+              "year": 2026,
+              "count": 2.0,
+              "type": "historical"
+            }
+          ],
+          "forecast": [
+            {
+              "year": 2027,
+              "count": 29.5,
+              "lower": 8.2,
+              "upper": 50.8,
+              "type": "forecast"
+            },
+            {
+              "year": 2028,
+              "count": 18.1,
+              "lower": 0.0,
+              "upper": 39.7,
+              "type": "forecast"
+            },
+            {
+              "year": 2029,
+              "count": 22.8,
+              "lower": 0.0,
+              "upper": 47.0,
+              "type": "forecast"
+            }
+          ],
+          "trend_direction": "rising",
+          "growth_pct": 1040.2,
+          "interpretation": "Research on **social_sciences** is on a rising trajectory. The forecast projects a **+1040%** change by **2029**. This is an actively growing area — building on the most recent contributions is a strong move.",
+          "accuracy": {
+            "available": true,
+            "rmse": 10.56,
+            "mae": 6.808,
+            "nrmse": 0.918,
+            "n_observations": 18
+          },
+          "model_type": "ARIMA(1,1,1)",
+          "data_range": "2000-2026",
+          "model_version": "sliit-v1-trend",
+          "stats": {
+            "historical_total": 207,
+            "historical_peak": {
+              "year": 2025,
+              "count": 45
+            },
+            "current_count": 2,
+            "forecast_end": 22.8
+          }
+        },
+        {
+          "topic": "computing",
+          "horizon_years": 3,
+          "historical": [
+            {
+              "year": 2001,
+              "count": 3.0,
+              "type": "historical"
+            },
+            {
+              "year": 2002,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2003,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2004,
+              "count": 2.0,
+              "type": "historical"
+            },
+            {
+              "year": 2005,
+              "count": 4.0,
+              "type": "historical"
+            },
+            {
+              "year": 2006,
+              "count": 3.0,
+              "type": "historical"
+            },
+            {
+              "year": 2007,
+              "count": 5.0,
+              "type": "historical"
+            },
+            {
+              "year": 2008,
+              "count": 3.0,
+              "type": "historical"
+            },
+            {
+              "year": 2009,
+              "count": 8.0,
+              "type": "historical"
+            },
+            {
+              "year": 2010,
+              "count": 11.0,
+              "type": "historical"
+            },
+            {
+              "year": 2011,
+              "count": 5.0,
+              "type": "historical"
+            },
+            {
+              "year": 2012,
+              "count": 10.0,
+              "type": "historical"
+            },
+            {
+              "year": 2013,
+              "count": 22.0,
+              "type": "historical"
+            },
+            {
+              "year": 2014,
+              "count": 15.0,
+              "type": "historical"
+            },
+            {
+              "year": 2015,
+              "count": 15.0,
+              "type": "historical"
+            },
+            {
+              "year": 2016,
+              "count": 15.0,
+              "type": "historical"
+            },
+            {
+              "year": 2017,
+              "count": 34.0,
+              "type": "historical"
+            },
+            {
+              "year": 2018,
+              "count": 37.0,
+              "type": "historical"
+            },
+            {
+              "year": 2019,
+              "count": 71.0,
+              "type": "historical"
+            },
+            {
+              "year": 2020,
+              "count": 90.0,
+              "type": "historical"
+            },
+            {
+              "year": 2021,
+              "count": 132.0,
+              "type": "historical"
+            },
+            {
+              "year": 2022,
+              "count": 110.0,
+              "type": "historical"
+            },
+            {
+              "year": 2023,
+              "count": 34.0,
+              "type": "historical"
+            },
+            {
+              "year": 2024,
+              "count": 53.0,
+              "type": "historical"
+            },
+            {
+              "year": 2025,
+              "count": 144.0,
+              "type": "historical"
+            },
+            {
+              "year": 2026,
+              "count": 4.0,
+              "type": "historical"
+            }
+          ],
+          "forecast": [
+            {
+              "year": 2027,
+              "count": 65.6,
+              "lower": 0.0,
+              "upper": 132.5,
+              "type": "forecast"
+            },
+            {
+              "year": 2028,
+              "count": 59.9,
+              "lower": 0.0,
+              "upper": 130.8,
+              "type": "forecast"
+            },
+            {
+              "year": 2029,
+              "count": 60.5,
+              "lower": 0.0,
+              "upper": 136.5,
+              "type": "forecast"
+            }
+          ],
+          "trend_direction": "rising",
+          "growth_pct": 1411.5,
+          "interpretation": "Research on **computing** is on a rising trajectory. The forecast projects a **+1412%** change by **2029**. This is an actively growing area — building on the most recent contributions is a strong move.",
+          "accuracy": {
+            "available": true,
+            "rmse": 33.437,
+            "mae": 19.847,
+            "nrmse": 1.045,
+            "n_observations": 26
+          },
+          "model_type": "ARIMA(1,1,1)",
+          "data_range": "2001-2026",
+          "model_version": "sliit-v1-trend",
+          "stats": {
+            "historical_total": 832,
+            "historical_peak": {
+              "year": 2025,
+              "count": 144
+            },
+            "current_count": 4,
+            "forecast_end": 60.5
+          }
+        },
+        {
+          "topic": "health",
+          "horizon_years": 3,
+          "historical": [
+            {
+              "year": 2006,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2010,
+              "count": 2.0,
+              "type": "historical"
+            },
+            {
+              "year": 2011,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2014,
+              "count": 3.0,
+              "type": "historical"
+            },
+            {
+              "year": 2015,
+              "count": 2.0,
+              "type": "historical"
+            },
+            {
+              "year": 2016,
+              "count": 2.0,
+              "type": "historical"
+            },
+            {
+              "year": 2017,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2019,
+              "count": 2.0,
+              "type": "historical"
+            },
+            {
+              "year": 2020,
+              "count": 7.0,
+              "type": "historical"
+            },
+            {
+              "year": 2021,
+              "count": 13.0,
+              "type": "historical"
+            },
+            {
+              "year": 2022,
+              "count": 17.0,
+              "type": "historical"
+            },
+            {
+              "year": 2023,
+              "count": 4.0,
+              "type": "historical"
+            },
+            {
+              "year": 2024,
+              "count": 6.0,
+              "type": "historical"
+            },
+            {
+              "year": 2025,
+              "count": 32.0,
+              "type": "historical"
+            },
+            {
+              "year": 2026,
+              "count": 4.0,
+              "type": "historical"
+            }
+          ],
+          "forecast": [
+            {
+              "year": 2027,
+              "count": 16.1,
+              "lower": 0.0,
+              "upper": 32.2,
+              "type": "forecast"
+            },
+            {
+              "year": 2028,
+              "count": 12.4,
+              "lower": 0.0,
+              "upper": 28.6,
+              "type": "forecast"
+            },
+            {
+              "year": 2029,
+              "count": 13.5,
+              "lower": 0.0,
+              "upper": 30.9,
+              "type": "forecast"
+            }
+          ],
+          "trend_direction": "rising",
+          "growth_pct": 238.4,
+          "interpretation": "Research on **health** is on a rising trajectory. The forecast projects a **+238%** change by **2029**. This is an actively growing area — building on the most recent contributions is a strong move.",
+          "accuracy": {
+            "available": true,
+            "rmse": 7.937,
+            "mae": 4.876,
+            "nrmse": 1.227,
+            "n_observations": 15
+          },
+          "model_type": "ARIMA(1,1,1)",
+          "data_range": "2006-2026",
+          "model_version": "sliit-v1-trend",
+          "stats": {
+            "historical_total": 97,
+            "historical_peak": {
+              "year": 2025,
+              "count": 32
+            },
+            "current_count": 4,
+            "forecast_end": 13.5
+          }
+        },
+        {
+          "topic": "engineering",
+          "horizon_years": 3,
+          "historical": [
+            {
+              "year": 2003,
+              "count": 2.0,
+              "type": "historical"
+            },
+            {
+              "year": 2005,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2008,
+              "count": 2.0,
+              "type": "historical"
+            },
+            {
+              "year": 2009,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2013,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2014,
+              "count": 5.0,
+              "type": "historical"
+            },
+            {
+              "year": 2015,
+              "count": 4.0,
+              "type": "historical"
+            },
+            {
+              "year": 2016,
+              "count": 3.0,
+              "type": "historical"
+            },
+            {
+              "year": 2017,
+              "count": 3.0,
+              "type": "historical"
+            },
+            {
+              "year": 2018,
+              "count": 6.0,
+              "type": "historical"
+            },
+            {
+              "year": 2019,
+              "count": 2.0,
+              "type": "historical"
+            },
+            {
+              "year": 2020,
+              "count": 5.0,
+              "type": "historical"
+            },
+            {
+              "year": 2021,
+              "count": 8.0,
+              "type": "historical"
+            },
+            {
+              "year": 2022,
+              "count": 22.0,
+              "type": "historical"
+            },
+            {
+              "year": 2023,
+              "count": 17.0,
+              "type": "historical"
+            },
+            {
+              "year": 2024,
+              "count": 9.0,
+              "type": "historical"
+            },
+            {
+              "year": 2025,
+              "count": 16.0,
+              "type": "historical"
+            },
+            {
+              "year": 2026,
+              "count": 1.0,
+              "type": "historical"
+            }
+          ],
+          "forecast": [
+            {
+              "year": 2027,
+              "count": 2.8,
+              "lower": 0.0,
+              "upper": 13.5,
+              "type": "forecast"
+            },
+            {
+              "year": 2028,
+              "count": 3.8,
+              "lower": 0.0,
+              "upper": 16.6,
+              "type": "forecast"
+            },
+            {
+              "year": 2029,
+              "count": 4.5,
+              "lower": 0.0,
+              "upper": 18.0,
+              "type": "forecast"
+            }
+          ],
+          "trend_direction": "rising",
+          "growth_pct": 346.6,
+          "interpretation": "Research on **engineering** is on a rising trajectory. The forecast projects a **+347%** change by **2029**. This is an actively growing area — building on the most recent contributions is a strong move.",
+          "accuracy": {
+            "available": true,
+            "rmse": 5.383,
+            "mae": 3.471,
+            "nrmse": 0.897,
+            "n_observations": 18
+          },
+          "model_type": "ARIMA(1,1,1)",
+          "data_range": "2003-2026",
+          "model_version": "sliit-v1-trend",
+          "stats": {
+            "historical_total": 108,
+            "historical_peak": {
+              "year": 2022,
+              "count": 22
+            },
+            "current_count": 1,
+            "forecast_end": 4.5
+          }
+        },
+        {
+          "topic": "sciences",
+          "horizon_years": 3,
+          "historical": [
+            {
+              "year": 2008,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2021,
+              "count": 3.0,
+              "type": "historical"
+            },
+            {
+              "year": 2022,
+              "count": 2.0,
+              "type": "historical"
+            },
+            {
+              "year": 2023,
+              "count": 1.0,
+              "type": "historical"
+            }
+          ],
+          "forecast": [
+            {
+              "year": 2024,
+              "count": 1.9,
+              "lower": 0.0,
+              "upper": 3.9,
+              "type": "forecast"
+            },
+            {
+              "year": 2025,
+              "count": 1.8,
+              "lower": 0.0,
+              "upper": 3.8,
+              "type": "forecast"
+            },
+            {
+              "year": 2026,
+              "count": 1.8,
+              "lower": 0.0,
+              "upper": 3.8,
+              "type": "forecast"
+            }
+          ],
+          "trend_direction": "rising",
+          "growth_pct": 79.5,
+          "interpretation": "Research on **sciences** is on a rising trajectory. The forecast projects a **+80%** change by **2026**. This is an actively growing area — building on the most recent contributions is a strong move.",
+          "accuracy": {
+            "available": true,
+            "rmse": 1.235,
+            "mae": 1.041,
+            "nrmse": 0.706,
+            "n_observations": 4
+          },
+          "model_type": "ARIMA(1,1,1)",
+          "data_range": "2008-2023",
+          "model_version": "sliit-v1-trend",
+          "stats": {
+            "historical_total": 7,
+            "historical_peak": {
+              "year": 2021,
+              "count": 3
+            },
+            "current_count": 1,
+            "forecast_end": 1.8
+          }
+        }
+      ],
+      "available_topics": [
+        "general",
+        "all",
+        "business",
+        "social_sciences",
+        "computing",
+        "health",
+        "engineering",
+        "sciences"
+      ]
+    }
+  },
+  {
+    "id": "M4-02",
+    "feature": "Trend Forecast (specific topic)",
+    "method": "GET",
+    "path": "/analytics/trends",
+    "request": {
+      "topic": "computing",
+      "horizon": 5
+    },
+    "status": 200,
+    "response": {
+      "forecasts": [
+        {
+          "topic": "computing",
+          "horizon_years": 5,
+          "historical": [
+            {
+              "year": 2001,
+              "count": 3.0,
+              "type": "historical"
+            },
+            {
+              "year": 2002,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2003,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2004,
+              "count": 2.0,
+              "type": "historical"
+            },
+            {
+              "year": 2005,
+              "count": 4.0,
+              "type": "historical"
+            },
+            {
+              "year": 2006,
+              "count": 3.0,
+              "type": "historical"
+            },
+            {
+              "year": 2007,
+              "count": 5.0,
+              "type": "historical"
+            },
+            {
+              "year": 2008,
+              "count": 3.0,
+              "type": "historical"
+            },
+            {
+              "year": 2009,
+              "count": 8.0,
+              "type": "historical"
+            },
+            {
+              "year": 2010,
+              "count": 11.0,
+              "type": "historical"
+            },
+            {
+              "year": 2011,
+              "count": 5.0,
+              "type": "historical"
+            },
+            {
+              "year": 2012,
+              "count": 10.0,
+              "type": "historical"
+            },
+            {
+              "year": 2013,
+              "count": 22.0,
+              "type": "historical"
+            },
+            {
+              "year": 2014,
+              "count": 15.0,
+              "type": "historical"
+            },
+            {
+              "year": 2015,
+              "count": 15.0,
+              "type": "historical"
+            },
+            {
+              "year": 2016,
+              "count": 15.0,
+              "type": "historical"
+            },
+            {
+              "year": 2017,
+              "count": 34.0,
+              "type": "historical"
+            },
+            {
+              "year": 2018,
+              "count": 37.0,
+              "type": "historical"
+            },
+            {
+              "year": 2019,
+              "count": 71.0,
+              "type": "historical"
+            },
+            {
+              "year": 2020,
+              "count": 90.0,
+              "type": "historical"
+            },
+            {
+              "year": 2021,
+              "count": 132.0,
+              "type": "historical"
+            },
+            {
+              "year": 2022,
+              "count": 110.0,
+              "type": "historical"
+            },
+            {
+              "year": 2023,
+              "count": 34.0,
+              "type": "historical"
+            },
+            {
+              "year": 2024,
+              "count": 53.0,
+              "type": "historical"
+            },
+            {
+              "year": 2025,
+              "count": 144.0,
+              "type": "historical"
+            },
+            {
+              "year": 2026,
+              "count": 4.0,
+              "type": "historical"
+            }
+          ],
+          "forecast": [
+            {
+              "year": 2027,
+              "count": 65.6,
+              "lower": 0.0,
+              "upper": 132.5,
+              "type": "forecast"
+            },
+            {
+              "year": 2028,
+              "count": 59.9,
+              "lower": 0.0,
+              "upper": 130.8,
+              "type": "forecast"
+            },
+            {
+              "year": 2029,
+              "count": 60.5,
+              "lower": 0.0,
+              "upper": 136.5,
+              "type": "forecast"
+            },
+            {
+              "year": 2030,
+              "count": 60.4,
+              "lower": 0.0,
+              "upper": 141.2,
+              "type": "forecast"
+            },
+            {
+              "year": 2031,
+              "count": 60.4,
+              "lower": 0.0,
+              "upper": 145.7,
+              "type": "forecast"
+            }
+          ],
+          "trend_direction": "rising",
+          "growth_pct": 1410.4,
+          "interpretation": "Research on **computing** is on a rising trajectory. The forecast projects a **+1410%** change by **2031**. This is an actively growing area — building on the most recent contributions is a strong move.",
+          "accuracy": {
+            "available": true,
+            "rmse": 33.437,
+            "mae": 19.847,
+            "nrmse": 1.045,
+            "n_observations": 26
+          },
+          "model_type": "ARIMA(1,1,1)",
+          "data_range": "2001-2026",
+          "model_version": "sliit-v1-trend",
+          "stats": {
+            "historical_total": 832,
+            "historical_peak": {
+              "year": 2025,
+              "count": 144
+            },
+            "current_count": 4,
+            "forecast_end": 60.4
+          }
+        }
+      ],
+      "available_topics": [
+        "general",
+        "all",
+        "business",
+        "social_sciences",
+        "computing",
+        "health",
+        "engineering",
+        "sciences"
+      ]
+    }
+  },
+  {
+    "id": "M4-03",
+    "feature": "Trend Compare (multi-topic)",
+    "method": "POST",
+    "path": "/analytics/trends/compare",
+    "request": {
+      "topics": [
+        "computing",
+        "health",
+        "business"
+      ],
+      "horizon": 3
+    },
+    "status": 200,
+    "response": {
+      "forecasts": [
+        {
+          "topic": "computing",
+          "horizon_years": 3,
+          "historical": [
+            {
+              "year": 2001,
+              "count": 3.0,
+              "type": "historical"
+            },
+            {
+              "year": 2002,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2003,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2004,
+              "count": 2.0,
+              "type": "historical"
+            },
+            {
+              "year": 2005,
+              "count": 4.0,
+              "type": "historical"
+            },
+            {
+              "year": 2006,
+              "count": 3.0,
+              "type": "historical"
+            },
+            {
+              "year": 2007,
+              "count": 5.0,
+              "type": "historical"
+            },
+            {
+              "year": 2008,
+              "count": 3.0,
+              "type": "historical"
+            },
+            {
+              "year": 2009,
+              "count": 8.0,
+              "type": "historical"
+            },
+            {
+              "year": 2010,
+              "count": 11.0,
+              "type": "historical"
+            },
+            {
+              "year": 2011,
+              "count": 5.0,
+              "type": "historical"
+            },
+            {
+              "year": 2012,
+              "count": 10.0,
+              "type": "historical"
+            },
+            {
+              "year": 2013,
+              "count": 22.0,
+              "type": "historical"
+            },
+            {
+              "year": 2014,
+              "count": 15.0,
+              "type": "historical"
+            },
+            {
+              "year": 2015,
+              "count": 15.0,
+              "type": "historical"
+            },
+            {
+              "year": 2016,
+              "count": 15.0,
+              "type": "historical"
+            },
+            {
+              "year": 2017,
+              "count": 34.0,
+              "type": "historical"
+            },
+            {
+              "year": 2018,
+              "count": 37.0,
+              "type": "historical"
+            },
+            {
+              "year": 2019,
+              "count": 71.0,
+              "type": "historical"
+            },
+            {
+              "year": 2020,
+              "count": 90.0,
+              "type": "historical"
+            },
+            {
+              "year": 2021,
+              "count": 132.0,
+              "type": "historical"
+            },
+            {
+              "year": 2022,
+              "count": 110.0,
+              "type": "historical"
+            },
+            {
+              "year": 2023,
+              "count": 34.0,
+              "type": "historical"
+            },
+            {
+              "year": 2024,
+              "count": 53.0,
+              "type": "historical"
+            },
+            {
+              "year": 2025,
+              "count": 144.0,
+              "type": "historical"
+            },
+            {
+              "year": 2026,
+              "count": 4.0,
+              "type": "historical"
+            }
+          ],
+          "forecast": [
+            {
+              "year": 2027,
+              "count": 65.6,
+              "lower": 0.0,
+              "upper": 132.5,
+              "type": "forecast"
+            },
+            {
+              "year": 2028,
+              "count": 59.9,
+              "lower": 0.0,
+              "upper": 130.8,
+              "type": "forecast"
+            },
+            {
+              "year": 2029,
+              "count": 60.5,
+              "lower": 0.0,
+              "upper": 136.5,
+              "type": "forecast"
+            }
+          ],
+          "trend_direction": "rising",
+          "growth_pct": 1411.5,
+          "interpretation": "Research on **computing** is on a rising trajectory. The forecast projects a **+1412%** change by **2029**. This is an actively growing area — building on the most recent contributions is a strong move.",
+          "accuracy": {
+            "available": true,
+            "rmse": 33.437,
+            "mae": 19.847,
+            "nrmse": 1.045,
+            "n_observations": 26
+          },
+          "model_type": "ARIMA(1,1,1)",
+          "data_range": "2001-2026",
+          "model_version": "sliit-v1-trend",
+          "stats": {
+            "historical_total": 832,
+            "historical_peak": {
+              "year": 2025,
+              "count": 144
+            },
+            "current_count": 4,
+            "forecast_end": 60.5
+          }
+        },
+        {
+          "topic": "health",
+          "horizon_years": 3,
+          "historical": [
+            {
+              "year": 2006,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2010,
+              "count": 2.0,
+              "type": "historical"
+            },
+            {
+              "year": 2011,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2014,
+              "count": 3.0,
+              "type": "historical"
+            },
+            {
+              "year": 2015,
+              "count": 2.0,
+              "type": "historical"
+            },
+            {
+              "year": 2016,
+              "count": 2.0,
+              "type": "historical"
+            },
+            {
+              "year": 2017,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2019,
+              "count": 2.0,
+              "type": "historical"
+            },
+            {
+              "year": 2020,
+              "count": 7.0,
+              "type": "historical"
+            },
+            {
+              "year": 2021,
+              "count": 13.0,
+              "type": "historical"
+            },
+            {
+              "year": 2022,
+              "count": 17.0,
+              "type": "historical"
+            },
+            {
+              "year": 2023,
+              "count": 4.0,
+              "type": "historical"
+            },
+            {
+              "year": 2024,
+              "count": 6.0,
+              "type": "historical"
+            },
+            {
+              "year": 2025,
+              "count": 32.0,
+              "type": "historical"
+            },
+            {
+              "year": 2026,
+              "count": 4.0,
+              "type": "historical"
+            }
+          ],
+          "forecast": [
+            {
+              "year": 2027,
+              "count": 16.1,
+              "lower": 0.0,
+              "upper": 32.2,
+              "type": "forecast"
+            },
+            {
+              "year": 2028,
+              "count": 12.4,
+              "lower": 0.0,
+              "upper": 28.6,
+              "type": "forecast"
+            },
+            {
+              "year": 2029,
+              "count": 13.5,
+              "lower": 0.0,
+              "upper": 30.9,
+              "type": "forecast"
+            }
+          ],
+          "trend_direction": "rising",
+          "growth_pct": 238.4,
+          "interpretation": "Research on **health** is on a rising trajectory. The forecast projects a **+238%** change by **2029**. This is an actively growing area — building on the most recent contributions is a strong move.",
+          "accuracy": {
+            "available": true,
+            "rmse": 7.937,
+            "mae": 4.876,
+            "nrmse": 1.227,
+            "n_observations": 15
+          },
+          "model_type": "ARIMA(1,1,1)",
+          "data_range": "2006-2026",
+          "model_version": "sliit-v1-trend",
+          "stats": {
+            "historical_total": 97,
+            "historical_peak": {
+              "year": 2025,
+              "count": 32
+            },
+            "current_count": 4,
+            "forecast_end": 13.5
+          }
+        },
+        {
+          "topic": "business",
+          "horizon_years": 3,
+          "historical": [
+            {
+              "year": 2003,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2004,
+              "count": 4.0,
+              "type": "historical"
+            },
+            {
+              "year": 2008,
+              "count": 2.0,
+              "type": "historical"
+            },
+            {
+              "year": 2010,
+              "count": 3.0,
+              "type": "historical"
+            },
+            {
+              "year": 2011,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2012,
+              "count": 1.0,
+              "type": "historical"
+            },
+            {
+              "year": 2013,
+              "count": 9.0,
+              "type": "historical"
+            },
+            {
+              "year": 2014,
+              "count": 3.0,
+              "type": "historical"
+            },
+            {
+              "year": 2015,
+              "count": 7.0,
+              "type": "historical"
+            },
+            {
+              "year": 2016,
+              "count": 10.0,
+              "type": "historical"
+            },
+            {
+              "year": 2017,
+              "count": 11.0,
+              "type": "historical"
+            },
+            {
+              "year": 2018,
+              "count": 14.0,
+              "type": "historical"
+            },
+            {
+              "year": 2019,
+              "count": 21.0,
+              "type": "historical"
+            },
+            {
+              "year": 2020,
+              "count": 32.0,
+              "type": "historical"
+            },
+            {
+              "year": 2021,
+              "count": 31.0,
+              "type": "historical"
+            },
+            {
+              "year": 2022,
+              "count": 42.0,
+              "type": "historical"
+            },
+            {
+              "year": 2023,
+              "count": 19.0,
+              "type": "historical"
+            },
+            {
+              "year": 2024,
+              "count": 25.0,
+              "type": "historical"
+            },
+            {
+              "year": 2025,
+              "count": 39.0,
+              "type": "historical"
+            },
+            {
+              "year": 2026,
+              "count": 4.0,
+              "type": "historical"
+            }
+          ],
+          "forecast": [
+            {
+              "year": 2027,
+              "count": 25.0,
+              "lower": 5.7,
+              "upper": 44.3,
+              "type": "forecast"
+            },
+            {
+              "year": 2028,
+              "count": 16.2,
+              "lower": 0.0,
+              "upper": 36.5,
+              "type": "forecast"
+            },
+            {
+              "year": 2029,
+              "count": 19.9,
+              "lower": 0.0,
+              "upper": 43.4,
+              "type": "forecast"
+            }
+          ],
+          "trend_direction": "rising",
+          "growth_pct": 396.8,
+          "interpretation": "Research on **business** is on a rising trajectory. The forecast projects a **+397%** change by **2029**. This is an actively growing area — building on the most recent contributions is a strong move.",
+          "accuracy": {
+            "available": true,
+            "rmse": 9.618,
+            "mae": 6.911,
+            "nrmse": 0.689,
+            "n_observations": 20
+          },
+          "model_type": "ARIMA(1,1,1)",
+          "data_range": "2003-2026",
+          "model_version": "sliit-v1-trend",
+          "stats": {
+            "historical_total": 279,
+            "historical_peak": {
+              "year": 2022,
+              "count": 42
+            },
+            "current_count": 4,
+            "forecast_end": 19.9
+          }
+        }
+      ],
+      "ranking": [
+        {
+          "topic": "computing",
+          "growth_pct": 1411.5,
+          "direction": "rising",
+          "current": 4,
+          "forecast_end": 60.5
+        },
+        {
+          "topic": "business",
+          "growth_pct": 396.8,
+          "direction": "rising",
+          "current": 4,
+          "forecast_end": 19.9
+        },
+        {
+          "topic": "health",
+          "growth_pct": 238.4,
+          "direction": "rising",
+          "current": 4,
+          "forecast_end": 13.5
+        }
+      ],
+      "horizon": 3
+    }
+  },
+  {
+    "id": "M4-04",
+    "feature": "Trend Insights (emerging topics)",
+    "method": "GET",
+    "path": "/analytics/trends/insights",
+    "request": {
+      "horizon": 3,
+      "top_k": 5
+    },
+    "status": 200,
+    "response": {
+      "horizon": 3,
+      "emerging": [
+        {
+          "topic": "health",
+          "score": 1.195,
+          "recent_slope": 2.6,
+          "long_term_slope": 1.082,
+          "latest_count": 4,
+          "growth_ratio": 0.87,
+          "growth_pct": 238.4,
+          "interpretation": "**Health** has a recent slope of +2.6 papers/year vs a long-term +1.1/year — accelerating sharply."
+        },
+        {
+          "topic": "computing",
+          "score": -1.772,
+          "recent_slope": 0.1,
+          "long_term_slope": 3.789,
+          "latest_count": 4,
+          "growth_ratio": 0.15,
+          "growth_pct": 1411.5,
+          "interpretation": "**Computing** has a recent slope of +0.1 papers/year vs a long-term +3.8/year — accelerating sharply."
+        }
+      ],
+      "recommendations": [
+        {
+          "topic": "engineering",
+          "score": 1.999,
+          "growth_pct": 346.6,
+          "latest_count": 1,
+          "saturation": 0.0,
+          "rationale": "Projected growth of **+347%** with current activity at 1 papers/year — low competition.",
+          "suggested_title": "Investigating engineering: opportunities through 2029"
+        },
+        {
+          "topic": "social_sciences",
+          "score": 1.998,
+          "growth_pct": 1040.2,
+          "latest_count": 2,
+          "saturation": 0.0,
+          "rationale": "Projected growth of **+1040%** with current activity at 2 papers/year — low competition.",
+          "suggested_title": "Investigating social_sciences: opportunities through 2029"
+        },
+        {
+          "topic": "business",
+          "score": 1.996,
+          "growth_pct": 396.8,
+          "latest_count": 4,
+          "saturation": 0.01,
+          "rationale": "Projected growth of **+397%** with current activity at 4 papers/year — low competition.",
+          "suggested_title": "Investigating business: opportunities through 2029"
+        },
+        {
+          "topic": "computing",
+          "score": 1.996,
+          "growth_pct": 1411.5,
+          "latest_count": 4,
+          "saturation": 0.01,
+          "rationale": "Projected growth of **+1412%** with current activity at 4 papers/year — low competition.",
+          "suggested_title": "Investigating computing: opportunities through 2029"
+        },
+        {
+          "topic": "health",
+          "score": 1.996,
+          "growth_pct": 238.4,
+          "latest_count": 4,
+          "saturation": 0.01,
+          "rationale": "Projected growth of **+238%** with current activity at 4 papers/year — low competition.",
+          "suggested_title": "Investigating health: opportunities through 2029"
+        }
+      ],
+      "model_version": "sliit-v1-trend"
+    }
+  },
+  {
+    "id": "M4-05",
+    "feature": "Available Topics List",
+    "method": "GET",
+    "path": "/analytics/trends/topics",
+    "request": null,
+    "status": 200,
+    "response": {
+      "topics": [
+        "general",
+        "all",
+        "business",
+        "social_sciences",
+        "computing",
+        "health",
+        "engineering",
+        "sciences"
+      ]
+    }
+  },
+  {
+    "id": "M4-06",
+    "feature": "Quality Score (strong technical abstract)",
+    "method": "POST",
+    "path": "/analytics/quality-score",
+    "request": {
+      "title": "Deep Learning for Plant Disease Detection",
+      "abstract": "This paper proposes a novel convolutional neural network architecture for detecting plant diseases from leaf images. We evaluate our approach against three baseline methods including SVM and VGG16 on a dataset of 15,000 labeled images. Experimental results demonstrate that our proposed method achieves 94.2% classification accuracy, outperforming the SVM baseline by 18 percentage points [1]. Our methodology follows a systematic experimental design combining transfer learning with data augmentation. As shown in prior work (Smith et al., 2020), robustness under varying lighting conditions remains a challenge, which we address through cross-validation and a novel regularization scheme."
+    },
+    "status": 200,
+    "response": {
+      "proposal_id": null,
+      "overall_score": 0.828,
+      "originality_score": 0.8098,
+      "citation_impact_score": 0.6118,
+      "methodology_score": 0.9491,
+      "clarity_score": 0.9741,
+      "topic": {
+        "primary_topic": "computing",
+        "confidence": 0.5757,
+        "top_predictions": [
+          {
+            "label": "computing",
+            "confidence": 0.5757
+          },
+          {
+            "label": "health",
+            "confidence": 0.2048
+          },
+          {
+            "label": "business",
+            "confidence": 0.0829
+          }
+        ],
+        "model_version": "sliit-v1-topic"
+      },
+      "breakdown": {
+        "weights": {
+          "originality": 0.3,
+          "citation_impact": 0.25,
+          "methodology": 0.25,
+          "clarity": 0.2
+        },
+        "features": {
+          "word_count": 101,
+          "title_word_count": 6,
+          "sentence_count": 7,
+          "avg_word_length": 6.26,
+          "avg_sentence_length": 14.43,
+          "methodology_keywords_count": 3,
+          "author_count": 0,
+          "citation_signals": 2,
+          "year": 2024,
+          "abstract_length": 690,
+          "title_length": 41
+        }
+      },
+      "recommendations": [],
+      "model_version": "sliit-v1-quality"
+    }
+  },
+  {
+    "id": "M4-07",
+    "feature": "Quality Score (generic non-research text)",
+    "method": "POST",
+    "path": "/analytics/quality-score",
+    "request": {
+      "title": "Leave Request Form",
+      "abstract": "Employee Leave Request Form. Name: _____. Department: _____. Date of leave requested: from ___ to ___. Reason for leave: _____. Approved by supervisor: Yes / No. Please submit this form to HR at least two weeks in advance. Contact HR for any questions regarding company leave policy."
+    },
+    "status": 200,
+    "response": {
+      "proposal_id": null,
+      "overall_score": 0.2362,
+      "originality_score": 0.0857,
+      "citation_impact_score": 0.04,
+      "methodology_score": 0.0018,
+      "clarity_score": 1.0,
+      "topic": {
+        "primary_topic": "health",
+        "confidence": 0.3125,
+        "top_predictions": [
+          {
+            "label": "health",
+            "confidence": 0.3125
+          },
+          {
+            "label": "engineering",
+            "confidence": 0.27
+          },
+          {
+            "label": "business",
+            "confidence": 0.1538
+          }
+        ],
+        "model_version": "sliit-v1-topic"
+      },
+      "breakdown": {
+        "weights": {
+          "originality": 0.3,
+          "citation_impact": 0.25,
+          "methodology": 0.25,
+          "clarity": 0.2
+        },
+        "features": {
+          "word_count": 50,
+          "title_word_count": 3,
+          "sentence_count": 8,
+          "avg_word_length": 5.06,
+          "avg_sentence_length": 6.25,
+          "methodology_keywords_count": 0,
+          "author_count": 0,
+          "citation_signals": 0,
+          "year": 2024,
+          "abstract_length": 283,
+          "title_length": 18
+        }
+      },
+      "recommendations": [
+        "Expand the abstract — add problem statement, approach, and key findings (aim for at least 300 words)",
+        "Add more citations to support claims (e.g., [1], (Author, Year), or 'et al.')",
+        "Describe methodology more clearly — mention experiment type, dataset, evaluation method, or model used"
+      ],
+      "model_version": "sliit-v1-quality"
+    }
+  },
+  {
+    "id": "M4-08",
+    "feature": "Quality Score (missing input)",
+    "method": "POST",
+    "path": "/analytics/quality-score",
+    "request": null,
+    "status": 400,
+    "response": {
+      "detail": "Provide either proposal_id or (title + abstract)"
+    }
+  },
+  {
+    "id": "M4-09",
+    "feature": "Success Prediction (strong abstract)",
+    "method": "POST",
+    "path": "/analytics/predict",
+    "request": {
+      "title": "Deep Learning for Plant Disease Detection",
+      "abstract": "This paper proposes a novel convolutional neural network architecture for detecting plant diseases from leaf images. We evaluate our approach against three baseline methods including SVM and VGG16 on a dataset of 15,000 labeled images. Experimental results demonstrate that our proposed method achieves 94.2% classification accuracy, outperforming the SVM baseline by 18 percentage points [1]. Our methodology follows a systematic experimental design combining transfer learning with data augmentation. As shown in prior work (Smith et al., 2020), robustness under varying lighting conditions remains a challenge, which we address through cross-validation and a novel regularization scheme.",
+      "authors": [
+        "A. Perera",
+        "B. Silva"
+      ],
+      "year": 2026
+    },
+    "status": 200,
+    "response": {
+      "title": "Deep Learning for Plant Disease Detection",
+      "success_probability": 0.6319,
+      "prediction": "successful",
+      "confidence": 0.6319,
+      "risk_level": "medium",
+      "recommendations": [
+        "Strong paper across all dimensions — ready for submission"
+      ],
+      "features": {
+        "word_count": 101,
+        "title_word_count": 6,
+        "sentence_count": 7,
+        "avg_word_length": 6.26,
+        "avg_sentence_length": 14.43,
+        "methodology_keywords_count": 3,
+        "author_count": 2,
+        "citation_signals": 2,
+        "year": 2026,
+        "abstract_length": 690,
+        "title_length": 41
+      },
+      "model_version": "sliit-v1-success"
+    }
+  },
+  {
+    "id": "M4-10",
+    "feature": "Success Prediction (weak/generic text)",
+    "method": "POST",
+    "path": "/analytics/predict",
+    "request": {
+      "title": "Leave Request Form",
+      "abstract": "Employee Leave Request Form. Name: _____. Department: _____. Date of leave requested: from ___ to ___. Reason for leave: _____. Approved by supervisor: Yes / No. Please submit this form to HR at least two weeks in advance. Contact HR for any questions regarding company leave policy."
+    },
+    "status": 200,
+    "response": {
+      "title": "Leave Request Form",
+      "success_probability": 0.1999,
+      "prediction": "needs_improvement",
+      "confidence": 0.8001,
+      "risk_level": "high",
+      "recommendations": [
+        "Strengthen methodology section — describe methods explicitly (e.g., experiment, survey, statistical analysis, dataset)",
+        "Include citations or references in the abstract to support key claims",
+        "Expand abstract to at least 500 characters with clear problem statement and contributions",
+        "Consider collaboration — multi-author papers tend to perform better"
+      ],
+      "features": {
+        "word_count": 50,
+        "title_word_count": 3,
+        "sentence_count": 8,
+        "avg_word_length": 5.06,
+        "avg_sentence_length": 6.25,
+        "methodology_keywords_count": 0,
+        "author_count": 0,
+        "citation_signals": 0,
+        "year": 2024,
+        "abstract_length": 283,
+        "title_length": 18
+      },
+      "model_version": "sliit-v1-success"
+    }
+  },
+  {
+    "id": "M4-11",
+    "feature": "Success Prediction (short abstract, should reject)",
+    "method": "POST",
+    "path": "/analytics/predict",
+    "request": {
+      "title": "Test",
+      "abstract": "Too short"
+    },
+    "status": 400,
+    "response": {
+      "detail": "Abstract must be at least 50 characters"
+    }
+  },
+  {
+    "id": "M4-12",
+    "feature": "Mind Map (topic-based)",
+    "method": "POST",
+    "path": "/analytics/mindmap",
+    "request": {
+      "topic": "machine learning for plant disease detection",
+      "max_nodes": 20
+    },
+    "status": 200,
+    "response": {
+      "nodes": [
+        {
+          "id": "0",
+          "concept": "machine",
+          "importance": 0.5,
+          "domain_cluster": "general"
+        },
+        {
+          "id": "1",
+          "concept": "learning",
+          "importance": 0.5,
+          "domain_cluster": "general"
+        },
+        {
+          "id": "2",
+          "concept": "for",
+          "importance": 0.5,
+          "domain_cluster": "general"
+        },
+        {
+          "id": "3",
+          "concept": "plant",
+          "importance": 0.5,
+          "domain_cluster": "general"
+        },
+        {
+          "id": "4",
+          "concept": "disease",
+          "importance": 0.5,
+          "domain_cluster": "general"
+        }
+      ],
+      "edges": [
+        {
+          "source": "0",
+          "target": "1",
+          "relationship_strength": 0.5
+        },
+        {
+          "source": "0",
+          "target": "2",
+          "relationship_strength": 0.5
+        },
+        {
+          "source": "0",
+          "target": "3",
+          "relationship_strength": 0.5
+        },
+        {
+          "source": "0",
+          "target": "4",
+          "relationship_strength": 0.5
+        }
+      ]
+    }
+  },
+  {
+    "id": "M4-13",
+    "feature": "Mind Map (department-based)",
+    "method": "POST",
+    "path": "/analytics/mindmap",
+    "request": {
+      "department": "Computer Science",
+      "max_nodes": 15
+    },
+    "status": 200,
+    "response": {
+      "nodes": [
+        {
+          "id": "0",
+          "concept": "Computer Science",
+          "importance": 0.5,
+          "domain_cluster": "Computer Science"
+        }
+      ],
+      "edges": []
+    }
+  },
+  {
+    "id": "M4-14",
+    "feature": "Cross-Module Dashboard KPIs",
+    "method": "GET",
+    "path": "/analytics/dashboard",
+    "request": null,
+    "status": 200,
+    "response": {
+      "total_proposals": 0,
+      "avg_quality_score": 0.0,
+      "top_trending_topics": [],
+      "at_risk_projects": 0,
+      "active_supervisors": 0
+    }
+  },
+  {
+    "id": "M4-15",
+    "feature": "Health + model metadata (training metrics)",
+    "method": "GET",
+    "path": "/health",
+    "request": null,
+    "status": 200,
+    "response": {
+      "status": "ok",
+      "service": "module4-analytics",
+      "version": "1.0.0",
+      "models": {
+        "quality_predictor": {
+          "loaded": true,
+          "version": "sliit-v1-quality",
+          "targets": [
+            "originality",
+            "citation_impact",
+            "methodology",
+            "clarity",
+            "overall"
+          ],
+          "metrics": {
+            "originality": {
+              "mae": 0.0026569683119937746,
+              "rmse": 0.004890346113265978,
+              "r2": 0.9992956579909911
+            },
+            "citation_impact": {
+              "mae": 0.0019369405838291934,
+              "rmse": 0.0047038300338241345,
+              "r2": 0.9982668551339134
+            },
+            "methodology": {
+              "mae": 0.004331447747219655,
+              "rmse": 0.006096659249007596,
+              "r2": 0.9993553149688943
+            },
+            "clarity": {
+              "mae": 0.005216056268573427,
+              "rmse": 0.008577478085533153,
+              "r2": 0.9972486069284788
+            },
+            "overall": {
+              "mae": 0.0034332240539923014,
+              "rmse": 0.005521751266690302,
+              "r2": 0.9970917772811894
+            }
+          }
+        },
+        "topic_classifier": {
+          "loaded": true,
+          "version": "sliit-v1-topic",
+          "labels": [
+            "business",
+            "computing",
+            "engineering",
+            "health",
+            "sciences",
+            "social_sciences"
+          ],
+          "encoder": "sentence-transformers/all-MiniLM-L6-v2"
+        },
+        "trend_forecaster": {
+          "loaded": true,
+          "version": "sliit-v1-trend",
+          "topics": [
+            "general",
+            "all",
+            "business",
+            "social_sciences",
+            "computing",
+            "health",
+            "engineering",
+            "sciences"
+          ]
+        },
+        "success_predictor": {
+          "loaded": true,
+          "version": "sliit-v1-success",
+          "metrics": {
+            "accuracy": 0.9827288428324698,
+            "roc_auc": 0.9993898718730934
+          }
+        }
+      }
+    }
+  }
+]
