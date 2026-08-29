@@ -33,24 +33,26 @@ MODEL_REGISTRY = [
         "name": "SBERT Academic Similarity",
         "owner": "K D T Kariyawasam",
         "module": "module1-integrity",
-        "metadata_path": "services/shared/models/sbert_academic/training_metadata.json",
+        "metadata_path": "services/module1-integrity/models/sbert_plagiarism/training_metadata.json",
         "targets": {},  # Triplet loss — evaluated via downstream tasks
     },
     {
         "id": 3,
-        "name": "SciBERT Topic Classifier",
+        "name": "Topic Classifier (TF-IDF, multi-label)",
         "owner": "N V Hewamanne",
         "module": "module3-data",
-        "metadata_path": "services/module3-data/models/scibert_classifier/training_metadata.json",
-        "targets": {"best_val_f1": 0.80},
+        "metadata_path": "services/module3-data/models/trained_topic_classifier/metadata.json",
+        "metrics_key": "metrics",
+        "targets": {"f1_macro": 0.80},
     },
     {
         "id": 4,
-        "name": "Aspect-Based Sentiment",
+        "name": "Supervisor Matcher (fine-tuned SBERT)",
         "owner": "S P U Gunathilaka",
         "module": "module2-collaboration",
-        "metadata_path": "services/module2-collaboration/models/sentiment/training_metadata.json",
-        "targets": {"best_val_f1": 0.85},
+        "metadata_path": "services/module2-collaboration/data/evaluation_results.json",
+        "metrics_key": "metrics",
+        "targets": {"f1_score": 0.75},
     },
     {
         "id": 5,
@@ -70,19 +72,38 @@ MODEL_REGISTRY = [
     },
     {
         "id": 7,
-        "name": "Trend Forecaster (ARIMA+Prophet)",
+        "name": "Trend Forecaster (ARIMA)",
         "owner": "H W S S Jayasundara",
         "module": "module4-analytics",
-        "metadata_path": "services/module4-analytics/models/forecasting/training_metadata.json",
-        "targets": {},  # Per-topic MAPE < 0.22
+        "metadata_path": "services/module4-analytics/models/trained_trend_forecaster/metadata.json",
+        "targets": {},  # Per-topic RMSE, no single pass/fail target
     },
     {
         "id": 8,
-        "name": "Success Predictor (RF+XGBoost)",
+        "name": "Success Predictor (XGBoost)",
         "owner": "H W S S Jayasundara",
         "module": "module4-analytics",
-        "metadata_path": "services/module4-analytics/models/prediction/training_metadata.json",
-        "targets": {"test_f1": 0.75, "test_roc_auc": 0.80},
+        "metadata_path": "services/module4-analytics/models/trained_success_predictor/metadata.json",
+        "metrics_key": "metrics",
+        "targets": {"accuracy": 0.75, "roc_auc": 0.80},
+    },
+    {
+        "id": "8b",
+        "name": "Quality Predictor (XGBoost regression)",
+        "owner": "H W S S Jayasundara",
+        "module": "module4-analytics",
+        "metadata_path": "services/module4-analytics/models/trained_quality_predictor/metadata.json",
+        "metrics_key": "metrics.overall",
+        "targets": {"r2": 0.60},
+    },
+    {
+        "id": "8c",
+        "name": "Analytics Topic Classifier (SBERT+LogReg)",
+        "owner": "H W S S Jayasundara",
+        "module": "module4-analytics",
+        "metadata_path": "services/module4-analytics/models/trained_topic_classifier/metadata.json",
+        "metrics_key": "metrics",
+        "targets": {"accuracy": 0.70},
     },
     {
         "id": 9,
@@ -130,12 +151,19 @@ def evaluate_model(model_info: dict, project_root: Path) -> dict:
         return result
 
     result["status"] = "trained"
-    result["metrics"] = {k: v for k, v in metadata.items() if isinstance(v, (int, float))}
+
+    # Metrics may live at the top level, or nested under a dotted path
+    # (e.g. "metrics" or "metrics.overall") given via "metrics_key".
+    metrics_source = metadata
+    for key in model_info.get("metrics_key", "").split("."):
+        if key and isinstance(metrics_source, dict):
+            metrics_source = metrics_source.get(key, {})
+    result["metrics"] = {k: v for k, v in metrics_source.items() if isinstance(v, (int, float))}
 
     # Check targets
     all_met = True
     for metric_key, target_value in model_info["targets"].items():
-        actual = metadata.get(metric_key)
+        actual = result["metrics"].get(metric_key, metadata.get(metric_key))
         if actual is not None:
             met = actual >= target_value
             result["targets_met"][metric_key] = {
@@ -173,7 +201,7 @@ def run_evaluation(project_root: str = ".", output_file: str | None = None) -> N
 
         status_icon = "PASS" if result["pass"] else ("SKIP" if result["status"] == "skipped" else "FAIL" if result["status"] == "trained" else "----")
         logger.info(
-            "[%s] Model %d: %s (%s)",
+            "[%s] Model %s: %s (%s)",
             status_icon, result["id"], result["name"], result["status"],
         )
         for metric, info in result.get("targets_met", {}).items():

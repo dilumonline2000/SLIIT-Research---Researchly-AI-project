@@ -1,0 +1,205 @@
+{
+  "summary": {
+    "total_models": 12,
+    "trained": 8,
+    "passing": 7,
+    "skipped": 0,
+    "not_trained": 4
+  },
+  "models": [
+    {
+      "id": 1,
+      "name": "Citation NER (spaCy)",
+      "owner": "K D T Kariyawasam",
+      "module": "module1-integrity",
+      "status": "trained",
+      "metrics": {
+        "best_f1": 0.9945292254534984,
+        "epochs_trained": 15,
+        "train_size": 3290,
+        "val_size": 581
+      },
+      "targets_met": {
+        "best_f1": {
+          "target": 0.85,
+          "actual": 0.9945292254534984,
+          "met": true
+        }
+      },
+      "pass": true
+    },
+    {
+      "id": 2,
+      "name": "SBERT Academic Similarity",
+      "owner": "K D T Kariyawasam",
+      "module": "module1-integrity",
+      "status": "trained",
+      "metrics": {
+        "epochs": 15,
+        "train_triplets": 9,
+        "val_triplets": 1
+      },
+      "targets_met": {},
+      "pass": true
+    },
+    {
+      "id": 3,
+      "name": "Topic Classifier (TF-IDF, multi-label)",
+      "owner": "N V Hewamanne",
+      "module": "module3-data",
+      "status": "trained",
+      "metrics": {
+        "f1_micro": 0.1538,
+        "f1_macro": 0.0543,
+        "top1_acc": 0.4808,
+        "top3_acc": 0.6923
+      },
+      "targets_met": {
+        "f1_macro": {
+          "target": 0.8,
+          "actual": 0.0543,
+          "met": false
+        }
+      },
+      "pass": false
+    },
+    {
+      "id": 4,
+      "name": "Supervisor Matcher (fine-tuned SBERT)",
+      "owner": "S P U Gunathilaka",
+      "module": "module2-collaboration",
+      "status": "trained",
+      "metrics": {
+        "accuracy": 0.9456,
+        "precision": 0.9407,
+        "recall": 1.0,
+        "f1_score": 0.9695,
+        "threshold": 0.6,
+        "target_f1": 0.75,
+        "target_met": true
+      },
+      "targets_met": {
+        "f1_score": {
+          "target": 0.75,
+          "actual": 0.9695,
+          "met": true
+        }
+      },
+      "pass": true
+    },
+    {
+      "id": 5,
+      "name": "Research Summarizer (BART+LoRA)",
+      "owner": "N V Hewamanne",
+      "module": "module3-data",
+      "status": "not_trained",
+      "metrics": {},
+      "targets_met": {},
+      "pass": false
+    },
+    {
+      "id": 6,
+      "name": "Proposal Generator (RAG+LoRA)",
+      "owner": "K D T Kariyawasam",
+      "module": "module1-integrity",
+      "status": "not_trained",
+      "metrics": {},
+      "targets_met": {},
+      "pass": false
+    },
+    {
+      "id": 7,
+      "name": "Trend Forecaster (ARIMA)",
+      "owner": "H W S S Jayasundara",
+      "module": "module4-analytics",
+      "status": "trained",
+      "metrics": {},
+      "targets_met": {},
+      "pass": true
+    },
+    {
+      "id": 8,
+      "name": "Success Predictor (XGBoost)",
+      "owner": "H W S S Jayasundara",
+      "module": "module4-analytics",
+      "status": "trained",
+      "metrics": {
+        "accuracy": 0.9827288428324698,
+        "roc_auc": 0.9993898718730934
+      },
+      "targets_met": {
+        "accuracy": {
+          "target": 0.75,
+          "actual": 0.9827288428324698,
+          "met": true
+        },
+        "roc_auc": {
+          "target": 0.8,
+          "actual": 0.9993898718730934,
+          "met": true
+        }
+      },
+      "pass": true
+    },
+    {
+      "id": "8b",
+      "name": "Quality Predictor (XGBoost regression)",
+      "owner": "H W S S Jayasundara",
+      "module": "module4-analytics",
+      "status": "trained",
+      "metrics": {
+        "mae": 0.0034332240539923014,
+        "rmse": 0.005521751266690302,
+        "r2": 0.9970917772811894
+      },
+      "targets_met": {
+        "r2": {
+          "target": 0.6,
+          "actual": 0.9970917772811894,
+          "met": true
+        }
+      },
+      "pass": true
+    },
+    {
+      "id": "8c",
+      "name": "Analytics Topic Classifier (SBERT+LogReg)",
+      "owner": "H W S S Jayasundara",
+      "module": "module4-analytics",
+      "status": "trained",
+      "metrics": {
+        "accuracy": 0.7086956521739131,
+        "f1_macro": 0.6265180411195878,
+        "f1_weighted": 0.7144532892066163
+      },
+      "targets_met": {
+        "accuracy": {
+          "target": 0.7,
+          "actual": 0.7086956521739131,
+          "met": true
+        }
+      },
+      "pass": true
+    },
+    {
+      "id": 9,
+      "name": "GNN Mind Map (GCN)",
+      "owner": "H W S S Jayasundara",
+      "module": "module4-analytics",
+      "status": "not_trained",
+      "metrics": {},
+      "targets_met": {},
+      "pass": false
+    },
+    {
+      "id": 10,
+      "name": "BERTopic Discovery",
+      "owner": "N V Hewamanne",
+      "module": "module3-data",
+      "status": "not_trained",
+      "metrics": {},
+      "targets_met": {},
+      "pass": false
+    }
+  ]
+}
