@@ -26,7 +26,8 @@ from typing import Any
 
 _URL_RE = re.compile(r"\bhttps?://\S+", re.IGNORECASE)
 _DOI_RE = re.compile(r"\b(?:doi:\s*)?(10\.\d{4,9}/[-._;()/:A-Z0-9]+)", re.IGNORECASE)
-_YEAR_RE = re.compile(r"(?:\(\s*(\d{4})\s*\)|\b(19|20)\d{2}\b)")
+_YEAR_RE = re.compile(r"(?:\(\s*(\d{4})\s*\)|\b((?:19|20)\d{2})\b)")
+_QUOTED_TITLE_RE = re.compile(r'[“"](.+?)[”"]')
 _PAGE_RE = re.compile(r"\bpp?\.?\s*(\d+\s*[-–—]\s*\d+)\b", re.IGNORECASE)
 _VOLUME_RE = re.compile(r"\bvol\.?\s*(\d+)|\bvolume\s+(\d+)", re.IGNORECASE)
 _ISSUE_RE = re.compile(r"\bno\.?\s*(\d+)|\bissue\s+(\d+)", re.IGNORECASE)
@@ -95,13 +96,13 @@ def _extract_authors(chunk: str) -> list[str]:
         if not p or len(p) < 2:
             continue
         # Already "Last, Initials" form?
-        m = _INITIALS_NAME_RE.match(p)
+        m = _INITIALS_NAME_RE.fullmatch(p)
         if m:
             last, initials = m.group(1), m.group(2).replace(" ", "")
             authors.append(f"{last}, {initials.rstrip('.')}.")
             continue
-        # "F. Last" or "John Smith" form
-        m2 = _NAME_INITIALS_RE.match(p)
+        # "F. Last" form
+        m2 = _NAME_INITIALS_RE.fullmatch(p)
         if m2:
             initials, last = m2.group(1).replace(" ", ""), m2.group(2)
             authors.append(f"{last}, {initials.rstrip('.')}.")
@@ -181,8 +182,17 @@ def parse(raw_text: str) -> dict[str, Any]:
     if valid:
         out["year"] = max(valid) if len(valid) > 1 else valid[0]
 
-    # Authors / title — split on the year position when present
-    if out["year"]:
+    # Authors / title — a quoted title (common in IEEE-style citations, e.g.
+    # `Author, "Title," in Conference, pp. X-Y, Year.`) is the most reliable
+    # anchor when present, regardless of where the year falls in the string.
+    quote_m = _QUOTED_TITLE_RE.search(text)
+    if quote_m and quote_m.start() > 0:
+        author_chunk = text[: quote_m.start()].strip().rstrip(",.")
+        out["authors"] = _extract_authors(author_chunk)
+        out["title"] = quote_m.group(1).strip().rstrip(",.")
+        rest = text[quote_m.end():].strip().lstrip(",. ")
+        _attach_venue(out, rest)
+    elif out["year"]:
         # APA shape: "Smith, J. (2020). Title. Journal..."
         year_marker = re.search(rf"\(?\s*{out['year']}\s*\)?\.?", text)
         if year_marker:
