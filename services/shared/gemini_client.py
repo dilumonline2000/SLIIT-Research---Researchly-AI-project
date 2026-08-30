@@ -35,8 +35,9 @@ def _get_model() -> str:
 def generate(prompt: str, temperature: float = 0.3, max_tokens: int = 2048) -> str:
     """Call Gemini generateContent and return the text response.
 
-    Retries once with the fallback model on 429 rate-limit errors so a
-    temporarily exhausted quota on the primary model doesn't break chat.
+    Retries with the fallback models on 429 (rate limit) and 5xx (Gemini
+    returns a transient 503 "model overloaded" fairly often) so a temporarily
+    unavailable primary model doesn't break the caller.
     """
     key = _get_key()
     payload = {
@@ -54,9 +55,9 @@ def generate(prompt: str, temperature: float = 0.3, max_tokens: int = 2048) -> s
         url = f"{_BASE_URL}/{model}:generateContent?key={key}"
         try:
             r = requests.post(url, json=payload, timeout=60)
-            if r.status_code == 429:
-                logger.warning("Gemini 429 on %s (attempt %d/%d)",
-                               model, attempt + 1, len(models_to_try))
+            if r.status_code == 429 or r.status_code >= 500:
+                logger.warning("Gemini %d on %s (attempt %d/%d)",
+                               r.status_code, model, attempt + 1, len(models_to_try))
                 if attempt < len(models_to_try) - 1:
                     time.sleep(1)
                     continue

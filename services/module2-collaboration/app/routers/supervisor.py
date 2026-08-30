@@ -265,13 +265,21 @@ async def _query_semantic_scholar(name: str) -> tuple[list[dict], bool]:
 
 
 # ─── AI-generated "recent research focus" summary ──────────────────────────
-# LLM calls are far more expensive than a Semantic Scholar lookup, so this is
-# cached much longer (a supervisor's research focus doesn't shift hour to
-# hour) and is strictly best-effort: any failure just omits the field, it
-# never breaks the existing papers/charts response.
+# LLM calls are far more expensive than a Semantic Scholar lookup, so a
+# successful summary is cached much longer (a supervisor's research focus
+# doesn't shift hour to hour) and is strictly best-effort: any failure just
+# omits the field, it never breaks the existing papers/charts response.
+#
+# Gemini frequently returns a transient 503 ("model overloaded"). Caching that
+# miss for the full 24h — as an earlier version did — is why the summary would
+# render on one deployment (which happened to get a success) but stay blank for
+# a whole day on another (which cached a failure on its first call). So a miss
+# is cached only briefly and retried on the next view, mirroring the
+# success/failure split already used for the Semantic Scholar cache above.
 
 _focus_cache: dict[int, tuple[Optional[dict], float]] = {}
-_FOCUS_TTL: float = 86_400.0  # 24h
+_FOCUS_TTL: float = 86_400.0     # 24h — successful summary
+_FOCUS_FAILURE_TTL: float = 300.0  # 5 min — transient LLM failure, retry soon
 
 
 def _generate_research_focus(name: str, papers: list[PaperEntry]) -> Optional[dict]:
@@ -361,8 +369,15 @@ async def get_supervisor_papers(supervisor_id: int) -> SupervisorPapersResponse:
     topic_dist = [{"name": ri, "value": 1} for ri in research_interests[:10]]
 
     focus_cached = _focus_cache.get(supervisor_id)
-    if focus_cached and (time.time() - focus_cached[1]) < _FOCUS_TTL:
-        focus_data = focus_cached[0]
+    if focus_cached:
+        cached_focus, cached_focus_at = focus_cached
+        focus_ttl = _FOCUS_TTL if cached_focus else _FOCUS_FAILURE_TTL
+        fresh = (time.time() - cached_focus_at) < focus_ttl
+    else:
+        cached_focus, fresh = None, False
+
+    if fresh:
+        focus_data = cached_focus
     else:
         focus_data = _generate_research_focus(supervisor.get("name", ""), papers)
         _focus_cache[supervisor_id] = (focus_data, time.time())
