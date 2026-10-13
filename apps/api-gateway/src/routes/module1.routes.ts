@@ -177,10 +177,13 @@ router.post("/plagiarism/check", async (req, res, next) => {
   }
 });
 
-// Mind map builder
+// Mind map builder — allow extra time; the ML service calls Gemini (with its
+// own bounded retry) before falling back to a local extractor.
 router.post("/mindmaps/generate", async (req, res, next) => {
   try {
-    const data = await callMlService(1, "/mindmaps/generate", "POST", req.body);
+    const data = await callMlService(1, "/mindmaps/generate", "POST", req.body, {
+      timeout: 100_000,
+    });
     res.json(data);
   } catch (err) {
     next(err);

@@ -133,20 +133,83 @@ function runForceLayout(
   return result;
 }
 
+// ── Radial (hierarchical) layout ─────────────────────────────────────────
+// For strict 2-level trees (central → branch → item), a deterministic radial
+// layout reads far cleaner than the force simulation: the root sits in the
+// middle, branches sit on an inner ring, and each branch's items fan out in
+// that branch's own angular slice.
+function runRadialLayout(
+  nodes: GraphNode[],
+  links: GraphLink[],
+  width: number,
+  height: number,
+): Map<string, SimPos> {
+  const cx = width / 2;
+  const cy = height / 2;
+  const pos = new Map<string, SimPos>();
+  if (!nodes.length) return pos;
+
+  const root = nodes.find((n) => n.type === "central") ?? nodes[0];
+  pos.set(root.id, { x: cx, y: cy });
+
+  const childrenOf = new Map<string, string[]>();
+  for (const l of links) {
+    if (!childrenOf.has(l.source)) childrenOf.set(l.source, []);
+    childrenOf.get(l.source)!.push(l.target);
+  }
+
+  const branches = childrenOf.get(root.id) ?? [];
+  const n = Math.max(1, branches.length);
+  const minDim = Math.min(width, height);
+  const R1 = minDim * 0.2;             // inner ring — branches
+  const R2 = minDim * 0.34;            // outer ring — items
+  const stagger = minDim * 0.07;       // alternate item radius to avoid overlap
+  const start = -Math.PI / 2;          // first branch straight up
+
+  branches.forEach((bId, i) => {
+    const a = start + (i / n) * Math.PI * 2;
+    pos.set(bId, { x: cx + Math.cos(a) * R1, y: cy + Math.sin(a) * R1 });
+
+    const items = childrenOf.get(bId) ?? [];
+    const k = items.length;
+    const span = (Math.PI * 2 / n) * 0.7; // angular width of this branch's fan
+    items.forEach((itId, j) => {
+      const t = k <= 1 ? 0 : j / (k - 1) - 0.5; // -0.5 … 0.5
+      const ia = a + t * span;
+      const r = R2 + (j % 2) * stagger;
+      pos.set(itId, { x: cx + Math.cos(ia) * r, y: cy + Math.sin(ia) * r });
+    });
+  });
+
+  // Safety: place any orphan node on a mid ring so it is still visible.
+  nodes.forEach((node, idx) => {
+    if (pos.has(node.id)) return;
+    const a = start + (idx / nodes.length) * Math.PI * 2;
+    pos.set(node.id, { x: cx + Math.cos(a) * R1 * 1.6, y: cy + Math.sin(a) * R1 * 1.6 });
+  });
+
+  return pos;
+}
+
 interface MindMapGraphProps {
   nodes: GraphNode[];
   links: GraphLink[];
   width: number;
   height: number;
+  /** "force" (default) runs the physics sim; "radial" lays a clean tree out. */
+  layout?: "force" | "radial";
 }
 
-export function MindMapGraph({ nodes, links, width, height }: MindMapGraphProps) {
+export function MindMapGraph({ nodes, links, width, height, layout = "force" }: MindMapGraphProps) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   const positions = useMemo(
-    () => runForceLayout(nodes, links, width, height),
+    () =>
+      layout === "radial"
+        ? runRadialLayout(nodes, links, width, height)
+        : runForceLayout(nodes, links, width, height),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [nodes.map((n) => n.id).join(","), links.length, width, height],
+    [nodes.map((n) => n.id).join(","), links.length, width, height, layout],
   );
 
   const connectedIds = useMemo(() => {
@@ -261,9 +324,10 @@ export function MindMapGraph({ nodes, links, width, height }: MindMapGraphProps)
         const isFocused = hoveredId !== null && isHighlighted;
         const strokeW = Math.max(1.2, link.weight * 4) * (isFocused ? 1.6 : 1);
 
-        // Curved bezier
-        const mx = (s.x + t.x) / 2 + (t.y - s.y) * 0.12;
-        const my = (s.y + t.y) / 2 - (t.x - s.x) * 0.12;
+        // Curved bezier — near-straight in radial mode for a cleaner tree look
+        const curve = layout === "radial" ? 0.03 : 0.12;
+        const mx = (s.x + t.x) / 2 + (t.y - s.y) * curve;
+        const my = (s.y + t.y) / 2 - (t.x - s.x) * curve;
 
         return (
           <g key={i}>
@@ -392,8 +456,11 @@ export function MindMapGraph({ nodes, links, width, height }: MindMapGraphProps)
               </text>
             )}
 
-            {/* External label (small nodes + always on hover) */}
-            {(!showInternalLabel || isHovered) && (
+            {/* External label. In radial mode only central + branch nodes are
+                labelled by default — item labels appear on hover — so 30+
+                pills don't stack on top of each other. */}
+            {(!showInternalLabel || isHovered) &&
+              (layout !== "radial" || isHovered || node.type === "central" || node.type === "primary") && (
               <g style={{ pointerEvents: "none" }}>
                 <rect
                   x={pos.x - Math.max(node.label.length, 4) * 3.4}

@@ -32,12 +32,23 @@ def _get_model() -> str:
     return os.environ.get("GEMINI_MODEL", _MODEL)
 
 
-def generate(prompt: str, temperature: float = 0.3, max_tokens: int = 2048) -> str:
+def generate(
+    prompt: str,
+    temperature: float = 0.3,
+    max_tokens: int = 2048,
+    timeout: int = 60,
+    try_fallbacks: bool = True,
+) -> str:
     """Call Gemini generateContent and return the text response.
 
     Retries with the fallback models on 429 (rate limit) and 5xx (Gemini
     returns a transient 503 "model overloaded" fairly often) so a temporarily
     unavailable primary model doesn't break the caller.
+
+    ``timeout`` is the per-request HTTP timeout (seconds). ``try_fallbacks``
+    controls whether the secondary models are attempted — callers with a tight
+    wall-clock budget can set it to False so a slow primary fails fast and the
+    caller can use its own fallback.
     """
     key = _get_key()
     payload = {
@@ -48,13 +59,13 @@ def generate(prompt: str, temperature: float = 0.3, max_tokens: int = 2048) -> s
         },
     }
 
-    models_to_try = [_get_model()] + _FALLBACK_MODELS
+    models_to_try = [_get_model()] + (_FALLBACK_MODELS if try_fallbacks else [])
     last_exc: Optional[Exception] = None
 
     for attempt, model in enumerate(models_to_try):
         url = f"{_BASE_URL}/{model}:generateContent?key={key}"
         try:
-            r = requests.post(url, json=payload, timeout=60)
+            r = requests.post(url, json=payload, timeout=timeout)
             if r.status_code == 429 or r.status_code >= 500:
                 logger.warning("Gemini %d on %s (attempt %d/%d)",
                                r.status_code, model, attempt + 1, len(models_to_try))
@@ -75,9 +86,19 @@ def generate(prompt: str, temperature: float = 0.3, max_tokens: int = 2048) -> s
     raise last_exc or RuntimeError("All Gemini models exhausted")
 
 
-def generate_json(prompt: str, temperature: float = 0.1) -> dict:
+def generate_json(
+    prompt: str,
+    temperature: float = 0.1,
+    timeout: int = 60,
+    try_fallbacks: bool = True,
+) -> dict:
     """Call Gemini and parse the response as JSON. Strips markdown fences."""
-    raw = generate(prompt + "\n\nRespond with valid JSON only, no markdown.", temperature=temperature)
+    raw = generate(
+        prompt + "\n\nRespond with valid JSON only, no markdown.",
+        temperature=temperature,
+        timeout=timeout,
+        try_fallbacks=try_fallbacks,
+    )
     # Strip markdown code fences if present
     if raw.startswith("```"):
         lines = raw.split("\n")
