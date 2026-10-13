@@ -356,7 +356,7 @@ export default function SummarizePage() {
                           <Icon className="h-4 w-4" />
                         </span>
                         {points[0].category_label}
-                        <Badge variant="secondary" className="ml-1 text-[10px]">
+                        <Badge variant="secondary" className="ml-1 text-[11px]">
                           {points.length} {points.length === 1 ? "point" : "points"}
                         </Badge>
                       </CardTitle>

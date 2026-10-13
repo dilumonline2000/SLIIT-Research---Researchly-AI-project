@@ -271,11 +271,11 @@ export default function ProposalGeneratorPage() {
                   </p>
                   <div className="flex items-center gap-2 flex-wrap">
                     {result.source === "local" ? (
-                      <Badge variant="outline" className="bg-emerald-100 text-emerald-700 border-emerald-200 text-[10px]">
+                      <Badge variant="outline" className="bg-emerald-100 text-emerald-700 border-emerald-200 text-[11px]">
                         <Database className="h-3 w-3 mr-1" /> Local SBERT model
                       </Badge>
                     ) : result.source === "gemini" ? (
-                      <Badge variant="outline" className="bg-blue-100 text-blue-700 border-blue-200 text-[10px]">
+                      <Badge variant="outline" className="bg-blue-100 text-blue-700 border-blue-200 text-[11px]">
                         <Sparkles className="h-3 w-3 mr-1" /> Gemini fallback
                       </Badge>
                     ) : null}
@@ -363,7 +363,7 @@ export default function ProposalGeneratorPage() {
                   <div key={i} className="rounded-md border bg-muted/30 p-3 text-sm space-y-1">
                     <div className="flex items-start justify-between gap-2">
                       <p className="font-medium flex-1">{p.title}</p>
-                      <Badge variant="secondary" className="text-[10px] shrink-0">
+                      <Badge variant="secondary" className="text-[11px] shrink-0">
                         {(p.similarity * 100).toFixed(0)}% match
                       </Badge>
                     </div>

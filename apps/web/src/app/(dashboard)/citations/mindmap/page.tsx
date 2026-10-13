@@ -368,7 +368,7 @@ export default function MindMapPage() {
                     <div className="flex items-center gap-2 text-blue-800 font-semibold text-sm">
                       <ListChecks className="h-4 w-4" />
                       {b.branch}
-                      <Badge variant="secondary" className="ml-auto text-[10px]">{b.items.length}</Badge>
+                      <Badge variant="secondary" className="ml-auto text-[11px]">{b.items.length}</Badge>
                     </div>
                     <ul className="space-y-1 text-xs text-foreground/80 list-disc pl-5">
                       {b.items.map((it, j) => (
@@ -392,7 +392,7 @@ export default function MindMapPage() {
                       <div className={`flex items-center gap-2 ${meta.color} font-semibold text-sm`}>
                         <Icon className="h-4 w-4" />
                         {meta.label}
-                        <Badge variant="secondary" className="ml-auto text-[10px]">
+                        <Badge variant="secondary" className="ml-auto text-[11px]">
                           {items.length}
                         </Badge>
                       </div>

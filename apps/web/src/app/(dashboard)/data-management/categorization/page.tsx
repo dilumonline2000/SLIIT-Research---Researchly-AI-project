@@ -205,7 +205,7 @@ export default function CategorizePage() {
                   <div key={p.paper_id} className="rounded-md border bg-muted/30 p-3 text-sm space-y-1">
                     <div className="flex items-start justify-between gap-2">
                       <p className="font-medium flex-1">{p.title}</p>
-                      <Badge variant="secondary" className="text-[10px] shrink-0">
+                      <Badge variant="secondary" className="text-[11px] shrink-0">
                         {(p.similarity * 100).toFixed(0)}% match
                       </Badge>
                     </div>

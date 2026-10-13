@@ -27,7 +27,7 @@ export default function PaperChatPage() {
     return <p className="text-sm text-muted-foreground">Starting chat session…</p>;
 
   return (
-    <div className="h-[calc(100vh-8rem)] overflow-hidden rounded-lg border bg-card">
+    <div className="h-[calc(100vh-8rem)] h-[calc(100dvh-8rem)] overflow-hidden rounded-xl border bg-card shadow-soft">
       <ChatWindow sessionId={activeSessionId} />
     </div>
   );

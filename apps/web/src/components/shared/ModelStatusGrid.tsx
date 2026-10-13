@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { CheckCircle2, XCircle, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const MODEL_LABELS: Record<string, { label: string; module: string }> = {
+export const MODEL_LABELS: Record<string, { label: string; module: string }> = {
   // Trained models (we have these)
   citation_ner: { label: 'Citation NER (spaCy)', module: 'Module 1' },
   sbert_plagiarism: { label: 'SBERT Plagiarism', module: 'Module 1' },
@@ -24,11 +24,11 @@ const MODEL_LABELS: Record<string, { label: string; module: string }> = {
 };
 
 const MODULE_COLORS: Record<string, string> = {
-  Shared: 'bg-gray-100 text-gray-600',
-  'Module 1': 'bg-blue-100 text-blue-700',
-  'Module 2': 'bg-green-100 text-green-700',
-  'Module 3': 'bg-orange-100 text-orange-700',
-  'Module 4': 'bg-purple-100 text-purple-700',
+  Shared: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300',
+  'Module 1': 'bg-blue-100 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300',
+  'Module 2': 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300',
+  'Module 3': 'bg-orange-100 text-orange-700 dark:bg-orange-950/60 dark:text-orange-300',
+  'Module 4': 'bg-purple-100 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300',
 };
 
 export function ModelStatusGrid() {
@@ -45,7 +45,7 @@ export function ModelStatusGrid() {
         </span>
         <div className="w-32 h-2 bg-muted rounded-full overflow-hidden">
           <div
-            className="h-full bg-green-500 rounded-full transition-all"
+            className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-400 transition-all"
             style={{ width: `${(loadedCount / totalModels) * 100}%` }}
           />
         </div>
@@ -60,19 +60,21 @@ export function ModelStatusGrid() {
             <div
               key={key}
               className={cn(
-                'flex items-center gap-2.5 p-2.5 rounded-lg border text-sm',
-                isLoaded ? 'border-green-200 bg-green-50/50' : 'border-gray-200 bg-gray-50/50'
+                'flex items-center gap-2.5 p-3 rounded-xl border text-sm transition-colors',
+                isLoaded
+                  ? 'border-emerald-200 bg-emerald-50/60 dark:border-emerald-900/60 dark:bg-emerald-950/25'
+                  : 'border-border bg-muted/40'
               )}
             >
               {isLoaded ? (
-                <CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
               ) : (
-                <XCircle className="w-4 h-4 text-gray-300 shrink-0" />
+                <XCircle className="w-4 h-4 text-muted-foreground/50 shrink-0" />
               )}
 
               <div className="flex-1 min-w-0">
                 <p
-                  className={cn('font-medium truncate', isLoaded ? 'text-gray-900' : 'text-gray-400')}
+                  className={cn('font-medium truncate', isLoaded ? 'text-foreground' : 'text-muted-foreground')}
                 >
                   {label}
                 </p>
@@ -96,7 +98,7 @@ export function ModelStatusGrid() {
       </div>
 
       {loadedCount === 0 && !isChecking && (
-        <div className="flex items-start gap-2 p-3 rounded-lg bg-yellow-50 border border-yellow-200 text-sm text-yellow-800">
+        <div className="flex items-start gap-2 p-3 rounded-lg bg-yellow-50 border border-yellow-200 text-sm text-yellow-800 dark:bg-yellow-950/30 dark:border-yellow-900/60 dark:text-yellow-200">
           <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
           <div>
             <p className="font-medium">No local models trained yet</p>

@@ -184,15 +184,15 @@ export default function EffectivenessPage() {
                         {detail.supervisor.rank ? `${detail.supervisor.rank} ` : ""}
                         {detail.supervisor.name}
                       </h2>
-                      <Badge variant="outline" className="bg-white/15 border-white/30 text-white text-[10px]">
+                      <Badge variant="outline" className="bg-white/15 border-white/30 text-white text-[11px]">
                         {detail.supervisor.source === "sliit" ? "SLIIT" : "System"}
                       </Badge>
                       {detail.supervisor.availability !== false ? (
-                        <Badge variant="outline" className="bg-emerald-500/20 border-emerald-300/30 text-white text-[10px]">
+                        <Badge variant="outline" className="bg-emerald-500/20 border-emerald-300/30 text-white text-[11px]">
                           Available
                         </Badge>
                       ) : (
-                        <Badge variant="outline" className="bg-red-500/20 border-red-300/30 text-white text-[10px]">
+                        <Badge variant="outline" className="bg-red-500/20 border-red-300/30 text-white text-[11px]">
                           Not accepting
                         </Badge>
                       )}
@@ -301,7 +301,7 @@ export default function EffectivenessPage() {
                               {fb.rater_name || "Anonymous"}
                             </span>
                             {fb.rater_email && (
-                              <span className="inline-flex items-center gap-1 rounded-full border bg-background px-2 py-0.5 text-[10px] text-muted-foreground">
+                              <span className="inline-flex items-center gap-1 rounded-full border bg-background px-2 py-0.5 text-[11px] text-muted-foreground">
                                 <ShieldCheck className="h-3 w-3 text-emerald-500" />
                                 {fb.rater_email}
                               </span>
@@ -311,7 +311,7 @@ export default function EffectivenessPage() {
                         {fb.overall_sentiment && (
                           <Badge
                             variant="outline"
-                            className={`text-[10px] ${sentimentColor(fb.overall_sentiment)}`}
+                            className={`text-[11px] ${sentimentColor(fb.overall_sentiment)}`}
                           >
                             {fb.overall_sentiment}
                           </Badge>
@@ -326,7 +326,7 @@ export default function EffectivenessPage() {
                       )}
 
                       {/* Meta */}
-                      <div className="flex items-center gap-3 text-[10px] text-muted-foreground">
+                      <div className="flex items-center gap-3 text-[11px] text-muted-foreground">
                         {fb.created_at && (
                           <span>{new Date(fb.created_at).toLocaleDateString()}</span>
                         )}
@@ -406,14 +406,14 @@ export default function EffectivenessPage() {
                     variant="outline"
                     className={
                       s.source === "sliit"
-                        ? "bg-blue-50 text-blue-700 border-blue-200 text-[10px]"
-                        : "bg-purple-50 text-purple-700 border-purple-200 text-[10px]"
+                        ? "bg-blue-50 text-blue-700 border-blue-200 text-[11px]"
+                        : "bg-purple-50 text-purple-700 border-purple-200 text-[11px]"
                     }
                   >
                     {s.source.toUpperCase()}
                   </Badge>
                   {s.availability === false && (
-                    <Badge variant="outline" className="bg-red-50 text-red-700 border-red-200 text-[10px]">
+                    <Badge variant="outline" className="bg-red-50 text-red-700 border-red-200 text-[11px]">
                       Unavailable
                     </Badge>
                   )}
@@ -427,12 +427,12 @@ export default function EffectivenessPage() {
                 {s.research_areas.length > 0 && (
                   <div className="mt-1.5 flex flex-wrap gap-1">
                     {s.research_areas.slice(0, 4).map((a) => (
-                      <span key={a} className="text-[10px] rounded-full bg-muted px-2 py-0.5">
+                      <span key={a} className="text-[11px] rounded-full bg-muted px-2 py-0.5">
                         {a}
                       </span>
                     ))}
                     {s.research_areas.length > 4 && (
-                      <span className="text-[10px] text-muted-foreground">
+                      <span className="text-[11px] text-muted-foreground">
                         +{s.research_areas.length - 4}
                       </span>
                     )}
@@ -442,11 +442,11 @@ export default function EffectivenessPage() {
 
               <div className="flex items-center gap-6 text-right">
                 <div>
-                  <p className="text-[10px] text-muted-foreground uppercase tracking-wide">Effectiveness</p>
+                  <p className="text-[11px] text-muted-foreground uppercase tracking-wide">Effectiveness</p>
                   <p className="text-xl font-bold">{((s.overall_score ?? 0) * 100).toFixed(0)}%</p>
                 </div>
                 <div>
-                  <p className="text-[10px] text-muted-foreground uppercase tracking-wide">Rating</p>
+                  <p className="text-[11px] text-muted-foreground uppercase tracking-wide">Rating</p>
                   {s.avg_stars !== null ? (
                     <div className="flex items-center gap-1">
                       <span className="text-lg font-semibold">{s.avg_stars.toFixed(1)}</span>
@@ -455,7 +455,7 @@ export default function EffectivenessPage() {
                   ) : (
                     <p className="text-sm text-muted-foreground">No ratings yet</p>
                   )}
-                  <p className="text-[10px] text-muted-foreground">{s.n_ratings} ratings</p>
+                  <p className="text-[11px] text-muted-foreground">{s.n_ratings} ratings</p>
                 </div>
                 {s.email && (
                   <a
@@ -490,7 +490,7 @@ function Row({ label, value, weight }: { label: string; value: string; weight: s
       <span className="text-muted-foreground">{label}</span>
       <div className="flex items-center gap-3">
         <span className="font-medium">{value}</span>
-        <Badge variant="secondary" className="text-[10px]">weight {weight}</Badge>
+        <Badge variant="secondary" className="text-[11px]">weight {weight}</Badge>
       </div>
     </div>
   );

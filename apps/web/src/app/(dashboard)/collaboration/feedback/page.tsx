@@ -209,7 +209,7 @@ function EmailVerificationStep({
             SMTP not configured — verification code shown here for demo:
           </p>
           <p className="text-2xl font-mono font-bold tracking-[0.3em] text-amber-900">{devOtp}</p>
-          <p className="text-[10px] text-amber-700">
+          <p className="text-[11px] text-amber-700">
             Configure <code>SMTP_HOST / SMTP_USER / SMTP_PASS</code> in{" "}
             <code>services/module2-collaboration/.env</code> to send real emails.
           </p>
@@ -393,14 +393,14 @@ export default function FeedbackAnalysisPage() {
                   variant="outline"
                   className={
                     selected.source === "sliit"
-                      ? "bg-blue-50 text-blue-700 border-blue-200 text-[10px]"
-                      : "bg-purple-50 text-purple-700 border-purple-200 text-[10px]"
+                      ? "bg-blue-50 text-blue-700 border-blue-200 text-[11px]"
+                      : "bg-purple-50 text-purple-700 border-purple-200 text-[11px]"
                   }
                 >
                   {selected.source.toUpperCase()}
                 </Badge>
                 {selected.availability === false && (
-                  <Badge variant="outline" className="bg-red-50 text-red-700 border-red-200 text-[10px]">
+                  <Badge variant="outline" className="bg-red-50 text-red-700 border-red-200 text-[11px]">
                     Unavailable
                   </Badge>
                 )}
@@ -413,7 +413,7 @@ export default function FeedbackAnalysisPage() {
               {selected.research_areas.length > 0 && (
                 <div className="flex flex-wrap gap-1 pt-1">
                   {selected.research_areas.slice(0, 6).map((a) => (
-                    <span key={a} className="rounded-full bg-background border px-2 py-0.5 text-[10px]">
+                    <span key={a} className="rounded-full bg-background border px-2 py-0.5 text-[11px]">
                       {a}
                     </span>
                   ))}
@@ -431,7 +431,7 @@ export default function FeedbackAnalysisPage() {
             <CardTitle className="text-lg flex items-center gap-2">
               2 · Verify your email
               {verifiedEmail && (
-                <Badge variant="outline" className="ml-auto bg-emerald-50 text-emerald-700 border-emerald-200 text-[10px]">
+                <Badge variant="outline" className="ml-auto bg-emerald-50 text-emerald-700 border-emerald-200 text-[11px]">
                   <ShieldCheck className="h-3 w-3 mr-1" /> Verified
                 </Badge>
               )}

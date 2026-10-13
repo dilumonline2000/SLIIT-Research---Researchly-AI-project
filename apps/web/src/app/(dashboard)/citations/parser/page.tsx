@@ -360,7 +360,7 @@ export default function CitationParserPage() {
           </Button>
           <Button variant={tab === "list" ? "default" : "outline"} size="sm" onClick={() => setTab("list")}>
             <ListOrdered className="mr-2 h-4 w-4" /> Reference List
-            {list.length > 0 && <Badge variant="secondary" className="ml-2 text-[10px]">{list.length}</Badge>}
+            {list.length > 0 && <Badge variant="secondary" className="ml-2 text-[11px]">{list.length}</Badge>}
           </Button>
         </div>
         <div className="flex items-center gap-2 rounded-md border bg-card p-1">
@@ -619,7 +619,7 @@ export default function CitationParserPage() {
                       <div key={p.paper_id} className="rounded-md border bg-muted/30 p-3 text-sm space-y-1">
                         <div className="flex items-start justify-between gap-2">
                           <p className="font-medium flex-1">{p.title}</p>
-                          <Badge variant="secondary" className="shrink-0 text-[10px]">
+                          <Badge variant="secondary" className="shrink-0 text-[11px]">
                             {(p.similarity * 100).toFixed(0)}% match
                           </Badge>
                         </div>

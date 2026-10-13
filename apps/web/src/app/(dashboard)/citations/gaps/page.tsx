@@ -559,11 +559,11 @@ export default function GapAnalysisPage() {
                   <div key={i} className="rounded-md border p-4 space-y-2">
                     <div className="flex items-start justify-between gap-2 flex-wrap">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <Badge variant="outline" className="font-mono text-[10px]">#{i + 1}</Badge>
+                        <Badge variant="outline" className="font-mono text-[11px]">#{i + 1}</Badge>
                         <Badge variant="outline" className={`${style.bg} ${style.text} ${style.border}`}>
                           {g.category_label}
                         </Badge>
-                        <Badge variant="secondary" className="text-[10px]">
+                        <Badge variant="secondary" className="text-[11px]">
                           Score: {(g.multi_dim_score * 100).toFixed(0)}%
                         </Badge>
                       </div>

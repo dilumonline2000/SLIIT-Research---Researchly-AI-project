@@ -487,7 +487,7 @@ export default function TrendsPage() {
                       }`}
                     >
                       <span className="font-medium">{p.label}</span>
-                      <span className="ml-1.5 text-[10px] opacity-70">({p.topics.length})</span>
+                      <span className="ml-1.5 text-[11px] opacity-70">({p.topics.length})</span>
                     </button>
                   );
                 })}
@@ -656,7 +656,7 @@ export default function TrendsPage() {
                       <div className="flex-1 min-w-0">
                         <p className="font-medium capitalize">{e.topic}</p>
                         <p className="text-xs text-muted-foreground mt-0.5">{renderInline(e.interpretation)}</p>
-                        <div className="mt-1.5 flex flex-wrap gap-3 text-[10px] text-muted-foreground">
+                        <div className="mt-1.5 flex flex-wrap gap-3 text-[11px] text-muted-foreground">
                           <span>Recent slope: <strong>{e.recent_slope >= 0 ? "+" : ""}{e.recent_slope.toFixed(1)}/yr</strong></span>
                           <span>Long-term: {e.long_term_slope >= 0 ? "+" : ""}{e.long_term_slope.toFixed(1)}/yr</span>
                           <span>Latest count: {e.latest_count}</span>
@@ -692,7 +692,7 @@ export default function TrendsPage() {
                       <div key={r.topic} className="rounded-md border p-3 space-y-2">
                         <div className="flex items-start justify-between gap-2 flex-wrap">
                           <div className="flex items-center gap-2 flex-wrap">
-                            <Badge variant="outline" className="font-mono text-[10px]">#{i + 1}</Badge>
+                            <Badge variant="outline" className="font-mono text-[11px]">#{i + 1}</Badge>
                             <h3 className="font-semibold">{r.suggested_title}</h3>
                           </div>
                           <div className="flex gap-2">
@@ -758,7 +758,7 @@ function ForecastCard({ forecast }: { forecast: Forecast }) {
           <div>
             <CardTitle className="text-lg capitalize flex items-center gap-2">
               {forecast.topic.replace(/_/g, " ")}
-              <Badge variant="outline" className="text-[10px]">{forecast.model_type}</Badge>
+              <Badge variant="outline" className="text-[11px]">{forecast.model_type}</Badge>
             </CardTitle>
             <CardDescription>
               Data: {forecast.data_range} · {forecast.historical.length} historical points
@@ -850,7 +850,7 @@ function ForecastCard({ forecast }: { forecast: Forecast }) {
 function MiniStat({ label, value }: { label: string; value: string | number }) {
   return (
     <div className="rounded-md bg-muted/40 p-2">
-      <p className="text-muted-foreground text-[10px] uppercase tracking-wide">{label}</p>
+      <p className="text-muted-foreground text-[11px] uppercase tracking-wide">{label}</p>
       <p className="font-semibold tabular-nums">{value}</p>
     </div>
   );

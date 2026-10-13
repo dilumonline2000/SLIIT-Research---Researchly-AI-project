@@ -63,10 +63,38 @@ interface SupervisorPapersResponse {
 
 // ─── Constants ─────────────────────────────────────────────────────────────
 
+// Distinct hues so neighbouring slices/bars stay easy to tell apart
 const CHART_COLORS = [
-  "#6366f1", "#8b5cf6", "#a78bfa", "#c084fc",
-  "#7c3aed", "#4f46e5", "#4338ca", "#3730a3", "#ec4899", "#f43f5e",
+  "#6366f1", "#a855f7", "#ec4899", "#06b6d4", "#f59e0b",
+  "#10b981", "#8b5cf6", "#f43f5e", "#3b82f6", "#84cc16",
 ];
+
+const RADIAN = Math.PI / 180;
+
+// Percentage label drawn inside each donut slice (hidden on tiny slices)
+function renderPieLabel({
+  cx, cy, midAngle, innerRadius, outerRadius, percent,
+}: {
+  cx: number; cy: number; midAngle: number;
+  innerRadius: number; outerRadius: number; percent: number;
+}) {
+  if (!percent || percent < 0.06) return null;
+  const r = innerRadius + (outerRadius - innerRadius) / 2;
+  const x = cx + r * Math.cos(-midAngle * RADIAN);
+  const y = cy + r * Math.sin(-midAngle * RADIAN);
+  return (
+    <text
+      x={x}
+      y={y}
+      fill="#ffffff"
+      textAnchor="middle"
+      dominantBaseline="central"
+      style={{ fontSize: 14, fontWeight: 700 }}
+    >
+      {`${Math.round(percent * 100)}%`}
+    </text>
+  );
+}
 
 // ─── Score bar ────────────────────────────────────────────────────────────
 
@@ -114,12 +142,12 @@ function SupervisorDetailView({
               <div className="flex items-center gap-2 flex-wrap">
                 <GraduationCap className="h-5 w-5 opacity-80" />
                 <h2 className="text-xl font-bold">{match.name}</h2>
-                <Badge variant="outline" className="bg-white/15 border-white/30 text-white text-[10px]">
+                <Badge variant="outline" className="bg-white/15 border-white/30 text-white text-[11px]">
                   SLIIT
                 </Badge>
                 <Badge
                   variant="outline"
-                  className={`text-[10px] ${match.availability
+                  className={`text-[11px] ${match.availability
                     ? "bg-emerald-500/20 border-emerald-300/30 text-white"
                     : "bg-red-500/20 border-red-300/30 text-white"}`}
                 >
@@ -233,18 +261,18 @@ function SupervisorDetailView({
                 Publications by Year
               </h4>
               {yearData.length > 0 ? (
-                <ResponsiveContainer width="100%" height={220}>
+                <ResponsiveContainer width="100%" height={280}>
                   <BarChart data={yearData} margin={{ top: 4, right: 8, left: -20, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
                     <XAxis
                       dataKey="year"
-                      tick={{ fontSize: 11 }}
+                      tick={{ fontSize: 13, fill: "hsl(var(--muted-foreground))" }}
                       axisLine={false}
                       tickLine={false}
                     />
                     <YAxis
                       allowDecimals={false}
-                      tick={{ fontSize: 11 }}
+                      tick={{ fontSize: 13, fill: "hsl(var(--muted-foreground))" }}
                       axisLine={false}
                       tickLine={false}
                     />
@@ -252,12 +280,13 @@ function SupervisorDetailView({
                       contentStyle={{
                         backgroundColor: "hsl(var(--card))",
                         border: "1px solid hsl(var(--border))",
-                        borderRadius: "8px",
-                        fontSize: "12px",
+                        borderRadius: "10px",
+                        fontSize: "14px",
+                        color: "hsl(var(--card-foreground))",
                       }}
                       formatter={(val) => [`${val} paper${Number(val) !== 1 ? "s" : ""}`, "Publications"]}
                     />
-                    <Bar dataKey="count" radius={[4, 4, 0, 0]}>
+                    <Bar dataKey="count" radius={[6, 6, 0, 0]} maxBarSize={72}>
                       {yearData.map((_, idx) => (
                         <Cell
                           key={idx}
@@ -269,7 +298,7 @@ function SupervisorDetailView({
                   </BarChart>
                 </ResponsiveContainer>
               ) : (
-                <div className="h-[220px] flex items-center justify-center text-sm text-muted-foreground italic rounded-md border border-dashed">
+                <div className="h-[280px] flex items-center justify-center text-sm text-muted-foreground italic rounded-md border border-dashed">
                   Year data not available
                 </div>
               )}
@@ -281,15 +310,20 @@ function SupervisorDetailView({
                 Research Topic Distribution
               </h4>
               {topicData.length > 0 ? (
-                <ResponsiveContainer width="100%" height={220}>
+                <ResponsiveContainer width="100%" height={300}>
                   <PieChart>
                     <Pie
                       data={topicData}
                       cx="50%"
-                      cy="45%"
-                      outerRadius={75}
+                      cy="42%"
+                      innerRadius={48}
+                      outerRadius={98}
+                      paddingAngle={2}
                       dataKey="value"
-                      stroke="none"
+                      stroke="hsl(var(--card))"
+                      strokeWidth={2}
+                      labelLine={false}
+                      label={renderPieLabel}
                     >
                       {topicData.map((_, idx) => (
                         <Cell key={idx} fill={CHART_COLORS[idx % CHART_COLORS.length]} />
@@ -299,24 +333,34 @@ function SupervisorDetailView({
                       contentStyle={{
                         backgroundColor: "hsl(var(--card))",
                         border: "1px solid hsl(var(--border))",
-                        borderRadius: "8px",
-                        fontSize: "12px",
+                        borderRadius: "10px",
+                        fontSize: "14px",
+                        color: "hsl(var(--card-foreground))",
                       }}
                       formatter={(_, name) => [String(name), ""]}
                     />
                     <Legend
                       iconType="circle"
-                      iconSize={8}
+                      iconSize={11}
+                      wrapperStyle={{ paddingTop: 12 }}
                       formatter={(value) => (
-                        <span style={{ fontSize: "10px", color: "hsl(var(--muted-foreground))" }}>
-                          {value.length > 22 ? `${value.slice(0, 22)}…` : value}
+                        <span
+                          title={value}
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: 500,
+                            color: "hsl(var(--foreground))",
+                            marginRight: 6,
+                          }}
+                        >
+                          {value.length > 28 ? `${value.slice(0, 28)}…` : value}
                         </span>
                       )}
                     />
                   </PieChart>
                 </ResponsiveContainer>
               ) : (
-                <div className="h-[220px] flex items-center justify-center text-sm text-muted-foreground italic rounded-md border border-dashed">
+                <div className="h-[300px] flex items-center justify-center text-sm text-muted-foreground italic rounded-md border border-dashed">
                   Topic data not available
                 </div>
               )}
@@ -382,15 +426,15 @@ function SupervisorDetailView({
                   </div>
                   <div className="flex items-center gap-2 flex-wrap">
                     {paper.year && (
-                      <Badge variant="outline" className="text-[10px] font-mono">{paper.year}</Badge>
+                      <Badge variant="outline" className="text-[11px] font-mono">{paper.year}</Badge>
                     )}
                     {paper.venue && (
-                      <span className="text-[10px] text-muted-foreground truncate max-w-[200px]">
+                      <span className="text-[11px] text-muted-foreground truncate max-w-[200px]">
                         {paper.venue}
                       </span>
                     )}
                     {paper.doi && (
-                      <span className="text-[10px] text-muted-foreground font-mono">
+                      <span className="text-[11px] text-muted-foreground font-mono">
                         DOI:{paper.doi.slice(0, 20)}…
                       </span>
                     )}
@@ -554,11 +598,11 @@ export default function SupervisorMatchingPage() {
                     {/* Name + badges */}
                     <div className="flex items-center gap-2 flex-wrap">
                       <h3 className="font-semibold text-base">{m.name}</h3>
-                      <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200 text-[10px]">
+                      <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200 text-[11px]">
                         SLIIT
                       </Badge>
                       {!m.availability && (
-                        <Badge variant="outline" className="bg-red-50 text-red-700 border-red-200 text-[10px]">
+                        <Badge variant="outline" className="bg-red-50 text-red-700 border-red-200 text-[11px]">
                           Not accepting
                         </Badge>
                       )}
@@ -591,13 +635,13 @@ export default function SupervisorMatchingPage() {
                         {m.research_interests.slice(0, 5).map((ri) => (
                           <span
                             key={ri}
-                            className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-medium text-primary"
+                            className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[11px] font-medium text-primary"
                           >
                             {ri}
                           </span>
                         ))}
                         {m.research_interests.length > 5 && (
-                          <span className="text-[10px] text-muted-foreground self-center">
+                          <span className="text-[11px] text-muted-foreground self-center">
                             +{m.research_interests.length - 5} more
                           </span>
                         )}
@@ -608,7 +652,7 @@ export default function SupervisorMatchingPage() {
                   {/* Right: CTA */}
                   <div className="flex flex-col items-end gap-2 shrink-0">
                     <div className="text-right">
-                      <p className="text-[10px] text-muted-foreground uppercase tracking-wide">Similarity</p>
+                      <p className="text-[11px] text-muted-foreground uppercase tracking-wide">Similarity</p>
                       <p className="text-sm font-semibold">{(m.similarity_score * 100).toFixed(1)}%</p>
                     </div>
                     <div className="flex items-center gap-1 text-xs text-primary font-medium group-hover:gap-2 transition-all">

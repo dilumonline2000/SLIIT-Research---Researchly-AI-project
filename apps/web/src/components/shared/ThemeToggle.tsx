@@ -36,8 +36,8 @@ export function ThemeToggle({ compact = true }: Props) {
       <button
         aria-label="Theme toggle"
         className={cn(
-          "flex items-center justify-center rounded-md border bg-background",
-          compact ? "h-8 w-8" : "h-9 px-3",
+          "flex items-center justify-center rounded-lg border bg-background",
+          compact ? "h-10 w-10 sm:h-9 sm:w-9" : "h-9 px-3",
         )}
         disabled
       >
@@ -56,11 +56,11 @@ export function ThemeToggle({ compact = true }: Props) {
             onClick={toggleTheme}
             aria-label={`Toggle theme — current: ${label}`}
             className={cn(
-              "flex items-center gap-1.5 rounded-md border bg-background transition-colors",
+              "flex items-center gap-1.5 rounded-lg border bg-background transition-colors",
               "hover:bg-accent hover:text-accent-foreground",
               theme === "dark" && "border-indigo-200 dark:border-indigo-800",
-              theme === "light" && "border-amber-200",
-              compact ? "h-8 w-8 justify-center" : "h-9 px-3 text-sm font-medium",
+              theme === "light" && "border-amber-200 dark:border-amber-800",
+              compact ? "h-10 w-10 justify-center sm:h-9 sm:w-9" : "h-9 px-3 text-sm font-medium",
             )}
           >
             <Icon

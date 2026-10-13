@@ -50,10 +50,10 @@ function AnimatedStat({ value, label, suffix = "" }: { value: number; label: str
 
   return (
     <div ref={ref} className="text-center">
-      <div className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent tabular-nums">
+      <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent tabular-nums">
         {count.toLocaleString()}{suffix}
       </div>
-      <div className="mt-1.5 text-sm text-slate-400">{label}</div>
+      <div className="mt-1.5 text-xs sm:text-sm text-slate-400">{label}</div>
     </div>
   );
 }
@@ -144,7 +144,7 @@ export default function LandingPage() {
         }`}
       >
         <div className="container flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5 font-bold text-lg">
+          <Link href="/" className="flex items-center gap-2.5 font-bold text-base sm:text-lg shrink-0">
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 text-white text-sm font-bold shadow-lg shadow-blue-500/25">
               R
             </span>
@@ -158,22 +158,22 @@ export default function LandingPage() {
               { href: "#modules", label: "Modules" },
               { href: "#team", label: "Team" },
             ].map((item) => (
-              <a key={item.href} href={item.href}>
+              <a key={item.href} href={item.href} className="hidden md:block">
                 <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white">
                   {item.label}
                 </Button>
               </a>
             ))}
-            <div className="mx-2 h-4 w-px bg-white/10" />
+            <div className="mx-2 hidden h-4 w-px bg-white/10 md:block" />
             <Link href="/login">
-              <Button variant="ghost" size="sm" className="text-slate-300 hover:text-white">
+              <Button variant="ghost" size="sm" className="px-2.5 text-slate-300 hover:text-white sm:px-3">
                 Sign in
               </Button>
             </Link>
             <Link href="/register">
               <Button
                 size="sm"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 border-0 shadow-lg shadow-blue-500/20"
+                className="px-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 border-0 shadow-lg shadow-blue-500/20"
               >
                 Get started
               </Button>
@@ -185,7 +185,7 @@ export default function LandingPage() {
       {/* ── Hero ───────────────────────────────────────────────────── */}
       <section
         ref={heroRef}
-        className="relative min-h-screen flex flex-col items-center justify-center pt-16 overflow-hidden"
+        className="relative min-h-screen min-h-[100svh] flex flex-col items-center justify-center pt-20 pb-24 sm:pb-0 overflow-hidden"
       >
         {/* Animated blobs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -207,7 +207,7 @@ export default function LandingPage() {
         >
           <motion.div variants={stagger} initial="hidden" animate="visible" className="space-y-6">
             <motion.div variants={fadeIn}>
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-slate-300 backdrop-blur-sm">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 sm:px-4 py-1.5 text-xs sm:text-sm text-slate-300 backdrop-blur-sm">
                 <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
                 R26-IT-116 · SLIIT Final-Year Research Project
               </span>
@@ -215,7 +215,7 @@ export default function LandingPage() {
 
             <motion.h1
               variants={fadeUp}
-              className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]"
+              className="text-[2.5rem] sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]"
             >
               AI-powered research,{" "}
               <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
@@ -225,7 +225,7 @@ export default function LandingPage() {
 
             <motion.p
               variants={fadeUp}
-              className="mx-auto max-w-2xl text-lg text-slate-400 leading-relaxed"
+              className="mx-auto max-w-2xl text-base sm:text-lg text-slate-400 leading-relaxed"
             >
               Citation intelligence, supervisor matching, research data pipelines, and predictive
               performance analytics — all powered by state-of-the-art NLP and deep learning.{" "}
@@ -234,21 +234,21 @@ export default function LandingPage() {
 
             <motion.div
               variants={fadeUp}
-              className="flex flex-wrap items-center justify-center gap-4 pt-2"
+              className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center justify-center gap-3 sm:gap-4 pt-2"
             >
-              <Link href="/register">
+              <Link href="/register" className="w-full sm:w-auto">
                 <Button
                   size="lg"
-                  className="gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 border-0 shadow-xl shadow-blue-500/25 text-base px-8 h-12"
+                  className="w-full sm:w-auto gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 border-0 shadow-xl shadow-blue-500/25 text-base px-8 h-12"
                 >
                   Start for free <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
-              <a href="#video">
+              <a href="#video" className="w-full sm:w-auto">
                 <Button
                   size="lg"
                   variant="outline"
-                  className="gap-2 border-white/10 bg-white/5 hover:bg-white/10 text-white text-base px-8 h-12 backdrop-blur-sm"
+                  className="w-full sm:w-auto gap-2 border-white/10 bg-white/5 hover:bg-white/10 text-white text-base px-8 h-12 backdrop-blur-sm"
                 >
                   <Play className="h-4 w-4 fill-current" /> Watch demo
                 </Button>
@@ -258,7 +258,7 @@ export default function LandingPage() {
             {/* Feature badges */}
             <motion.div
               variants={fadeIn}
-              className="flex flex-wrap items-center justify-center gap-3 pt-2"
+              className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 pt-2"
             >
               {[
                 { icon: Zap, text: "Real-time RAG" },
@@ -283,7 +283,7 @@ export default function LandingPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2.5, duration: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-slate-500"
+          className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-slate-500"
         >
           <span className="text-xs">Scroll to explore</span>
           <ChevronDown className="h-4 w-4 animate-bounce" />
@@ -297,7 +297,7 @@ export default function LandingPage() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={stagger}
-          className="container py-12 grid grid-cols-2 md:grid-cols-4 gap-8"
+          className="container py-10 sm:py-12 grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8 sm:gap-8"
         >
           <motion.div variants={fadeUp}><AnimatedStat value={3860} suffix="+" label="Research Papers" /></motion.div>
           <motion.div variants={fadeUp}><AnimatedStat value={84} label="Faculty Supervisors" /></motion.div>
@@ -307,9 +307,9 @@ export default function LandingPage() {
       </section>
 
       {/* ── YouTube Video ──────────────────────────────────────────── */}
-      <section id="video" className="relative py-24">
+      <section id="video" className="relative py-16 sm:py-24">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-blue-600/10 blur-[100px] rounded-full" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[700px] h-[350px] bg-blue-600/10 blur-[100px] rounded-full" />
         </div>
         <div className="container relative z-10">
           <motion.div
@@ -317,14 +317,14 @@ export default function LandingPage() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
-            className="text-center mb-12"
+            className="text-center mb-8 sm:mb-12"
           >
             <motion.div variants={fadeUp}>
               <span className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-sm text-blue-400 mb-4">
                 <Play className="h-3.5 w-3.5 fill-current" /> Product Demo
               </span>
             </motion.div>
-            <motion.h2 variants={fadeUp} className="text-3xl sm:text-4xl font-bold">
+            <motion.h2 variants={fadeUp} className="text-[1.75rem] leading-tight sm:text-4xl font-bold">
               See Researchly AI{" "}
               <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                 in action
@@ -346,7 +346,7 @@ export default function LandingPage() {
             {/* Glow */}
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600/30 via-purple-600/30 to-cyan-600/30 rounded-2xl blur-lg" />
             {/* Video */}
-            <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-black shadow-2xl shadow-blue-500/10">
+            <div className="relative rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 bg-black shadow-2xl shadow-blue-500/10">
               <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
                 <iframe
                   src="https://www.youtube.com/embed/7BuNPmz995Q?rel=0&modestbranding=1&color=white"
@@ -362,7 +362,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── Modules ────────────────────────────────────────────────── */}
-      <section id="modules" className="py-24 relative">
+      <section id="modules" className="py-16 sm:py-24 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/10 to-transparent pointer-events-none" />
         <div className="container relative z-10">
           <motion.div
@@ -370,14 +370,14 @@ export default function LandingPage() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
-            className="text-center mb-16"
+            className="text-center mb-10 sm:mb-16"
           >
             <motion.div variants={fadeUp}>
               <span className="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-1.5 text-sm text-purple-400 mb-4">
                 <Zap className="h-3.5 w-3.5" /> Four integrated modules
               </span>
             </motion.div>
-            <motion.h2 variants={fadeUp} className="text-3xl sm:text-4xl font-bold">
+            <motion.h2 variants={fadeUp} className="text-[1.75rem] leading-tight sm:text-4xl font-bold">
               Everything your research needs,{" "}
               <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
                 in one place
@@ -394,7 +394,7 @@ export default function LandingPage() {
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
             variants={stagger}
-            className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+            className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4"
           >
             {MODULES.map((mod) => {
               const Icon = moduleIcons[mod.id as keyof typeof moduleIcons];
@@ -434,7 +434,7 @@ export default function LandingPage() {
             whileInView="visible"
             viewport={{ once: true }}
             variants={stagger}
-            className="mt-10 grid gap-4 sm:grid-cols-3"
+            className="mt-8 sm:mt-10 grid gap-3 sm:gap-4 md:grid-cols-3"
           >
             {[
               { icon: Brain, title: "Gemini 2.5 Flash", desc: "State-of-the-art LLM powering RAG chat, proposal generation, and content synthesis." },
@@ -460,7 +460,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── Team ───────────────────────────────────────────────────── */}
-      <section id="team" className="py-24 relative">
+      <section id="team" className="py-16 sm:py-24 relative">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-purple-600/8 blur-[100px] rounded-full" />
           <div className="absolute bottom-0 right-1/4 w-[300px] h-[300px] bg-blue-600/8 blur-[80px] rounded-full" />
@@ -471,14 +471,14 @@ export default function LandingPage() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
-            className="text-center mb-16"
+            className="text-center mb-10 sm:mb-16"
           >
             <motion.div variants={fadeUp}>
               <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-sm text-emerald-400 mb-4">
                 <Star className="h-3.5 w-3.5" /> Meet the team
               </span>
             </motion.div>
-            <motion.h2 variants={fadeUp} className="text-3xl sm:text-4xl font-bold">
+            <motion.h2 variants={fadeUp} className="text-[1.75rem] leading-tight sm:text-4xl font-bold">
               Built by{" "}
               <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
                 SLIIT engineers
@@ -495,7 +495,7 @@ export default function LandingPage() {
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
             variants={stagger}
-            className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+            className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4"
           >
             {TEAM.map((member) => (
               <motion.div
@@ -546,39 +546,39 @@ export default function LandingPage() {
       </section>
 
       {/* ── CTA Banner ─────────────────────────────────────────────── */}
-      <section className="py-20">
+      <section className="py-12 sm:py-20">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="relative rounded-3xl overflow-hidden border border-white/10"
+            className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-purple-600/20 to-cyan-600/20" />
             <div className="absolute inset-0 bg-[#060914]/60 backdrop-blur-sm" />
-            <div className="relative z-10 py-16 px-8 text-center">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+            <div className="relative z-10 py-12 px-5 sm:py-16 sm:px-8 text-center">
+              <h2 className="text-2xl sm:text-4xl font-bold mb-4">
                 Ready to accelerate your research?
               </h2>
               <p className="text-slate-300 mb-8 max-w-md mx-auto">
                 Join SLIIT researchers using AI to discover supervisors, analyse papers,
                 and predict publication success.
               </p>
-              <div className="flex flex-wrap items-center justify-center gap-4">
-                <Link href="/register">
+              <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center justify-center gap-3 sm:gap-4">
+                <Link href="/register" className="w-full sm:w-auto">
                   <Button
                     size="lg"
-                    className="gap-2 bg-white text-slate-900 hover:bg-slate-100 font-semibold px-8 h-12"
+                    className="w-full sm:w-auto gap-2 bg-white text-slate-900 hover:bg-slate-100 font-semibold px-8 h-12"
                   >
                     Get started free <ArrowRight className="h-4 w-4" />
                   </Button>
                 </Link>
-                <Link href="/login">
+                <Link href="/login" className="w-full sm:w-auto">
                   <Button
                     size="lg"
                     variant="ghost"
-                    className="border border-white/30 text-white hover:bg-white/10 hover:text-white px-8 h-12"
+                    className="w-full sm:w-auto border border-white/30 text-white hover:bg-white/10 hover:text-white px-8 h-12"
                   >
                     Sign in
                   </Button>
@@ -599,12 +599,12 @@ export default function LandingPage() {
               </span>
               <span className="text-sm font-semibold text-slate-300">{APP_NAME}</span>
             </div>
-            <div className="flex items-center gap-6 text-sm text-slate-500">
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-500">
               <a href="#modules" className="hover:text-slate-300 transition-colors">Modules</a>
               <a href="#team" className="hover:text-slate-300 transition-colors">Team</a>
               <Link href="/login" className="hover:text-slate-300 transition-colors">Sign in</Link>
             </div>
-            <p className="text-sm text-slate-500">
+            <p className="text-center text-xs sm:text-sm text-slate-500">
               © 2026 {APP_NAME} · R26-IT-116 · SLIIT
             </p>
           </div>

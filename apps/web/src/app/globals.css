@@ -4,44 +4,56 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Light — airy paper tones with an indigo/violet academic accent */
+    --background: 230 33% 98%;
+    --foreground: 232 35% 12%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.5rem;
+    --card-foreground: 232 35% 12%;
+    --primary: 243 75% 59%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 230 30% 95%;
+    --secondary-foreground: 232 35% 18%;
+    --muted: 230 28% 95%;
+    --muted-foreground: 230 12% 42%;
+    --accent: 243 80% 96%;
+    --accent-foreground: 243 55% 38%;
+    --destructive: 0 78% 56%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 230 25% 90%;
+    --input: 230 25% 88%;
+    --ring: 243 75% 59%;
+    --radius: 0.75rem;
+    --shadow-color: 232 40% 30%;
+    --sidebar: 0 0% 100%;
+    --brand-1: 243 75% 59%;
+    --brand-2: 271 81% 62%;
+    --brand-3: 190 85% 45%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    /* Dark — deep midnight navy, matching the landing page */
+    --background: 230 45% 5%;
+    --foreground: 225 40% 96%;
+    --card: 230 38% 8%;
+    --card-foreground: 225 40% 96%;
+    --primary: 243 90% 68%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 230 30% 14%;
+    --secondary-foreground: 225 40% 96%;
+    --muted: 230 30% 13%;
+    --muted-foreground: 226 18% 68%;
+    --accent: 243 40% 17%;
+    --accent-foreground: 240 90% 88%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 230 26% 17%;
+    --input: 230 26% 19%;
+    --ring: 243 90% 68%;
+    --shadow-color: 230 60% 2%;
+    --sidebar: 230 42% 6.5%;
+    --brand-1: 243 90% 68%;
+    --brand-2: 271 85% 70%;
+    --brand-3: 190 90% 55%;
   }
 }
 
@@ -49,10 +61,75 @@
   * {
     @apply border-border;
   }
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings: "rlig" 1, "calt" 1, "cv11" 1, "ss01" 1;
+    text-rendering: optimizeLegibility;
   }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
+    letter-spacing: -0.015em;
+  }
+  ::selection {
+    background: hsl(var(--primary) / 0.25);
+  }
+  /* Prevent iOS zoom-on-focus for form controls on small screens */
+  @media (max-width: 640px) {
+    input, select, textarea {
+      font-size: 16px !important;
+    }
+  }
+}
+
+@layer components {
+  /* Gradient brand text used for headings & highlights */
+  .text-gradient-brand {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      100deg,
+      hsl(var(--brand-1)),
+      hsl(var(--brand-2)) 55%,
+      hsl(var(--brand-3))
+    );
+  }
+  .bg-gradient-brand {
+    background-image: linear-gradient(135deg, hsl(var(--brand-1)), hsl(var(--brand-2)));
+  }
+  /* Soft decorative backdrop for the app workspace */
+  .app-canvas {
+    background-color: hsl(var(--background));
+    background-image:
+      radial-gradient(900px 420px at 100% -10%, hsl(var(--brand-1) / 0.07), transparent 60%),
+      radial-gradient(700px 380px at -10% 110%, hsl(var(--brand-2) / 0.06), transparent 60%);
+    background-attachment: local;
+  }
+  .glass {
+    background-color: hsl(var(--card) / 0.75);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+    backdrop-filter: saturate(160%) blur(14px);
+  }
+}
+
+/* ── Recharts readability ─────────────────────────────────────────────────── */
+/* Default axis tick colour (#666) is too dim on dark backgrounds; only the
+   default colour is overridden so explicitly-styled ticks stay untouched. */
+.recharts-cartesian-axis-tick-value[fill="#666"] {
+  fill: hsl(var(--muted-foreground));
+}
+.recharts-default-legend {
+  line-height: 1.6;
+}
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  border-radius: 10px !important;
+  background-color: hsl(var(--card)) !important;
+  border-color: hsl(var(--border)) !important;
+  color: hsl(var(--card-foreground));
+}
+.recharts-tooltip-label {
+  color: hsl(var(--foreground));
 }
 
 /* ── Landing page blob animations ─────────────────────────────────────────── */
@@ -92,5 +169,217 @@
 /* ── Scrollbar ────────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar        { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track  { background: transparent; }
-::-webkit-scrollbar-thumb  { background: hsl(var(--border)); border-radius: 3px; }
+::-webkit-scrollbar-thumb  { background: hsl(var(--border)); border-radius: 999px; }
 ::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground) / 0.5); }
+
+/* ── Motion preferences ───────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .animate-blob, .animate-float, .animate-gradient, .animate-shimmer {
+    animation: none;
+  }
+}
+
+/* ── Drawer slide-in (mobile sidebar) ─────────────────────────────────────── */
+@keyframes drawer-in {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-drawer-in { animation: drawer-in 0.28s cubic-bezier(0.22, 1, 0.36, 1); }
+.animate-fade-in   { animation: fade-in 0.2s ease-out; }
+
+/* ── Dark-mode safety net ─────────────────────────────────────────────────────
+   Many feature pages use light pastel utilities (bg-*-50, text-*-700, …)
+   without a `dark:` counterpart. These rules only kick in when the element
+   declares NO dark override of its own, so intentional dark styles win. */
+.dark .bg-slate-50:not([class*="dark:bg-"]),
+.dark .bg-slate-100:not([class*="dark:bg-"]) { background-color: theme("colors.slate.950 / 45%"); }
+.dark .text-slate-600:not([class*="dark:text-"]),
+.dark .text-slate-700:not([class*="dark:text-"]),
+.dark .text-slate-800:not([class*="dark:text-"]),
+.dark .text-slate-900:not([class*="dark:text-"]) { color: theme("colors.slate.300"); }
+.dark .border-slate-100:not([class*="dark:border-"]),
+.dark .border-slate-200:not([class*="dark:border-"]),
+.dark .border-slate-300:not([class*="dark:border-"]) { border-color: theme("colors.slate.800 / 55%"); }
+.dark .bg-gray-50:not([class*="dark:bg-"]),
+.dark .bg-gray-100:not([class*="dark:bg-"]) { background-color: theme("colors.gray.950 / 45%"); }
+.dark .text-gray-600:not([class*="dark:text-"]),
+.dark .text-gray-700:not([class*="dark:text-"]),
+.dark .text-gray-800:not([class*="dark:text-"]),
+.dark .text-gray-900:not([class*="dark:text-"]) { color: theme("colors.gray.300"); }
+.dark .border-gray-100:not([class*="dark:border-"]),
+.dark .border-gray-200:not([class*="dark:border-"]),
+.dark .border-gray-300:not([class*="dark:border-"]) { border-color: theme("colors.gray.800 / 55%"); }
+.dark .bg-zinc-50:not([class*="dark:bg-"]),
+.dark .bg-zinc-100:not([class*="dark:bg-"]) { background-color: theme("colors.zinc.950 / 45%"); }
+.dark .text-zinc-600:not([class*="dark:text-"]),
+.dark .text-zinc-700:not([class*="dark:text-"]),
+.dark .text-zinc-800:not([class*="dark:text-"]),
+.dark .text-zinc-900:not([class*="dark:text-"]) { color: theme("colors.zinc.300"); }
+.dark .border-zinc-100:not([class*="dark:border-"]),
+.dark .border-zinc-200:not([class*="dark:border-"]),
+.dark .border-zinc-300:not([class*="dark:border-"]) { border-color: theme("colors.zinc.800 / 55%"); }
+.dark .bg-blue-50:not([class*="dark:bg-"]),
+.dark .bg-blue-100:not([class*="dark:bg-"]) { background-color: theme("colors.blue.950 / 45%"); }
+.dark .text-blue-600:not([class*="dark:text-"]),
+.dark .text-blue-700:not([class*="dark:text-"]),
+.dark .text-blue-800:not([class*="dark:text-"]),
+.dark .text-blue-900:not([class*="dark:text-"]) { color: theme("colors.blue.300"); }
+.dark .border-blue-100:not([class*="dark:border-"]),
+.dark .border-blue-200:not([class*="dark:border-"]),
+.dark .border-blue-300:not([class*="dark:border-"]) { border-color: theme("colors.blue.800 / 55%"); }
+.dark .bg-indigo-50:not([class*="dark:bg-"]),
+.dark .bg-indigo-100:not([class*="dark:bg-"]) { background-color: theme("colors.indigo.950 / 45%"); }
+.dark .text-indigo-600:not([class*="dark:text-"]),
+.dark .text-indigo-700:not([class*="dark:text-"]),
+.dark .text-indigo-800:not([class*="dark:text-"]),
+.dark .text-indigo-900:not([class*="dark:text-"]) { color: theme("colors.indigo.300"); }
+.dark .border-indigo-100:not([class*="dark:border-"]),
+.dark .border-indigo-200:not([class*="dark:border-"]),
+.dark .border-indigo-300:not([class*="dark:border-"]) { border-color: theme("colors.indigo.800 / 55%"); }
+.dark .bg-violet-50:not([class*="dark:bg-"]),
+.dark .bg-violet-100:not([class*="dark:bg-"]) { background-color: theme("colors.violet.950 / 45%"); }
+.dark .text-violet-600:not([class*="dark:text-"]),
+.dark .text-violet-700:not([class*="dark:text-"]),
+.dark .text-violet-800:not([class*="dark:text-"]),
+.dark .text-violet-900:not([class*="dark:text-"]) { color: theme("colors.violet.300"); }
+.dark .border-violet-100:not([class*="dark:border-"]),
+.dark .border-violet-200:not([class*="dark:border-"]),
+.dark .border-violet-300:not([class*="dark:border-"]) { border-color: theme("colors.violet.800 / 55%"); }
+.dark .bg-purple-50:not([class*="dark:bg-"]),
+.dark .bg-purple-100:not([class*="dark:bg-"]) { background-color: theme("colors.purple.950 / 45%"); }
+.dark .text-purple-600:not([class*="dark:text-"]),
+.dark .text-purple-700:not([class*="dark:text-"]),
+.dark .text-purple-800:not([class*="dark:text-"]),
+.dark .text-purple-900:not([class*="dark:text-"]) { color: theme("colors.purple.300"); }
+.dark .border-purple-100:not([class*="dark:border-"]),
+.dark .border-purple-200:not([class*="dark:border-"]),
+.dark .border-purple-300:not([class*="dark:border-"]) { border-color: theme("colors.purple.800 / 55%"); }
+.dark .bg-fuchsia-50:not([class*="dark:bg-"]),
+.dark .bg-fuchsia-100:not([class*="dark:bg-"]) { background-color: theme("colors.fuchsia.950 / 45%"); }
+.dark .text-fuchsia-600:not([class*="dark:text-"]),
+.dark .text-fuchsia-700:not([class*="dark:text-"]),
+.dark .text-fuchsia-800:not([class*="dark:text-"]),
+.dark .text-fuchsia-900:not([class*="dark:text-"]) { color: theme("colors.fuchsia.300"); }
+.dark .border-fuchsia-100:not([class*="dark:border-"]),
+.dark .border-fuchsia-200:not([class*="dark:border-"]),
+.dark .border-fuchsia-300:not([class*="dark:border-"]) { border-color: theme("colors.fuchsia.800 / 55%"); }
+.dark .bg-pink-50:not([class*="dark:bg-"]),
+.dark .bg-pink-100:not([class*="dark:bg-"]) { background-color: theme("colors.pink.950 / 45%"); }
+.dark .text-pink-600:not([class*="dark:text-"]),
+.dark .text-pink-700:not([class*="dark:text-"]),
+.dark .text-pink-800:not([class*="dark:text-"]),
+.dark .text-pink-900:not([class*="dark:text-"]) { color: theme("colors.pink.300"); }
+.dark .border-pink-100:not([class*="dark:border-"]),
+.dark .border-pink-200:not([class*="dark:border-"]),
+.dark .border-pink-300:not([class*="dark:border-"]) { border-color: theme("colors.pink.800 / 55%"); }
+.dark .bg-rose-50:not([class*="dark:bg-"]),
+.dark .bg-rose-100:not([class*="dark:bg-"]) { background-color: theme("colors.rose.950 / 45%"); }
+.dark .text-rose-600:not([class*="dark:text-"]),
+.dark .text-rose-700:not([class*="dark:text-"]),
+.dark .text-rose-800:not([class*="dark:text-"]),
+.dark .text-rose-900:not([class*="dark:text-"]) { color: theme("colors.rose.300"); }
+.dark .border-rose-100:not([class*="dark:border-"]),
+.dark .border-rose-200:not([class*="dark:border-"]),
+.dark .border-rose-300:not([class*="dark:border-"]) { border-color: theme("colors.rose.800 / 55%"); }
+.dark .bg-red-50:not([class*="dark:bg-"]),
+.dark .bg-red-100:not([class*="dark:bg-"]) { background-color: theme("colors.red.950 / 45%"); }
+.dark .text-red-600:not([class*="dark:text-"]),
+.dark .text-red-700:not([class*="dark:text-"]),
+.dark .text-red-800:not([class*="dark:text-"]),
+.dark .text-red-900:not([class*="dark:text-"]) { color: theme("colors.red.300"); }
+.dark .border-red-100:not([class*="dark:border-"]),
+.dark .border-red-200:not([class*="dark:border-"]),
+.dark .border-red-300:not([class*="dark:border-"]) { border-color: theme("colors.red.800 / 55%"); }
+.dark .bg-orange-50:not([class*="dark:bg-"]),
+.dark .bg-orange-100:not([class*="dark:bg-"]) { background-color: theme("colors.orange.950 / 45%"); }
+.dark .text-orange-600:not([class*="dark:text-"]),
+.dark .text-orange-700:not([class*="dark:text-"]),
+.dark .text-orange-800:not([class*="dark:text-"]),
+.dark .text-orange-900:not([class*="dark:text-"]) { color: theme("colors.orange.300"); }
+.dark .border-orange-100:not([class*="dark:border-"]),
+.dark .border-orange-200:not([class*="dark:border-"]),
+.dark .border-orange-300:not([class*="dark:border-"]) { border-color: theme("colors.orange.800 / 55%"); }
+.dark .bg-amber-50:not([class*="dark:bg-"]),
+.dark .bg-amber-100:not([class*="dark:bg-"]) { background-color: theme("colors.amber.950 / 45%"); }
+.dark .text-amber-600:not([class*="dark:text-"]),
+.dark .text-amber-700:not([class*="dark:text-"]),
+.dark .text-amber-800:not([class*="dark:text-"]),
+.dark .text-amber-900:not([class*="dark:text-"]) { color: theme("colors.amber.300"); }
+.dark .border-amber-100:not([class*="dark:border-"]),
+.dark .border-amber-200:not([class*="dark:border-"]),
+.dark .border-amber-300:not([class*="dark:border-"]) { border-color: theme("colors.amber.800 / 55%"); }
+.dark .bg-yellow-50:not([class*="dark:bg-"]),
+.dark .bg-yellow-100:not([class*="dark:bg-"]) { background-color: theme("colors.yellow.950 / 45%"); }
+.dark .text-yellow-600:not([class*="dark:text-"]),
+.dark .text-yellow-700:not([class*="dark:text-"]),
+.dark .text-yellow-800:not([class*="dark:text-"]),
+.dark .text-yellow-900:not([class*="dark:text-"]) { color: theme("colors.yellow.300"); }
+.dark .border-yellow-100:not([class*="dark:border-"]),
+.dark .border-yellow-200:not([class*="dark:border-"]),
+.dark .border-yellow-300:not([class*="dark:border-"]) { border-color: theme("colors.yellow.800 / 55%"); }
+.dark .bg-lime-50:not([class*="dark:bg-"]),
+.dark .bg-lime-100:not([class*="dark:bg-"]) { background-color: theme("colors.lime.950 / 45%"); }
+.dark .text-lime-600:not([class*="dark:text-"]),
+.dark .text-lime-700:not([class*="dark:text-"]),
+.dark .text-lime-800:not([class*="dark:text-"]),
+.dark .text-lime-900:not([class*="dark:text-"]) { color: theme("colors.lime.300"); }
+.dark .border-lime-100:not([class*="dark:border-"]),
+.dark .border-lime-200:not([class*="dark:border-"]),
+.dark .border-lime-300:not([class*="dark:border-"]) { border-color: theme("colors.lime.800 / 55%"); }
+.dark .bg-green-50:not([class*="dark:bg-"]),
+.dark .bg-green-100:not([class*="dark:bg-"]) { background-color: theme("colors.green.950 / 45%"); }
+.dark .text-green-600:not([class*="dark:text-"]),
+.dark .text-green-700:not([class*="dark:text-"]),
+.dark .text-green-800:not([class*="dark:text-"]),
+.dark .text-green-900:not([class*="dark:text-"]) { color: theme("colors.green.300"); }
+.dark .border-green-100:not([class*="dark:border-"]),
+.dark .border-green-200:not([class*="dark:border-"]),
+.dark .border-green-300:not([class*="dark:border-"]) { border-color: theme("colors.green.800 / 55%"); }
+.dark .bg-emerald-50:not([class*="dark:bg-"]),
+.dark .bg-emerald-100:not([class*="dark:bg-"]) { background-color: theme("colors.emerald.950 / 45%"); }
+.dark .text-emerald-600:not([class*="dark:text-"]),
+.dark .text-emerald-700:not([class*="dark:text-"]),
+.dark .text-emerald-800:not([class*="dark:text-"]),
+.dark .text-emerald-900:not([class*="dark:text-"]) { color: theme("colors.emerald.300"); }
+.dark .border-emerald-100:not([class*="dark:border-"]),
+.dark .border-emerald-200:not([class*="dark:border-"]),
+.dark .border-emerald-300:not([class*="dark:border-"]) { border-color: theme("colors.emerald.800 / 55%"); }
+.dark .bg-teal-50:not([class*="dark:bg-"]),
+.dark .bg-teal-100:not([class*="dark:bg-"]) { background-color: theme("colors.teal.950 / 45%"); }
+.dark .text-teal-600:not([class*="dark:text-"]),
+.dark .text-teal-700:not([class*="dark:text-"]),
+.dark .text-teal-800:not([class*="dark:text-"]),
+.dark .text-teal-900:not([class*="dark:text-"]) { color: theme("colors.teal.300"); }
+.dark .border-teal-100:not([class*="dark:border-"]),
+.dark .border-teal-200:not([class*="dark:border-"]),
+.dark .border-teal-300:not([class*="dark:border-"]) { border-color: theme("colors.teal.800 / 55%"); }
+.dark .bg-cyan-50:not([class*="dark:bg-"]),
+.dark .bg-cyan-100:not([class*="dark:bg-"]) { background-color: theme("colors.cyan.950 / 45%"); }
+.dark .text-cyan-600:not([class*="dark:text-"]),
+.dark .text-cyan-700:not([class*="dark:text-"]),
+.dark .text-cyan-800:not([class*="dark:text-"]),
+.dark .text-cyan-900:not([class*="dark:text-"]) { color: theme("colors.cyan.300"); }
+.dark .border-cyan-100:not([class*="dark:border-"]),
+.dark .border-cyan-200:not([class*="dark:border-"]),
+.dark .border-cyan-300:not([class*="dark:border-"]) { border-color: theme("colors.cyan.800 / 55%"); }
+.dark .bg-sky-50:not([class*="dark:bg-"]),
+.dark .bg-sky-100:not([class*="dark:bg-"]) { background-color: theme("colors.sky.950 / 45%"); }
+.dark .text-sky-600:not([class*="dark:text-"]),
+.dark .text-sky-700:not([class*="dark:text-"]),
+.dark .text-sky-800:not([class*="dark:text-"]),
+.dark .text-sky-900:not([class*="dark:text-"]) { color: theme("colors.sky.300"); }
+.dark .border-sky-100:not([class*="dark:border-"]),
+.dark .border-sky-200:not([class*="dark:border-"]),
+.dark .border-sky-300:not([class*="dark:border-"]) { border-color: theme("colors.sky.800 / 55%"); }
+.dark .text-gray-900:not([class*="dark:text-"]),
+.dark .text-slate-900:not([class*="dark:text-"]),
+.dark .text-gray-800:not([class*="dark:text-"]),
+.dark .text-slate-800:not([class*="dark:text-"]) { color: hsl(var(--foreground)); }
+.dark .bg-gray-50:not([class*="dark:bg-"]),
+.dark .bg-slate-50:not([class*="dark:bg-"]),
+.dark .bg-gray-100:not([class*="dark:bg-"]),
+.dark .bg-slate-100:not([class*="dark:bg-"]) { background-color: hsl(var(--muted)); }
