@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Network, Sparkles, AlertCircle, Download } from "lucide-react";
+import { PageHero } from "@/components/shared/PageHero";
 import { API_ROUTES } from "@/lib/constants";
 import { apiPost } from "@/lib/api";
 import { MindMapGraph, type GraphNode, type GraphLink } from "@/components/shared/MindMapGraph";
@@ -107,15 +108,12 @@ export default function MindMapsPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold flex items-center gap-2">
-          <Network className="h-6 w-6" /> Concept Mind Maps
-        </h1>
-        <p className="text-muted-foreground">
-          GNN-based concept graph expansion from a topic or department seed.
-          Hover over nodes to highlight relationships.
-        </p>
-      </div>
+      <PageHero
+        theme="insight"
+        icon={Network}
+        title="Concept Mind Maps"
+        description="GNN-based concept graph expansion from a topic or department seed. Hover over nodes to highlight relationships."
+      />
 
       <Card>
         <CardHeader>
@@ -188,7 +186,7 @@ export default function MindMapsPage() {
           <CardContent>
             <div
               ref={containerRef}
-              className="rounded-lg border bg-gradient-to-br from-slate-50 to-purple-50 overflow-hidden"
+              className="overflow-auto overscroll-x-contain rounded-xl border bg-gradient-to-br from-slate-50 to-purple-50 dark:from-slate-900 dark:to-purple-950/50"
               style={{ height: graphHeight }}
             >
               <MindMapGraph

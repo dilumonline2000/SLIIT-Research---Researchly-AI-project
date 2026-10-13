@@ -5,7 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Upload, FileText, Sparkles, AlertCircle, CheckCircle2, TrendingUp, AlertTriangle } from "lucide-react";
+import { Upload, FileText, Sparkles, AlertCircle, CheckCircle2, TrendingUp, AlertTriangle, Target, Info, FileUp } from "lucide-react";
+import { PageHero, SegmentedTabs } from "@/components/shared/PageHero";
 import { API_ROUTES, API_GATEWAY_URL } from "@/lib/constants";
 import { apiPost } from "@/lib/api";
 import { createClient } from "@/lib/supabase/client";
@@ -22,9 +23,9 @@ interface PredictResponse {
 }
 
 const RISK_INFO: Record<string, { color: string; bg: string; icon: React.ComponentType<{ className?: string }>; label: string }> = {
-  low: { color: "text-emerald-600", bg: "bg-emerald-50 border-emerald-200", icon: CheckCircle2, label: "Low Risk" },
-  medium: { color: "text-amber-600", bg: "bg-amber-50 border-amber-200", icon: AlertTriangle, label: "Medium Risk" },
-  high: { color: "text-rose-600", bg: "bg-rose-50 border-rose-200", icon: AlertCircle, label: "High Risk" },
+  low: { color: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-50 border-emerald-200 dark:bg-emerald-950/30 dark:border-emerald-900/60", icon: CheckCircle2, label: "Low Risk" },
+  medium: { color: "text-amber-600 dark:text-amber-400", bg: "bg-amber-50 border-amber-200 dark:bg-amber-950/30 dark:border-amber-900/60", icon: AlertTriangle, label: "Medium Risk" },
+  high: { color: "text-rose-600 dark:text-rose-400", bg: "bg-rose-50 border-rose-200 dark:bg-rose-950/30 dark:border-rose-900/60", icon: AlertCircle, label: "High Risk" },
   unknown: { color: "text-muted-foreground", bg: "bg-muted", icon: AlertCircle, label: "Unknown" },
 };
 
@@ -114,28 +115,48 @@ export default function PredictPage() {
   const RiskIcon = riskInfo?.icon;
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold">Success Prediction</h1>
-        <p className="text-muted-foreground">
-          Predicts the probability that a research paper or proposal will be{" "}
-          <strong>successful</strong> (high quality, methodologically sound, publishable).
-          Uses an XGBoost classifier trained on 3,860 SLIIT papers (98% accuracy, ROC-AUC 0.9994).
-        </p>
-      </div>
+    <div className="space-y-6 pb-8">
+      <PageHero
+        theme="insight"
+        icon={Target}
+        title="Success Prediction"
+        description={
+          <>
+            Predicts the probability that a research paper or proposal will be{" "}
+            <strong>successful</strong> (high quality, methodologically sound, publishable).
+            Uses an XGBoost classifier trained on 3,860 SLIIT papers.
+          </>
+        }
+        stats={[
+          { label: "Accuracy", value: "98%", icon: Target },
+          { label: "ROC-AUC", value: "0.9994", icon: TrendingUp },
+          { label: "Training papers", value: "3,860", icon: FileText },
+        ]}
+      />
 
-      <Card className="border-blue-200 bg-blue-50/50">
-        <CardHeader>
-          <CardTitle className="text-lg">📊 What does &ldquo;Success&rdquo; mean here?</CardTitle>
+      <Card className="border-purple-200/70 bg-purple-50/40 dark:border-purple-900/50 dark:bg-purple-950/20">
+        <CardHeader className="pb-3">
+          <CardTitle className="flex items-center gap-2 text-lg">
+            <Info className="h-4 w-4 text-purple-500" /> What does &ldquo;Success&rdquo; mean here?
+          </CardTitle>
         </CardHeader>
-        <CardContent className="text-sm space-y-2">
+        <CardContent className="space-y-3 text-sm">
           <p>The model predicts whether a paper meets all 3 quality bars:</p>
-          <ul className="ml-4 list-disc space-y-1">
-            <li>Overall quality score ≥ 62%</li>
-            <li>Substantial abstract (≥ 500 chars)</li>
-            <li>Clear methodology (≥ 2 method keywords)</li>
-          </ul>
-          <p className="pt-2">
+          <div className="grid gap-2 sm:grid-cols-3">
+            {[
+              "Overall quality score ≥ 62%",
+              "Substantial abstract (≥ 500 chars)",
+              "Clear methodology (≥ 2 method keywords)",
+            ].map((bar, i) => (
+              <div key={bar} className="flex items-start gap-2.5 rounded-xl border bg-card p-3">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-fuchsia-500 text-xs font-bold text-white">
+                  {i + 1}
+                </span>
+                <span className="text-sm">{bar}</span>
+              </div>
+            ))}
+          </div>
+          <p className="pt-1 text-muted-foreground">
             High-risk papers usually need more methodology detail, citations, or longer abstracts.
             The page gives <strong>actionable recommendations</strong> to improve.
           </p>
@@ -144,33 +165,33 @@ export default function PredictPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Submit Paper for Prediction</CardTitle>
+          <CardTitle className="flex items-center gap-2.5 text-lg">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-fuchsia-500 text-white">
+              <FileUp className="h-4 w-4" />
+            </span>
+            Submit Paper for Prediction
+          </CardTitle>
           <CardDescription>Upload a file (PDF/TXT) or paste text directly</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex gap-2">
-            <Button
-              variant={mode === "upload" ? "default" : "outline"}
-              onClick={() => setMode("upload")}
-              size="sm"
-            >
-              <Upload className="mr-2 h-4 w-4" /> Upload File
-            </Button>
-            <Button
-              variant={mode === "text" ? "default" : "outline"}
-              onClick={() => setMode("text")}
-              size="sm"
-            >
-              <FileText className="mr-2 h-4 w-4" /> Paste Text
-            </Button>
-          </div>
+          <SegmentedTabs
+            theme="insight"
+            value={mode}
+            onChange={setMode}
+            tabs={[
+              { id: "upload", label: "Upload File", icon: Upload },
+              { id: "text", label: "Paste Text", icon: FileText },
+            ]}
+          />
 
           {mode === "upload" ? (
             <div
-              className="rounded-lg border-2 border-dashed p-6 text-center cursor-pointer hover:bg-muted/50"
+              className="cursor-pointer rounded-xl border-2 border-dashed bg-muted/30 p-8 text-center transition-colors hover:border-primary/50 hover:bg-accent"
               onClick={() => fileInputRef.current?.click()}
             >
-              <Upload className="mx-auto h-8 w-8 text-muted-foreground" />
+              <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-fuchsia-500 text-white shadow-md">
+                <Upload className="h-6 w-6" />
+              </span>
               <p className="mt-2 text-sm">
                 {file ? (
                   <span className="font-medium">{file.name} ({(file.size / 1024).toFixed(1)} KB)</span>
@@ -191,7 +212,7 @@ export default function PredictPage() {
               <Label htmlFor="abstract">Abstract / Body Text</Label>
               <textarea
                 id="abstract"
-                className="min-h-[160px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
+                className="min-h-[160px] w-full rounded-lg border border-input bg-background px-3 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 placeholder="Paste paper abstract here (≥ 50 characters)..."
                 value={abstract}
                 onChange={(e) => setAbstract(e.target.value)}
@@ -215,7 +236,12 @@ export default function PredictPage() {
             </div>
           </div>
 
-          <Button onClick={handleSubmit} disabled={loading} className="w-full md:w-auto">
+          <Button
+            onClick={handleSubmit}
+            disabled={loading}
+            size="lg"
+            className="w-full bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white hover:from-purple-500 hover:to-fuchsia-500 md:w-auto"
+          >
             {loading ? "Predicting..." : (
               <>
                 <Sparkles className="mr-2 h-4 w-4" /> Predict Success Probability
@@ -270,7 +296,7 @@ export default function PredictPage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
-                <TrendingUp className="h-5 w-5" /> Recommendations to Improve
+                <TrendingUp className="h-5 w-5 text-purple-500" /> Recommendations to Improve
               </CardTitle>
               <CardDescription>Actionable steps based on the model&apos;s analysis</CardDescription>
             </CardHeader>

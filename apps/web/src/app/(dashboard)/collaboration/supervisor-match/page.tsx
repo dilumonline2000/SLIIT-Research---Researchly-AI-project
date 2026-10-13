@@ -6,6 +6,34 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { PageHero, SectionTitle } from "@/components/shared/PageHero";
+
+// Circular match-score gauge for result cards
+function ScoreRing({ value }: { value: number }) {
+  const pct = Math.max(0, Math.min(1, value));
+  const r = 22;
+  const c = 2 * Math.PI * r;
+  return (
+    <div className="relative h-14 w-14 shrink-0">
+      <svg viewBox="0 0 56 56" className="h-14 w-14 -rotate-90">
+        <circle cx="28" cy="28" r={r} fill="none" strokeWidth="5" className="stroke-muted" />
+        <circle
+          cx="28" cy="28" r={r} fill="none" strokeWidth="5" strokeLinecap="round"
+          stroke="url(#ringGrad)" strokeDasharray={c} strokeDashoffset={c * (1 - pct)}
+        />
+        <defs>
+          <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#10b981" />
+            <stop offset="100%" stopColor="#06b6d4" />
+          </linearGradient>
+        </defs>
+      </svg>
+      <span className="absolute inset-0 flex items-center justify-center font-display text-sm font-bold">
+        {Math.round(pct * 100)}%
+      </span>
+    </div>
+  );
+}
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, Legend,
@@ -129,7 +157,7 @@ function SupervisorDetailView({
   const topicData = papers?.topic_distribution ?? [];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-8">
       <Button variant="ghost" size="sm" onClick={onBack}>
         <ArrowLeft className="mr-2 h-4 w-4" /> Back to matches
       </Button>
@@ -168,20 +196,20 @@ function SupervisorDetailView({
           </div>
 
           {/* Match stats */}
-          <div className="mt-4 grid grid-cols-3 gap-4">
+          <div className="mt-4 grid grid-cols-3 gap-2 sm:gap-4">
             <div>
-              <p className="text-xs text-white/70 uppercase tracking-wide">Match Score</p>
-              <p className="text-2xl font-bold">{(match.multi_factor_score * 100).toFixed(0)}%</p>
+              <p className="text-[11px] text-white/70 uppercase tracking-wide sm:text-xs">Match Score</p>
+              <p className="text-xl font-bold sm:text-2xl">{(match.multi_factor_score * 100).toFixed(0)}%</p>
               <ScoreBar value={match.multi_factor_score} />
             </div>
             <div>
-              <p className="text-xs text-white/70 uppercase tracking-wide">Similarity</p>
-              <p className="text-2xl font-bold">{(match.similarity_score * 100).toFixed(0)}%</p>
+              <p className="text-[11px] text-white/70 uppercase tracking-wide sm:text-xs">Similarity</p>
+              <p className="text-xl font-bold sm:text-2xl">{(match.similarity_score * 100).toFixed(0)}%</p>
               <ScoreBar value={match.similarity_score} color="from-pink-500 to-rose-500" />
             </div>
             <div>
-              <p className="text-xs text-white/70 uppercase tracking-wide">Students</p>
-              <p className="text-2xl font-bold">
+              <p className="text-[11px] text-white/70 uppercase tracking-wide sm:text-xs">Students</p>
+              <p className="text-xl font-bold sm:text-2xl">
                 {match.current_students}
                 <span className="text-base font-normal text-white/70">/{match.max_students}</span>
               </p>
@@ -521,22 +549,29 @@ export default function SupervisorMatchingPage() {
   return (
     <div className="space-y-6">
       {/* Hero */}
-      <div className="rounded-2xl bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 p-6 text-white shadow-lg">
-        <h1 className="text-2xl font-bold flex items-center gap-2">
-          <Users className="h-7 w-7" /> Supervisor Matching
-        </h1>
-        <p className="mt-1 text-sm text-white/85 max-w-2xl">
-          Find the best-fit supervisors based on your research interests using AI-powered
-          semantic matching. Click a result to view their full profile, publications, and analytics.
-        </p>
-      </div>
+      <PageHero
+        theme="mentor"
+        icon={Users}
+        eyebrow="Mentor Network · Supervisor Match"
+        title="Find your ideal supervisor"
+        description="Find the best-fit supervisors based on your research interests using AI-powered semantic matching. Click a result to view their full profile, publications, and analytics."
+        stats={[
+          { label: "Supervisors", value: "84", icon: Users },
+          { label: "Engine", value: "SBERT", icon: Search },
+          ...(matches.length > 0 ? [{ label: "Matches found", value: matches.length }] : []),
+        ]}
+      />
 
       {/* Search form */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg flex items-center gap-2">
-            <Search className="h-4 w-4" /> Your Research Profile
+          <CardTitle className="flex items-center gap-2.5 text-lg">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 text-white">
+              <Search className="h-4 w-4" />
+            </span>
+            Your Research Profile
           </CardTitle>
+          <CardDescription>Tell us what you want to research — we&apos;ll rank supervisors by expertise fit.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
@@ -553,13 +588,18 @@ export default function SupervisorMatchingPage() {
             <Label htmlFor="abstract">Research abstract (optional)</Label>
             <textarea
               id="abstract"
-              className="flex min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="flex min-h-[100px] w-full rounded-lg border border-input bg-background transition-colors px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               placeholder="Describe your research focus in more detail…"
               value={abstract}
               onChange={(e) => setAbstract(e.target.value)}
             />
           </div>
-          <Button onClick={handleMatch} disabled={loading || (!interests.trim() && !abstract.trim())}>
+          <Button
+            onClick={handleMatch}
+            disabled={loading || (!interests.trim() && !abstract.trim())}
+            size="lg"
+            className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-500 hover:to-teal-500 sm:w-auto"
+          >
             {loading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Finding supervisors…
@@ -575,32 +615,45 @@ export default function SupervisorMatchingPage() {
       {/* Match results */}
       {matches.length > 0 && (
         <div className="space-y-3">
-          <h2 className="text-lg font-semibold">
-            Top Matches
-            <span className="ml-2 text-sm font-normal text-muted-foreground">
-              — click a supervisor to view full profile &amp; publications
-            </span>
-          </h2>
+          <SectionTitle
+            theme="mentor"
+            icon={Users}
+            title="Top Matches"
+            description="Click a supervisor to view their full profile & publications"
+          />
           {matches.map((m, i) => (
             <Card
               key={m.supervisor_id}
-              className="hover:shadow-md transition-shadow cursor-pointer group"
+              className="group relative cursor-pointer overflow-hidden transition-all hover:-translate-y-0.5 hover:border-emerald-500/30 hover:shadow-lg"
               onClick={() => handleViewProfile(m)}
             >
-              <CardContent className="p-4">
-                <div className="flex items-start gap-4">
-                  {/* Rank badge */}
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
-                    {i + 1}
+              {i === 0 && (
+                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500" />
+              )}
+              <CardContent className="p-4 sm:p-5">
+                <div className="flex items-start gap-3 sm:gap-4">
+                  {/* Avatar with rank */}
+                  <div className="relative shrink-0">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 font-display text-base font-bold text-white shadow-md">
+                      {m.name.replace(/^(Dr|Prof|Mr|Ms|Mrs)\.?\s+/i, "").split(/\s+/).slice(0, 2).map((p) => p[0]).join("").toUpperCase()}
+                    </div>
+                    <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full border-2 border-card bg-foreground text-[10px] font-bold text-background">
+                      {i + 1}
+                    </span>
                   </div>
 
                   <div className="flex-1 min-w-0 space-y-2">
                     {/* Name + badges */}
                     <div className="flex items-center gap-2 flex-wrap">
                       <h3 className="font-semibold text-base">{m.name}</h3>
-                      <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200 text-[11px]">
+                      <Badge variant="outline" className="border-emerald-200 bg-emerald-50 text-[11px] text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/40 dark:text-emerald-300">
                         SLIIT
                       </Badge>
+                      {i === 0 && (
+                        <Badge variant="outline" className="border-amber-200 bg-amber-50 text-[11px] text-amber-700 dark:border-amber-900/60 dark:bg-amber-950/40 dark:text-amber-300">
+                          ★ Best match
+                        </Badge>
+                      )}
                       {!m.availability && (
                         <Badge variant="outline" className="bg-red-50 text-red-700 border-red-200 text-[11px]">
                           Not accepting
@@ -622,11 +675,11 @@ export default function SupervisorMatchingPage() {
                     <div className="space-y-1">
                       <div className="flex items-center justify-between text-xs">
                         <span className="text-muted-foreground">Match score</span>
-                        <span className="font-semibold text-primary">
+                        <span className="font-semibold text-emerald-600 dark:text-emerald-400">
                           {(m.multi_factor_score * 100).toFixed(0)}%
                         </span>
                       </div>
-                      <ScoreBar value={m.multi_factor_score} />
+                      <ScoreBar value={m.multi_factor_score} color="from-emerald-500 to-teal-400" />
                     </div>
 
                     {/* Research interests */}
@@ -635,7 +688,7 @@ export default function SupervisorMatchingPage() {
                         {m.research_interests.slice(0, 5).map((ri) => (
                           <span
                             key={ri}
-                            className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[11px] font-medium text-primary"
+                            className="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-medium text-emerald-700 dark:text-emerald-300"
                           >
                             {ri}
                           </span>
@@ -650,18 +703,19 @@ export default function SupervisorMatchingPage() {
                   </div>
 
                   {/* Right: CTA */}
-                  <div className="flex flex-col items-end gap-2 shrink-0">
-                    <div className="text-right">
-                      <p className="text-[11px] text-muted-foreground uppercase tracking-wide">Similarity</p>
-                      <p className="text-sm font-semibold">{(m.similarity_score * 100).toFixed(1)}%</p>
+                  <div className="flex shrink-0 flex-col items-end gap-2">
+                    <div className="hidden flex-col items-center sm:flex">
+                      <ScoreRing value={m.similarity_score} />
+                      <p className="mt-0.5 text-[11px] uppercase tracking-wide text-muted-foreground">Similarity</p>
                     </div>
-                    <div className="flex items-center gap-1 text-xs text-primary font-medium group-hover:gap-2 transition-all">
+                    <p className="text-xs font-semibold sm:hidden">{(m.similarity_score * 100).toFixed(0)}%</p>
+                    <div className="hidden items-center gap-1 text-xs font-semibold text-emerald-600 transition-all group-hover:gap-2 dark:text-emerald-400 sm:flex">
                       View profile <ChevronRight className="h-3.5 w-3.5" />
                     </div>
                     <a
                       href={`mailto:${m.email}?subject=${encodeURIComponent("Research Supervision Enquiry")}`}
                       onClick={(e) => e.stopPropagation()}
-                      className="rounded-md border p-1.5 hover:bg-accent transition-colors"
+                      className="rounded-lg border p-2 transition-colors hover:border-emerald-500/40 hover:bg-emerald-500/10"
                       title={`Email ${m.name}`}
                     >
                       <Mail className="h-3.5 w-3.5 text-muted-foreground" />

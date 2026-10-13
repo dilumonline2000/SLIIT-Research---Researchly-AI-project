@@ -452,7 +452,7 @@ export default function PeerConnectPage() {
       </section>
 
       {/* ── Segmented tabs ───────────────────────────────────── */}
-      <div className="flex w-full gap-1 overflow-x-auto rounded-xl border bg-card p-1 shadow-soft sm:w-fit">
+      <div className="no-scrollbar flex w-full gap-1 overflow-x-auto rounded-xl border bg-card p-1 shadow-soft sm:w-fit">
         {tabs.filter((t) => t.show).map((t) => (
           <button
             key={t.id}
@@ -490,7 +490,7 @@ export default function PeerConnectPage() {
             </div>
 
             {areas.length > 0 && (
-              <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
+              <div className="no-scrollbar -mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
                 <button
                   onClick={() => setAreaFilter(null)}
                   className={cn(

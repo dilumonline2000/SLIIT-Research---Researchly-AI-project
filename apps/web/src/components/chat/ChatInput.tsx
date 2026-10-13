@@ -40,7 +40,7 @@ export function ChatInput({
   };
 
   return (
-    <div className="border-t bg-background p-3">
+    <div className="border-t bg-card p-3">
       <div className="mb-2 flex items-center gap-3 text-xs text-muted-foreground">
         <span>
           Detected:{" "}
@@ -57,9 +57,9 @@ export function ChatInput({
             </option>
           ))}
         </select>
-        <span className="ml-auto">Ctrl/⌘ + Enter to send</span>
+        <span className="ml-auto hidden sm:inline">Ctrl/⌘ + Enter to send</span>
       </div>
-      <div className="flex items-end gap-2">
+      <div className="flex items-end gap-2 rounded-2xl border bg-background p-1.5 shadow-sm focus-within:ring-2 focus-within:ring-ring">
         <textarea
           ref={taRef}
           value={value}
@@ -70,10 +70,15 @@ export function ChatInput({
           onKeyDown={onKey}
           rows={2}
           placeholder="Ask anything about your papers… (English / සිංහල / தமிழ் / Singlish)"
-          className="flex-1 resize-none rounded-md border bg-background p-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+          className="flex-1 resize-none bg-transparent p-2.5 text-sm focus:outline-none"
           disabled={disabled}
         />
-        <Button onClick={submit} disabled={disabled || !value.trim()}>
+        <Button
+          onClick={submit}
+          disabled={disabled || !value.trim()}
+          aria-label="Send"
+          className="h-10 w-10 shrink-0 rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 p-0 text-white"
+        >
           <Send className="h-4 w-4" />
         </Button>
       </div>

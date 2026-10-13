@@ -6,11 +6,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { PageHero, SegmentedTabs } from "@/components/shared/PageHero";
 import {
   Database, Sparkles, BookOpen, ExternalLink, Upload, FileText, FileUp, X,
   TrendingUp, TrendingDown, Minus, Lightbulb, AlertTriangle, Layers, Network,
   Download, Search, Filter, Copy, Check,
 } from "lucide-react";
+import {
+  ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell, LabelList,
+} from "recharts";
 import api from "@/lib/api";
 import { apiPost } from "@/lib/api";
 import { API_ROUTES } from "@/lib/constants";
@@ -113,46 +117,71 @@ const CATEGORY_STYLE: Record<string, { bg: string; text: string; border: string 
   general:     { bg: "bg-slate-50",    text: "text-slate-700",   border: "border-slate-200" },
 };
 
-// ─── Tiny SVG bar chart for trends ───────────────────────────────────────
+// ─── Year-wise trend bar chart ───────────────────────────────────────────
+// Rendered with Recharts so labels stay at real pixel sizes (the previous
+// viewBox-scaled SVG shrank its text to ~6px on wide cards).
 
 function TrendChart({ data }: { data: YearBucket[] }) {
   if (!data || data.length === 0) return null;
   const max = Math.max(1, ...data.map((d) => d.count));
-  const W = 600;
-  const H = 160;
-  const PAD = 28;
-  const barW = (W - PAD * 2) / data.length;
+  const chartData = data.map((d) => ({ year: String(d.year), count: d.count }));
 
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-40">
-      {[0.25, 0.5, 0.75].map((t) => (
-        <line key={t}
-          x1={PAD} x2={W - PAD}
-          y1={PAD + (H - PAD * 2) * (1 - t)} y2={PAD + (H - PAD * 2) * (1 - t)}
-          stroke="currentColor" strokeOpacity="0.08" strokeDasharray="3 3" />
-      ))}
-      {data.map((d, i) => {
-        const h = (d.count / max) * (H - PAD * 2);
-        const x = PAD + i * barW + barW * 0.15;
-        const y = H - PAD - h;
-        return (
-          <g key={d.year}>
-            <rect x={x} y={y} width={barW * 0.7} height={h} rx={3}
-              fill="url(#bar-grad)" />
-            <text x={x + barW * 0.35} y={y - 4} textAnchor="middle"
-              fontSize="10" fill="currentColor" opacity="0.7">{d.count}</text>
-            <text x={x + barW * 0.35} y={H - PAD + 14} textAnchor="middle"
-              fontSize="10" fill="currentColor" opacity="0.7">{d.year}</text>
-          </g>
-        );
-      })}
-      <defs>
-        <linearGradient id="bar-grad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#6366f1" />
-          <stop offset="100%" stopColor="#8b5cf6" />
-        </linearGradient>
-      </defs>
-    </svg>
+    <div className="h-[280px] w-full sm:h-[300px]">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={chartData} margin={{ top: 28, right: 8, left: -12, bottom: 4 }}>
+          <defs>
+            <linearGradient id="trend-bar" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#3b82f6" />
+              <stop offset="100%" stopColor="#06b6d4" />
+            </linearGradient>
+            <linearGradient id="trend-bar-peak" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#6366f1" />
+              <stop offset="100%" stopColor="#a855f7" />
+            </linearGradient>
+          </defs>
+          <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="hsl(var(--border))" />
+          <XAxis
+            dataKey="year"
+            tick={{ fontSize: 13, fill: "hsl(var(--muted-foreground))", fontWeight: 500 }}
+            axisLine={{ stroke: "hsl(var(--border))" }}
+            tickLine={false}
+            interval={0}
+            tickMargin={8}
+          />
+          <YAxis
+            allowDecimals={false}
+            domain={[0, Math.ceil(max * 1.15)]}
+            tick={{ fontSize: 13, fill: "hsl(var(--muted-foreground))" }}
+            axisLine={false}
+            tickLine={false}
+            width={40}
+          />
+          <Tooltip
+            cursor={{ fill: "hsl(var(--muted))", opacity: 0.5 }}
+            contentStyle={{
+              backgroundColor: "hsl(var(--card))",
+              border: "1px solid hsl(var(--border))",
+              borderRadius: "10px",
+              fontSize: "14px",
+              color: "hsl(var(--card-foreground))",
+            }}
+            formatter={(val) => [`${val} paper${Number(val) !== 1 ? "s" : ""}`, "Published"]}
+          />
+          <Bar dataKey="count" radius={[8, 8, 0, 0]} maxBarSize={64}>
+            {chartData.map((d) => (
+              <Cell key={d.year} fill={d.count === max ? "url(#trend-bar-peak)" : "url(#trend-bar)"} />
+            ))}
+            <LabelList
+              dataKey="count"
+              position="top"
+              offset={8}
+              style={{ fontSize: 14, fontWeight: 700, fill: "hsl(var(--foreground))" }}
+            />
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
 
@@ -309,36 +338,37 @@ export default function GapAnalysisPage() {
   // ─── Render ───────────────────────────────────────────────────
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-8">
       {/* Hero */}
-      <div className="rounded-2xl bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-600 p-6 text-white shadow-lg">
-        <h1 className="text-2xl font-bold flex items-center gap-2">
-          <Sparkles className="h-7 w-7" /> Research Intelligence Platform
-        </h1>
-        <p className="mt-1 text-sm text-white/85 max-w-3xl">
-          Analyse a topic, paste a paper, or upload a PDF. The system surfaces ranked gaps, trends,
-          cross-domain opportunities, and AI-assisted research directions — all grounded in 4,200+ SLIIT papers.
-        </p>
-      </div>
+      <PageHero
+        theme="integrity"
+        icon={Sparkles}
+        eyebrow="Integrity Lab · Gap Analysis"
+        title="Research Intelligence Platform"
+        description="Analyse a topic, paste a paper, or upload a PDF. The system surfaces ranked gaps, trends, cross-domain opportunities, and AI-assisted research directions — all grounded in 4,200+ SLIIT papers."
+        stats={[
+          { label: "Papers indexed", value: "4,200+", icon: Database },
+          { label: "Input modes", value: 3, icon: Search },
+        ]}
+      />
 
       {/* Mode tabs */}
-      <div className="flex gap-2 flex-wrap">
-        <Button variant={mode === "topic" ? "default" : "outline"} size="sm" onClick={() => { setMode("topic"); setError(""); }}>
-          <Search className="mr-2 h-4 w-4" /> Topic Query
-        </Button>
-        <Button variant={mode === "fullPaper" ? "default" : "outline"} size="sm" onClick={() => { setMode("fullPaper"); setError(""); }}>
-          <FileText className="mr-2 h-4 w-4" /> Paste Paper Text
-        </Button>
-        <Button variant={mode === "pdf" ? "default" : "outline"} size="sm" onClick={() => { setMode("pdf"); setError(""); }}>
-          <Upload className="mr-2 h-4 w-4" /> Upload PDF
-        </Button>
-      </div>
+      <SegmentedTabs
+        theme="integrity"
+        value={mode}
+        onChange={(m) => { setMode(m); setError(""); }}
+        tabs={[
+          { id: "topic", label: "Topic Query", icon: Search },
+          { id: "fullPaper", label: "Paste Paper Text", icon: FileText },
+          { id: "pdf", label: "Upload PDF", icon: Upload },
+        ]}
+      />
 
       {/* Input panel */}
       <Card>
         <CardHeader>
           <CardTitle className="text-lg flex items-center gap-2">
-            <Database className="h-5 w-5" />
+            <Database className="h-5 w-5 text-blue-500" />
             {mode === "topic" && "Topic input"}
             {mode === "fullPaper" && "Paste research paper"}
             {mode === "pdf" && "Upload research paper (PDF)"}
@@ -382,7 +412,7 @@ export default function GapAnalysisPage() {
               <Label htmlFor="full-text">Paper text (≥ 200 characters)</Label>
               <textarea
                 id="full-text"
-                className="flex min-h-[200px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="flex min-h-[200px] w-full rounded-lg border border-input bg-background transition-colors px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 placeholder="Paste the full text of the paper..."
                 value={fullText}
                 onChange={(e) => setFullText(e.target.value)}
@@ -397,7 +427,7 @@ export default function GapAnalysisPage() {
               <div className="flex items-center gap-3">
                 <label
                   htmlFor="pdf-file"
-                  className="flex flex-1 items-center justify-center gap-2 rounded-md border border-dashed border-input bg-background px-4 py-8 text-sm text-muted-foreground cursor-pointer hover:bg-accent transition-colors"
+                  className="flex flex-1 items-center justify-center gap-2 rounded-xl border-2 border-dashed border-input bg-muted/30 px-4 py-8 text-sm text-muted-foreground cursor-pointer hover:border-primary/50 hover:bg-accent transition-colors"
                 >
                   <FileUp className="h-5 w-5" />
                   {file ? (
@@ -487,7 +517,7 @@ export default function GapAnalysisPage() {
             <Card>
               <CardHeader className="pb-2">
                 <CardTitle className="text-base flex items-center gap-2">
-                  <Layers className="h-4 w-4" /> Gap classification
+                  <Layers className="h-4 w-4 text-blue-500" /> Gap classification
                 </CardTitle>
                 <CardDescription>How the {result.gaps.length} ranked gaps break down by type.</CardDescription>
               </CardHeader>
@@ -528,18 +558,19 @@ export default function GapAnalysisPage() {
             <Card>
               <CardHeader>
                 <div className="flex items-center justify-between flex-wrap gap-2">
-                  <CardTitle className="text-base flex items-center gap-2">
+                  <CardTitle className="text-lg flex items-center gap-2">
                     {trendIcon(result.trends.interpretation)}
                     Year-wise trend
                   </CardTitle>
-                  <Badge variant="outline" className="text-xs">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-indigo-500/10 to-purple-500/10 px-3 py-1 text-sm font-semibold text-indigo-700 dark:text-indigo-300">
+                    <span className="h-2.5 w-2.5 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500" />
                     Peak: {result.trends.peak_year} ({result.trends.peak_count} papers)
-                  </Badge>
+                  </span>
                 </div>
               </CardHeader>
               <CardContent>
                 <TrendChart data={result.trends.by_year} />
-                <p className="text-sm leading-relaxed mt-3">
+                <p className="mt-4 rounded-xl border-l-4 border-blue-500/60 bg-muted/40 px-4 py-3 text-[15px] leading-relaxed">
                   {renderInline(result.trends.interpretation)}
                 </p>
               </CardContent>
@@ -613,7 +644,7 @@ export default function GapAnalysisPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="text-base flex items-center gap-2">
-                  <Network className="h-4 w-4" /> Cross-domain opportunities
+                  <Network className="h-4 w-4 text-blue-500" /> Cross-domain opportunities
                 </CardTitle>
                 <CardDescription>
                   Domain pairs with sparse coverage in the SLIIT corpus — strong starting points for novel research.
@@ -671,7 +702,7 @@ export default function GapAnalysisPage() {
             <Card className="border-amber-200 bg-amber-50/40">
               <CardHeader className="pb-2">
                 <CardTitle className="text-base flex items-center gap-2 text-amber-800">
-                  <AlertTriangle className="h-4 w-4" /> Saturated subtopics — avoid duplicating
+                  <AlertTriangle className="h-4 w-4 text-blue-500" /> Saturated subtopics — avoid duplicating
                 </CardTitle>
                 <CardDescription className="text-amber-800/80">
                   Terms that appear in many of the matched papers. Differentiate your contribution from these.

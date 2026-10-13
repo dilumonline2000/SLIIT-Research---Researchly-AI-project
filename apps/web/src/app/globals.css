@@ -383,3 +383,7 @@
 .dark .bg-slate-50:not([class*="dark:bg-"]),
 .dark .bg-gray-100:not([class*="dark:bg-"]),
 .dark .bg-slate-100:not([class*="dark:bg-"]) { background-color: hsl(var(--muted)); }
+
+/* ── Horizontally swipeable rows (tabs, filter chips) without a visible bar ── */
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }

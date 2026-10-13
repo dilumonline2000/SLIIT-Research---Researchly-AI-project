@@ -12,18 +12,18 @@ import { API_ROUTES } from "@/lib/constants";
 function StatusBadge({ status }: { status: string }) {
   if (status === "ready")
     return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-green-500/10 px-2 py-0.5 text-xs text-green-600">
+      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-600 dark:text-emerald-300">
         <CheckCircle2 className="h-3 w-3" /> Ready
       </span>
     );
   if (status === "failed")
     return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-red-500/10 px-2 py-0.5 text-xs text-red-600">
+      <span className="inline-flex items-center gap-1 rounded-full bg-red-500/10 px-2.5 py-0.5 text-xs font-medium text-red-600 dark:text-red-300">
         <AlertCircle className="h-3 w-3" /> Failed
       </span>
     );
   return (
-    <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 px-2 py-0.5 text-xs text-amber-600">
+    <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 px-2.5 py-0.5 text-xs font-medium capitalize text-amber-600 dark:text-amber-300">
       <Loader2 className="h-3 w-3 animate-spin" /> {status}
     </span>
   );
@@ -51,14 +51,17 @@ export function PaperCard({ paper }: { paper: UploadedPaper }) {
   };
 
   return (
-    <Card className="transition-shadow hover:shadow-md">
-      <CardContent className="space-y-3 p-4">
-        <div className="flex items-start justify-between gap-2">
-          <FileText className="mt-1 h-5 w-5 shrink-0 text-muted-foreground" />
+    <Card className="group relative flex h-full flex-col overflow-hidden transition-all hover:-translate-y-0.5 hover:shadow-lg">
+      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 opacity-70 transition-opacity group-hover:opacity-100" />
+      <CardContent className="flex flex-1 flex-col gap-3 p-5">
+        <div className="flex items-start justify-between gap-3">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500 text-white shadow-sm">
+            <FileText className="h-5 w-5" />
+          </span>
           <div className="min-w-0 flex-1">
             <Link
               href={`/papers/${paper.id}`}
-              className="line-clamp-2 font-medium hover:underline"
+              className="line-clamp-2 font-semibold leading-snug hover:text-primary"
             >
               {paper.title || "Untitled paper"}
             </Link>
@@ -70,10 +73,10 @@ export function PaperCard({ paper }: { paper: UploadedPaper }) {
         </div>
 
         {paper.abstract && (
-          <p className="line-clamp-3 text-xs text-muted-foreground">{paper.abstract}</p>
+          <p className="line-clamp-3 text-sm leading-relaxed text-muted-foreground">{paper.abstract}</p>
         )}
 
-        <div className="flex items-center justify-between gap-2">
+        <div className="mt-auto flex items-center justify-between gap-2 border-t pt-3">
           <StatusBadge status={paper.processing_status} />
           <div className="flex items-center gap-2">
             {isFailed && paper.processing_error && (
@@ -100,7 +103,7 @@ export function PaperCard({ paper }: { paper: UploadedPaper }) {
             )}
             <Link
               href={`/papers/${paper.id}/chat`}
-              className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+              className="inline-flex items-center gap-1 rounded-lg bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary transition-colors hover:bg-primary/15"
             >
               <MessageSquare className="h-3 w-3" /> Chat
             </Link>

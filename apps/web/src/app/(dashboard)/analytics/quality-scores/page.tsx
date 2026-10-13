@@ -5,7 +5,37 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Upload, FileText, Sparkles, AlertCircle, CheckCircle2, AlertTriangle } from "lucide-react";
+import { Upload, FileText, Sparkles, AlertCircle, CheckCircle2, AlertTriangle, FileUp, Gauge, Lightbulb, Tag, ListChecks } from "lucide-react";
+import { PageHero, SegmentedTabs } from "@/components/shared/PageHero";
+
+// Large circular gauge for the overall quality score (0–1)
+function QualityGauge({ value }: { value: number }) {
+  const pct = Math.max(0, Math.min(1, value));
+  const r = 52;
+  const c = 2 * Math.PI * r;
+  return (
+    <div className="relative h-32 w-32 shrink-0">
+      <svg viewBox="0 0 128 128" className="h-32 w-32 -rotate-90">
+        <circle cx="64" cy="64" r={r} fill="none" strokeWidth="11" className="stroke-muted" />
+        <circle
+          cx="64" cy="64" r={r} fill="none" strokeWidth="11" strokeLinecap="round"
+          stroke="url(#qualityGrad)" strokeDasharray={c} strokeDashoffset={c * (1 - pct)}
+          style={{ transition: "stroke-dashoffset 0.8s ease" }}
+        />
+        <defs>
+          <linearGradient id="qualityGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#a855f7" />
+            <stop offset="100%" stopColor="#ec4899" />
+          </linearGradient>
+        </defs>
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <span className="font-display text-3xl font-bold">{Math.round(pct * 100)}</span>
+        <span className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">/ 100</span>
+      </div>
+    </div>
+  );
+}
 import { API_ROUTES, API_GATEWAY_URL } from "@/lib/constants";
 import { apiPost } from "@/lib/api";
 import { createClient } from "@/lib/supabase/client";
@@ -133,45 +163,48 @@ export default function QualityScoresPage() {
   const handleSubmit = () => (mode === "text" ? handleAnalyzeText() : handleAnalyzeFile());
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold">Quality Scoring</h1>
-        <p className="text-muted-foreground">
-          Upload a paper (PDF/TXT) or paste abstract text. Get instant quality scores
-          across 4 dimensions, computed by an XGBoost model trained on 3,860 SLIIT papers
-          (R² &gt; 0.99).
-        </p>
-      </div>
+    <div className="space-y-6 pb-8">
+      <PageHero
+        theme="insight"
+        icon={Gauge}
+        title="Paper Quality Scoring"
+        description="Upload a paper (PDF/TXT) or paste abstract text. Get instant quality scores across 4 dimensions, computed by an XGBoost model trained on 3,860 SLIIT papers (R² > 0.99)."
+        stats={[
+          { label: "Training papers", value: "3,860", icon: FileText },
+          { label: "Dimensions", value: 4, icon: ListChecks },
+          { label: "Model fit", value: "R² > 0.99", icon: Sparkles },
+        ]}
+      />
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Submit Paper</CardTitle>
+          <CardTitle className="flex items-center gap-2.5 text-lg">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-fuchsia-500 text-white">
+              <FileUp className="h-4 w-4" />
+            </span>
+            Submit Paper
+          </CardTitle>
           <CardDescription>Upload a file or paste text directly — no Proposal ID needed.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex gap-2">
-            <Button
-              variant={mode === "upload" ? "default" : "outline"}
-              onClick={() => setMode("upload")}
-              size="sm"
-            >
-              <Upload className="mr-2 h-4 w-4" /> Upload File
-            </Button>
-            <Button
-              variant={mode === "text" ? "default" : "outline"}
-              onClick={() => setMode("text")}
-              size="sm"
-            >
-              <FileText className="mr-2 h-4 w-4" /> Paste Text
-            </Button>
-          </div>
+          <SegmentedTabs
+            theme="insight"
+            value={mode}
+            onChange={setMode}
+            tabs={[
+              { id: "upload", label: "Upload File", icon: Upload },
+              { id: "text", label: "Paste Text", icon: FileText },
+            ]}
+          />
 
           {mode === "upload" ? (
             <div
-              className="rounded-lg border-2 border-dashed p-6 text-center cursor-pointer hover:bg-muted/50"
+              className="cursor-pointer rounded-xl border-2 border-dashed bg-muted/30 p-8 text-center transition-colors hover:border-primary/50 hover:bg-accent"
               onClick={() => fileInputRef.current?.click()}
             >
-              <Upload className="mx-auto h-8 w-8 text-muted-foreground" />
+              <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-fuchsia-500 text-white shadow-md">
+                <Upload className="h-6 w-6" />
+              </span>
               <p className="mt-2 text-sm">
                 {file ? (
                   <span className="font-medium">
@@ -194,7 +227,7 @@ export default function QualityScoresPage() {
               <Label htmlFor="abstract">Abstract / Body Text</Label>
               <textarea
                 id="abstract"
-                className="min-h-[160px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
+                className="min-h-[160px] w-full rounded-lg border border-input bg-background px-3 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 placeholder="Paste paper abstract here (≥ 50 characters)..."
                 value={abstract}
                 onChange={(e) => setAbstract(e.target.value)}
@@ -218,7 +251,12 @@ export default function QualityScoresPage() {
             </div>
           </div>
 
-          <Button onClick={handleSubmit} disabled={loading} className="w-full md:w-auto">
+          <Button
+            onClick={handleSubmit}
+            disabled={loading}
+            size="lg"
+            className="w-full bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white hover:from-purple-500 hover:to-fuchsia-500 md:w-auto"
+          >
             {loading ? "Analyzing..." : (
               <>
                 <Sparkles className="mr-2 h-4 w-4" /> Analyze Paper Quality
@@ -239,11 +277,11 @@ export default function QualityScoresPage() {
         <>
           {/* Non-research document warning */}
           {result.is_research_document === false && (
-            <div className="flex items-start gap-3 rounded-xl border-2 border-amber-300 bg-amber-50 px-5 py-4">
+            <div className="flex items-start gap-3 rounded-xl border-2 border-amber-300 bg-amber-50 px-5 py-4 dark:border-amber-800 dark:bg-amber-950/30">
               <AlertTriangle className="h-6 w-6 shrink-0 text-amber-600 mt-0.5" />
               <div className="space-y-1">
-                <p className="font-semibold text-amber-900">Not a research paper</p>
-                <p className="text-sm text-amber-800">
+                <p className="font-semibold text-amber-900 dark:text-amber-200">Not a research paper</p>
+                <p className="text-sm text-amber-800 dark:text-amber-300">
                   {result.document_warning ||
                     "This document does not appear to be an academic research paper. Quality scores are designed for research papers with an abstract, methodology, and findings — the numbers below may not be meaningful for this document."}
                 </p>
@@ -252,19 +290,15 @@ export default function QualityScoresPage() {
           )}
 
           <Card className={result.is_research_document === false ? "opacity-60" : ""}>
-            <CardHeader>
-              <CardTitle className="flex items-center justify-between">
-                <span className="text-lg">{result.title || "Quality Analysis"}</span>
-                <span className={`text-3xl font-bold ${scoreLabel(result.overall_score).color}`}>
-                  {(result.overall_score * 100).toFixed(0)}
-                  <span className="text-base font-normal text-muted-foreground"> / 100</span>
-                </span>
-              </CardTitle>
-              <CardDescription className={scoreLabel(result.overall_score).color}>
-                Overall: {scoreLabel(result.overall_score).label}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="grid gap-6 p-5 sm:p-6 md:grid-cols-[auto_1fr] md:items-center">
+              <div className="flex flex-col items-center gap-2 text-center md:w-48">
+                <QualityGauge value={result.overall_score} />
+                <p className={`text-sm font-semibold ${scoreLabel(result.overall_score).color}`}>
+                  Overall: {scoreLabel(result.overall_score).label}
+                </p>
+                <p className="line-clamp-2 text-xs text-muted-foreground">{result.title || "Quality Analysis"}</p>
+              </div>
+              <div className="space-y-4">
               {DIMENSIONS.map((dim) => {
                 const score = result[dim.key];
                 const pct = Math.round(score * 100);
@@ -277,12 +311,13 @@ export default function QualityScoresPage() {
                       </span>
                       <span className={`font-semibold ${scoreLabel(score).color}`}>{pct}%</span>
                     </div>
-                    <div className="h-2 rounded-full bg-muted overflow-hidden">
-                      <div className={`h-full bg-gradient-to-r ${dim.color}`} style={{ width: `${pct}%` }} />
+                    <div className="h-2.5 overflow-hidden rounded-full bg-muted">
+                      <div className={`h-full rounded-full bg-gradient-to-r ${dim.color}`} style={{ width: `${pct}%` }} />
                     </div>
                   </div>
                 );
               })}
+              </div>
             </CardContent>
           </Card>
 
@@ -290,7 +325,7 @@ export default function QualityScoresPage() {
             <div className="grid gap-4 md:grid-cols-2">
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-lg">Topic Classification</CardTitle>
+                  <CardTitle className="flex items-center gap-2 text-lg"><Tag className="h-4 w-4 text-purple-500" /> Topic Classification</CardTitle>
                   <CardDescription>SBERT trained on 1,533 SLIIT abstracts</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -322,7 +357,7 @@ export default function QualityScoresPage() {
               {result.recommendations && (
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-lg">Recommendations</CardTitle>
+                    <CardTitle className="flex items-center gap-2 text-lg"><Lightbulb className="h-4 w-4 text-purple-500" /> Recommendations</CardTitle>
                     <CardDescription>Improvements suggested by the model</CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -333,7 +368,7 @@ export default function QualityScoresPage() {
                     ) : (
                       <ul className="space-y-2 text-sm">
                         {result.recommendations.map((rec, i) => (
-                          <li key={i} className="flex items-start gap-2">
+                          <li key={i} className="flex items-start gap-2 rounded-lg bg-muted/40 px-3 py-2">
                             <AlertCircle className="h-4 w-4 mt-0.5 flex-shrink-0 text-amber-500" />
                             <span>{rec}</span>
                           </li>
@@ -349,13 +384,13 @@ export default function QualityScoresPage() {
           {result.features && (
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Extracted Features</CardTitle>
+                <CardTitle className="flex items-center gap-2 text-lg"><ListChecks className="h-4 w-4 text-purple-500" /> Extracted Features</CardTitle>
                 <CardDescription>Used by the trained quality model</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-2 text-sm md:grid-cols-3 lg:grid-cols-4">
                   {Object.entries(result.features).map(([key, value]) => (
-                    <div key={key} className="rounded-md border p-2">
+                    <div key={key} className="rounded-xl border bg-muted/30 p-2.5">
                       <p className="text-xs text-muted-foreground capitalize">{key.replace(/_/g, " ")}</p>
                       <p className="font-mono font-semibold">{value}</p>
                     </div>

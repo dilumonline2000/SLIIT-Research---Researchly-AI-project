@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import { Database, Tag, FileText, BarChart3, Workflow, ShieldAlert, ArrowRight } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tag, FileText, Workflow, ShieldAlert, Archive, Globe } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { FeatureHub, type HubFeature } from "@/components/shared/FeatureHub";
 import { API_ROUTES } from "@/lib/constants";
 import { apiGet } from "@/lib/api";
 
@@ -15,11 +15,11 @@ interface QualityData {
   sources: Record<string, number>;
 }
 
-const features = [
-  { title: "Data Pipeline", desc: "Orchestrate scraping from IEEE, arXiv, ACM, SLIIT, Scholar and Semantic Scholar sources.", icon: Workflow, href: "/data-management/pipeline", color: "bg-amber-600" },
-  { title: "Topic Categorization", desc: "Classify papers into research categories using SciBERT.", icon: Tag, href: "/data-management/categorization", color: "bg-amber-500" },
-  { title: "Plagiarism Trends", desc: "Analyze plagiarism patterns and trends across the paper corpus.", icon: ShieldAlert, href: "/data-management/plagiarism-trends", color: "bg-red-500" },
-  { title: "Summarizer", desc: "Generate abstractive summaries of research papers.", icon: FileText, href: "/data-management/summarizer", color: "bg-orange-500" },
+const features: HubFeature[] = [
+  { title: "Data Pipeline", desc: "Orchestrate scraping from IEEE, arXiv, ACM, SLIIT, Scholar and Semantic Scholar sources.", icon: Workflow, href: "/data-management/pipeline", gradient: "from-amber-500 to-yellow-500" },
+  { title: "Topic Categorization", desc: "Classify papers into research categories using SciBERT.", icon: Tag, href: "/data-management/categorization", gradient: "from-amber-500 to-orange-500" },
+  { title: "Plagiarism Trends", desc: "Analyze plagiarism patterns and trends across the paper corpus.", icon: ShieldAlert, href: "/data-management/plagiarism-trends", gradient: "from-rose-500 to-red-500" },
+  { title: "Summarizer", desc: "Generate abstractive summaries of research papers.", icon: FileText, href: "/data-management/summarizer", gradient: "from-orange-500 to-rose-500" },
 ];
 
 export default function DataManagementPage() {
@@ -31,63 +31,53 @@ export default function DataManagementPage() {
       .catch(() => {});
   }, []);
 
+  const sources = quality ? Object.entries(quality.sources).sort((a, b) => b[1] - a[1]) : [];
+  const maxSource = Math.max(1, ...sources.map(([, c]) => c));
+
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold">Research Data Collection & Management</h1>
-        <p className="text-muted-foreground">Module 3 · Owner: N V Hewamanne</p>
-      </div>
-
-      {quality && (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Card>
-            <CardHeader className="pb-2"><CardDescription>Total Papers</CardDescription><CardTitle className="text-2xl">{quality.total_papers.toLocaleString()}</CardTitle></CardHeader>
-          </Card>
-          <Card>
-            <CardHeader className="pb-2"><CardDescription>Completeness</CardDescription><CardTitle className="text-2xl">{(quality.completeness_score * 100).toFixed(0)}%</CardTitle></CardHeader>
-          </Card>
-          <Card>
-            <CardHeader className="pb-2"><CardDescription>Consistency</CardDescription><CardTitle className="text-2xl">{(quality.consistency_score * 100).toFixed(0)}%</CardTitle></CardHeader>
-          </Card>
-          <Card>
-            <CardHeader className="pb-2"><CardDescription>Duplicate Rate</CardDescription><CardTitle className="text-2xl">{(quality.duplicate_rate * 100).toFixed(1)}%</CardTitle></CardHeader>
-          </Card>
-        </div>
-      )}
-
-      {quality && Object.keys(quality.sources).length > 0 && (
+    <FeatureHub
+      theme="vault"
+      icon={Archive}
+      title="Research Data Collection & Management"
+      tagline="Collect, clean, classify and summarise research papers — the knowledge base that powers every Researchly AI model."
+      owner="N V Hewamanne"
+      features={features}
+      stats={
+        quality
+          ? [
+              { label: "Total papers", value: quality.total_papers.toLocaleString() },
+              { label: "Completeness", value: `${(quality.completeness_score * 100).toFixed(0)}%` },
+              { label: "Consistency", value: `${(quality.consistency_score * 100).toFixed(0)}%` },
+              { label: "Duplicate rate", value: `${(quality.duplicate_rate * 100).toFixed(1)}%` },
+            ]
+          : undefined
+      }
+    >
+      {sources.length > 0 && (
         <Card>
-          <CardHeader><CardTitle className="text-lg">Papers by Source</CardTitle></CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap gap-3">
-              {Object.entries(quality.sources).sort((a, b) => b[1] - a[1]).map(([src, count]) => (
-                <div key={src} className="rounded bg-secondary px-3 py-1 text-sm">
-                  <span className="font-medium">{src}</span>: {count.toLocaleString()}
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center gap-2 text-lg">
+              <Globe className="h-4 w-4 text-amber-500" /> Papers by Source
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
+            {sources.map(([src, count]) => (
+              <div key={src} className="space-y-1">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="font-medium">{src}</span>
+                  <span className="tabular-nums text-muted-foreground">{count.toLocaleString()}</span>
                 </div>
-              ))}
-            </div>
+                <div className="h-2 overflow-hidden rounded-full bg-muted">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-amber-500 to-orange-500"
+                    style={{ width: `${(count / maxSource) * 100}%` }}
+                  />
+                </div>
+              </div>
+            ))}
           </CardContent>
         </Card>
       )}
-
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {features.map((f) => (
-          <Link key={f.title} href={f.href}>
-            <Card className="h-full transition-all hover:shadow-md hover:-translate-y-0.5 cursor-pointer">
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${f.color} text-white`}>
-                    <f.icon className="h-5 w-5" />
-                  </div>
-                  <ArrowRight className="h-4 w-4 text-muted-foreground" />
-                </div>
-                <CardTitle className="pt-3 text-lg">{f.title}</CardTitle>
-                <CardDescription>{f.desc}</CardDescription>
-              </CardHeader>
-            </Card>
-          </Link>
-        ))}
-      </div>
-    </div>
+    </FeatureHub>
   );
 }

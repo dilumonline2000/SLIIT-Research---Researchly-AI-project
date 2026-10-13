@@ -10,6 +10,7 @@ import {
   BookOpen, Target, FlaskConical, BarChart3, AlertTriangle, CheckCircle2,
   Download,
 } from "lucide-react";
+import { PageHero, SegmentedTabs } from "@/components/shared/PageHero";
 import api from "@/lib/api";
 import { apiPost } from "@/lib/api";
 import { API_ROUTES } from "@/lib/constants";
@@ -178,36 +179,34 @@ export default function SummarizePage() {
     : [];
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold flex items-center gap-2">
-          <FileText className="h-6 w-6" /> Research Summarizer
-        </h1>
-        <p className="text-muted-foreground">
-          Save reading time — paste text or upload a PDF; the local extractive model picks the most important sentences and groups them by section.
-        </p>
-      </div>
+    <div className="space-y-6 pb-8">
+      <PageHero
+        theme="vault"
+        icon={FileText}
+        title="Research Summarizer"
+        description="Save reading time — paste text or upload a PDF; the local extractive model picks the most important sentences and groups them by section."
+        stats={[
+          { label: "Max PDF size", value: "25 MB", icon: FileUp },
+          { label: "Model", value: "Extractive", icon: Sparkles },
+        ]}
+      />
 
-      <div className="flex gap-2">
-        <Button
-          variant={mode === "text" ? "default" : "outline"}
-          size="sm"
-          onClick={() => { setMode("text"); setResult(null); setError(""); }}
-        >
-          <FileText className="mr-2 h-4 w-4" /> Paste Text
-        </Button>
-        <Button
-          variant={mode === "upload" ? "default" : "outline"}
-          size="sm"
-          onClick={() => { setMode("upload"); setResult(null); setError(""); }}
-        >
-          <Upload className="mr-2 h-4 w-4" /> Upload PDF
-        </Button>
-      </div>
+      <SegmentedTabs
+        theme="vault"
+        value={mode}
+        onChange={(m) => { setMode(m); setResult(null); setError(""); }}
+        tabs={[
+          { id: "text", label: "Paste Text", icon: FileText },
+          { id: "upload", label: "Upload PDF", icon: Upload },
+        ]}
+      />
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">
+          <CardTitle className="flex items-center gap-2.5 text-lg">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 text-white">
+              {mode === "text" ? <FileText className="h-4 w-4" /> : <Upload className="h-4 w-4" />}
+            </span>
             {mode === "text" ? "Input Paper Text" : "Upload Research Paper (PDF)"}
           </CardTitle>
           <CardDescription>
@@ -222,7 +221,7 @@ export default function SummarizePage() {
               <Label htmlFor="sum-text">Paper text (minimum 100 characters)</Label>
               <textarea
                 id="sum-text"
-                className="flex min-h-[200px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="flex min-h-[200px] w-full rounded-lg border border-input bg-background transition-colors px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 placeholder="Paste the full paper text or a large section..."
                 value={text}
                 onChange={(e) => setText(e.target.value)}
@@ -235,7 +234,7 @@ export default function SummarizePage() {
               <div className="flex items-center gap-3">
                 <label
                   htmlFor="pdf-file"
-                  className="flex flex-1 items-center justify-center gap-2 rounded-md border border-dashed border-input bg-background px-4 py-8 text-sm text-muted-foreground cursor-pointer hover:bg-accent transition-colors"
+                  className="flex flex-1 items-center justify-center gap-2 rounded-xl border-2 border-dashed border-input bg-muted/30 px-4 py-8 text-sm text-muted-foreground cursor-pointer hover:border-primary/50 hover:bg-accent transition-colors"
                 >
                   <FileUp className="h-5 w-5" />
                   {file ? (

@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { Shield } from "lucide-react";
+import { PageHero } from "@/components/shared/PageHero";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -44,10 +46,12 @@ export default function PlagiarismPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold">Plagiarism Checker</h1>
-        <p className="text-muted-foreground">Check your text against the research paper corpus.</p>
-      </div>
+      <PageHero
+        theme="integrity"
+        icon={Shield}
+        title="Plagiarism Checker"
+        description="Check your text against the research paper corpus."
+      />
 
       <Card>
         <CardHeader><CardTitle className="text-lg">Input Text</CardTitle></CardHeader>

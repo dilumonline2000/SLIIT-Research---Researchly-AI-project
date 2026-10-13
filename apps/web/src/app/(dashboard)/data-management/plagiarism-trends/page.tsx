@@ -10,6 +10,7 @@ import {
   Database, Search, FileText, AlertTriangle, ExternalLink,
   ArrowUp, ArrowDown, Minus, Download, FileUp, X, BookOpen, Loader2, Files,
 } from "lucide-react";
+import { PageHero, SegmentedTabs } from "@/components/shared/PageHero";
 import { API_ROUTES } from "@/lib/constants";
 import api, { apiPost } from "@/lib/api";
 
@@ -261,38 +262,29 @@ export default function PlagiarismTrendsPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold">Plagiarism Trends</h1>
-        <p className="text-muted-foreground">
-          Search topic-level plagiarism patterns across SLIIT papers, or compare two papers directly.
-        </p>
-      </div>
+    <div className="space-y-6 pb-8">
+      <PageHero
+        theme="vault"
+        icon={AlertTriangle}
+        title="Plagiarism Trends"
+        description="Search topic-level plagiarism patterns across SLIIT papers, or compare two papers directly — side by side, with a downloadable report."
+        stats={[
+          { label: "Analysis modes", value: 3, icon: Search },
+          { label: "Corpus", value: "SLIIT papers", icon: Database },
+        ]}
+      />
 
       {/* Tabs */}
-      <div className="flex gap-2 flex-wrap">
-        <Button
-          variant={tab === "trends" ? "default" : "outline"}
-          size="sm"
-          onClick={() => setTab("trends")}
-        >
-          <Search className="mr-2 h-4 w-4" /> Topic Trend Search
-        </Button>
-        <Button
-          variant={tab === "compare" ? "default" : "outline"}
-          size="sm"
-          onClick={() => setTab("compare")}
-        >
-          <FileText className="mr-2 h-4 w-4" /> Compare Two Papers (text)
-        </Button>
-        <Button
-          variant={tab === "compare-pdf" ? "default" : "outline"}
-          size="sm"
-          onClick={() => setTab("compare-pdf")}
-        >
-          <Files className="mr-2 h-4 w-4" /> Compare PDFs
-        </Button>
-      </div>
+      <SegmentedTabs
+        theme="vault"
+        value={tab}
+        onChange={setTab}
+        tabs={[
+          { id: "trends", label: "Topic Trend Search", icon: Search },
+          { id: "compare", label: "Compare Two Papers (text)", icon: FileText },
+          { id: "compare-pdf", label: "Compare PDFs", icon: Files },
+        ]}
+      />
 
       {/* ── Tab: Topic search ──────────────────────────────────── */}
       {tab === "trends" && (
@@ -356,7 +348,7 @@ export default function PlagiarismTrendsPage() {
                 <Card>
                   <CardHeader>
                     <CardTitle className="text-base flex items-center gap-2">
-                      <BookOpen className="h-4 w-4" /> Related SLIIT papers
+                      <BookOpen className="h-4 w-4 text-amber-500" /> Related SLIIT papers
                     </CardTitle>
                     <CardDescription>
                       Papers from the SLIIT research library that match your query — useful when no
@@ -556,7 +548,7 @@ export default function PlagiarismTrendsPage() {
                   <Label htmlFor="text-a">Paper A text</Label>
                   <textarea
                     id="text-a"
-                    className="flex min-h-[180px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    className="flex min-h-[180px] w-full rounded-lg border border-input bg-background transition-colors px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     placeholder="Paste the full text of paper A..."
                     value={textA}
                     onChange={(e) => setTextA(e.target.value)}
@@ -574,7 +566,7 @@ export default function PlagiarismTrendsPage() {
                   <Label htmlFor="text-b">Paper B text</Label>
                   <textarea
                     id="text-b"
-                    className="flex min-h-[180px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    className="flex min-h-[180px] w-full rounded-lg border border-input bg-background transition-colors px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     placeholder="Paste the full text of paper B..."
                     value={textB}
                     onChange={(e) => setTextB(e.target.value)}
@@ -598,9 +590,9 @@ export default function PlagiarismTrendsPage() {
                 <CardHeader>
                   <div className="flex items-center justify-between flex-wrap gap-2">
                     <CardTitle className="text-lg flex items-center gap-2">
-                      <AlertTriangle className="h-5 w-5" /> Plagiarism Risk
+                      <AlertTriangle className="h-5 w-5 text-amber-500" /> Plagiarism Risk
                     </CardTitle>
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
                       <Badge variant="outline" className={`uppercase ${riskColor[compareResult.risk_level] || ""}`}>
                         {compareResult.risk_level} · {(compareResult.risk_score * 100).toFixed(0)}%
                       </Badge>
@@ -681,7 +673,7 @@ export default function PlagiarismTrendsPage() {
           <Card>
             <CardHeader>
               <CardTitle className="text-lg flex items-center gap-2">
-                <Files className="h-5 w-5" /> Compare Two Research Papers (PDF)
+                <Files className="h-5 w-5 text-amber-500" /> Compare Two Research Papers (PDF)
               </CardTitle>
               <CardDescription>
                 Drop two PDFs and we extract their text, then run the same SBERT + n-gram
@@ -698,7 +690,7 @@ export default function PlagiarismTrendsPage() {
                   <Label>Paper A PDF</Label>
                   <div className="flex items-center gap-2">
                     <label htmlFor="pdf-a-file"
-                      className="flex flex-1 items-center justify-center gap-2 rounded-md border border-dashed border-input bg-background px-3 py-6 text-sm text-muted-foreground cursor-pointer hover:bg-accent transition-colors">
+                      className="flex flex-1 items-center justify-center gap-2 rounded-xl border-2 border-dashed border-input bg-muted/30 px-3 py-6 text-sm text-muted-foreground cursor-pointer hover:border-primary/50 hover:bg-accent transition-colors">
                       <FileUp className="h-5 w-5" />
                       {pdfA ? (
                         <span className="text-foreground font-medium truncate max-w-[200px]">
@@ -732,7 +724,7 @@ export default function PlagiarismTrendsPage() {
                   <Label>Paper B PDF</Label>
                   <div className="flex items-center gap-2">
                     <label htmlFor="pdf-b-file"
-                      className="flex flex-1 items-center justify-center gap-2 rounded-md border border-dashed border-input bg-background px-3 py-6 text-sm text-muted-foreground cursor-pointer hover:bg-accent transition-colors">
+                      className="flex flex-1 items-center justify-center gap-2 rounded-xl border-2 border-dashed border-input bg-muted/30 px-3 py-6 text-sm text-muted-foreground cursor-pointer hover:border-primary/50 hover:bg-accent transition-colors">
                       <FileUp className="h-5 w-5" />
                       {pdfB ? (
                         <span className="text-foreground font-medium truncate max-w-[200px]">
@@ -778,9 +770,9 @@ export default function PlagiarismTrendsPage() {
                 <CardHeader>
                   <div className="flex items-center justify-between flex-wrap gap-2">
                     <CardTitle className="text-lg flex items-center gap-2">
-                      <AlertTriangle className="h-5 w-5" /> Plagiarism Risk
+                      <AlertTriangle className="h-5 w-5 text-amber-500" /> Plagiarism Risk
                     </CardTitle>
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
                       <Badge variant="outline" className={`uppercase ${riskColor[pdfCompareResult.risk_level] || ""}`}>
                         {pdfCompareResult.risk_level} · {(pdfCompareResult.risk_score * 100).toFixed(0)}%
                       </Badge>

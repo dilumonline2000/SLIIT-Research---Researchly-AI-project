@@ -7,6 +7,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Download, FileText, Sparkles, AlertCircle, FileDown, Copy, Check, BookOpen, ExternalLink, Database } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { PageHero } from "@/components/shared/PageHero";
+
+// Numbered chip used for each proposal section heading
+function SectionNum({ n }: { n: number }) {
+  return (
+    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 font-display text-sm font-bold text-white shadow-sm">
+      {n}
+    </span>
+  );
+}
 import { API_ROUTES } from "@/lib/constants";
 import { apiPost } from "@/lib/api";
 
@@ -198,20 +208,26 @@ export default function ProposalGeneratorPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold flex items-center gap-2">
-          <FileText className="h-6 w-6" /> Research Proposal Generator
-        </h1>
-        <p className="text-muted-foreground">
-          Generate a structured research proposal with problem statement, objectives,
-          methodology, and expected outcomes. Export as PDF for submission.
-        </p>
-      </div>
+    <div className="space-y-6 pb-8">
+      <PageHero
+        theme="integrity"
+        icon={FileText}
+        title="Research Proposal Generator"
+        description="Generate a structured research proposal with problem statement, objectives, methodology, and expected outcomes. Export as PDF for submission."
+        stats={[
+          { label: "Sections", value: 4, icon: FileText },
+          { label: "Grounded in", value: "SLIIT corpus", icon: Database },
+        ]}
+      />
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Research Details</CardTitle>
+          <CardTitle className="flex items-center gap-2.5 text-lg">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 text-white">
+              <Sparkles className="h-4 w-4" />
+            </span>
+            Research Details
+          </CardTitle>
           <CardDescription>Provide your research topic and optional context</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -244,7 +260,12 @@ export default function ProposalGeneratorPage() {
               />
             </div>
           </div>
-          <Button onClick={handleGenerate} disabled={loading || !topic.trim()}>
+          <Button
+            onClick={handleGenerate}
+            disabled={loading || !topic.trim()}
+            size="lg"
+            className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:from-blue-500 hover:to-cyan-500 sm:w-auto"
+          >
             {loading ? "Generating..." : (
               <>
                 <Sparkles className="mr-2 h-4 w-4" /> Generate Proposal
@@ -262,11 +283,11 @@ export default function ProposalGeneratorPage() {
 
       {result && (
         <>
-          <Card className="border-emerald-200 bg-emerald-50/50">
+          <Card className="border-emerald-200 bg-emerald-50/50 dark:border-emerald-900/60 dark:bg-emerald-950/20">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between flex-wrap gap-3">
                 <div className="space-y-1">
-                  <p className="text-sm font-medium text-emerald-800">
+                  <p className="text-sm font-semibold text-emerald-800 dark:text-emerald-300">
                     Proposal generated successfully ✓
                   </p>
                   <div className="flex items-center gap-2 flex-wrap">
@@ -279,7 +300,7 @@ export default function ProposalGeneratorPage() {
                         <Sparkles className="h-3 w-3 mr-1" /> Gemini fallback
                       </Badge>
                     ) : null}
-                    <p className="text-xs text-emerald-700">
+                    <p className="text-xs text-emerald-700 dark:text-emerald-400">
                       {(result.retrieved_papers && result.retrieved_papers.length > 0)
                         ? `Grounded in ${result.retrieved_papers.length} SLIIT papers`
                         : result.retrieved_paper_ids.length > 0
@@ -288,7 +309,7 @@ export default function ProposalGeneratorPage() {
                     </p>
                   </div>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                   <Button size="sm" variant="outline" onClick={handleCopyAll}>
                     {copied ? <Check className="mr-2 h-4 w-4 text-emerald-600" /> : <Copy className="mr-2 h-4 w-4" />}
                     {copied ? "Copied!" : "Copy All"}
@@ -304,7 +325,7 @@ export default function ProposalGeneratorPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">1. Problem Statement</CardTitle>
+              <CardTitle className="flex items-center gap-3 text-lg"><SectionNum n={1} /> Problem Statement</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm leading-relaxed whitespace-pre-wrap">{result.problem_statement}</p>
@@ -314,12 +335,17 @@ export default function ProposalGeneratorPage() {
           {result.objectives.length > 0 && (
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">2. Objectives</CardTitle>
+                <CardTitle className="flex items-center gap-3 text-lg"><SectionNum n={2} /> Objectives</CardTitle>
               </CardHeader>
               <CardContent>
-                <ol className="list-decimal list-inside space-y-2 text-sm leading-relaxed">
+                <ol className="space-y-2.5 text-sm leading-relaxed">
                   {result.objectives.map((obj, i) => (
-                    <li key={i}>{obj}</li>
+                    <li key={i} className="flex gap-3 rounded-xl bg-muted/40 px-3.5 py-2.5">
+                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-500/15 text-[11px] font-bold text-blue-600 dark:text-blue-300">
+                        {i + 1}
+                      </span>
+                      <span>{obj}</span>
+                    </li>
                   ))}
                 </ol>
               </CardContent>
@@ -329,7 +355,7 @@ export default function ProposalGeneratorPage() {
           {result.methodology && (
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">3. Methodology</CardTitle>
+                <CardTitle className="flex items-center gap-3 text-lg"><SectionNum n={3} /> Methodology</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm leading-relaxed whitespace-pre-wrap">{result.methodology}</p>
@@ -340,7 +366,7 @@ export default function ProposalGeneratorPage() {
           {result.expected_outcomes && (
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">4. Expected Outcomes</CardTitle>
+                <CardTitle className="flex items-center gap-3 text-lg"><SectionNum n={4} /> Expected Outcomes</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm leading-relaxed whitespace-pre-wrap">{result.expected_outcomes}</p>
@@ -352,7 +378,7 @@ export default function ProposalGeneratorPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
-                  <BookOpen className="h-5 w-5" /> Source SLIIT Papers
+                  <BookOpen className="h-5 w-5 text-blue-500" /> Source SLIIT Papers
                 </CardTitle>
                 <CardDescription>
                   This proposal was composed from these {result.retrieved_papers.length} most-similar papers in the SLIIT corpus.
@@ -360,7 +386,7 @@ export default function ProposalGeneratorPage() {
               </CardHeader>
               <CardContent className="space-y-3">
                 {result.retrieved_papers.map((p, i) => (
-                  <div key={i} className="rounded-md border bg-muted/30 p-3 text-sm space-y-1">
+                  <div key={i} className="space-y-1 rounded-xl border bg-muted/30 p-3.5 text-sm transition-colors hover:border-blue-500/30">
                     <div className="flex items-start justify-between gap-2">
                       <p className="font-medium flex-1">{p.title}</p>
                       <Badge variant="secondary" className="text-[11px] shrink-0">
@@ -388,7 +414,12 @@ export default function ProposalGeneratorPage() {
           )}
 
           <div className="flex justify-center pt-4">
-            <Button size="lg" onClick={handleDownloadPDF} disabled={downloading}>
+            <Button
+              size="lg"
+              onClick={handleDownloadPDF}
+              disabled={downloading}
+              className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:from-blue-500 hover:to-cyan-500"
+            >
               <Download className="mr-2 h-5 w-5" />
               {downloading ? "Generating PDF..." : "Download as PDF"}
             </Button>

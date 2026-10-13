@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { PageHero, SegmentedTabs } from "@/components/shared/PageHero";
 import {
   BookOpen, Quote, FileText, Search, Copy, Check, AlertCircle, Plus, Trash2,
   Download, ExternalLink, History, Sparkles, Wand2, Database, Edit3,
@@ -339,38 +340,48 @@ export default function CitationParserPage() {
   // ─── Render ───────────────────────────────────────────────────────────
 
   return (
-    <div className="space-y-6">
-      <div className="rounded-2xl bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 p-6 text-white shadow-lg">
-        <h1 className="text-2xl font-bold flex items-center gap-2">
-          <Quote className="h-7 w-7" /> Citation Parser & Generator
-        </h1>
-        <p className="mt-1 text-sm text-white/85 max-w-3xl">
-          Paste raw text, look up a DOI, or assemble a full reference list. The system extracts
-          fields, formats them in IEEE or APA, and shows similar SLIIT papers for context.
-        </p>
-      </div>
+    <div className="space-y-6 pb-8">
+      <PageHero
+        theme="integrity"
+        icon={Quote}
+        title="Citation Parser & Generator"
+        description="Paste raw text, look up a DOI, or assemble a full reference list. The system extracts fields, formats them in IEEE or APA, and shows similar SLIIT papers for context."
+        stats={[
+          { label: "Style", value: style.toUpperCase(), icon: Quote },
+          { label: "In your list", value: list.length, icon: ListOrdered },
+        ]}
+      />
 
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex gap-2">
-          <Button variant={tab === "parse" ? "default" : "outline"} size="sm" onClick={() => setTab("parse")}>
-            <Wand2 className="mr-2 h-4 w-4" /> Parse Raw Text
-          </Button>
-          <Button variant={tab === "doi" ? "default" : "outline"} size="sm" onClick={() => setTab("doi")}>
-            <Search className="mr-2 h-4 w-4" /> DOI Lookup
-          </Button>
-          <Button variant={tab === "list" ? "default" : "outline"} size="sm" onClick={() => setTab("list")}>
-            <ListOrdered className="mr-2 h-4 w-4" /> Reference List
-            {list.length > 0 && <Badge variant="secondary" className="ml-2 text-[11px]">{list.length}</Badge>}
-          </Button>
-        </div>
-        <div className="flex items-center gap-2 rounded-md border bg-card p-1">
-          <span className="px-2 text-xs text-muted-foreground">Style:</span>
+      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <SegmentedTabs
+          theme="integrity"
+          value={tab}
+          onChange={setTab}
+          tabs={[
+            { id: "parse", label: "Parse Raw Text", icon: Wand2 },
+            { id: "doi", label: "DOI Lookup", icon: Search },
+            {
+              id: "list",
+              label: (
+                <>
+                  Reference List
+                  {list.length > 0 && (
+                    <span className="ml-1 rounded-full bg-black/10 px-1.5 text-[11px] font-bold dark:bg-white/15">{list.length}</span>
+                  )}
+                </>
+              ),
+              icon: ListOrdered,
+            },
+          ]}
+        />
+        <div className="flex items-center gap-1 self-start rounded-xl border bg-card p-1 shadow-soft md:self-auto">
+          <span className="px-2 text-xs font-medium text-muted-foreground">Style</span>
           {(["apa", "ieee"] as const).map((s) => (
             <button
               key={s}
               onClick={() => setStyle(s)}
-              className={`rounded px-3 py-1 text-xs font-medium transition-colors ${
-                style === s ? "bg-primary text-primary-foreground" : "hover:bg-accent"
+              className={`rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-colors ${
+                style === s ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-sm" : "hover:bg-accent"
               }`}
             >
               {s.toUpperCase()}
@@ -384,7 +395,7 @@ export default function CitationParserPage() {
           <Card>
             <CardHeader>
               <CardTitle className="text-lg flex items-center gap-2">
-                <Wand2 className="h-5 w-5" /> Raw text input
+                <Wand2 className="h-5 w-5 text-blue-500" /> Raw text input
               </CardTitle>
               <CardDescription>
                 Paste any citation form — APA, IEEE, BibTeX-shaped text, or a single line from a paper.
@@ -393,7 +404,7 @@ export default function CitationParserPage() {
             </CardHeader>
             <CardContent className="space-y-3">
               <textarea
-                className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="flex min-h-[120px] w-full rounded-lg border border-input bg-background transition-colors px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 placeholder="Paste a raw citation here…"
                 value={text}
                 onChange={(e) => setText(e.target.value)}
@@ -410,7 +421,7 @@ export default function CitationParserPage() {
                   </button>
                 ))}
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
                 <Button onClick={runParse} disabled={parsing || !text.trim()}>
                   <Sparkles className="mr-2 h-4 w-4" />
                   {parsing ? "Parsing…" : "Parse Citation"}
@@ -509,7 +520,7 @@ export default function CitationParserPage() {
                   <CardContent className="space-y-3">
                     <FieldRow label="Authors (one per line, format: 'Last, F.')" warning={warningsByField.authors}>
                       <textarea
-                        className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                        className="flex min-h-[80px] w-full rounded-lg border border-input bg-background transition-colors px-3 py-2 text-sm"
                         value={result.parsed.authors.join("\n")}
                         onChange={(e) => updateField("authors", e.target.value.split("\n").map((s) => s.trim()).filter(Boolean))}
                       />
@@ -608,7 +619,7 @@ export default function CitationParserPage() {
                 <Card>
                   <CardHeader>
                     <CardTitle className="text-base flex items-center gap-2">
-                      <Database className="h-4 w-4" /> Similar SLIIT papers
+                      <Database className="h-4 w-4 text-blue-500" /> Similar SLIIT papers
                     </CardTitle>
                     <CardDescription>
                       Top SBERT matches against the SLIIT corpus (3,858 abstracts). Useful for finding related work.
@@ -647,7 +658,7 @@ export default function CitationParserPage() {
         <Card>
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
-              <Search className="h-5 w-5" /> DOI Lookup
+              <Search className="h-5 w-5 text-blue-500" /> DOI Lookup
             </CardTitle>
             <CardDescription>
               Enter a DOI to fetch authoritative metadata from CrossRef. Returns publisher, authors,
@@ -692,7 +703,7 @@ export default function CitationParserPage() {
             <div className="flex items-center justify-between gap-3 flex-wrap">
               <div>
                 <CardTitle className="text-lg flex items-center gap-2">
-                  <ListOrdered className="h-5 w-5" /> Reference List
+                  <ListOrdered className="h-5 w-5 text-blue-500" /> Reference List
                 </CardTitle>
                 <CardDescription>
                   {list.length === 0
@@ -751,7 +762,7 @@ export default function CitationParserPage() {
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle className="text-base flex items-center gap-2">
-                <History className="h-4 w-4" /> Saved citations ({history.length})
+                <History className="h-4 w-4 text-blue-500" /> Saved citations ({history.length})
               </CardTitle>
               <Button size="sm" variant="ghost" onClick={() => persistHistory([])}>
                 <Trash2 className="mr-2 h-4 w-4" /> Clear all

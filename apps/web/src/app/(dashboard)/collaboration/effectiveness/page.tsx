@@ -9,6 +9,7 @@ import {
   TrendingUp, Search, Star, Mail, ArrowLeft, Loader2, Users, MessageSquare,
   ShieldCheck,
 } from "lucide-react";
+import { PageHero, SegmentedTabs } from "@/components/shared/PageHero";
 import { API_ROUTES } from "@/lib/constants";
 import { apiGet } from "@/lib/api";
 import { getCache, setCache } from "@/lib/supervisorCache";
@@ -176,7 +177,7 @@ export default function EffectivenessPage() {
           <>
             {/* Header card */}
             <Card className="overflow-hidden">
-              <div className="bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-600 p-6 text-white">
+              <div className="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-600 p-6 text-white">
                 <div className="flex items-start justify-between gap-4 flex-wrap">
                   <div>
                     <div className="flex items-center gap-2 flex-wrap">
@@ -232,7 +233,7 @@ export default function EffectivenessPage() {
                   <p className="text-2xl font-bold">{(detail.overall_score * 100).toFixed(0)}%</p>
                   <div className="h-1.5 mt-1 rounded-full bg-secondary overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-purple-500 to-indigo-500"
+                      className="h-full bg-gradient-to-r from-emerald-500 to-teal-400"
                       style={{ width: `${(detail.overall_score * 100).toFixed(0)}%` }}
                     />
                   </div>
@@ -274,7 +275,7 @@ export default function EffectivenessPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="text-base flex items-center gap-2">
-                  <MessageSquare className="h-4 w-4" /> Recent feedback ({detail.recent_feedback.length})
+                  <MessageSquare className="h-4 w-4 text-emerald-500" /> Recent feedback ({detail.recent_feedback.length})
                 </CardTitle>
                 <CardDescription>
                   Verified reviews from students who have worked with this supervisor.
@@ -347,57 +348,56 @@ export default function EffectivenessPage() {
 
   // ── List view ────────────────────────────────────────────────────────
   return (
-    <div className="space-y-6">
-      <div className="rounded-2xl bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-600 p-6 text-white shadow-lg">
-        <h1 className="text-2xl font-bold flex items-center gap-2">
-          <TrendingUp className="h-7 w-7" /> Supervisor Effectiveness
-        </h1>
-        <p className="mt-1 text-sm text-white/85 max-w-2xl">
-          Browse all supervisors with their aggregate ratings and verified feedback. Click any row
-          to see the full effectiveness breakdown and recent comments.
-        </p>
+    <div className="space-y-6 pb-8">
+      <PageHero
+        theme="mentor"
+        icon={TrendingUp}
+        eyebrow="Mentor Network · Effectiveness"
+        title="Supervisor Effectiveness"
+        description="Browse all supervisors with their aggregate ratings and verified feedback. Click any row to see the full effectiveness breakdown and recent comments."
+        stats={[
+          { label: "Showing", value: filtered.length, icon: Users },
+          { label: "Rated", value: filtered.filter((s) => s.n_ratings > 0).length, icon: Star },
+        ]}
+      />
+
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
+        <div className="relative flex-1">
+          <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            placeholder="Search by name, department, or research area…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="h-11 rounded-xl bg-card pl-10 pr-10 shadow-soft"
+          />
+          {loadingList && (
+            <Loader2 className="absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 animate-spin text-muted-foreground" />
+          )}
+        </div>
+        <SegmentedTabs
+          theme="mentor"
+          value={filter}
+          onChange={setFilter}
+          tabs={[
+            { id: "all", label: "All" },
+            { id: "sliit", label: "SLIIT" },
+            { id: "system", label: "SYSTEM" },
+          ]}
+        />
       </div>
 
-      <Card>
-        <CardContent className="p-3 flex items-center gap-3 flex-wrap">
-          <div className="flex items-center gap-2 flex-1 min-w-[200px]">
-            <Search className="h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="Search by name, department, or research area…"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="border-0 focus-visible:ring-0 shadow-none"
-            />
-          </div>
-          <div className="flex gap-1">
-            {(["all", "sliit", "system"] as const).map((f) => (
-              <Button
-                key={f}
-                size="sm"
-                variant={filter === f ? "default" : "outline"}
-                onClick={() => setFilter(f)}
-                className="text-xs"
-              >
-                {f === "all" ? "All" : f.toUpperCase()}
-              </Button>
-            ))}
-          </div>
-          {loadingList && <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />}
-          <Badge variant="outline" className="shrink-0">
-            <Users className="h-3 w-3 mr-1" /> {filtered.length}
-          </Badge>
-        </CardContent>
-      </Card>
-
-      <div className="grid gap-3">
+      <div className="grid gap-3 xl:grid-cols-2">
         {filtered.map((s) => (
           <Card
             key={s.key}
-            className="hover:shadow-md transition-shadow cursor-pointer"
+            className="group cursor-pointer transition-all hover:-translate-y-0.5 hover:border-emerald-500/30 hover:shadow-lg"
             onClick={() => setSelectedKey(s.key)}
           >
-            <CardContent className="p-4 flex items-start gap-4 flex-wrap">
-              <div className="flex-1 min-w-[240px]">
+            <CardContent className="flex flex-wrap items-start gap-4 p-4 sm:p-5">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 font-display text-sm font-bold text-white shadow-sm">
+                {s.name.split(/\s+/).filter((p) => !/^(dr|prof|mr|ms|mrs)\.?$/i.test(p)).slice(0, 2).map((p) => p[0]).join("").toUpperCase()}
+              </div>
+              <div className="min-w-0 flex-1 sm:min-w-[220px]">
                 <div className="flex items-center gap-2 flex-wrap">
                   <h3 className="font-semibold">
                     {s.rank ? `${s.rank} ` : ""}{s.name}
@@ -440,10 +440,16 @@ export default function EffectivenessPage() {
                 )}
               </div>
 
-              <div className="flex items-center gap-6 text-right">
-                <div>
+              <div className="flex w-full items-center justify-between gap-6 border-t pt-3 text-right sm:w-auto sm:justify-end sm:border-0 sm:pt-0">
+                <div className="min-w-[90px]">
                   <p className="text-[11px] text-muted-foreground uppercase tracking-wide">Effectiveness</p>
-                  <p className="text-xl font-bold">{((s.overall_score ?? 0) * 100).toFixed(0)}%</p>
+                  <p className="font-display text-xl font-bold text-emerald-600 dark:text-emerald-400">{((s.overall_score ?? 0) * 100).toFixed(0)}%</p>
+                  <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-muted">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-400"
+                      style={{ width: `${Math.round((s.overall_score ?? 0) * 100)}%` }}
+                    />
+                  </div>
                 </div>
                 <div>
                   <p className="text-[11px] text-muted-foreground uppercase tracking-wide">Rating</p>
@@ -462,7 +468,7 @@ export default function EffectivenessPage() {
                     href={`mailto:${s.email}?subject=${encodeURIComponent("Research supervision enquiry")}`}
                     onClick={(e) => e.stopPropagation()}
                     title="Email supervisor"
-                    className="rounded-md border p-2 hover:bg-accent transition-colors"
+                    className="rounded-lg border p-2 transition-colors hover:border-emerald-500/40 hover:bg-emerald-500/10"
                   >
                     <Mail className="h-4 w-4 text-muted-foreground" />
                   </a>

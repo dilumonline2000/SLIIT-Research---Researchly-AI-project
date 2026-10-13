@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { PageHero } from "@/components/shared/PageHero";
 import { Database, Sparkles, Tag, BookOpen, ExternalLink } from "lucide-react";
 import { API_ROUTES } from "@/lib/constants";
 import { apiPost } from "@/lib/api";
@@ -74,17 +75,26 @@ export default function CategorizePage() {
   };
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold">Topic Categorization</h1>
-        <p className="text-muted-foreground">
-          Multi-label classifier trained on 1,382 SLIIT papers across 80 categories.
-        </p>
-      </div>
+    <div className="space-y-6 pb-8">
+      <PageHero
+        theme="vault"
+        icon={Tag}
+        title="Topic Categorization"
+        description="Multi-label classifier trained on 1,382 SLIIT papers across 80 categories. Paste an abstract and see where your research fits."
+        stats={[
+          { label: "Training papers", value: "1,382", icon: BookOpen },
+          { label: "Categories", value: 80, icon: Tag },
+        ]}
+      />
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Paper Text</CardTitle>
+          <CardTitle className="flex items-center gap-2.5 text-lg">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 text-white">
+              <BookOpen className="h-4 w-4" />
+            </span>
+            Paper Text
+          </CardTitle>
           <CardDescription>
             Paste a paper abstract or first paragraph. The model returns the top categories with their confidence scores.
           </CardDescription>
@@ -94,7 +104,7 @@ export default function CategorizePage() {
             <Label htmlFor="cat-text">Abstract or full text</Label>
             <textarea
               id="cat-text"
-              className="flex min-h-[150px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="flex min-h-[150px] w-full rounded-lg border border-input bg-background transition-colors px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               placeholder="Paste a paper abstract..."
               value={text}
               onChange={(e) => setText(e.target.value)}
@@ -114,7 +124,13 @@ export default function CategorizePage() {
             ))}
           </div>
 
-          <Button onClick={handleCategorize} disabled={loading || !text.trim()}>
+          <Button
+            onClick={handleCategorize}
+            disabled={loading || !text.trim()}
+            size="lg"
+            className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:from-amber-400 hover:to-orange-400 sm:w-auto"
+          >
+            <Sparkles className="mr-2 h-4 w-4" />
             {loading ? "Classifying..." : "Categorize"}
           </Button>
           {error && <p className="text-sm text-destructive">{error}</p>}
@@ -144,7 +160,7 @@ export default function CategorizePage() {
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
-                  <Tag className="h-5 w-5" /> Top {result.top_categories.length} Predictions
+                  <Tag className="h-5 w-5 text-amber-500" /> Top {result.top_categories.length} Predictions
                 </CardTitle>
                 <CardDescription>
                   Ranked by confidence. Categories above the threshold ({result.categories.length}) are bolded.
@@ -154,25 +170,27 @@ export default function CategorizePage() {
                 {result.top_categories.map((tc) => {
                   const aboveThreshold = result.categories.includes(tc.label);
                   return (
-                    <div key={tc.label} className="flex items-center gap-3">
+                    <div key={tc.label} className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-3">
                       <span
-                        className={`min-w-[180px] rounded px-3 py-1 text-sm capitalize ${
+                        className={`rounded-lg px-3 py-1 text-sm capitalize sm:min-w-[200px] ${
                           aboveThreshold
-                            ? "bg-primary/15 font-semibold text-primary"
+                            ? "bg-amber-500/15 font-semibold text-amber-700 dark:text-amber-300"
                             : "bg-muted text-muted-foreground"
                         }`}
                       >
                         {tc.label}
                       </span>
-                      <div className="flex-1 h-2 rounded-full bg-secondary overflow-hidden">
+                      <div className="flex flex-1 items-center gap-3">
+                      <div className="h-2.5 flex-1 overflow-hidden rounded-full bg-secondary">
                         <div
-                          className={`h-2 ${aboveThreshold ? "bg-primary" : "bg-muted-foreground/40"}`}
+                          className={`h-full rounded-full ${aboveThreshold ? "bg-gradient-to-r from-amber-500 to-orange-500" : "bg-muted-foreground/40"}`}
                           style={{ width: `${(tc.confidence * 100).toFixed(0)}%` }}
                         />
                       </div>
-                      <span className="text-sm text-muted-foreground tabular-nums w-12 text-right">
+                      <span className="w-14 text-right text-sm font-medium tabular-nums text-muted-foreground">
                         {(tc.confidence * 100).toFixed(1)}%
                       </span>
+                      </div>
                     </div>
                   );
                 })}
@@ -193,7 +211,7 @@ export default function CategorizePage() {
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
-                  <BookOpen className="h-5 w-5" /> Related SLIIT Papers
+                  <BookOpen className="h-5 w-5 text-amber-500" /> Related SLIIT Papers
                 </CardTitle>
                 <CardDescription>
                   Papers from the SLIIT research library most semantically similar to your input.
@@ -202,7 +220,7 @@ export default function CategorizePage() {
               </CardHeader>
               <CardContent className="space-y-3">
                 {result.related_papers.map((p) => (
-                  <div key={p.paper_id} className="rounded-md border bg-muted/30 p-3 text-sm space-y-1">
+                  <div key={p.paper_id} className="space-y-1 rounded-xl border bg-muted/30 p-3.5 text-sm transition-colors hover:border-amber-500/30">
                     <div className="flex items-start justify-between gap-2">
                       <p className="font-medium flex-1">{p.title}</p>
                       <Badge variant="secondary" className="text-[11px] shrink-0">

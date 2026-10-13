@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { TrendingUp, AlertTriangle, Users, FileText, Gauge } from "lucide-react";
+import { TrendingUp, AlertTriangle, Users, FileText, Gauge, BarChart3, RefreshCw } from "lucide-react";
+import { PageHero, heroButtonGhost } from "@/components/shared/PageHero";
 import { API_ROUTES } from "@/lib/constants";
 import { apiGet } from "@/lib/api";
 
@@ -41,18 +42,23 @@ export default function DashboardsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-start justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">Performance Dashboards</h1>
-          <p className="text-muted-foreground">Cross-module KPI aggregation · auto-refresh every 30s.</p>
-        </div>
-        <div className="flex items-center gap-2">
-          {lastUpdated && <span className="text-xs text-muted-foreground">Updated {lastUpdated.toLocaleTimeString()}</span>}
-          <Button variant="outline" size="sm" onClick={fetchSnapshot} disabled={loading}>
+      <PageHero
+        theme="insight"
+        icon={BarChart3}
+        title="Performance Dashboards"
+        description={
+          <>
+            Cross-module KPI aggregation · auto-refresh every 30s.
+            {lastUpdated && <span className="ml-1 text-white/70">Updated {lastUpdated.toLocaleTimeString()}</span>}
+          </>
+        }
+        actions={
+          <button onClick={fetchSnapshot} disabled={loading} className={heroButtonGhost}>
+            <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
             {loading ? "Refreshing..." : "Refresh"}
-          </Button>
-        </div>
-      </div>
+          </button>
+        }
+      />
 
       {data && (
         <>

@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { Workflow } from "lucide-react";
+import { PageHero } from "@/components/shared/PageHero";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -51,10 +53,12 @@ export default function PipelinePage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold">Data Pipeline</h1>
-        <p className="text-muted-foreground">Orchestrate research paper scraping from multiple academic sources.</p>
-      </div>
+      <PageHero
+        theme="vault"
+        icon={Workflow}
+        title="Data Pipeline"
+        description="Orchestrate research paper scraping from multiple academic sources."
+      />
 
       <Card>
         <CardHeader><CardTitle className="text-lg">Start Scrape Job</CardTitle></CardHeader>

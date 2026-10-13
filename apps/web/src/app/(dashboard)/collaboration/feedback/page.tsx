@@ -6,6 +6,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { PageHero } from "@/components/shared/PageHero";
+
+// Numbered step chip for the feedback wizard
+function StepNum({ n }: { n: string | number }) {
+  return (
+    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-teal-500 font-display text-sm font-bold text-white shadow-sm">
+      {n}
+    </span>
+  );
+}
 import {
   Star, MessageSquare, CheckCircle2, AlertCircle, Loader2, User, Search,
   Mail, ShieldCheck, Send, KeyRound,
@@ -337,28 +347,30 @@ export default function FeedbackAnalysisPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-8">
       {/* Hero */}
-      <div className="rounded-2xl bg-gradient-to-br from-amber-500 via-orange-500 to-pink-500 p-6 text-white shadow-lg">
-        <h1 className="text-2xl font-bold flex items-center gap-2">
-          <MessageSquare className="h-7 w-7" /> Supervisor Feedback
-        </h1>
-        <p className="mt-1 text-sm text-white/85 max-w-2xl">
-          Rate a supervisor and leave written feedback. Email verification is required to
-          prevent fake submissions and ensure authentic reviews.
-        </p>
-      </div>
+      <PageHero
+        theme="mentor"
+        icon={MessageSquare}
+        eyebrow="Mentor Network · Feedback Sentiment"
+        title="Supervisor Feedback"
+        description="Rate a supervisor and leave written feedback. Email verification is required to prevent fake submissions and ensure authentic reviews."
+        stats={[
+          { label: "Supervisors", value: supervisors.length || "—", icon: User },
+          { label: "Verification", value: otpEnabled ? "Email OTP" : "Off", icon: ShieldCheck },
+        ]}
+      />
 
       {/* Step 1 — Choose supervisor */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">1 · Choose a supervisor</CardTitle>
+          <CardTitle className="flex items-center gap-3 text-lg"><StepNum n={1} /> Choose a supervisor</CardTitle>
           <CardDescription>
             Pick from {supervisors.length} supervisors (SLIIT + system supervisors).
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
-          <div className="flex items-center gap-2 rounded-md border bg-background px-2">
+          <div className="flex items-center gap-2 rounded-lg border bg-background px-3">
             <Search className="h-4 w-4 text-muted-foreground" />
             <Input
               placeholder="Search by name, department, or research area…"
@@ -372,7 +384,7 @@ export default function FeedbackAnalysisPage() {
           <select
             value={selectedKey}
             onChange={(e) => setSelectedKey(e.target.value)}
-            className="w-full rounded-md border bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="h-11 w-full rounded-lg border bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <option value="">— select supervisor —</option>
             {filtered.map((s) => (
@@ -383,7 +395,7 @@ export default function FeedbackAnalysisPage() {
           </select>
 
           {selected && (
-            <div className="rounded-md border bg-muted/30 p-3 text-sm space-y-1.5">
+            <div className="space-y-1.5 rounded-xl border border-emerald-500/20 bg-emerald-500/[0.05] p-3.5 text-sm">
               <div className="flex items-center gap-2">
                 <User className="h-4 w-4 text-muted-foreground" />
                 <span className="font-semibold">
@@ -428,8 +440,8 @@ export default function FeedbackAnalysisPage() {
       {otpEnabled && (
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2">
-              2 · Verify your email
+            <CardTitle className="flex items-center gap-3 text-lg">
+              <StepNum n={2} /> Verify your email
               {verifiedEmail && (
                 <Badge variant="outline" className="ml-auto bg-emerald-50 text-emerald-700 border-emerald-200 text-[11px]">
                   <ShieldCheck className="h-3 w-3 mr-1" /> Verified
@@ -452,7 +464,7 @@ export default function FeedbackAnalysisPage() {
       {/* Step 3 — Rate & review */}
       <Card className={!emailReady ? "opacity-60 pointer-events-none" : ""}>
         <CardHeader>
-          <CardTitle className="text-lg">{otpEnabled ? "3" : "2"} · Rate &amp; review</CardTitle>
+          <CardTitle className="flex items-center gap-3 text-lg"><StepNum n={otpEnabled ? 3 : 2} /> Rate &amp; review</CardTitle>
           <CardDescription>
             Stars are mandatory. Written feedback is optional but adds rich sentiment context.
             {!emailReady && (
@@ -472,7 +484,7 @@ export default function FeedbackAnalysisPage() {
             <Label htmlFor="feedback">Written feedback (optional)</Label>
             <textarea
               id="feedback"
-              className="flex min-h-[140px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="flex min-h-[140px] w-full rounded-lg border border-input bg-background transition-colors px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               placeholder="What stood out about this supervisor? Methodology guidance, communication, availability, support during writing…"
               value={feedback}
               onChange={(e) => setFeedback(e.target.value)}
@@ -485,6 +497,8 @@ export default function FeedbackAnalysisPage() {
           <Button
             onClick={handleSubmit}
             disabled={submitting || !selectedKey || stars < 1 || !emailReady}
+            size="lg"
+            className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-500 hover:to-teal-500 sm:w-auto"
           >
             {submitting ? (
               <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Submitting…</>
@@ -501,15 +515,15 @@ export default function FeedbackAnalysisPage() {
           )}
 
           {result && (
-            <div className="rounded-md border border-emerald-200 bg-emerald-50 p-3 text-sm space-y-1">
-              <div className="flex items-center gap-2 font-medium text-emerald-900">
+            <div className="space-y-1 rounded-xl border border-emerald-200 bg-emerald-50 p-3.5 text-sm dark:border-emerald-900/60 dark:bg-emerald-950/30">
+              <div className="flex items-center gap-2 font-medium text-emerald-900 dark:text-emerald-200">
                 <CheckCircle2 className="h-4 w-4" />
                 Feedback saved successfully.
               </div>
               <div className="flex flex-wrap gap-2 text-xs">
-                <Badge variant="outline" className="bg-white">{result.stars} ★</Badge>
+                <Badge variant="outline" className="bg-white dark:bg-card dark:text-foreground">{result.stars} ★</Badge>
                 {verifiedEmail && (
-                  <Badge variant="outline" className="bg-white">
+                  <Badge variant="outline" className="bg-white dark:bg-card dark:text-foreground">
                     <Mail className="h-3 w-3 mr-1" />{verifiedEmail}
                   </Badge>
                 )}
@@ -519,7 +533,7 @@ export default function FeedbackAnalysisPage() {
                   </Badge>
                 )}
                 {result.overall_score !== null && (
-                  <Badge variant="outline" className="bg-white">
+                  <Badge variant="outline" className="bg-white dark:bg-card dark:text-foreground">
                     Score: {result.overall_score.toFixed(2)}
                   </Badge>
                 )}

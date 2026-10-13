@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { PageHero } from "@/components/shared/PageHero";
 import {
   Network, Sparkles, AlertCircle, Download, Crown, Star, Layers, Dot,
   Lightbulb, ImageDown, Compass, ListChecks, Target,
@@ -198,20 +199,20 @@ export default function MindMapPage() {
   const graphHeight = 600;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-8">
       {/* Header */}
-      <div className="rounded-2xl bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-600 p-6 text-white shadow-lg">
-        <div className="flex items-start justify-between gap-4 flex-wrap">
-          <div>
-            <h1 className="text-2xl font-bold flex items-center gap-2">
-              <Network className="h-7 w-7" /> Mind Map Builder
-            </h1>
-            <p className="mt-1 text-sm text-white/85 max-w-xl">
-              Turn an abstract or research description into an interactive map. Use{" "}
-              <strong>Research planner</strong> to see how to plan and focus your project, or{" "}
-              <strong>Concept map</strong> to see how the ideas relate.
-            </p>
-          </div>
+      <PageHero
+        theme="integrity"
+        icon={Network}
+        title="Mind Map Builder"
+        description={
+          <>
+            Turn an abstract or research description into an interactive map. Use{" "}
+            <strong>Research planner</strong> to see how to plan and focus your project, or{" "}
+            <strong>Concept map</strong> to see how the ideas relate.
+          </>
+        }
+      >
           <div className="flex flex-wrap gap-2 text-xs">
             {(Object.entries(NODE_TYPE_META) as [NodeType, typeof NODE_TYPE_META.central][]).map(([key, meta]) => {
               const Icon = meta.icon;
@@ -225,8 +226,7 @@ export default function MindMapPage() {
               );
             })}
           </div>
-        </div>
-      </div>
+      </PageHero>
 
       {/* Input */}
       <Card>
@@ -251,15 +251,21 @@ export default function MindMapPage() {
                   type="button"
                   onClick={() => setMode(key)}
                   aria-pressed={active}
-                  className={`flex items-start gap-3 rounded-lg border p-3 text-left transition ${
+                  className={`flex items-start gap-3 rounded-xl border p-3.5 text-left transition ${
                     active
-                      ? "border-indigo-500 bg-indigo-50 ring-1 ring-indigo-500"
+                      ? "border-blue-500 bg-blue-50 ring-1 ring-blue-500 dark:bg-blue-950/40"
                       : "border-input hover:bg-muted/50"
                   }`}
                 >
-                  <Icon className={`h-5 w-5 mt-0.5 shrink-0 ${active ? "text-indigo-600" : "text-muted-foreground"}`} />
+                  <span
+                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${
+                      active ? "bg-gradient-to-br from-blue-500 to-cyan-500 text-white" : "bg-muted text-muted-foreground"
+                    }`}
+                  >
+                    <Icon className="h-4 w-4" />
+                  </span>
                   <span className="space-y-0.5">
-                    <span className={`block text-sm font-semibold ${active ? "text-indigo-900" : "text-foreground"}`}>
+                    <span className={`block text-sm font-semibold ${active ? "text-blue-900 dark:text-blue-200" : "text-foreground"}`}>
                       {meta.label}
                     </span>
                     <span className="block text-xs text-muted-foreground">{meta.blurb}</span>
@@ -273,7 +279,7 @@ export default function MindMapPage() {
             <Label htmlFor="mindmap-text">Research text</Label>
             <textarea
               id="mindmap-text"
-              className="flex min-h-[150px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="flex min-h-[150px] w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               placeholder="Paste your research abstract, problem statement, or paper section..."
               value={text}
               onChange={(e) => setText(e.target.value)}
@@ -289,7 +295,12 @@ export default function MindMapPage() {
               </button>
             </div>
           </div>
-          <Button onClick={handleGenerate} disabled={loading || text.trim().length < 50} size="lg">
+          <Button
+            onClick={handleGenerate}
+            disabled={loading || text.trim().length < 50}
+            size="lg"
+            className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:from-blue-500 hover:to-cyan-500 sm:w-auto"
+          >
             {loading ? (
               <>
                 <Sparkles className="mr-2 h-4 w-4 animate-pulse" />
@@ -328,7 +339,7 @@ export default function MindMapPage() {
                   {result.nodes.length} nodes · {result.edges.length} connections · hover to explore
                 </CardDescription>
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 <Button size="sm" variant="outline" onClick={handleExportSVG}>
                   <Download className="mr-2 h-4 w-4" /> Export SVG
                 </Button>
@@ -346,9 +357,14 @@ export default function MindMapPage() {
               </div>
             )}
 
+            {/* The map keeps its full 900px canvas so labels stay readable;
+                on narrow screens the container scrolls instead of clipping. */}
+            <p className="mb-2 flex items-center gap-1.5 text-xs text-muted-foreground lg:hidden">
+              ↔ Swipe or scroll sideways to explore the whole map
+            </p>
             <div
               ref={containerRef}
-              className="rounded-xl border bg-gradient-to-br from-indigo-50 via-white to-purple-50 overflow-hidden shadow-inner"
+              className="overflow-auto overscroll-x-contain rounded-xl border bg-gradient-to-br from-indigo-50 via-white to-purple-50 shadow-inner dark:from-slate-900 dark:via-slate-950 dark:to-indigo-950/60"
               style={{ height: graphHeight }}
             >
               <MindMapGraph

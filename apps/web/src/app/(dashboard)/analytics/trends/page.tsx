@@ -12,6 +12,7 @@ import {
   TrendingUp, TrendingDown, Minus, AlertCircle, Sparkles, Lightbulb,
   Target, Download, BarChart3, GitCompareArrows, Loader2, Zap, CheckCircle2,
 } from "lucide-react";
+import { PageHero, SegmentedTabs } from "@/components/shared/PageHero";
 import {
   ComposedChart, Line, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
   ResponsiveContainer, ReferenceLine, LineChart,
@@ -299,31 +300,36 @@ export default function TrendsPage() {
   // ─── Render ───────────────────────────────────────────────────
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-8">
       {/* Hero */}
-      <div className="rounded-2xl bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-600 p-6 text-white shadow-lg">
-        <div className="flex items-start justify-between gap-4 flex-wrap">
-          <div>
-            <h1 className="text-2xl font-bold flex items-center gap-2">
-              <Sparkles className="h-7 w-7" /> Research Trend Intelligence
-            </h1>
-            <p className="mt-1 text-sm text-white/85 max-w-3xl">
-              ARIMA forecasts on 4,219 SLIIT papers (2000–2026) with 95% confidence intervals,
-              accuracy metrics, multi-domain comparison, and AI-suggested research directions.
-            </p>
-          </div>
-          {heroStats && (
-            <div className="flex flex-wrap gap-3">
-              <Stat label="Topics tracked" value={heroStats.total_topics} />
-              <Stat label="Historical papers" value={heroStats.total.toLocaleString()} />
-              <Stat label="Rising domains" value={`${heroStats.rising}/${heroStats.total_topics}`} />
-              {heroStats.fastest && (
-                <Stat label="Fastest growth" value={`${heroStats.fastest.topic} ${heroStats.fastest.growth_pct >= 0 ? "+" : ""}${heroStats.fastest.growth_pct.toFixed(0)}%`} />
-              )}
-            </div>
-          )}
-        </div>
-      </div>
+      <PageHero
+        theme="insight"
+        icon={TrendingUp}
+        eyebrow="Insight Studio · Trend Forecast"
+        title="Research Trend Intelligence"
+        description="ARIMA forecasts on 4,219 SLIIT papers (2000–2026) with 95% confidence intervals, accuracy metrics, multi-domain comparison, and AI-suggested research directions."
+        stats={
+          heroStats
+            ? [
+                { label: "Topics tracked", value: heroStats.total_topics, icon: BarChart3 },
+                { label: "Historical papers", value: heroStats.total.toLocaleString(), icon: Target },
+                { label: "Rising domains", value: `${heroStats.rising}/${heroStats.total_topics}`, icon: TrendingUp },
+                ...(heroStats.fastest
+                  ? [{
+                      label: "Fastest growth",
+                      value: (
+                        <span className="capitalize">
+                          {heroStats.fastest.topic} {heroStats.fastest.growth_pct >= 0 ? "+" : ""}
+                          {heroStats.fastest.growth_pct.toFixed(0)}%
+                        </span>
+                      ),
+                      icon: Zap,
+                    }]
+                  : []),
+              ]
+            : undefined
+        }
+      />
 
       {/* Controls */}
       <Card>
@@ -343,7 +349,7 @@ export default function TrendsPage() {
             <div className="space-y-1">
               <Label className="text-xs">Topic filter (optional)</Label>
               <Input
-                className="w-56" placeholder="e.g., computing"
+                className="w-full sm:w-56" placeholder="e.g., computing"
                 value={filterTopic}
                 onChange={(e) => setFilterTopic(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && fetchForecasts(filterTopic, horizon)}
@@ -409,17 +415,16 @@ export default function TrendsPage() {
       )}
 
       {/* Tabs */}
-      <div className="flex flex-wrap gap-2">
-        <Button variant={tab === "overview" ? "default" : "outline"} size="sm" onClick={() => setTab("overview")}>
-          <BarChart3 className="mr-2 h-4 w-4" /> Domain Overview
-        </Button>
-        <Button variant={tab === "compare" ? "default" : "outline"} size="sm" onClick={() => setTab("compare")}>
-          <GitCompareArrows className="mr-2 h-4 w-4" /> Compare Domains
-        </Button>
-        <Button variant={tab === "insights" ? "default" : "outline"} size="sm" onClick={() => setTab("insights")}>
-          <Lightbulb className="mr-2 h-4 w-4" /> Insights & Recommendations
-        </Button>
-      </div>
+      <SegmentedTabs
+        theme="insight"
+        value={tab}
+        onChange={setTab}
+        tabs={[
+          { id: "overview", label: "Domain Overview", icon: BarChart3 },
+          { id: "compare", label: "Compare Domains", icon: GitCompareArrows },
+          { id: "insights", label: "Insights & Recommendations", icon: Lightbulb },
+        ]}
+      />
 
       {/* ── Tab: Overview ─────────────────────────────────── */}
       {tab === "overview" && (
@@ -545,7 +550,7 @@ export default function TrendsPage() {
                           const lastHistYear = compareData.forecasts[0]?.historical.slice(-1)[0]?.year;
                           return lastHistYear ? (
                             <ReferenceLine x={lastHistYear} stroke="#9ca3af" strokeDasharray="4 4"
-                              label={{ value: "Forecast →", position: "top", fontSize: 11, fill: "#6b7280" }} />
+                              label={{ value: "Forecast →", position: "top", fontSize: 13, fontWeight: 600, fill: "hsl(var(--muted-foreground))" }} />
                           ) : null;
                         })()}
                         {compareData.forecasts.map((f, i) => (
@@ -695,7 +700,7 @@ export default function TrendsPage() {
                             <Badge variant="outline" className="font-mono text-[11px]">#{i + 1}</Badge>
                             <h3 className="font-semibold">{r.suggested_title}</h3>
                           </div>
-                          <div className="flex gap-2">
+                          <div className="flex flex-wrap gap-2">
                             <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200">
                               {r.growth_pct >= 0 ? "+" : ""}{r.growth_pct.toFixed(0)}% growth
                             </Badge>
@@ -719,15 +724,6 @@ export default function TrendsPage() {
 }
 
 // ─── Sub-components ──────────────────────────────────────────────────────
-
-function Stat({ label, value }: { label: string; value: string | number }) {
-  return (
-    <div className="rounded-lg bg-white/15 backdrop-blur-sm px-3 py-1.5 text-xs">
-      <p className="text-white/70">{label}</p>
-      <p className="font-semibold text-sm capitalize">{value}</p>
-    </div>
-  );
-}
 
 function StoryStep({ icon, step, title, body }: { icon: React.ReactNode; step: string; title: string; body: string }) {
   return (
@@ -764,7 +760,7 @@ function ForecastCard({ forecast }: { forecast: Forecast }) {
               Data: {forecast.data_range} · {forecast.historical.length} historical points
             </CardDescription>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <Badge variant="outline" className={`${dir.bg} ${dir.color} ${dir.ring}`}>
               <DirIcon className="h-3 w-3 mr-1" /> {dir.label}
             </Badge>
@@ -800,7 +796,7 @@ function ForecastCard({ forecast }: { forecast: Forecast }) {
               <Legend />
               {lastHistYear && (
                 <ReferenceLine x={lastHistYear} stroke="#9ca3af" strokeDasharray="4 4"
-                  label={{ value: "Forecast →", position: "top", fontSize: 10, fill: "#6b7280" }} />
+                  label={{ value: "Forecast →", position: "top", fontSize: 13, fontWeight: 600, fill: "hsl(var(--muted-foreground))" }} />
               )}
               {/* Confidence interval band — drawn as upper area, hidden lower for delta */}
               <Area

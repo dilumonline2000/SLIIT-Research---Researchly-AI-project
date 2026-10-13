@@ -23,8 +23,10 @@ export function ChatMessage({
     <div className={cn("flex gap-3", isUser ? "justify-end" : "justify-start")}>
       <div
         className={cn(
-          "max-w-[80%] rounded-2xl px-4 py-3 text-sm shadow-sm",
-          isUser ? "bg-primary text-primary-foreground" : "bg-card border",
+          "max-w-[88%] rounded-2xl px-4 py-3 text-sm shadow-sm sm:max-w-[80%]",
+          isUser
+            ? "rounded-br-md bg-gradient-to-br from-indigo-600 to-violet-600 text-white"
+            : "rounded-bl-md border bg-card",
         )}
       >
         <div className="mb-1 flex items-center gap-2 text-xs opacity-70">
